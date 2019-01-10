@@ -11,7 +11,7 @@ Version: \tab 1.2.1.7\cr
 Date: \tab 01-01-2019\cr
 License: \tab See files LICENSE and GPL\cr
 \cr
-\tab This package is governed by the JRD Platform Trial Simulation License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in LICENSE and GPL.\cr
+\tab This package is governed by the JRD Platform Trial Simulation License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in the files LICENSE and GPL.\cr
 \cr
 \tab To view license you may use the following command:\cr
 \tab file.show( system.file("LICENSE", package="PlatformTrialSimulatorP"))\cr
