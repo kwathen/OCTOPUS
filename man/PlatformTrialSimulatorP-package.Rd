@@ -19,7 +19,7 @@ License: \tab See files LICENSE and GPL\cr
 }
 %~~ An overview of how to use the package, including the most important functions ~~
 }
-\author{J. Kyle Wathen}
+\author{J. Kyle Wathen, PhD}
 
 
 

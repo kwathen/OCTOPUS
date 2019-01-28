@@ -1,0 +1,43 @@
+This file contains helpful links that have been found to be useful by others for this project.
+
+
+======   Source Control ( Git )  =======
+
+https://git-for-windows.github.io/  - Git for Windows, I believe you need to install this to use source control
+
+https://tortoisegit.org/  - Free Window shell program (runs in Windows explorer by Right clicking on a folder/file)
+
+https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control - Great starting intro to Git and source control.  There is a "Chapters" link that allows for navigation to specific points.
+
+https://backlog.com/git-tutorial/en/ - basic introduction to Git
+
+https://git-scm.com/docs/gittutorial
+
+https://www.atlassian.com/git/tutorials/setting-up-a-repository
+
+
+
+======   S3 Classes  ======
+See ExampleS3Class.R for a worked example with S3 classes and how the generic function usage.
+http://adv-r.had.co.nz/S3.html - Good introduction to S3 classes
+
+
+
+======   Testing with testthat package ======
+http://r-pkgs.had.co.nz/tests.html  - Great overview and introduction to testthat.
+    With the WD at the Package directory, you can use
+        test_file( "tests/testthat/test_TrialMonitor.R")  -- To execute the tests in one file
+        devtools::test() to execute all the testthat tests in the package.
+
+
+
+=====    Including Shiny app Examples in a Package ====
+https://www.r-bloggers.com/supplementing-your-r-package-with-a-shiny-app-2/
+
+
+
+==== Shiny =====
+https://shiny.rstudio.com/gallery/
+https://www.rstudio.com/products/shiny/shiny-user-showcase/
+https://www.rstudio.com/wp-content/uploads/2016/01/shiny-cheatsheet.pdf
+
