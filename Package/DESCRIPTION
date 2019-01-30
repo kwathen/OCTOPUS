@@ -1,4 +1,4 @@
-Package: PlatformTrialSimulatorP
+Package: PlatformTrialSimulatorPublic
 Type: Package
 Title: Platform Trial Simulator
 Version: 1.2.0.8
@@ -16,7 +16,6 @@ Imports:
     rjags
 Depends: R (>= 3.5.0),
     MASS
-    
 Suggests: testthat,
           Shiny
 License: file LICENSE

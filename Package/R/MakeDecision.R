@@ -1,11 +1,35 @@
-##################################################################################################################
+##### COPYRIGHT #############################################################################################################
 #
 # Copyright (C) 2018 JANSSEN RESEARCH & DEVELOPMENT, LLC
 # This package is governed by the JRD Platform Trial Simulation License, which is the
 # GNU General Public License V3 with additional terms. The precise license terms are located in the files
 # LICENSE and GPL.
 #
-##################################################################################################################
+#############################################################################################################################.
+
+
+#############################################################################################################################.
+#   Description                                                                                                         #####
+#   This file contains the MakeDecision generic function. Several options are available.
+#   For Trial decisions see the DecisionsFunctions.R
+#
+#   The return vISAStatus has the following options
+#   0 = ISA not open;
+#   1 = ISA open,
+#   2 = Closed with a Go before FA,
+#   3 = Closed - No Go before FA
+#   4 = closed - Go at the FA
+#   5 = Closed - No Go at the FA
+#
+
+#This file contains the decsision options for:
+#   1. MakeDecision.General - Will call MakeDecision and allows different options durring the evolution analysis and final analysis
+#   2. Combines 2 outcomes in several ways using the results from a each individual outcome
+#
+#####   Developer(s): J. Kyle Wathen, PhD                                                                                  #####
+#############################################################################################################################.
+
+
 
 #' @export
 MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis )
@@ -13,6 +37,89 @@ MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis )
     UseMethod( "MakeDecision", lDecision )
 }
 
+
+#' @export
+MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis )
+{
+    if( length( lResAnalysis ) == 2 )  #There is just one outcome so return it.  Checking if 2 beause the length( lResAnalysis) = # outcomes + 1 (for binary if analysis is run)
+        return( list( nGo = lResAnalysis[[1]]$nGo, nNoGo = lResAnalysis[[1]]$nNoGo, nPause = lResAnalysis[[1]]$nPause)  )
+    else
+    {
+        stop(paste( "ERROR: The default MakeDecision is not defined, class(lDecision) = ", class( lDecision)))
+    }
+
+}
+
+
+#' @name MakeDecision.General
+#' @title MakeDecision.General
+#' @description {This is the General version of Make decisions that allows for one approach at IAs (IA)
+#' and another (which could be the same) at the Final Analysis (FA).  You must specify
+#' lDecision$strApproachIA, method used durring the IAs, and lDecision$strApproachFA, method used at the FA.
+#' The options for strApproachFA and strApproachIA are any of the MakeDecision options like MakeDecision.TwoOutcomesOption1 or
+#' MakeDecision.TwoOutcomeOptions2.
+#' }
+#' @export
+MakeDecision.General <- function( lDecision, lResAnalysis, bFinalAnalysis )
+{
+    #print( paste( "MakeDecision.General"))
+
+    if( bFinalAnalysis )
+        strApproach <- lDecision$strApproachFA
+    else
+        strApproach <- lDecision$strApproachIA
+
+    #print( paste( "MakeDecision ", strApproach))
+    lDecTmp <- structure( lDecision, class = strApproach )
+    lRet <- MakeDecision( lDecTmp, lResAnalysis, bFinalAnalysis )
+    return(  lRet )
+
+}
+
+
+#' @name MakeDecision.Outcome1Only
+#' @title MakeDecision.Outcome1Only
+#' @description {This option ONLY uses the decision from Outcome 1.
+#' \tabular{ccccc}{
+#'             \tab G |  \tab  NG \tab P   \tab G \cr
+#'   Outcome 2 \tab P |  \tab  NG \tab P   \tab G \cr
+#'             \tab NG|  \tab  NG \tab P   \tab G \cr
+#'             \tab ---  \tab---  \tab --- \tab--- \cr
+#'             \tab      \tab  NG \tab P   \tab G \cr
+#'             \tab      \tab     \tab Outcome 1 \tab \cr
+#' }
+#' }
+#' @export
+MakeDecision.Outcome1Only <- function( lDecision, lResAnalysis, bFinalAnalysis)
+{
+    lResAnalysis1  <- lResAnalysis[[1]]
+
+    return( lResAnalysis1 )
+
+}
+
+
+#' @name MakeDecision.Outcome2Only
+#' @title MakeDecision.Outcome2Only
+#' @description {This option ONLY uses the decision from Outcome 2.
+#' \tabular{ccccc}{
+#'             \tab G |  \tab  G  \tab G   \tab G \cr
+#'   Outcome 2 \tab P |  \tab  P  \tab P   \tab P \cr
+#'             \tab NG|  \tab  NG \tab NG  \tab NG \cr
+#'             \tab ---  \tab---  \tab --- \tab--- \cr
+#'             \tab      \tab  NG \tab P   \tab G \cr
+#'             \tab      \tab     \tab Outcome 1 \tab \cr
+#' }
+#' }
+#' @export
+MakeDecision.Outcome2Only<- function( lDecision, lResAnalysis, bFinalAnalysis )
+{
+
+    lResAnalysis2  <- lResAnalysis[[2]]
+
+    return( lResAnalysis2 )
+
+}
 
 #' @name MakeDecision.TwoOutcomeOption1
 #' @title MakeDecision.TwoOutcomeOption1
@@ -35,7 +142,7 @@ MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis )
 #               G | G   G   G
 #  Outcome 2    P | NG  P   G
 #               NG| NG  NG  G
-#                   ---------
+#                   ---------     .
 #                   NG  P   G
 #                    Outcome 1
 #' @export
@@ -61,3 +168,290 @@ MakeDecision.TwoOutcomeOption1 <- function( lDecision, lResAnalysis, bFinalAnaly
     return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
 
 }
+
+
+#' @name MakeDecision.TwoOutcomeOption2
+#' @title MakeDecision.TwoOutcomeOption2
+#' @description {This two outcome decision options utilizes an AND between two outcomes.
+#' For each outcome you make a decision Go (G), Pause (P) or No Go (NG) and when the two outcomes are
+#' combined the following tabled describes how decisions will be made.
+#' \tabular{ccccc}{
+#'             \tab G |  \tab P \tab P \tab G \cr
+#'   Outcome 2 \tab P | \tab P  \tab P \tab P \cr
+#'             \tab NG| \tab NG \tab P \tab P \cr
+#'             \tab --- \tab--- \tab --- \tab--- \cr
+#'             \tab     \tab NG \tab P \tab G \cr
+#'             \tab     \tab    \tab Outcome 1 \tab \cr
+#' }
+#' }
+# Easier to read in this file
+#               G | P   P   G
+#  Outcome 2    P | P   P   P
+#               NG| NG  P   P
+#                   ---------  .
+#                   NG  P   G
+#                    Outcome 1
+#' @export
+MakeDecision.TwoOutcomeOption2 <- function(  lDecision, lResAnalysis, bFinalAnalysis )
+{
+    #print( paste( "MakeDecision.TwoOutcomeOption2"))
+    nGo <- nNoGo <- nPause <- 0
+    lResAnalysis1  <- lResAnalysis[[1]]
+    lResAnalysis2  <- lResAnalysis[[2]]
+
+    if( lResAnalysis1$nGo == 1 && lResAnalysis2$nGo == 1)
+    {
+        nGo <- 1
+    }
+    else if(lResAnalysis1$nNoGo == 1 && lResAnalysis2$nNoGo == 1 )
+    {
+        nNoGo <- 1
+    }
+    else
+    {
+        nPause <- 1
+    }
+    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+}
+
+
+#' @name MakeDecision.TwoOutcomeOption3
+#' @title MakeDecision.TwoOutcomeOption3
+#' @description {This two outcome decision options makes if GO if either outcome is a Go and makes a No Go
+#' if BOTH outcomes are a No Go, otherwise a Pause is made.
+#' For each outcome you make a decision Go (G), Pause (P) or No Go (NG) and when the two outcomes are
+#' combined the following tabled describes how decisions will be made.
+#' \tabular{ccccc}{
+#'             \tab G |  \tab G \tab G \tab G \cr
+#'   Outcome 2 \tab P | \tab P  \tab P \tab G \cr
+#'             \tab NG| \tab NG \tab P \tab G \cr
+#'             \tab --- \tab--- \tab --- \tab--- \cr
+#'             \tab     \tab NG \tab P \tab G \cr
+#'             \tab     \tab    \tab Outcome 1 \tab \cr
+#' }
+#' }
+# Easier to read in this file
+#               G | G   G   G
+#  Outcome 2    P | P   P   G
+#               NG| NG  P   G
+#                   ---------  .
+#                   NG  P   G
+#                    Outcome 1
+#' @export
+MakeDecision.TwoOutcomeOption3 <- function( lDecision,lResAnalysis, bFinalAnalysis  )
+{
+    #print( paste( "MakeDecision.TwoOutcomeOption3"))
+    lResAnalysis1  <- lResAnalysis[[1]]
+    lResAnalysis2  <- lResAnalysis[[2]]
+    nGo <- nNoGo <- nPause <- 0
+
+    if( lResAnalysis1$nGo == 1 || lResAnalysis2$nGo == 1)
+    {
+        nGo <- 1
+    }
+    else if(lResAnalysis1$nNoGo == 1 && lResAnalysis2$nNoGo == 1 )
+    {
+        nNoGo <- 1
+    }
+    else
+    {
+        nPause <- 1
+    }
+    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+}
+
+#' @name MakeDecision.TwoOutcomeOption4
+#' @title MakeDecision.TwoOutcomeOption4
+#' @description {This option is as follows.
+#' \tabular{ccccc}{
+#'             \tab G |  \tab  NG \tab G   \tab G \cr
+#'   Outcome 2 \tab P |  \tab  NG \tab P   \tab G \cr
+#'             \tab NG|  \tab  NG \tab NG  \tab G \cr
+#'             \tab ---  \tab---  \tab --- \tab--- \cr
+#'             \tab      \tab  NG \tab P   \tab G \cr
+#'             \tab      \tab     \tab Outcome 1 \tab \cr
+#' }
+#' }
+#               G | NG  G   G
+#  Outcome 2    P | NG  P   G
+#               NG| NG  NG  G
+#                   ---------  .
+#                   NG  P   G
+#                    Outcome 1
+#' @export
+MakeDecision.TwoOutcomeOption4 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+{
+    lResAnalysis1  <- lResAnalysis[[1]]
+    lResAnalysis2  <- lResAnalysis[[2]]
+    nGo <- nNoGo <- nPause <- 0
+
+
+    if( lResAnalysis1$nGo == 1 || (lResAnalysis2$nGo == 1 && lResAnalysis1$nNoGo != 1) )
+    {
+        nGo <- 1
+    }
+    else if(lResAnalysis1$nNoGo == 1 || ( lResAnalysis2$nNoGo == 1 && lResAnalysis1$nGo != 1) )
+    {
+        nNoGo <- 1
+    }
+    else
+    {
+        nPause <- 1
+    }
+    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+}
+#' @name MakeDecision.TwoOutcomeOption5
+#' @title MakeDecision.TwoOutcomeOption5
+#' @description {This option is as follows.
+#' \tabular{ccccc}{
+#'             \tab G |  \tab  NG \tab G   \tab G \cr
+#'   Outcome 2 \tab P |  \tab  NG \tab P   \tab G \cr
+#'             \tab NG|  \tab  NG \tab P   \tab G \cr
+#'             \tab ---  \tab---  \tab --- \tab--- \cr
+#'             \tab      \tab  NG \tab P   \tab G \cr
+#'             \tab      \tab     \tab Outcome 1 \tab \cr
+#' }
+#' }
+#               G | NG  G   G
+#  Outcome 2    P | NG  P   G
+#               NG| NG  P   G
+#                   ---------  .
+#                   NG  P   G
+#                    Outcome 1
+#' @export
+MakeDecision.TwoOutcomeOption5 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+{
+    lResAnalysis1  <- lResAnalysis[[1]]
+    lResAnalysis2  <- lResAnalysis[[2]]
+    nGo <- nNoGo <- nPause <- 0
+
+    if( lResAnalysis1$nGo == 1 || (lResAnalysis2$nGo == 1 && lResAnalysis1$nNoGo != 1) )
+    {
+        nGo <- 1
+    }
+    else if(lResAnalysis1$nNoGo == 1  )
+    {
+        nNoGo <- 1
+    }
+    else
+    {
+        nPause <- 1
+    }
+    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+}
+
+
+
+#' @name MakeDecision.TwoOutcomeOption7
+#' @title MakeDecision.TwoOutcomeOption7
+#' @description {This two outcome decision options priority on a Go for Outcome 1
+#' \tabular{ccccc}{
+#'             \tab G |  \tab  P  \tab G   \tab G \cr
+#'   Outcome 2 \tab P |  \tab  NG \tab P   \tab G \cr
+#'             \tab NG|  \tab  NG \tab P   \tab G \cr
+#'             \tab ---  \tab---  \tab --- \tab--- \cr
+#'             \tab      \tab  NG \tab P   \tab G \cr
+#'             \tab      \tab     \tab Outcome 1 \tab \cr
+#' }
+#' }
+#' @export
+MakeDecision.TwoOutcomeOption7 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+{
+    lResAnalysis1  <- lResAnalysis[[1]]
+    lResAnalysis2  <- lResAnalysis[[2]]
+    nGo <- nNoGo <- nPause <- 0
+
+    if( lResAnalysis1$nGo == 1  || (lResAnalysis1$nPause == 1 && lResAnalysis2$nGo == 1 ))
+    {
+        nGo <- 1
+    }
+    else if(lResAnalysis1$nNoGo == 1 && lResAnalysis2$nGo == 0 )
+    {
+        nNoGo <- 1
+    }
+    else
+    {
+        nPause <- 1
+    }
+    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+}
+
+
+
+
+
+
+#' @name MakeDecision.TwoOutcomeOption11
+#' @title MakeDecision.TwoOutcomeOption11
+#' @description {This option is as follows.
+#' \tabular{ccccc}{
+#'             \tab G |  \tab  P  \tab G   \tab G \cr
+#'   Outcome 2 \tab P |  \tab  P  \tab P   \tab G \cr
+#'             \tab NG|  \tab  NG \tab P   \tab P \cr
+#'             \tab ---  \tab---  \tab --- \tab--- \cr
+#'             \tab      \tab  NG \tab P   \tab G \cr
+#'             \tab      \tab     \tab Outcome 1 \tab \cr
+#' }
+#' }
+#               G | P   G   G
+#  Outcome 2    P | P   P   G
+#               NG| NG  P   P
+#                   ---------  .
+#                   NG  P   G
+#                    Outcome 1
+#' @export
+MakeDecision.TwoOutcomeOption11 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+{
+    #print( paste( "MakeDecision.TwoOutcomeOption11"))
+
+    lResAnalysis1  <- lResAnalysis[[1]]
+    lResAnalysis2  <- lResAnalysis[[2]]
+    nGo <- nNoGo <- nPause <- 0
+
+    if( lResAnalysis1$nNoGo == 1 && lResAnalysis2$nGo == 1)
+    {
+        nPause <- 1
+    }
+    else if(lResAnalysis1$nPause == 1 && lResAnalysis2$nGo == 1  )
+    {
+        nGo <- 1
+    }
+    else if(lResAnalysis1$nGo == 1 && lResAnalysis2$nGo == 1  )
+    {
+        nGo <- 1
+    }
+    else if( lResAnalysis1$nNoGo == 1 && lResAnalysis2$nPause == 1)
+    {
+        nPause <- 1
+    }
+    else if(lResAnalysis1$nPause == 1 && lResAnalysis2$nPause == 1  )
+    {
+        nPause <- 1
+    }
+    else if(lResAnalysis1$nGo == 1 && lResAnalysis2$nPause == 1  )
+    {
+        nGo <- 1
+    }
+    else if( lResAnalysis1$nNoGo == 1 && lResAnalysis2$nNoGo == 1)
+    {
+        nNoGo <- 1
+    }
+    else if(lResAnalysis1$nPause == 1 && lResAnalysis2$nNoGo == 1  )
+    {
+        nPause <- 1
+    }
+    else if(lResAnalysis1$nGo == 1 && lResAnalysis2$nNoGo == 1  )
+    {
+        nPause <- 1
+    }
+    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+}
+
+
+

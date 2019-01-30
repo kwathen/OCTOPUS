@@ -1,13 +1,13 @@
-##################################################################################################################
+##### COPYRIGHT #############################################################################################################
 #
 # Copyright (C) 2018 JANSSEN RESEARCH & DEVELOPMENT, LLC
 # This package is governed by the JRD Platform Trial Simulation License, which is the
 # GNU General Public License V3 with additional terms. The precise license terms are located in the files
 # LICENSE and GPL.
 #
-##################################################################################################################
+#############################################################################################################################.
 
-####################################################################################################################################
+#############################################################################################################################.
 #   Description: This file is intended to give an example of S3 classes and the main use for this library.
 #   The main use of the S3 classes in this library will be for generic functions and method dispatch.
 #   This example developes a generic function named RunCalculationEXAMPLE( lData ) that will be dispatched to specific
@@ -21,8 +21,8 @@
 #   A good introduction to S3 classes can be found at http://adv-r.had.co.nz/S3.html
 #
 #
-#   Developer: J. Kyle Wathen, PhD
-####################################################################################################################################
+#####   Developer(s): J. Kyle Wathen, PhD                                                                                  #####
+############################################################################################################################.
 
 #This next line declares a generic function called RunCalculation that will dispatch based on class( lData )
 RunCalculationEXAMPLE <- function( lData )
@@ -82,9 +82,9 @@ RunCalculationEXAMPLE( lDataInvalid)    #This should call the RunCalculationEXAM
 lData <- structure( list( dPriorMean = 0.2, dSD = 2.0 ), class= "Normal" )
 RunCalculationEXAMPLE( lData )
 
-#############################################################################
+#############################################################################.
 #Create a generic function SimulateData used to simulate data
-#############################################################################
+#############################################################################.
 
 SimulateData <- function( lData )
 {

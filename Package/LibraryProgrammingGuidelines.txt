@@ -1,0 +1,72 @@
+This file provides a list of programming conventions used in this library.
+
+For this library each developer is expected to utilize source control.  If you commit code that has a know bug or is not complete it should return an error and stop execution until you complete it.    That is, if you are in the middle of developing something and another user calls the function it should stop the execution and alert the caller that the function is not complete.  It is best to only to push complete working code to the repository.
+
+Programming Conventions
+1. Use descriptive names for functions and variables.
+
+2. Try to make functions short with a specific task.  Add comments to describe the function purpose, inputs and outputs.
+
+3. Balance between readability and efficiency.  When given the option between the two following development approaches:  1) a really efficient, very difficult to follow and understand approach vs 2) a less efficient easily understood option,  ALWAYS take the less efficient option that is easy to follow and less likely to have bugs.
+
+4. Avoid using . in function and variable names.  This is because a . in a name can cause issues with finding names and syntax highlighting.
+
+5. Function names should be camel case (first letter of important words are capital, no spaces) eg RunAnalysis, MakeDecision are both better than run_analysis or run.ana.
+
+6.  Functions should be self contained and only depend on the aruments.  They should NOT use variables in a higher scope.  A call
+to a function with the same arguments should always return the same value, unless the funcion is supposed to produce random variables ect
+For example,
+
+    #######
+    #VERY BAD STYLE -  What this function returns depends on what y was before the call
+    #######
+    MyFunction <- function( x )
+    {
+        x <- x + y
+        return( x )
+    }
+
+    y <- 5
+    MyFunction( 4 )   # return 9
+    y <- 10
+    MyFunction( 4 )    #returns 14
+
+    #######
+    #Acceptable example - a call to the function only depends on arguments
+    #######
+    MyFunction2 <- function( x, y )
+    {
+        x <- x + y
+        return( x )
+    }
+
+    y <- 5
+    MyFunction2( 4, 7 )   # return 11
+    y <- 10
+    MyFunction2( 4, 7 )    #returns 7
+
+
+7. Use the following prefixes to help other understand what you are doing with a variable
+     a.  Prefix integer variable with an n then camel case, eg nQtyOfReps would be an integer variable for the quantity of replications, nQtyOfPats = quantity of patients
+     b. Prefix double of float variables with d, eg dMean would be a double/float variable for mean.
+     c. Prefix vectors with v, eg vMeans would be a vector of means
+     d. Prefix matrix with m, eg mVarCov would be a matrix for the variance-covariance.
+     e. Prefix list with a l, eg lData would be list of data
+     f. Prefix a class variable with a c, eg cAnalysis = structure( list(), class= "TTest"" )
+
+8. This library is developed using S3 classes.  If a function is a generic and there is no natural .default the Function.default should be defined and should stop execution so that it is clear if a user inadvertently calls it.
+
+
+Test Code Convention
+1. Each file should have a corresponding Test file in the Test sub-directory.   For example, R/Decisions.R has a corresponding file Test/TestDecisions.R where the TestDecisions.R has various tests for the functions in Decisions.R
+For example, sourcing the "TestDecisions.R" file  would return the following output.
+
+ source( "Test/TestDecisions.R" )
+******************************************************************************
+*	Test:  Test Decision Options  -  PASSED
+*		Qty. of Tests:		 594
+*		Qty. of Passed Tests:	 594
+*		Qty. of Failed Tests:	 0
+*
+*		Results: All PASSED
+******************************************************************************
