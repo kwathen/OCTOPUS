@@ -13,8 +13,8 @@ Programming Conventions
 
 5. Function names should be camel case (first letter of important words are capital, no spaces) eg RunAnalysis, MakeDecision are both better than run_analysis or run.ana.
 
-6.  Functions should be self contained and only depend on the aruments.  They should NOT use variables in a higher scope.  A call
-to a function with the same arguments should always return the same value, unless the funcion is supposed to produce random variables ect
+6.  Functions should be self contained and only depend on the arguments.  They should NOT use variables in a higher scope.  A call
+to a function with the same arguments should always return the same value, unless the function is supposed to produce random variables ect
 For example,
 
     #######
@@ -58,15 +58,18 @@ For example,
 
 
 Test Code Convention
-1. Each file should have a corresponding Test file in the Test sub-directory.   For example, R/Decisions.R has a corresponding file Test/TestDecisions.R where the TestDecisions.R has various tests for the functions in Decisions.R
+1.  All tests are developed utilizing testthat, see the HelpfulLinks document for a link and more about testthat.  
+2.  Each file should have a corresponding test file in the tests/testthat sub-directory.   For example, R/MakeDecision.R has a corresponding file tests/testthat/test_MakeDecision.R where the TestDecisions.R has various tests for the functions in Decisions.R
 For example, sourcing the "TestDecisions.R" file  would return the following output.
 
- source( "Test/TestDecisions.R" )
-******************************************************************************
-*	Test:  Test Decision Options  -  PASSED
-*		Qty. of Tests:		 594
-*		Qty. of Passed Tests:	 594
-*		Qty. of Failed Tests:	 0
-*
-*		Results: All PASSED
-******************************************************************************
+> test_file( "tests/testthat/test_MakeDecision.R")
+√ | OK F W S | Context
+√ | 81       | Test - MakeDecision.R [3.8 s]
+
+== Results =====================================================================
+Duration: 4.1 s
+
+OK:       81
+Failed:   0
+Warnings: 0
+Skipped:  0

@@ -8,7 +8,7 @@
   bFinalAnalysis)
 }
 \description{
-{This two outcome decision options utilizes Moddified OR between two outcomes.
+{This two outcome decision options utilizes modified OR between two outcomes.
 For each outcome you make a decision Go (G), Pause (P) or No Go (NG) and when the two outcomes are
 combined the following tabled describes how decisions will be made.
 If either outcome is a G then then the decision is a Go, if it is NOT a Go then if either is a NG

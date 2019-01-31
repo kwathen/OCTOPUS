@@ -22,11 +22,11 @@
 #   5 = Closed - No Go at the FA
 #
 
-#This file contains the decsision options for:
-#   1. MakeDecision.General - Will call MakeDecision and allows different options durring the evolution analysis and final analysis
+#This file contains the decision options for:
+#   1. MakeDecision.General - Will call MakeDecision and allows different options during the evolution analysis and final analysis
 #   2. Combines 2 outcomes in several ways using the results from a each individual outcome
 #
-#####   Developer(s): J. Kyle Wathen, PhD                                                                                  #####
+#####   Developer(s): J. Kyle Wathen, PhD                                                                               #####
 #############################################################################################################################.
 
 
@@ -41,7 +41,7 @@ MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis )
 #' @export
 MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis )
 {
-    if( length( lResAnalysis ) == 2 )  #There is just one outcome so return it.  Checking if 2 beause the length( lResAnalysis) = # outcomes + 1 (for binary if analysis is run)
+    if( length( lResAnalysis ) == 2 )  #There is just one outcome so return it.  Checking if 2 because the length( lResAnalysis) = # outcomes + 1 (for binary if analysis is run)
         return( list( nGo = lResAnalysis[[1]]$nGo, nNoGo = lResAnalysis[[1]]$nNoGo, nPause = lResAnalysis[[1]]$nPause)  )
     else
     {
@@ -55,7 +55,7 @@ MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis )
 #' @title MakeDecision.General
 #' @description {This is the General version of Make decisions that allows for one approach at IAs (IA)
 #' and another (which could be the same) at the Final Analysis (FA).  You must specify
-#' lDecision$strApproachIA, method used durring the IAs, and lDecision$strApproachFA, method used at the FA.
+#' lDecision$strApproachIA, method used during the IAs, and lDecision$strApproachFA, method used at the FA.
 #' The options for strApproachFA and strApproachIA are any of the MakeDecision options like MakeDecision.TwoOutcomesOption1 or
 #' MakeDecision.TwoOutcomeOptions2.
 #' }
@@ -123,7 +123,7 @@ MakeDecision.Outcome2Only<- function( lDecision, lResAnalysis, bFinalAnalysis )
 
 #' @name MakeDecision.TwoOutcomeOption1
 #' @title MakeDecision.TwoOutcomeOption1
-#' @description {This two outcome decision options utilizes Moddified OR between two outcomes.
+#' @description {This two outcome decision options utilizes modified OR between two outcomes.
 #' For each outcome you make a decision Go (G), Pause (P) or No Go (NG) and when the two outcomes are
 #' combined the following tabled describes how decisions will be made.
 #' If either outcome is a G then then the decision is a Go, if it is NOT a Go then if either is a NG

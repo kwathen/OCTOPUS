@@ -10,8 +10,8 @@
 #############################################################################################################################.
 #   Description: This file is intended to give an example of S3 classes and the main use for this library.
 #   The main use of the S3 classes in this library will be for generic functions and method dispatch.
-#   This example developes a generic function named RunCalculationEXAMPLE( lData ) that will be dispatched to specific
-#   defintions based on the class of lData. For example, the following threee implementations of RunCalculationEXAMPLE are devloped:
+#   This example develops a generic function named RunCalculationEXAMPLE( lData ) that will be dispatched to specific
+#   definitions based on the class of lData. For example, the following three implementations of RunCalculationEXAMPLE are developed:
 #       1. RunCalculationEXAMPLE.Binomial
 #       2. RunCalculationEXAMPLE.TTE
 #       3. RunCalculationEXAMPLE.Normal
@@ -21,7 +21,7 @@
 #   A good introduction to S3 classes can be found at http://adv-r.had.co.nz/S3.html
 #
 #
-#####   Developer(s): J. Kyle Wathen, PhD                                                                                  #####
+#####   Developer(s): J. Kyle Wathen, PhD                                                                              #####
 ############################################################################################################################.
 
 #This next line declares a generic function called RunCalculation that will dispatch based on class( lData )
@@ -30,7 +30,7 @@ RunCalculationEXAMPLE <- function( lData )
     UseMethod("RunCalculationEXAMPLE", lData)
 }
 
-# If we implmented a .default function and a user gave an incorrect class then the default would execute and may give invalid results
+# If we implemented a .default function and a user gave an incorrect class then the default would execute and may give invalid results
 # So, unless there is a natural default then the default should cause an error
 RunCalculationEXAMPLE.default <- function( lData )
 {
@@ -59,7 +59,7 @@ RunCalculationEXAMPLE.TTE <- function( lData )
 RunCalculationEXAMPLE.Normal<- function( lData )
 {
     print( paste( "Running the calculations for an object of class =Normal"))
-    #Note: This calculaion is not intended as an example.
+    #Note: This calculation is not intended as an example.
     return( mean( rnorm( 10000, mean = lData$dPriorMean, sd = lData$dSD ) ))
 }
 
@@ -109,7 +109,7 @@ SimulateData.Binary <- function( lData )
 
 #Simulate the patients as a mixture based on the covariate.   First simulate the number of patients with Cov=1 based on
 # lData$dProbCov1, then simulate the responses based on dProbSuccess0 and dProbSuccess1, the response probabilities
-# for patient with the covaraite = 0 and 1 respectively.
+# for patient with the covariate = 0 and 1 respectively.
 SimulateData.BinaryCov <- function( lData )
 {
 

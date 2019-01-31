@@ -11,17 +11,17 @@
 #############################################################################################################################.
 #   Description                                                                                                         #####
 #   This file contains helper functions for tests
-#####   Developer(s): J. Kyle Wathen, PhD                                                                                  #####
+#####   Developer(s): J. Kyle Wathen, PhD                                                                               #####
 #############################################################################################################################.
 
 
-#The following function is used in conneciton with apply to get the pvalues of testing random samples
+#The following function is used in connection with apply to get the pvalues of testing random samples
 t.test.pval <-function( vSamp )
 {
     t.test( vSamp )$p.value
 }
 
-# This funciton checks to make sure two lists have the same elements and the values match
+# This function checks to make sure two lists have the same elements and the values match
 # if bOrderMatters = FALSE then the items do not have to be in the same order.
 AreListsEqual <- function( lList1, lList2, bOrderMatters = FALSE  )
 {

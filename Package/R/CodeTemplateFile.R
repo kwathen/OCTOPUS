@@ -17,4 +17,9 @@
 
 #####  Code block name  ####################################################################################################
 # Example code block comment
-############################################################################################################################.
+#
+#   This file provides a template for setting up new files so they will show correctly in the document outline in
+#   RStudio.   Note to have a section in the document outline it must start with 5 # or - and end with # or -.
+#   A long string of ## or --  will display as (Untitled), but if you end the line with a . then the (Untitled) does not
+#   show in the document outline.
+############################################################################################################################
