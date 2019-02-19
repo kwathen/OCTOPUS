@@ -13,3 +13,5 @@ This package is designed to help simulate platform trials but due to the fact it
 
 Please considerer sending suggestions for other names.  
 
+The first public release version of this package is under development and will be released here when it is complete.  
+
