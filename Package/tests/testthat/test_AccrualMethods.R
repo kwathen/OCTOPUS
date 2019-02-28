@@ -32,7 +32,7 @@ AddAccProSlotTests <- function(  ap, vExpPatsPerMonth, nExpMaxQtyPats, strExpDes
     expect_equal(ap@m.nMaxMonthsOfAccrual,  nExpMaxMonthsOfAcc,  label = "m.nMaxMonthsOfAccrual:"  )
 }
 
-# Error functin used in some tests, just returns TRUE if an error is thrown.
+# Error function used in some tests, just returns TRUE if an error is thrown.
 Error<-function(e){TRUE}
 
 #Create a test set

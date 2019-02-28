@@ -1,7 +1,7 @@
-Package: PlatformTrialSimulatorPublic
+Package: PlatformTrialSimulator
 Type: Package
 Title: Platform Trial Simulator
-Version: 1.2.0.8
+Version: 1.2.1.0
 Author: J. Kyle Wathen
 Maintainer: The package maintainer J. Kyle Wathen, PhD <kylewathen@gmail.com>
 Authors@R: person("J. Kyle", "wathen", email = "kylewathen@gmail.com",
@@ -13,9 +13,9 @@ Imports:
     DoseFinding,
     coda,
     coin,
-    rjags
-Depends: R (>= 3.5.0),
+    rjags,
     MASS
+Depends: R (>= 3.5.0)
 Suggests: testthat,
           Shiny
 License: file LICENSE

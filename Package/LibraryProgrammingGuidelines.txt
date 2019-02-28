@@ -2,6 +2,9 @@ This file provides a list of programming conventions used in this library.
 
 For this library each developer is expected to utilize source control.  If you commit code that has a know bug or is not complete it should return an error and stop execution until you complete it.    That is, if you are in the middle of developing something and another user calls the function it should stop the execution and alert the caller that the function is not complete.  It is best to only to push complete working code to the repository.
 
+File Naming Convention
+In general, a file should contain a function or functions to complete a specific task.   File names should be the same as the primary function in the file.   For example, if the function name is Foo then the file name should be Foo.R.   If the file contains S3 method and the package will only contain one specific instance of the function then one file is acceptable, otherwise if the packages provides several specific instances of the function then each function should be in separate file.  For example, RunSimulation is found in RunSimulatin.R and is an S3 method with only the RunSimulation.default defined in this package so having both the function definition and RunSimulation.default in the same file is acceptable. In contrast, RunAnalysis has several version such as RunAnalysis.RankedPerDose.R that perform specific analysis and each analysis is contained is separate files.  If a function calls another function that is not called from anywhere else it is acceptable to place both functions in the same file.  This file naming approached is intended to help developers find what they are looking for easier and to help aid in easy to follow testing.
+
 Programming Conventions
 1. Use descriptive names for functions and variables.
 
@@ -56,15 +59,29 @@ For example,
 
 8. This library is developed using S3 classes.  If a function is a generic and there is no natural .default the Function.default should be defined and should stop execution so that it is clear if a user inadvertently calls it.
 
+9.  Adding a todo item should follow the following format
+    # TODO([users name])   #####
+
+10.  If you are adding a comment blocks that start with a series of ###s please make sure to put a . at the end.  This is to help with document outlining in R studio.
+
+11.  For developers using R Studio, if you want something to show up in the document outline you can add # for a comment line and end with 4 # and it will show the item in the document outline.  For example,
+
+#  Important comment ####
+
+would add an item in the document outline that shows as Important comment.
 
 Test Code Convention
-1.  All tests are developed utilizing testthat, see the HelpfulLinks document for a link and more about testthat.  
+1.  All tests are developed utilizing testthat, see the HelpfulLinks document for a link and more about testthat.
 2.  Each file should have a corresponding test file in the tests/testthat sub-directory.   For example, R/MakeDecision.R has a corresponding file tests/testthat/test_MakeDecision.R where the TestDecisions.R has various tests for the functions in Decisions.R
 For example, sourcing the "TestDecisions.R" file  would return the following output.
 
 > test_file( "tests/testthat/test_MakeDecision.R")
 √ | OK F W S | Context
 √ | 81       | Test - MakeDecision.R [3.8 s]
+
+3. With the WD at the Package directory, you can use
+        test_file( "tests/testthat/test_TrialMonitor.R")  -- To execute the tests in one file
+        devtools::test() to execute all the testthat tests in the package.
 
 == Results =====================================================================
 Duration: 4.1 s

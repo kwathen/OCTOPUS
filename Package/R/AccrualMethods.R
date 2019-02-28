@@ -7,6 +7,7 @@
 #
 #############################################################################################################################.
 
+##### TODO(Kyle) - Create a version with S3 classes rather than S4.
 
 #############################################################################################################################.
 #   Description                                                                                                         #####
@@ -38,10 +39,10 @@ setGeneric( name = "Validate", def=function(obj){standardGeneric("Validate")})
 setClass(
     Class = "AccrualMethods",
     representation = representation(
-        m.vQtyPatsPerMonth      = "numeric",        #Required - enrolment rate per month.
-        #If length=1 constant rate else monthly rate and will only enrol for length( m.vQtyPatPerMonth)-->make sure
+        m.vQtyPatsPerMonth      = "numeric",        #Required - enrollment rate per month.
+        #If length=1 constant rate else monthly rate and will only enroll for length( m.vQtyPatPerMonth)-->make sure
         #to provide enough monthly rates to meet max # patients and/or length
-        m.nMaxQtyPatients       = "numeric",        #The maximum number of patients to enrol
+        m.nMaxQtyPatients       = "numeric",        #The maximum number of patients to enroll
         m.nMaxMonthsOfAccrual   = "numeric",        #Maximum time to accrue patients, the number of patients is random
         m.strDescription        = "character",      #Used to keep track of options, helps ease printing
         m.bValid                = "logical",        #Is the class valid?

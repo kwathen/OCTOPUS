@@ -2,6 +2,7 @@ This file contains helpful links that have been found to be useful by others for
 
 
 ======   Source Control ( Git )  =======
+https://git-scm.com/book/en/v1/Getting-Started-About-Version-Control, or https://backlog.com/git-tutorial/  - Introductions
 
 https://git-for-windows.github.io/  - Git for Windows, I believe you need to install this to use source control
 
@@ -9,13 +10,14 @@ https://tortoisegit.org/  - Free Window shell program (runs in Windows explorer 
 
 https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control - Great starting intro to Git and source control.  There is a "Chapters" link that allows for navigation to specific points.
 
-https://backlog.com/git-tutorial/en/ - basic introduction to Git
 
 https://git-scm.com/docs/gittutorial
 
 https://www.atlassian.com/git/tutorials/setting-up-a-repository
 
 
+======   R Packages  ======
+Imports vs Depends https://campus.datacamp.com/courses/developing-r-packages/checking-and-building-r-packages?ex=8
 
 ======   S3 Classes  ======
 See ExampleS3Class.R for a worked example with S3 classes and how the generic function usage.

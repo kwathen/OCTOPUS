@@ -77,6 +77,46 @@ MakeDecision.General <- function( lDecision, lResAnalysis, bFinalAnalysis )
 }
 
 
+MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis )
+{
+
+    print( "MakeDecision.GeneralDoses")
+
+    if( bFinalAnalysis )
+        strApproach <- lDecision$strApproachFA
+    else
+        strApproach <- lDecision$strApproachIA
+
+    if( lResAnalysis$bISAAnalysisRun == TRUE )
+    {
+
+        nQtyAnalysis <- length( lResAnalysis[[1]] )
+        lDecTmp <- vector( "list", length = nQtyAnalysis)
+        for( i in 1:nQtyAnalysis )
+        {
+
+            lDecTmp[[ i ]] <- lResAnalysis[[1]][[i]]
+        }
+        class( lDecTmp ) <- strApproach
+    }
+
+
+
+    if( exists("gDebug") == TRUE )  #Need to make sure it exists
+    {
+        if( gDebug == TRUE)
+            browser()
+    }
+    #print( paste( ".....MakeDecision ", strApproach))
+    lRet <- MakeDecisionDoses( lDecTmp )
+
+    #print( paste( ".....MakeDecision ", strApproach, " ",lRet))
+    return( lRet )
+
+
+}
+
+
 #' @name MakeDecision.Outcome1Only
 #' @title MakeDecision.Outcome1Only
 #' @description {This option ONLY uses the decision from Outcome 1.

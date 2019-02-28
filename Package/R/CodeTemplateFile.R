@@ -23,3 +23,11 @@
 #   A long string of ## or --  will display as (Untitled), but if you end the line with a . then the (Untitled) does not
 #   show in the document outline.
 ############################################################################################################################
+
+##### Document a function #####
+
+#' @name BuildResultsDataSet
+#' @title BuildResultsDataSet
+#' @description {This function is used to read in the input files and created a combined output file.    }
+#' @param paramname description variables names
+#' @export

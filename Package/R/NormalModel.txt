@@ -1,0 +1,10 @@
+model
+{
+    for( i in 1:nQtyPats)
+    {
+	    vY[i] ~ dnorm( dMu, dTau )
+	}
+    dMu ~ dnorm(0, .01)
+	
+	dTau ~ dgamma(.01,.01)
+}
