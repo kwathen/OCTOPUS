@@ -74,7 +74,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         dCurrentTime <- vStartTimes[ iPat ]
         vISAStatus   <- ifelse( dCurrentTime > vISAStart & vISAStatus < 2, 1, vISAStatus   )
 
-        cRandUpdate  <- Randomize( cRandomizer, vISAStatus )
+        cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime  )
         cRandomizer  <- cRandUpdate$cRandomizer
 
         lRet         <- AddPatient( lPatOut, dCurrentTime,   cRandUpdate$nISA, cRandUpdate$nTrt, cEnrolledPats, nPrintDetail = cScen$nPrintDetail )
