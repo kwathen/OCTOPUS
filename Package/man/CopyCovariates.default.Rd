@@ -7,6 +7,6 @@
 \method{CopyCovariates}{default}(lSimDest, lSimSource)
 }
 \description{
-This functin will copy elements  lSimSource$vCov1,..., lSimSource$vCovXX to lSimDet and return the updated lSimDet.
+This function will copy elements  lSimSource$vCov1,..., lSimSource$vCovXX to lSimDet and return the updated lSimDet.
   The names vCov1, vCov2,... must be consecutive and cannot skip eg, vCov1, vCov3 will the function will stop after copying vCov1.
 }

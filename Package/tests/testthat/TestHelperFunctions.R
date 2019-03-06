@@ -14,7 +14,7 @@
 #####   Developer(s): J. Kyle Wathen, PhD                                                                               #####
 #############################################################################################################################.
 
-
+library( DoseFinding)
 #The following function is used in connection with apply to get the pvalues of testing random samples
 t.test.pval <-function( vSamp )
 {
@@ -164,7 +164,7 @@ SetupTrialDesign1ISA <- function()
 
 }
 
-SetupTrialDesign2ISA <- function( )
+SetupTrialDesign2ISA <- function( strISA2Randomizer = "EqualRandomizer" )
 {
     dConvWeeksToMonths <- 12/52
     bNoIA           <- FALSE
@@ -173,6 +173,14 @@ SetupTrialDesign2ISA <- function( )
     vQtyPatsInit    <- c( 40,0,0,40 )   #This is for this version only, assuming we want 15 on dose 1 and 30 on dose 4 first with a total of 30 and 60 on those doses
     nMaxQtyPats     <- 260  #Setting this to the max that wil be run in this scenario file
     vMinQtyPats     <-  c(sum( vQtyPatsInit ),nMaxQtyPats) # nMaxQtyPats * 0.5  #The minimum number of patients at before a compound is dropped
+
+    #mTrtStartTimes allows different doses to start after the ISA opens.  Below the mTrtStartTimes
+    # specifices the first 3 doses to start when the ISA opens and the 4th dose to open 5-8 months after the
+    # ISA opens.  Only valid for Randomizers of class type = "DelayedStartRandomizer"
+    mTrtStartTimes  <- matrix( c( 0, 0,
+                                  0, 0,
+                                  0, 0,
+                                  5, 8 ), byrow = TRUE, ncol = 2)
 
 
     # Check why this is needed
@@ -278,7 +286,8 @@ SetupTrialDesign2ISA <- function( )
                                   vMinFUTime      = vMinFUTime,
                                   nQtyMonthsBtwIA = nQtyMonthsBtwIA,
                                   cISAAnalysis    = cISA1Analysis,
-                                  lDecision       = lDecisionOut1), class="EqualRandomizer")
+                                  lDecision       = lDecisionOut1,
+                                  mStartTime      = mTrtStartTimes ), class=strISA2Randomizer)
 
 
     cISADesigns <- structure( list( cISA1 = cISA1Info, cISA2 =cISA2Info ), class= "IndependentISA")

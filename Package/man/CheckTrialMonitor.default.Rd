@@ -27,7 +27,7 @@ would start monitoring patients 3 months after the 30th patient enrolled and the
               NOTE: With dQtyMonthsBtwIA > 0 and length( vMinQtyPats ) > 2 --> ERROR and stops running
 
 
-      Option 2: You MUST have the lenghts of vMinQtyPats and vMinFUTime equal to 2.
+      Option 2: You MUST have the lengths of vMinQtyPats and vMinFUTime equal to 2.
           Example:    dQtyMonthsBtwIA <-  2
                       vMinQtyPats     <- c( 30, 200 )
                       vMinFUTime      <- c( 3,   3)

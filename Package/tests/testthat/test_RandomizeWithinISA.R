@@ -11,7 +11,7 @@
 context("Test RandomizeWithinISA.R")
 source("TestHelperFunctions.R")
 
-#----------------------------------------------------------------------------------------------
+###### RandomizeWithinISA.POCRandomizer######################################################################################
 #
 # Test  - ISA 1 Randomizer -  Should be a POCRandomizer
 #   When the call InitializeTrialRandomizer occurs the ISA randomizes are setup.
@@ -19,9 +19,9 @@ source("TestHelperFunctions.R")
 #   however, calling Randomize actually tests the the InitializeISARandomizer.XXX and Randomize.XXX
 #   both did the correct thing.
 #
-#----------------------------------------------------------------------------------------------
-
-#Set everything
+#############################################################################################################################.
+#
+# #Set everything
 cTrialDesign  <- SetupTrialDesign2ISA( )
 cTrialRand    <- InitializeTrialRandomizer( cTrialDesign )
 strPrefixTest <- "ISA 1 Randomizer RandomizeWithinISA.POCRandomizer "
@@ -76,7 +76,7 @@ test_that(strPrefixTest,
         vTrtCount    <- rep( 0, nQtyTrt )
         for( i in 1:nQtyPatsInit )
         {
-            lRandRet   <- Randomize( cTrialRand, vISAStatus )
+            lRandRet   <- Randomize( cTrialRand, vISAStatus, 0.0  )
             cTrialRand <- lRandRet$cRandomizer
 
             vQtyISA[ lRandRet$nISA ]   <- vQtyISA[ lRandRet$nISA ] + 1
@@ -105,7 +105,7 @@ test_that(strPrefixTest,
         nRand        <- floor( nQtyPats2 - nQtyPats2/2 )
         for( i in 1:nRand )
         {
-            lRandRet   <- Randomize( cTrialRand, vISAStatus )
+            lRandRet   <- Randomize( cTrialRand, vISAStatus, 0.0  )
             cTrialRand <- lRandRet$cRandomizer
             vTrtCount[ lRandRet$nTrt ]  <- vTrtCount[ lRandRet$nTrt ] + 1
             vQtyISA2[ lRandRet$nISA ]   <- vQtyISA2[ lRandRet$nISA ] + 1
@@ -127,7 +127,7 @@ test_that(strPrefixTest,
         nRand        <- nQtyPats2 - nRand
         for( i in 1:nRand )
         {
-            lRandRet   <- Randomize( cTrialRand, vISAStatus )
+            lRandRet   <- Randomize( cTrialRand, vISAStatus, 0.0  )
             cTrialRand <- lRandRet$cRandomizer
             vTrtCount[ lRandRet$nTrt ]  <- vTrtCount[ lRandRet$nTrt ] + 1
 
@@ -144,13 +144,12 @@ test_that(strPrefixTest,
 })
 
 
+###### Test ISA 2 Randomzier #############################################################################################
 #
-# #----------------------------------------------------------------------------------------------
-# #
-# # Test  - ISA 2 Randomizer - Should be an EqualRandomizer
-# #
-# #----------------------------------------------------------------------------------------------
+# Test  - ISA 2 Randomizer - Should be an EqualRandomizer
 #
+##########################################################################################################################.
+
 #Reset everything
 cTrialDesign <- SetupTrialDesign2ISA( )
 cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
@@ -210,7 +209,7 @@ test_that(strPrefixTest,
         vTrtCount    <- rep( 0, length( cTrialDesign$vTrtLab ) )
         for( i in 1:nQtyPats2 )
         {
-            lRandRet   <- Randomize( cTrialRand, vISAStatus )
+            lRandRet   <- Randomize( cTrialRand, vISAStatus, 0.0  )
             cTrialRand <- lRandRet$cRandomizer
 
             vQtyISA[ lRandRet$nISA ]    <- vQtyISA[ lRandRet$nISA ] + 1
@@ -241,7 +240,7 @@ test_that(strPrefixTest,
         vTrtCount2    <- rep( 0, length( cTrialDesign$vTrtLab ) )
         for( i in (nQtyPats2+1):nQtyPats )
         {
-            lRandRet   <- Randomize( cTrialRand, vISAStatus )
+            lRandRet   <- Randomize( cTrialRand, vISAStatus, 0 )
             cTrialRand <- lRandRet$cRandomizer
 
             vQtyISA[ lRandRet$nISA ]    <- vQtyISA[ lRandRet$nISA ] + 1
@@ -267,6 +266,158 @@ test_that(strPrefixTest,
         if( !bRet )
             print(paste( "pval 2 ", dPVal))
         expect_true( bRet )
+
+        vTrtCount <- vTrtCount + vTrtCount2
+        vExp      <- vQtyPats
+        expect_equal( vTrtCount, vExp )
+
+
+    }
+
+})
+
+
+
+
+
+###### Test ISA 2 Randomzier - DelayedStartRandomizer ###################################################################
+#
+# Test  - ISA 2 Randomizer - "DelayedStartRandomizer"
+#
+##########################################################################################################################.
+
+#Reset everything
+cTrialDesign <- SetupTrialDesign2ISA(strISA2Randomizer = "DelayedStartRandomizer" )
+cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
+nISA         <- 2
+strPrefixTest <- "ISA 2 Randomizer "
+
+test_that(strPrefixTest,
+{
+
+    strExp <- "DelayedStartRandomizer"
+    strRet <- class( cTrialDesign$cISADesigns[[ "cISA2" ]]  )
+
+    expect_equal( strRet, strExp )
+
+    #Check the ISARand in cTrialRand
+    strRet <- class( cTrialRand[[ nISA ]])
+    expect_equal( strRet, strExp )
+
+
+    #Set the status of ISA1 to 0 so it is not open yet and should not have patients randomized to it
+    vISAStatus <- c( 0, 1 )
+
+    bPassTest <- TRUE
+    vQtyISA   <- c( 0, 0 )  #Keep count of the number of patients assigned to each ISA, this example should have ISA2 = 0
+
+    #ISA 1 utilizes a POCRandomzier so the initial patients should all be on two of the treatments
+
+    vQtyPats     <- cTrialDesign$cISADesigns[[ nISA ]]$vQtyPats
+
+    nQtyTrt      <- length( vQtyPats )
+    vTrt         <- 1:nQtyTrt
+    nQtyPats     <- sum( vQtyPats )
+
+    #Splitting the patients into two parts, the first part should only receive dose 1,2,3 because 4 is not open.
+    nQtyPats2    <- floor( nQtyPats/2 )
+
+
+    strDelayedTrt <- cTrialDesign$cISADesigns[[2]]$vTrtLab[ 4 ]
+
+    bISATest      <- TRUE     # Used to make sure patients are only assigned to ISA2
+    bInitPatTest  <- TRUE     # Test to make sure the patients are only assigned to the open treatments in the POC part
+    bInitPatTest2 <- TRUE     # Used to track if the patients are close to equally randomized in the POC
+    bPatTest2     <- TRUE
+    vTrtCount     <- rep( 0, length( cTrialDesign$vTrtLab ) )
+
+    vQtyISA       <- c( 0, 0 )  #Keep count of the number of patients assigned to each ISA, this example should have ISA2 = 0
+
+
+    bExp <- TRUE
+    #The initial patient randomization will be done 10 times just to make sure it is not an accident that no patients are assigned to the
+    #incorrect treatments
+
+
+    # Randomize the patients for nQtyTest  trials and make sure no tests fail.
+    nQtyTest <- 20
+    for( iTest in 1:nQtyTest )
+    {
+
+        cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
+
+        vTrtCount    <- rep( 0, length( cTrialDesign$vTrtLab ) )
+        for( i in 1:nQtyPats2 )
+        {
+            lRandRet   <- Randomize( cTrialRand, vISAStatus, 0.0  )
+            cTrialRand <- lRandRet$cRandomizer
+            lRandRet$nTrt
+            lRandRet$cRandomizer[[2]][[1]]
+            length(lRandRet$cRandomizer[[2]][[1]])
+            length( cTrialRand[[2]][[1]])
+
+            vQtyISA[ lRandRet$nISA ]    <- vQtyISA[ lRandRet$nISA ] + 1
+            vIndex                      <- cTrialDesign$vTrtLab== lRandRet$nTrt &  cTrialDesign$vISALab == nISA
+            vTrtCount[  vIndex ]        <- vTrtCount[  vIndex ] + 1
+
+
+        }
+        vTrtCount <- vTrtCount[  cTrialDesign$vISALab == nISA ]
+        nQtyOfPatientsOnDelayedTrt <- vTrtCount[ cTrialDesign$cISADesigns[[2]]$vTrtLab == strDelayedTrt ]
+
+        expect_equal( nQtyOfPatientsOnDelayedTrt, 0, label= "Delayed treatment patient count greater than 0.")
+
+        #Since one treatment is delayes
+        # Test to make sure no patients were assigned to ISA1
+        nExp     <- 0
+        nRet     <- vQtyISA[ 1 ]
+        expect_equal( nRet, nExp )
+
+
+        # Need to drop the count on the teatment that is no open before testing.
+
+        dPVal     <- chisq.test( vTrtCount[ -4 ], p=rep( 1/3,3) )$p.value
+
+
+        strErr <- paste(" EqualRandomizer - Randomize first half of patients test  for expected number of patients assigned to each treatment")
+        strErr <- paste( strErr, paste( vTrtCount, collapse = ", ") )
+        strErr <- paste( strErr, " Note: this test is run ", nQtyTest, " times, if only 1-2 errors are reported it may not be a problem as this could happen by chance.")
+
+        bRet      <- dPVal >= 0.05
+        #if( !bRet )
+        #    print(paste( "pval 1 ", dPVal))
+        expect_true( bRet,  strErr)
+
+        vTrtCount2    <- rep( 0, length( cTrialDesign$vTrtLab ) )
+        for( i in (nQtyPats2+1):nQtyPats )
+        {
+            lRandRet   <- Randomize( cTrialRand, vISAStatus, 10.0 )
+            cTrialRand <- lRandRet$cRandomizer
+
+            vQtyISA[ lRandRet$nISA ]    <- vQtyISA[ lRandRet$nISA ] + 1
+            vIndex                      <- cTrialDesign$vTrtLab== lRandRet$nTrt &  cTrialDesign$vISALab == nISA
+            vTrtCount2[ vIndex ] <- vTrtCount2[ vIndex ] + 1
+
+        }
+
+        # Test to make sure no patients were assigned to ISA1
+        nExp     <- 0
+        nRet     <- vQtyISA[ 1 ]
+        expect_equal( nRet, nExp )
+
+        vTrtCount2 <- vTrtCount2[  cTrialDesign$vISALab == nISA ]
+
+        # dPVal      <- chisq.test( vTrtCount2, p=rep( 0.25, 4 ) )$p.value
+        #
+        # #EqualRandomizer - Randomize second half of patients test  for expected number of patients assigned to each treatment", paste( vTrtCount, collapse = ", "),
+        # # Note: this test is run ", nQtyTest, " times, if only 1-2 errors are reported it may not be a problem as this could happen by chance.")
+        #
+        #
+        # bRet      <- dPVal >= 0.05
+        #
+        # if( !bRet )
+        #     print(paste( "pval 2 ", dPVal))
+        # expect_true( bRet )
 
         vTrtCount <- vTrtCount + vTrtCount2
         vExp      <- vQtyPats

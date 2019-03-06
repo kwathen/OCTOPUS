@@ -54,6 +54,28 @@ GetBayesianCutoffs.default <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalIS
     return( list( dMAVCutoff = dMAVCutoff, dTVCutoff = dTVCutoff ) )
 }
 
+# A much better approach would be to define a constructor that would have MAVTarget inherit from MAVOnly
+GetBayesianCutoffsMAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis)
+{
+    if( bIsFinalISAAnalysis == FALSE  )
+    {
+        nIndx<- nISAAnalysisIndx
+        if( nISAAnalysisIndx > length( cAnalysis$vPUpper) )
+        {
+            nIndx <- length( cAnalysis$vPUpper )
+        }
+        dPUpper     <- cAnalysis$vPUpper[nIndx]
+        dPLower     <- cAnalysis$vPLower[nIndx]
+
+    }
+    else
+    {
+        dPUpper     <- cAnalysis$dFinalPUpper
+        dPLower     <- cAnalysis$dFinalPLower
+    }
+
+    return( list( dPUpperCutoff = dPUpper, dPLowerCutoff = dPLower) )
+}
 
 #' @name GetBayesianCutoffs.MAVOnly
 #' @title GetBayesianCutoffs.MAVOnly
@@ -73,23 +95,24 @@ GetBayesianCutoffs.default <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalIS
 #' @export
 GetBayesianCutoffs.MAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
 {
+    return( GetBayesianCutoffsMAVOnly( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis ) )
+}
 
-    if( bIsFinalISAAnalysis == FALSE  )
-    {
-        nIndx<- nISAAnalysisIndx
-        if( nISAAnalysisIndx > length( cAnalysis$vPUpper) )
-        {
-            nIndx <- length( cAnalysis$vPUpper )
-        }
-        dPUpper     <- cAnalysis$vPUpper[nIndx]
-        dPLower     <- cAnalysis$vPLower[nIndx]
 
-    }
-    else
-    {
-        dPUpper     <- cAnalysis$dFinalPUpper
-        dPLower     <- cAnalysis$dFinalPLower
-    }
 
-    return( list( dPUpperCutoff = dPUpper, dPLowerCutoff = dPLower) )
+#' @name GetBayesianCutoffs.MAVTarget
+#' @title GetBayesianCutoffs.MAVOnly
+#' @description {This function is the same as GetBayesianCutoffs.MAVOnly as MAVTarget inheirts from MAVOnly }
+#' @param  cAnalysis$vPUpper Vector of upper cutoffs, typically used in the context of success if a posterior probability > vPUpper,
+#' 0 <=  vPLowerCutoff <= vPUpperCutoff <= 1
+#' @param  cAnalysis$vPLower Vector of lower cutoffs, typically used in the context of failure if a posterior probability < vPLower,
+#' 0 <=  vPLowerCutoff <= vPUpperCutoff <= 1
+#' @param  cAnalysis$dFinalPUpper Value of upper cutoff used at the FINAL analysis, typically used in the context of success if a posterior probability > dFinalPUpper,
+#' 0 <= dPLowerCutoff <= dPUpperCutoff <=  1
+#' @param  cAnalysis$dFinalPLower Value of lower cutoff used at the FINAL analysis, typically used in the context of failure if a posterior probability < dFinalPLower,
+#' 0 <= dPLowerCutoff <= dPUpperCutoff <=  1
+#' @export
+GetBayesianCutoffs.MAVTarget <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
+{
+    return( GetBayesianCutoffsMAVOnly( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis ) )
 }

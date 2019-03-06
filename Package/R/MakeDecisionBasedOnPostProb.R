@@ -53,6 +53,28 @@ MakeDecisionBasedOnPostProb.default <- function( cAnalysis, lCalcs )
 
 }
 
+# This funciton contains the common code for MakeDecisionBasedOnPostProb.MAVOnly and MakeDecisionBasedOnPostProb.MAVTarget
+# A much better approach would be to define a constructor that would have MAVTarget inherit from MAVOnly
+MakeDecisionBasedOnPostProbMAVCommon <- function(  cAnalysis, lCalcs)
+{
+    dPrGrtMAV       <- lCalcs$dPrGrtMAV
+    dPUpperCutoff   <- lCalcs$dPUpperCutoff
+    dPLowerCutoff   <- lCalcs$dPLowerCutoff
+
+    nGo <- nNoGo <- nPause <- 0
+
+
+    if( dPrGrtMAV > dPUpperCutoff )
+        nGo <- 1
+    else if( dPrGrtMAV < dPLowerCutoff   )
+        nNoGo <- 1
+    else
+        nPause <- 1
+
+    return(  list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, dPrGrtMAV = dPrGrtMAV) )
+
+}
+
 
 #' @name MakeDecisionBasedOnPostProb.MAVOnly
 #' @title MakeDecisionBasedOnPostProb.MAVOnly
@@ -73,20 +95,33 @@ MakeDecisionBasedOnPostProb.default <- function( cAnalysis, lCalcs )
 #' @export
 MakeDecisionBasedOnPostProb.MAVOnly <- function( cAnalysis, lCalcs )
 {
-    dPrGrtMAV       <- lCalcs$dPrGrtMAV
-    dPUpperCutoff   <- lCalcs$dPUpperCutoff
-    dPLowerCutoff   <- lCalcs$dPLowerCutoff
-
-    nGo <- nNoGo <- nPause <- 0
+    return( MakeDecisionBasedOnPostProbMAVCommon( cAnalysis, lCalcs ) )
+}
 
 
-    if( dPrGrtMAV > dPUpperCutoff )
-        nGo <- 1
-    else if( dPrGrtMAV < dPLowerCutoff   )
-        nNoGo <- 1
-    else
-        nPause <- 1
 
-    return(  list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, dPrGrtMAV = dPrGrtMAV) )
+
+#' @name MakeDecisionBasedOnPostProb.MAVTarget
+#' @title MakeDecisionBasedOnPostProb.MAVTarget
+#' @description {This function will make the Go/NoGo decision based on one posterior probability,
+#' Pr( \eqn{\theta} > MAV |data ) where \eqn{\theta} is the
+#' parameter of interest. Based on this probability the following decisions are made
+#' \tabular{lc}{
+#' \tab Decision \cr
+#' Pr( \eqn{\theta} > MAV |data ) > dPUpperCutoff     \tab Go   \cr
+#' Pr( \eqn{\theta} > MAV |data ) < dLowerCutoff      \tab No Go \cr
+#' Otherwise                                          \tab Pause \cr
+#' }
+#' }
+#' @param cAnalysis The analysis object.
+#' @param  lCalcs a list with  dPrGrtMAV, dPUpperCutoff, dLowerCutoff
+#' @return
+#' Return List of ( nGo, nNoGo, nPause ).  Only one of the elements should be 1 to reflect the decision.
+#' @export
+MakeDecisionBasedOnPostProb.MAVTarget <- function( cAnalysis, lCalcs )
+{
+
+    return( MakeDecisionBasedOnPostProbMAVCommon( cAnalysis, lCalcs ) )
 
 }
+

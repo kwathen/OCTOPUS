@@ -31,7 +31,7 @@
 #'               To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomizer is called.
 #'   }
 #' @export
-Randomize <- function( cRandomizer, vISAStatus, nPrintDetail )
+Randomize <- function( cRandomizer, vISAStatus, dCurrentTime, nPrintDetail )
 {
     UseMethod( "Randomize", cRandomizer )
 
@@ -44,7 +44,7 @@ Randomize <- function( cRandomizer, vISAStatus, nPrintDetail )
 #  $nISA - the index of the ISA the patient was assigned to
 #  #nTrt - the treatment the patient was assigned to
 #' @export
-Randomize.default   <- function( cRandomizer, vISAStatus, nPrintDetail = 0 )
+Randomize.default   <- function( cRandomizer, vISAStatus, dCurrentTime, nPrintDetail = 0 )
 {
     if( nPrintDetail >= 100 )
         print( "Randomize.default")
@@ -55,9 +55,9 @@ Randomize.default   <- function( cRandomizer, vISAStatus, nPrintDetail = 0 )
         stop( paste( "Critical Error in RandomizeBetweenISA.Equal: The number of ISAs in cRandomizer does not equal the length( vISAStatus) " ))
 
 
-    nISA        <- RandomizeBetweenISA( cRandomizer, vISAStatus )
+    nISA        <- RandomizeBetweenISA( cRandomizer, vISAStatus,  dCurrentTime )
     cISARand    <- cRandomizer[[ nISA ]]
-    lRet        <- RandomizeWithinISA( cISARand )
+    lRet        <- RandomizeWithinISA( cISARand,  dCurrentTime )
 
     #Need to update the cRandoizer$ISARandomizer
     cRandomizer[[ nISA ]] <- lRet$cISARand

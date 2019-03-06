@@ -40,7 +40,7 @@ test_that("Equal Randomizer - Random tests",
               expect_equal( cTrialDesign$nQtyISAs, nQtyISAs)
 
               #When you call Randomize the function should return a list with an the following elements
-              lRandRet <- Randomize(cTrialRand, vISAStatus  )
+              lRandRet <- Randomize(cTrialRand, vISAStatus, 0.0  )
               bExp     <- FALSE
               bRet     <- is.null(lRandRet$nTrt )
               expect_equal( bRet, bExp )
@@ -58,7 +58,7 @@ test_that("Equal Randomizer - Random tests",
 
               for( i in 1:200 )
               {
-                  lRandRet   <- Randomize( cTrialRand, vISAStatus )
+                  lRandRet   <- Randomize( cTrialRand, vISAStatus, 0.0  )
                   vQtyISA[ lRandRet$nISA ] <- vQtyISA[ lRandRet$nISA ] + 1
 
                   expect_lte( lRandRet$nISA, nQtyISAs )
@@ -74,7 +74,7 @@ test_that("Equal Randomizer - Random tests",
 
                   for( i in 1:200 )
                   {
-                      lRandRet   <- Randomize( cTrialRand, vISAStatus )
+                      lRandRet   <- Randomize( cTrialRand, vISAStatus, 0.0  )
                       vQtyISA[ lRandRet$nISA ] <- vQtyISA[ lRandRet$nISA ] + 1
 
                   }

@@ -125,4 +125,43 @@ ComputePosteriorProbs.MAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFina
 
 
 
+#' @name ComputePosteriorProbs.MAVTarget
+#' @title ComputePosteriorProbs.MAVTargety
+#' @description {Used in a trial with a Bayesian analysis and parameter of interest \eqn{\theta}, where
+#' the decisions are based one posterior probabilities Pr(  \eqn{\theta_T} > MAV |data ).
+#' This function returns a list with dPrGrtMAV, dMAVCutoff and dTVCutoff.  0 <= dMAVCutoff and dTVCutoff <= 1}
+#' @param cAnalysis$vMAVCutoff A vector of cutoffs for the MAV at each analysis.
+#' @param cAnalysis$vTVCutoff A vector of cutoffs for the TV.
+#' @param nISAAnalysisIndx A the index of the analysis
+#' @param bIsFinalISAAnalysis TRUE or FALSE to indicate if this is the final analysis. Typically, used
+#' in a Bayesian design such that the final analysis can have different cutoff values.
+#' dTVCutoff
+#' @param lSamples List with vPostSamp that are samples of the posterior of
+#' \eqn{\theta} the parameter of interest.
+#' @return List with three values dPrGrtMAV,  dMAVCutoff and dTVCutoff
+#' @export
+ComputePosteriorProbs.MAVTarget <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis, lSamples )
+{
+
+    lCutoff  <- GetBayesianCutoffs( cAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis )
+    dMAV     <- cAnalysis$dMAV
+
+    dPrGrtMAV  <- mean( ifelse( lSamples$vPostSamp  > dMAV, 1, 0) )
+
+
+    lCalcs <- list( dPrGrtMAV         = dPrGrtMAV,
+                    dPUpperCutoff    = lCutoff$dPUpperCutoff,
+                    dPLowerCutoff    = lCutoff$dPLowerCutoff )
+
+
+    lRet <- MakeDecisionBasedOnPostProb(cAnalysis, lCalcs )
+
+    return( lRet )
+
+
+
+}
+
+
+
 

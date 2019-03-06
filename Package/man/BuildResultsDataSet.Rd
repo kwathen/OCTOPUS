@@ -8,7 +8,7 @@
 \usage{
 BuildResultsDataSet(strMainResultsFile, vStrISAResultsFile, vISANumber)
 
-Randomize(cRandomizer, vISAStatus, nPrintDetail)
+Randomize(cRandomizer, vISAStatus, dCurrentTime, nPrintDetail)
 }
 \arguments{
 \item{strMainResultsFile}{The main output file produced when running a simulation.  Typically, it is found in the out/ subdirectory.}
@@ -27,10 +27,10 @@ in the file will be prefixed with ISA1.}}
  cISARand - the same is cISARand but if it is updates this allows the caller to get the update.
  For a platform trial the randomization is a two step process.  The two steps are as follows:
       1.  First  randomize between the ISAs.
-              To do this RandomizeBetweenISA is called and the class( cRandomizer ) will dtermine which version of this function
+              To do this RandomizeBetweenISA is called and the class( cRandomizer ) will determine which version of this function
               is called.  For example, if class( cRandomzier ) = "Equal" see RandomizeBetweenISA.Equal() for that definition.
-              Each ISA RandomzieBetweenISA function will return an integer nISA to indicate which ISA the patient was randomzied to.
-      2.  Randomzie within the ISA.
-              To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomzier is called.
+              Each ISA RandomzieBetweenISA function will return an integer nISA to indicate which ISA the patient was randomized to.
+      2.  Randomize within the ISA.
+              To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomizer is called.
   }
 }

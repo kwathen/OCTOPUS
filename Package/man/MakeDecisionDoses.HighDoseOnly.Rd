@@ -7,5 +7,5 @@
 \method{MakeDecisionDoses}{HighDoseOnly}(lDoseDec)
 }
 \description{
-{"This option allows for mulitiple doses but only uses the high dose for decision making "  }
+{"This option allows for multiple doses but only uses the high dose for decision making "  }
 }

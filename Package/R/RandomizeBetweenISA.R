@@ -10,13 +10,13 @@
 
 # RandomizeBetweenISA should just return the index of the ISA the patient is assigned to
 #' @export
-RandomizeBetweenISA <- function( cRandomizer, vISAStatus )
+RandomizeBetweenISA <- function( cRandomizer, vISAStatus, dCurrentTime )
 {
     UseMethod( "RandomizeBetweenISA", cRandomizer )
 
 }
 #' @export
-RandomizeBetweenISA.default <- function( cRandomizer, vISAStatus )
+RandomizeBetweenISA.default <- function( cRandomizer, vISAStatus, dCurrentTime )
 {
     stop(  "RandomizeBetweenISA.default IS NOT IMPLEMENTED.  class( cRandomizer) =", class(cRandomizer))
 
@@ -24,7 +24,7 @@ RandomizeBetweenISA.default <- function( cRandomizer, vISAStatus )
 }
 
 #' @export
-RandomizeBetweenISA.EqualRandomizer <- function( cRandomizer, vISAStatus )
+RandomizeBetweenISA.EqualRandomizer <- function( cRandomizer, vISAStatus, dCurrentTime )
 {
     nQtyISA   <- length( cRandomizer )      # This is the number of ISAs
     vIndex    <- 1:nQtyISA
