@@ -5,7 +5,7 @@
 \alias{InitializeTrialRandomizer}
 \title{InitializeTrialRandomizer.default}
 \usage{
-InitializeTrialRandomizer(cTrialDesign, vISAStartTime)
+InitializeTrialRandomizer(cTrialDesign, vISAStartTimes)
 }
 \arguments{
 \item{cTrialDesign}{Trial design opbject giving specifics about the trial design.}

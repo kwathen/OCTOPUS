@@ -73,19 +73,19 @@ InitializeISARandomizer.POCRandomizer <- function(  cISARandomizer, dISAStartTim
 
 # This version will randomize the first patients to a select set of arms or doses in the ISA (eg a POC phase)
 # The cISARandomizer must define the following
-# The cISARandomizer$mStartTime identifies how to simulate/assign the start time of each of the treatments (doses) in the ISA.
-#   Since cISARandomizer$mStartTime is not required by other randomizer so this function will stop if it is not defined.
-#   The nrow( cISARandomizer$mStartTime  ) = number of treatments in the ISA.
-#   cISARandomizer$mStartTime should have 2 columns, 1 to define the lower limit of the start time and column 2 the potential max
-#   such that a time is simulated from a Uniform( cISARandomizer$mStartTime[i, 1], cISARandomizer$mStartTimet[,2])
+# The cISARandomizer$mTreatmentStartTimes identifies how to simulate/assign the start time of each of the treatments (doses) in the ISA.
+#   Since cISARandomizer$mTreatmentStartTimes is not required by other randomizer so this function will stop if it is not defined.
+#   The nrow( cISARandomizer$mTreatmentStartTimes  ) = number of treatments in the ISA.
+#   cISARandomizer$mTreatmentStartTime sshould have 2 columns, 1 to define the lower limit of the start time and column 2 the potential max
+#   such that a time is simulated from a Uniform( cISARandomizer$mTreatmentStartTimes[i, 1], cISARandomizer$mTreatmentStartTimes[,2])
 #   for each treatment.
-#  cISARandomizer$mStartTime  is to specify the time >= 0 that a treatment in the ISA is opened.  A value of 0 in column 1 and 2 indicates
+#  cISARandomizer$mTreatmentStartTimes  is to specify the time >= 0 that a treatment in the ISA is opened.  A value of 0 in column 1 and 2 indicates
 #  the treatment is open once the ISA is added to the trial
 #' @export
 InitializeISARandomizer.DelayedStartRandomizer <- function(  cISARandomizer, dISAStartTime )
 {
     #print( paste( "mStartTime Randomizer"))
-    mStartTime <- cISARandomizer$mStartTime
+    mStartTime <- cISARandomizer$mTreatmentStartTimes
     if( is.na( dISAStartTime ) | is.null( dISAStartTime ) )
         stop( paste( "In call to InitializeISARandomizer.DelayedStartRandomizer you must provide cISARandomizer and dISAStartTime."))
 

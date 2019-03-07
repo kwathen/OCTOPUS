@@ -59,11 +59,11 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
                     "Closed - Early Go", "Closed - Early No Go", "Closed - Go at FA", "Closed - No Go at FA", "Closed - Pause at FA")
 
     cEnrolledPats   <- InitializePatientList( cTrialDesign )                    #This will keep track of the current patients enrolled in the trial
-    vISAStart       <- SimulateAllISAStartTimes( cScen$cISADesigns )            # Simulate the times the ISAs start
+    vISAStartTimes  <- SimulateAllISAStartTimes( cScen$cISADesigns )            # Simulate the times the ISAs start
 
     vStartTimes     <- SimulateArrivalTimes( cScen$cAcc )
     lPatOut         <- SimulateAllPatientOutcomes( cScen,  cTrialDesign)
-    cRandomizer     <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime )
+    cRandomizer     <- InitializeTrialRandomizer( cTrialDesign, vISAStartTimes )
 
     iPat <- 1
     lResAnaFinal <- list()
@@ -72,7 +72,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     {
 
         dCurrentTime <- vStartTimes[ iPat ]
-        vISAStatus   <- ifelse( dCurrentTime > vISAStart & vISAStatus < 2, 1, vISAStatus   )
+        vISAStatus   <- ifelse( dCurrentTime > vISAStartTimes & vISAStatus < 2, 1, vISAStatus   )
 
         cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime  )
         cRandomizer  <- cRandUpdate$cRandomizer
@@ -130,11 +130,11 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
             #This is the case where an ISA has not opened but all other ISAs have opened and closed, eg nothing currently open
 
             #However, for multiple ISAs there could be analysis run before the next ISA opens so we need to run those
-            dNextISAStart           <- min( vISAStart[ vISAStatus == 0 ] )
+            dNextISAStart           <- min( vISAStartTimes[ vISAStatus == 0 ] )
             dNextISAAnalysis        <- CheckNextTrialAnalysisTime(  cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime  )
 
             vIndex                  <- 1:nQtyISA
-            nIndex                  <- vIndex[ vISAStart == dNextISAStart ]
+            nIndex                  <- vIndex[ vISAStartTimes == dNextISAStart ]
 
             dTimeDelayForISA        <- dNextISAStart - dCurrentTime
             vISAPauseEnroll[ nIndex]<- dTimeDelayForISA
@@ -310,8 +310,8 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     vGrpNames <- paste( "ISA",cTrialDesign$vISALab,"Trt",cTrialDesign$vTrtLab, sep="" )
     vQtyPatPerISAPerArm <- cEnrolledPats$vQtyPatsArmISA
     names( vQtyPatPerISAPerArm ) <- vGrpNames
-    names(vISAStart ) <- paste( "ISAStart",1:length(vISAStart), sep="")
-    names( vISAPauseEnroll ) <-  paste( "ISAPause",1:length(vISAStart), sep="")
+    names(vISAStartTimes )       <- paste( "ISAStart",1:length(vISAStartTimes), sep="")
+    names( vISAPauseEnroll )     <-  paste( "ISAPause",1:length(vISAStartTimes), sep="")
 
     nQtyAnaRes <- length( lResAnaFinal )
     for( nISA in 1:nQtyAnaRes )
@@ -332,7 +332,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     names( vTimeFinalAnalysis ) <- paste( "FinalAnalysisTimeISA", 1:nQtyISA, sep="")
     names( vTimeFinalEnrollment ) <- paste( "FinalPatientEnrolledTimeISA", 1:nQtyISA, sep="")
     names( vTimeStartAnalysis ) <- paste( "StartIAISA", 1:nQtyISA, sep="")
-    lRet <- c(  cScen$nGridIndex, cScen$nTrialID, vISAStatus, CurrentTime = dCurrentTime, vQtyPatPerISAPerArm, vISAStart, vISAPauseEnroll,
+    lRet <- c(  cScen$nGridIndex, cScen$nTrialID, vISAStatus, CurrentTime = dCurrentTime, vQtyPatPerISAPerArm, vISAStartTimes, vISAPauseEnroll,
                 vTimeFinalEnrollment, vTimeStartAnalysis, vTimeFinalAnalysis)
     names( lRet)[c(1,2)]<-c( "GridIndex", "TrialID")
     return( lRet )

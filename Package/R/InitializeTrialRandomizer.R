@@ -16,13 +16,13 @@
 #' @param cTrialDesign Trial design opbject giving specifics about the trial design.
 #' @param vISAStartTime A vector of times that each ISA opens/starts in the trial.  A vector of c(0,...) would indicate all ISAs start at the start of the trial.
 #' @export
-InitializeTrialRandomizer  <- function( cTrialDesign, vISAStartTime )
+InitializeTrialRandomizer  <- function( cTrialDesign, vISAStartTimes )
 {
     UseMethod( "InitializeTrialRandomizer", cTrialDesign )
 }
 
 #' @export
-InitializeTrialRandomizer.default  <- function( cTrialDesign, vISAStartTime )
+InitializeTrialRandomizer.default  <- function( cTrialDesign, vISAStartTimes )
 {
     nQtyISA   <- cTrialDesign$nQtyISAs
 
@@ -31,7 +31,7 @@ InitializeTrialRandomizer.default  <- function( cTrialDesign, vISAStartTime )
     {
         strISAName <- paste( "cISA", iISA, sep="" )
 
-        lISARands[[ paste( "lISA", iISA, sep="")]] <- InitializeISARandomizer( cTrialDesign$cISADesigns[[ strISAName ]], vISAStartTime[ iISA ]  )
+        lISARands[[ paste( "lISA", iISA, sep="")]] <- InitializeISARandomizer( cTrialDesign$cISADesigns[[ strISAName ]], vISAStartTimes[ iISA ]  )
 
     }
     cISARand <- structure( lISARands, class= class( cTrialDesign) )

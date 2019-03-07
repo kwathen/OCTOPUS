@@ -278,16 +278,16 @@ SetupTrialDesign2ISA <- function( strISA2Randomizer = "EqualRandomizer" )
                                   cISAAnalysis    = cISA1Analysis,
                                   lDecision       = lDecisionOut1), class="POCRandomizer")
 
-    cISA2Info <- structure( list( vQtyPats        = vQtyPats,
-                                  vQtyPatsInit    = vQtyPatsInit,
-                                  vTrtLab         = vTrtLab2,
-                                  bNoIA           = bNoIA,
-                                  vMinQtyPats     = vMinQtyPats,
-                                  vMinFUTime      = vMinFUTime,
-                                  nQtyMonthsBtwIA = nQtyMonthsBtwIA,
-                                  cISAAnalysis    = cISA1Analysis,
-                                  lDecision       = lDecisionOut1,
-                                  mStartTime      = mTrtStartTimes ), class=strISA2Randomizer)
+    cISA2Info <- structure( list( vQtyPats              = vQtyPats,
+                                  vQtyPatsInit          = vQtyPatsInit,
+                                  vTrtLab               = vTrtLab2,
+                                  bNoIA                 = bNoIA,
+                                  vMinQtyPats           = vMinQtyPats,
+                                  vMinFUTime            = vMinFUTime,
+                                  nQtyMonthsBtwIA       = nQtyMonthsBtwIA,
+                                  cISAAnalysis          = cISA1Analysis,
+                                  lDecision             = lDecisionOut1,
+                                  mTreatmentStartTimes  = mTrtStartTimes ), class=strISA2Randomizer)
 
 
     cISADesigns <- structure( list( cISA1 = cISA1Info, cISA2 =cISA2Info ), class= "IndependentISA")
