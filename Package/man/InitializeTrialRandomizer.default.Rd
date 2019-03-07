@@ -5,11 +5,15 @@
 \alias{InitializeTrialRandomizer}
 \title{InitializeTrialRandomizer.default}
 \usage{
-InitializeTrialRandomizer(cTrialDesign)
+InitializeTrialRandomizer(cTrialDesign, vISAStartTime)
+}
+\arguments{
+\item{cTrialDesign}{Trial design opbject giving specifics about the trial design.}
+
+\item{vISAStartTime}{A vector of times that each ISA opens/starts in the trial.  A vector of c(0,...) would indicate all ISAs start at the start of the trial.}
 }
 \description{
 {This function is used to initialize the trial randomizer. The default version each
 ISA and calls the InitializeISARandomizer.  Since each ISA can have a specific randomizer  the default
-for the TrialRandomizer is just to initialize each ISA randomizer.
-}
+for the TrialRandomizer is just to initialize each ISA randomizer.}
 }

@@ -21,13 +21,16 @@ source("TestHelperFunctions.R")
 #
 #############################################################################################################################.
 #
-# #Set everything
-cTrialDesign  <- SetupTrialDesign2ISA( )
-cTrialRand    <- InitializeTrialRandomizer( cTrialDesign )
-strPrefixTest <- "ISA 1 Randomizer RandomizeWithinISA.POCRandomizer "
-
+strPrefixTest <- "ISA 2 Randomizer - POCRandomizer"
 test_that(strPrefixTest,
 {
+
+    #Set everything
+    vISAStartTime <- c(0, 0)
+    cTrialDesign  <- SetupTrialDesign2ISA( )
+    cTrialRand    <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime )
+    strPrefixTest <- "ISA 1 Randomizer RandomizeWithinISA.POCRandomizer "
+
     strExp <- "POCRandomizer"
     strRet <- class( cTrialDesign$cISADesigns[[ "cISA1" ]]  )
     expect_equal( strRet, strExp )
@@ -65,13 +68,12 @@ test_that(strPrefixTest,
     #The initial patient randomization will be done 10 times just to make sure it is not an accident that no patients are assigned to the
     #incorrect treatments
 
-
     # Randomize the patients for 10 trials and make sure no tests fail.
     nQtyTest <- 20
     for( iTest in 1:nQtyTest )
     {
 
-        cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
+        cTrialRand   <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime )
 
         vTrtCount    <- rep( 0, nQtyTrt )
         for( i in 1:nQtyPatsInit )
@@ -147,17 +149,20 @@ test_that(strPrefixTest,
 ###### Test ISA 2 Randomzier #############################################################################################
 #
 # Test  - ISA 2 Randomizer - Should be an EqualRandomizer
-#
+# This test tests InitializeTrialRandomizer and subsequent calls to Randomizer
 ##########################################################################################################################.
 
-#Reset everything
-cTrialDesign <- SetupTrialDesign2ISA( )
-cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
-nISA         <- 2
-strPrefixTest <- "ISA 2 Randomizer "
-
+strPrefixTest  <- "ISA 2 Randomizer - Equal Randomizer"
 test_that(strPrefixTest,
 {
+    #Reset everything
+
+    vISAStartTime <- c(0, 0)
+    cTrialDesign  <- SetupTrialDesign2ISA( )
+    cTrialRand    <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime  )
+    nISA          <- 2
+
+
 
     strExp <- "EqualRandomizer"
     strRet <- class( cTrialDesign$cISADesigns[[ "cISA2" ]]  )
@@ -198,13 +203,12 @@ test_that(strPrefixTest,
     #The initial patient randomization will be done 10 times just to make sure it is not an accident that no patients are assigned to the
     #incorrect treatments
 
-
     # Randomize the patients for 10 trials and make sure no tests fail.
     nQtyTest <- 20
     for( iTest in 1:nQtyTest )
     {
 
-        cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
+        cTrialRand   <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime )
 
         vTrtCount    <- rep( 0, length( cTrialDesign$vTrtLab ) )
         for( i in 1:nQtyPats2 )
@@ -286,14 +290,16 @@ test_that(strPrefixTest,
 #
 ##########################################################################################################################.
 
-#Reset everything
-cTrialDesign <- SetupTrialDesign2ISA(strISA2Randomizer = "DelayedStartRandomizer" )
-cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
-nISA         <- 2
-strPrefixTest <- "ISA 2 Randomizer "
-
+strPrefixTest <- "ISA 2 Randomizer - DelayedStartRandomizer"
 test_that(strPrefixTest,
 {
+    #Reset everything
+
+    vISAStartTime <- c( 0, 6 )
+    cTrialDesign  <- SetupTrialDesign2ISA(strISA2Randomizer = "DelayedStartRandomizer" )
+    cTrialRand    <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime  )
+    nISA          <- 2
+
 
     strExp <- "DelayedStartRandomizer"
     strRet <- class( cTrialDesign$cISADesigns[[ "cISA2" ]]  )
@@ -338,18 +344,18 @@ test_that(strPrefixTest,
     #The initial patient randomization will be done 10 times just to make sure it is not an accident that no patients are assigned to the
     #incorrect treatments
 
-
     # Randomize the patients for nQtyTest  trials and make sure no tests fail.
     nQtyTest <- 20
     for( iTest in 1:nQtyTest )
     {
 
-        cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
+        cTrialRand   <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime)
 
         vTrtCount    <- rep( 0, length( cTrialDesign$vTrtLab ) )
         for( i in 1:nQtyPats2 )
         {
-            lRandRet   <- Randomize( cTrialRand, vISAStatus, 0.0  )
+            #Testing a value greater than start time of ISA2 delayed doses.
+            lRandRet   <- Randomize( cTrialRand, vISAStatus,  7.0  )
             cTrialRand <- lRandRet$cRandomizer
             lRandRet$nTrt
             lRandRet$cRandomizer[[2]][[1]]
@@ -391,7 +397,7 @@ test_that(strPrefixTest,
         vTrtCount2    <- rep( 0, length( cTrialDesign$vTrtLab ) )
         for( i in (nQtyPats2+1):nQtyPats )
         {
-            lRandRet   <- Randomize( cTrialRand, vISAStatus, 10.0 )
+            lRandRet   <- Randomize( cTrialRand, vISAStatus, 14.0 )
             cTrialRand <- lRandRet$cRandomizer
 
             vQtyISA[ lRandRet$nISA ]    <- vQtyISA[ lRandRet$nISA ] + 1

@@ -10,14 +10,14 @@
 
 
 #' @export
-InitializeISARandomizer <- function( cISARandomizer )
+InitializeISARandomizer <- function( cISARandomizer, dISAStartTime  )
 {
     UseMethod( "InitializeISARandomizer",  cISARandomizer )
 
 }
 
 #' @export
-InitializeISARandomizer.default <- function( cISARandomizer )
+InitializeISARandomizer.default <- function( cISARandomizer, dISAStartTime )
 {
     stop( paste( "InitializeISARandomizer.default is not defined, stopping execution..."))
 
@@ -25,7 +25,7 @@ InitializeISARandomizer.default <- function( cISARandomizer )
 
 
 #' @export
-InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer )
+InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer, dISAStartTime )
 {
     vTrtLab  <- cISARandomizer$vTrtLab
     vQtyPats <- cISARandomizer$vQtyPats
@@ -44,7 +44,7 @@ InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer )
 # The cISARandomizer$vQtyPatsInit identifies the initial patients to randomize first, the vQtyPatsInit is part of the vQtyPats for that ISA
 #   and is not required by other randomizer so this function will stop if it is not defined
 #' @export
-InitializeISARandomizer.POCRandomizer <- function(  cISARandomizer )
+InitializeISARandomizer.POCRandomizer <- function(  cISARandomizer, dISAStartTime )
 {
     #print( paste( "POC Randomizer"))
     vQtyPatsInit <- cISARandomizer$vQtyPatsInit
@@ -82,10 +82,13 @@ InitializeISARandomizer.POCRandomizer <- function(  cISARandomizer )
 #  cISARandomizer$mStartTime  is to specify the time >= 0 that a treatment in the ISA is opened.  A value of 0 in column 1 and 2 indicates
 #  the treatment is open once the ISA is added to the trial
 #' @export
-InitializeISARandomizer.DelayedStartRandomizer <- function(  cISARandomizer )
+InitializeISARandomizer.DelayedStartRandomizer <- function(  cISARandomizer, dISAStartTime )
 {
     #print( paste( "mStartTime Randomizer"))
     mStartTime <- cISARandomizer$mStartTime
+    if( is.na( dISAStartTime ) | is.null( dISAStartTime ) )
+        stop( paste( "In call to InitializeISARandomizer.DelayedStartRandomizer you must provide cISARandomizer and dISAStartTime."))
+
     if( is.null( mStartTime ) )
         stop( paste( "In the function InitializeISARandomizer.DelayedStartRandomizer(  cISA ) the cISA object must define cISA$mStartTime...Stopping execution "))
 
@@ -108,7 +111,8 @@ InitializeISARandomizer.DelayedStartRandomizer <- function(  cISARandomizer )
     vISARand <- sample( vTmpTrt, length( vTmpTrt ) )
 
     vTreatmentStart <- runif( rep(1, nQtyTreatments), mStartTime[,1], mStartTime[,2])
-
+    #These start times are relative to the ISA entering the study so need to add the ISA start time
+    vTreatmentStart <- vTreatmentStart + dISAStartTime
 
     cISARand <- structure( list(vISARand=vISARand, vTreatmentStart = vTreatmentStart, vTrtLab = vTrtLab ), class= class(cISARandomizer))
 

@@ -63,7 +63,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
     vStartTimes     <- SimulateArrivalTimes( cScen$cAcc )
     lPatOut         <- SimulateAllPatientOutcomes( cScen,  cTrialDesign)
-    cRandomizer     <- InitializeTrialRandomizer( cTrialDesign )
+    cRandomizer     <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime )
 
     iPat <- 1
     lResAnaFinal <- list()

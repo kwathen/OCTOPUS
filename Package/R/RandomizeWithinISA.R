@@ -81,7 +81,7 @@ RandomizeWithinISA.DelayedStartRandomizer <- function( cISARand, dCurrentTime )
         vUnopenTrts <- vTrtLab[ vStartTime > dCurrentTime ]
         if( all( vRand %in% vUnopenTrts ) )  #Should this occure then the treatment is not open and all remaining randomizations are equal to an unoppen treatment
         {
-            browser()
+
             stop( "Error in RandomizeWithinISA.DelayedStartRandomizer - All remainng randomizations are to an unopen treatment.")
         }
         while( dCurrentTime < dTrtStartTime )  #Treatment has not been opened
