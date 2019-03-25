@@ -141,7 +141,7 @@ ProcessData.ProcessReptMeas <- function(  cDS, dCurrentTime  )
 
     nQtyPats    <- nrow(mSimDataAna )
 
-    vTmpOut     <- as.vector(mSimDataAna[ ,-1] )
+    vTmpOut     <- as.vector(mSimDataAna )
 
     vTime       <- vObsTime
     vTime       <- rep( vTime, rep( nQtyPats, rep( length( vTime ) ) ) )
