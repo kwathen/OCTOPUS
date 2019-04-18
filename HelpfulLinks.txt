@@ -32,6 +32,10 @@ http://r-pkgs.had.co.nz/tests.html  - Great overview and introduction to testtha
         devtools::test() to execute all the testthat tests in the package.
 
 
+===== Code coverage ====
+Package covr
+https://www.rstudio.com/resources/webinars/covr-bringing-test-coverage-to-r/
+
 
 =====    Including Shiny app Examples in a Package ====
 https://www.r-bloggers.com/supplementing-your-r-package-with-a-shiny-app-2/

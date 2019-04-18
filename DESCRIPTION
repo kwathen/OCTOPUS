@@ -19,7 +19,8 @@ Depends: R (>= 3.5.0)
 Suggests: testthat,
           Shiny,
           knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
 URL: https://github.com/kwathen/PlatformTrialSimulator
 License: file LICENSE
