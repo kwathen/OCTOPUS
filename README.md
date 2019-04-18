@@ -2,7 +2,7 @@
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/kwathen/PlatformTrialSimulator/master.svg)](https://codecov.io/github/kwathen/PlatformTrialSimulator?branch=master)
 [![Travis-CI Build Status](https://travis-ci.org/kwathen/PlatformTrialSimulator.svg?branch=master)](https://travis-ci.org/kwathen/PlatformTrialSimulator)
-
+ 
 ## License 
 This package is governed by the JRD Platform Trial Simulation License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in [LICENSE](https://github.com/kwathen/PlatformTrialSimulatorP/blob/master/inst/LICENSE) and [GPL](https://github.com/kwathen/PlatformTrialSimulatorP/blob/master/inst/GPL).
 
