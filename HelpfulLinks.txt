@@ -36,6 +36,12 @@ http://r-pkgs.had.co.nz/tests.html  - Great overview and introduction to testtha
 Package covr
 https://www.rstudio.com/resources/webinars/covr-bringing-test-coverage-to-r/
 
+====  Travis CI (Continusous Integration) ================
+https://docs.travis-ci.com/user/tutorial/
+
+
+=== GitHub Website with pkgdown =============
+
 
 =====    Including Shiny app Examples in a Package ====
 https://www.r-bloggers.com/supplementing-your-r-package-with-a-shiny-app-2/
