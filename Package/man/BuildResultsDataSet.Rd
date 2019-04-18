@@ -2,7 +2,6 @@
 % Please edit documentation in R/BuildResultsDataSet.R, R/Randomize.R
 \name{BuildResultsDataSet}
 \alias{BuildResultsDataSet}
-\alias{BuildResultsDataSet}
 \alias{Randomize}
 \title{BuildResultsDataSet}
 \usage{

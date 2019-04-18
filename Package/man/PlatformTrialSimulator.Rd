@@ -4,7 +4,6 @@
 \name{PlatformTrialSimulator}
 \alias{PlatformTrialSimulator}
 \alias{PlatformTrialSimulator-package}
-\alias{PlatformTrialSimulator-package}
 \title{Platform Trial Simulator}
 \description{
 This package is used to simulate platform clinical trials.  Platform trials are clinical trials that are designed with the flexibility to add
@@ -31,6 +30,13 @@ General intro to the packages ..
 Stuff
 }
 
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/kwathen/PlatformTrialSimulator}
+}
+
+}
 \author{
 \strong{Maintainer}: J. Kyle wathen \email{kylewathen@gmail.com}
 

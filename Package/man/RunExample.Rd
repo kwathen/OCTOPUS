@@ -14,5 +14,6 @@ RunExample(example)
   }
 }
 \examples{
-  PlatformTrialSimulator::RunExample( "CompareRecruitment" )
+\dontrun{{PlatformTrialSimulator::RunExample( "CompareRecruitment" )
+}}
 }

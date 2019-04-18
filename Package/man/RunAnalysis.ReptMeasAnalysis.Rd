@@ -4,8 +4,8 @@
 \alias{RunAnalysis.ReptMeasAnalysis}
 \title{RunAnalysis.ReptMeasAnalysis}
 \usage{
-\method{RunAnalysis}{ReptMeasAnalysis}(cAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis)
+\method{RunAnalysis}{ReptMeasAnalysis}(cAnalysis, lDataAna,
+  nISAAnalysisIndx, bIsFinalISAAnalysis)
 }
 \description{
 {This is the method used for running the Repeated Measure Analysis .

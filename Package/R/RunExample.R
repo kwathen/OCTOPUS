@@ -15,8 +15,8 @@
 #'
 #'   There are example(s) that require shiny so you must install the shiny package to run some of the examples.
 #'   }
-#' @examples
-#'   PlatformTrialSimulator::RunExample( "CompareRecruitment" )
+#' @examples \dontrun{{PlatformTrialSimulator::RunExample( "CompareRecruitment" )
+#' }}
 #' @export
 RunExample <- function(example) {
     strPackage <- "PlatformTrialSimulator"

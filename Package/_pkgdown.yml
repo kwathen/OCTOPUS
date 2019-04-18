@@ -1,0 +1,105 @@
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    right: github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    news:
+      text: Changelog
+      href: news/index.html
+    intro:
+      text: Get started
+      href: articles/PlatformTrialSimulator.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/kwathen/PlatformTrialSimulator
+news:
+ releases:
+ - text: "usethis 1.3.0"
+   href: https://www.tidyverse.org/articles/2018/02/usethis-1-3-0/
+ - text: "usethis 1.0.0 (and 1.1.0)"
+   href: https://www.tidyverse.org/articles/2017/11/usethis-1.0.0/
+
+reference:
+- title: All functions
+  desc: ~
+  contents:
+  - '`AddControlData.ProcessReptMeas`'
+  - '`AddControlData.ProcessReptMeasChngBaseline`'
+  - '`AddControlData.ProcessSingleTimeOutcome`'
+  - '`AddControlData`'
+  - '`BuildResultsDataSet`'
+  - '`CheckTrialMonitor.default`'
+  - '`CheckTrialMonitor`'
+  - '`ComputePosteriorProbs.default`'
+  - '`ComputePosteriorProbs.MAVOnly`'
+  - '`ComputePosteriorProbs.MAVTarget`'
+  - '`CopyCovariates.default`'
+  - '`GetBayesianCutoffs.default`'
+  - '`GetBayesianCutoffs.MAVOnly`'
+  - '`GetBayesianCutoffs.MAVTarget`'
+  - '`GetFinalISAAnalysisTime.default`'
+  - '`GetFinalISAAnalysisTime`'
+  - '`InitializePatientList`'
+  - '`InitializeTrialRandomizer.default`'
+  - '`MakeDecision.General`'
+  - '`MakeDecision.Outcome1Only`'
+  - '`MakeDecision.Outcome2Only`'
+  - '`MakeDecision.TwoOutcomeOption1`'
+  - '`MakeDecision.TwoOutcomeOption11`'
+  - '`MakeDecision.TwoOutcomeOption2`'
+  - '`MakeDecision.TwoOutcomeOption3`'
+  - '`MakeDecision.TwoOutcomeOption4`'
+  - '`MakeDecision.TwoOutcomeOption5`'
+  - '`MakeDecision.TwoOutcomeOption7`'
+  - '`MakeDecisionBasedOnPostProb.default`'
+  - '`MakeDecisionBasedOnPostProb.MAVOnly`'
+  - '`MakeDecisionBasedOnPostProb.MAVTarget`'
+  - '`MakeDecisionDoses.AtLeastOne`'
+  - '`MakeDecisionDoses.HighDoseOnly`'
+  - '`MakeTrialDecision`'
+  - '`NewAccrualProcess`'
+  - '`PlatformTrialSimulator`'
+  - '`PlatformTrialSimulator-package`'
+  - '`ProcessData.ProcessReptMeasChngBaseline`'
+  - '`RunAnalysis.AOV`'
+  - '`RunAnalysis.BayesianNormal`'
+  - '`RunAnalysis.default`'
+  - '`RunAnalysis.Ranked`'
+  - '`RunAnalysis.RankedExact`'
+  - '`RunAnalysis`'
+  - '`RunAnalysis.ReptMeasAnalysis`'
+  - '`RunAnalysis.TTest`'
+  - '`RunExample`'
+  - '`RunFinalAnalysis`'
+  - '`RunISAAnalysis.default`'
+  - '`SimPatientOutcomes.Correlated`'
+  - '`SimPatientOutcomes.Independent`'
+  - '`SimPatientOutcomes.MVN`'
+  - '`SimPatientOutcomes.MVNWithCovariate`'
+  - '`SimulateAllISAStartTimes`'
+  - '`SimulateArrivalTimes`'
+  - '`SimulateISAStartTime.default`'
+  - '`SimulateISAStartTime`'
+  - '`SimulateISAStartTime.SetTime`'
+  - '`SimulateISAStartTime.Uniform`'
+  - '`SimulateSingleTrial`'
+  - '`SubsetData.AllControls`'
+  - '`SubsetData`'
+
+articles:
+- title: All vignettes
+  desc: ~
+  contents: '`PlatformTrialSimulator`'
+

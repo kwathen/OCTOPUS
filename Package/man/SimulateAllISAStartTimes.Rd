@@ -2,11 +2,15 @@
 % Please edit documentation in R/SimulateISAStartTime.R
 \name{SimulateAllISAStartTimes}
 \alias{SimulateAllISAStartTimes}
-\alias{SimulateAllISAStartTimes}
 \alias{SimulateAllISAStartTimes.default}
 \title{Simulate ISA Start Times for all ISAs}
 \usage{
 SimulateAllISAStartTimes(cISASimDesigns)
 
 \method{SimulateAllISAStartTimes}{default}(cISASimDesigns)
+}
+\description{
+Simulate ISA Start Times for all ISAs
+
+Simulate ISA Start Times for all ISAs
 }

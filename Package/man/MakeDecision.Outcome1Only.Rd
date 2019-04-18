@@ -4,7 +4,8 @@
 \alias{MakeDecision.Outcome1Only}
 \title{MakeDecision.Outcome1Only}
 \usage{
-\method{MakeDecision}{Outcome1Only}(lDecision, lResAnalysis, bFinalAnalysis)
+\method{MakeDecision}{Outcome1Only}(lDecision, lResAnalysis,
+  bFinalAnalysis)
 }
 \description{
 {This option ONLY uses the decision from Outcome 1.

@@ -2,11 +2,15 @@
 % Please edit documentation in R/ProcessData.R
 \name{ProcessData.ProcessReptMeasChngBaseline}
 \alias{ProcessData.ProcessReptMeasChngBaseline}
-\alias{ProcessData.ProcessReptMeasChngBaseline}
 \alias{ProcessData.ProcessReptMeas}
 \title{ProcessData.ProcessReptMeasChngBaseline}
 \usage{
 \method{ProcessData}{ProcessReptMeasChngBaseline}(cDS, dCurrentTime)
 
 \method{ProcessData}{ProcessReptMeas}(cDS, dCurrentTime)
+}
+\description{
+ProcessData.ProcessReptMeasChngBaseline
+
+ProcessData.ProcessReptMeasChngBaseline
 }

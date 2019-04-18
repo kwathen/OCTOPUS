@@ -17,8 +17,12 @@ Imports:
     MASS
 Depends: R (>= 3.5.0)
 Suggests: testthat,
-          Shiny
+          Shiny,
+          knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/kwathen/PlatformTrialSimulator
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

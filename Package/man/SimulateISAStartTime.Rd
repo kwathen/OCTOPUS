@@ -6,3 +6,6 @@
 \usage{
 SimulateISAStartTime(cParams)
 }
+\description{
+Simulate ISA Start Time
+}
