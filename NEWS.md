@@ -8,5 +8,6 @@ Added use of package website build with pkgdown.
 
 Here is some more stuff.   
 
-## More stuff
+# Version 1.2.1.0
+Features
 
