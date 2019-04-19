@@ -7,6 +7,9 @@
 #
 #############################################################################################################################.
 
+#' @name CheckNextTrialAnalysisTime
+#' @title CheckNextTrialAnalysisTime
+#' @description {This function will Check the monitoring rule and return the time of next Analysis for the trial}
 #' @export
 CheckNextTrialAnalysisTime<- function(  cISADesigns, lEnrolledPats,  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime )
 {
@@ -14,6 +17,10 @@ CheckNextTrialAnalysisTime<- function(  cISADesigns, lEnrolledPats,  vISAStatus,
 
 }
 
+
+#' @name CheckNextTrialAnalysisTime.default
+#' @title CheckNextTrialAnalysisTime.default
+#' @description {This function will Check the monitoring rule and return the time of next Analysis for the trial}
 #' @export
 CheckNextTrialAnalysisTime.default <- function( cISADesigns, lEnrolledPats,  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime )
 {

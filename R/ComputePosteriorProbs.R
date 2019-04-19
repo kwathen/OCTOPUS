@@ -9,7 +9,8 @@
 
 
 
-
+#' @name ComputePosteriorProbs
+#' @title ComputePosteriorProbs
 #' @export
 ComputePosteriorProbs <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis, lSamples )
 {

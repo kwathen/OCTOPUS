@@ -2,6 +2,7 @@
 % Please edit documentation in R/SimPatientOutcomes.MVNWithCovariate.R
 \name{SimPatientOutcomes.MVNWithCovariate}
 \alias{SimPatientOutcomes.MVNWithCovariate}
+\alias{{SimPatientOutcomes.MVNWithCovariate}}
 \title{SimPatientOutcomes.MVNWithCovariate}
 \usage{
 \method{SimPatientOutcomes}{MVNWithCovariate}(cSimOutcomes, cISADesign)
@@ -25,30 +26,39 @@ In this SimPatientOutcomes function we simulate patients from a MVN where there 
       $dMaximum - All simulated values must be <= dMaximum
 }
 \examples{
-This example contains 2 arms and each arm will simulate from 2 populaitons.
-Assuming vMeanR1, vMeanNR2 are mean vector for arm 1 defined elsewhere in the code and have length = 3
-Assuming mVarCovR1, mVarCovNR1 are var-cov for arm 1 defined elsewhere in the code and are a 3x3 matrix
-Assuming vMeanR2, vMeanNR2 are mean vector for arm 2 defined elsewhere in the code and have length = 3
-Assuming mVarCovR2, mVarCovNR2 are var-cov for arm 2 defined elsewhere in the code and are a 3x3 matrix
+{ ## This example contains 2 arms and each arm will simulate from 2 populaitons.
+## Assuming vMeanR1, vMeanNR2 are mean vector for arm 1 defined elsewhere in the code and have length = 3
+## Assuming mVarCovR1, mVarCovNR1 are var-cov for arm 1 defined elsewhere in the code and are a 3x3 matrix
+## Assuming vMeanR2, vMeanNR2 are mean vector for arm 2 defined elsewhere in the code and have length = 3
+## Assuming mVarCovR2, mVarCovNR2 are var-cov for arm 2 defined elsewhere in the code and are a 3x3 matrix
 
-The following example would simulate patient with 3 measurements.  For arm 1, on average, 20\% would
-be from group 1 and 80\% from group 2 with the respective mean and var-cov.  Patients in arm 2 would be simulated
-with 30\%, on average, from group 1 and 70\%, on average, from group 2 with the respective mean and var cov.
+## The following example would simulate patient with 3 measurements.  For arm 1, on average, 20\% would
+## be from group 1 and 80\% from group 2 with the respective mean and var-cov.  Patients in arm 2 would be simulated
+## with 30\%, on average, from group 1 and 70\%, on average, from group 2 with the respective mean and var cov.
+vMeanR1    <- c( 10, 15 )
+mVarCovR1  <- diag(1, nrow=2)
+vMeanNR1   <- c( 5, 8 )
+mVarCovNR1 <- diag( 1, nrow=2)
+lSimArm1   <- list( vMean1     = vMeanR1,
+                    mVarCov1   = mVarCovR1,
+                    vMean2     = vMeanNR1,
+                    mVarCov2   = mVarCovNR1,
+                    vProbGroup = c( 0.2, .8 ),
+                    dMinimum   = 0,
+                    vObsTime   = c( 0, 2, 4 ))
 
-lSimArm1 <- list( vMean1     = vMeanR1,
-                  mVarCov1   = mVarCovR1,
-                  vMean2     = vMeanNR1,
-                  mVarCov2   = mVarCovNR1,
-                  vProbGroup = c( 0.2, .8 ),
-                  dMinimum   = 0
-                  vObsTime   = c( 0, 2, 4 ))
-lSimArm2 <- list( vMean1     = vMeanR2,
-                  mVarCov1   = mVarCovR2,
-                  vMean2     = vMeanNR2,
-                  mVarCov2   = mVarCovNR2,
-                  vProbGroup = c( 0.3, .7 ),
-                  dMinimum   = 0
-                  vObsTime   = c( 0, 2, 4 ))
+vMeanR2    <- c( 10, 15 )
+mVarCovR2  <- diag(1, nrow=2)
+vMeanNR2   <- c( 5, 8 )
+mVarCovNR2 <- diag( 1, nrow=2)
+lSimArm2   <- list( vMean1     = vMeanR2,
+                    mVarCov1   = mVarCovR2,
+                    vMean2     = vMeanNR2,
+                    mVarCov2   = mVarCovNR2,
+                    vProbGroup = c( 0.3, .7 ),
+                    dMinimum   = 0,
+                    vObsTime   = c( 0, 2, 4 ))
 
  cSimOutcomes <- structure( list(lSimArm1 = lSimArm1, lSimArm2 = lSimArm2), class =  "MVNWithCovariate" )
+}
 }

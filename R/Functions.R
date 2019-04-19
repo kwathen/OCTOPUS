@@ -7,9 +7,11 @@
 #
 #############################################################################################################################.
 
-## This function uses the lPatOut as a database of patients, it pulls 1 patient out and adds it to lEnrolledPats
 #AddPatient( lPatOut, dCurrentTime,   nISA <-cRandUpdate$nISA, nTrt <-cRandUpdate$nTrt, cEnrolledPats <- cEnrolledPats )
 
+#' @name AddPatint
+#' @title AddPatient
+#' @description {This function uses the lPatOut as a database of patients, it pulls 1 patient out and adds it to lEnrolledPats}
 #' @export
 AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  cEnrolledPats, nPrintDetail = 0 )
 {
