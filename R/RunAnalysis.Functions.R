@@ -7,56 +7,15 @@
 #
 #############################################################################################################################.
 
-
-#' @export
-GetCILimits <- function( lAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
-{
-
-    ###################################################################################.
-    #  Warning: This is a test case to see if we can allow for the cutoffs to change per the nIA
-    #  THIS NEEDS TO BE GENERALIZED FOR MULTIPLE ISAs THIS SETS ALL ISAS AT THE SAME IA
-    #############################################################################################.
-
-     #    dUpperCI        <- lAnalysis$vUpperCI[nFinalAnalysis]
-     #    dLowerCI        <- lAnalysis$vLowerCI[nFinalAnalysis]
-
-      #   print( paste( "nFinalISA ", nFinalAnalysis, " Lower ", dLowerCI, " Upper IA ", dUpperCI))
-    if(  bIsFinalISAAnalysis == FALSE  )
-    {
-        if( nISAAnalysisIndx > length( lAnalysis$vUpperCI ) )
-        {
-            nIndx <- length( lAnalysis$vUpperCI )
-        }
-        else
-        {
-            nIndx <- nISAAnalysisIndx
-        }
-        dUpperCI        <- lAnalysis$vUpperCI[ nIndx ]
-        dLowerCI        <- lAnalysis$vLowerCI[ nIndx ]
-    }
-    else
-    {
-        dUpperCI        <- lAnalysis$dFinalUpperCI
-        dLowerCI        <- lAnalysis$dFinalLowerCI
-    }
-
-
-    return( list( dLowerCI = dLowerCI, dUpperCI = dUpperCI) )
-}
-
-
-#################################################################################################
-#   GetLSDiffGLS
-#   Will produce the estiamtes comparing to treatment 0 for the LME models that are fit.
-#   The Z values will match to SAS, which is what is used in decision making.
-#   Input:
-#       glsFit: The results of the lme() model fit, required to have the variable TRT and Time
-#       nTrt:   Integer value for the Treatment to compare to 0 (placebo)
-#       nTime:  Integer value for the time variable that should be use.  For example 24, for 24
+#' @name GetLSDiffGLS
+#' @title GetLSDiffGLS
+#' @description {This function will produce the estiamtes comparing to treatment 0 for the LME models that are fit.
+#'   The Z values will match to SAS, which is what is used in decision making.
+#'   This version requires glsFit requires glsFit to be a fit for gls}
+#' @param glsFit: The results of the lme() model fit, required to have the variable TRT and Time
+#' @param nTrt:   Integer value for the Treatment to compare to 0 (placebo)
+#' @param nTime:  Integer value for the time variable that should be use.  For example 24, for 24
 #               months even if additional time points have been observed by some patient.
-#
-#   Note: This version requires glsFit requires glsFit to be a fit for gls
-#################################################################################################
 #' @export
 GetLSDiffGLS <-  function( glsFit, nTrt, nTime, dMAV, dTV, dLowerCI, dUpperCI, bPlacMinusTrt )
 {

@@ -7,7 +7,9 @@
 #
 #############################################################################################################################.
 
-
+#' @name CreateDataSetForAnalysis
+#' @title CreateDataSetForAnalysis
+#' @description {This function is used to created the dataset for analysis.  }
 #' @export
 CreateDataSetForAnalysis <- function( cPats,  dCurrentTime, vISAStatus  )
 {
@@ -17,10 +19,24 @@ CreateDataSetForAnalysis <- function( cPats,  dCurrentTime, vISAStatus  )
 
 #cPats <- cEnrolledPats, dCurrentTime
 
+#' @name CreateDataSetForAnalysis.default
+#' @title CreateDataSetForAnalysis.default
+#' @description {This function creates a dataset for analysis based on the current time (dCurrentTime)
+#' and returns an object with class = "TrialData" that has a list with an element for each ISA data.
+#' Before creating the dataset the ProcessData to create the version of the data needed, eg change from baseline,
+#' and also coppies covariates that are present.}
+#' @param cPats The object of patient data to create the data for analysis from.
+#' @param dCurrentTime The current time in the trial.   In each simulated trial this will be the time at which
+#' the analysis is created.
+#' @param vISAStatus A vector with one element for each ISA.  If the status of the ISA != 0 then a dataset
+#' is created, if the status = 0 for an ISA the dataset will not be created.
+#' @return {An object with class = "TrialData" that has a list with an element for each ISA data.
+#' Before creating the dataset the ProcessData to create the version of the data needed, eg change from baseline,
+#' and also coppies covariates that are present.}
 #' @export
 CreateDataSetForAnalysis.default   <- function( cPats,  dCurrentTime, vISAStatus   )  #IndependentISA <- function( cPats,  dCurrentTime   )
 {
-    #print( "CreateDataSetForAnalysis.IndependentISA ")
+    #print( "CreateDataSetForAnalysis.default")
     lRetData        <- structure( list(), class="TrialData")
 
 
@@ -53,7 +69,7 @@ CreateDataSetForAnalysis.default   <- function( cPats,  dCurrentTime, vISAStatus
 
 
                 lData        <- ProcessData( cDS, dCurrentTime )
-                lData        <-CopyCovariates( lData, cPats$lPatOut[[iISA]] )
+                lData        <- CopyCovariates( lData, cPats$lPatOut[[iISA]] )
                 lISA[[paste("lDataOut", iOut, sep="")]] <- lData
                 if( iOut == nQtyOutcomes )
                     break

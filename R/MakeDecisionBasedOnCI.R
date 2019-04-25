@@ -14,6 +14,13 @@
 # lAnaysis must have lAnalysis$dTV, and lAnalysis$dMAV
 # Return a list of ( nSucces, nNoGo, nPause )
 
+#' @name MakeDecisionBasedOnCI
+#' @title MakeDecisionBasedOnCI
+#' @description {This function  will make the Go/NoGo decision for an outcome given the CI and the MAV, TV }
+#' @param dLowerCI = lower limit of CI
+#' @param  dUpper = upper limit of CI
+#' @param lAnaysis must have lAnalysis$dTV, and lAnalysis$dMAV
+#' @return  Return a list of ( nSucces, nNoGo, nPause )
 #' @export
 MakeDecisionBasedOnCI <- function( dLowerCI, dUpperCI, lAnalysis )
 {

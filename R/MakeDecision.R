@@ -30,7 +30,11 @@
 #############################################################################################################################.
 
 
-
+#' @name MakeDecision
+#' @title MakeDecision
+#' @description {This function is a generic function. Several options are available. }
+#' @return A list like the following:  list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ) with only one of the element = 1.
+#'
 #' @export
 MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis )
 {

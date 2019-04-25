@@ -7,26 +7,20 @@
 #
 #############################################################################################################################.
 
-
+#' @name MakeDecisionDoses
+#' @title MakeDecisionDoses
+#' @description {This function provides options for making decisons when doses are included in an ISA. }
 #' @export
 MakeDecisionDoses<- function( lDoseDec )
 {
     UseMethod( "MakeDecisionDoses", lDoseDec )
 }
 
-#' @export
-MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis )
-{
-    if( length( lResAnalysis ) == 2 )  #There is just one outcome so return it.  Checking if 2 beause the length( lResAnalysis) = # outcomes + 1 (for binary if analysis is run)
-        return( list( nGo = lResAnalysis[[1]]$nGo, nNoGo = lResAnalysis[[1]]$nNoGo, nPause = lResAnalysis[[1]]$nPause)  )
-    else
-    {
-        stop(paste( "ERROR: The default MakeDecision is not defined, class(lDecision) = ", class( lDecision)))
-    }
 
-}
-
-
+#' @name MakeDecisionDoses.default
+#' @title MakeDecisionDoses.default
+#' @description {Generic function to make decisions when doses are present in an ISA.
+#' No default defined so the simulations stop if a specific approach is not defined.  }
 #' @export
 MakeDecisionDoses.default <- function( lDoseDec )
 {
@@ -86,7 +80,8 @@ MakeDecisionDoses.AtLeastOne <- function( lDoseDec )
 
 
 
-
+#' @name MakeDecisionDoses.MakeDecisionMCPMod
+#' @title MakeDecisionDoses.MakeDecisionMCPMod
 #' @export
 MakeDecisionDoses.MakeDecisionMCPMod <- function( lDoseDec )
 {

@@ -7,6 +7,9 @@
 #
 #############################################################################################################################.
 
+#' @name MakeDecisionBasedOnPostProb
+#' @title MakeDecisionBasedOnPostProbb
+#' @description {This function makes a Go/No Go decision based on posterior probabilities.   }
 #' @export
 MakeDecisionBasedOnPostProb <- function( cAnalysis, lCalcs )
 {

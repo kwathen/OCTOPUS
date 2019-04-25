@@ -11,14 +11,15 @@
 # This file contains the necessary functions to simulate the comparison of consecutive POC trials and a Platform trial
 # with an ISA for each POC
 
+#' @name PlotPlatformRecruitment
+#' @title PlotPlatformRecruitment
+#' @description {This function creates a plot of recruitment comparing a platform with 2 ISAs and 2 consecutive POC studies.
+#' Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ). }
 #' @export
 PlotPlatformRecruitment <- function( nQtyReps, nMaxQtyPats, vPatsPerMonthPerSite1,
                                      dDelayToStartPOC, dDelayBetweenTrialsPOC,vQtySitesPOC,
                                      dDelayToStartPlat,dDelayBetweenTrialsPlat, vQtyOfSitesPlat1, vQtyOfSitesPlat2  )
 {
-    strFile <- "SimAccrual0.25.35MaxSitesV5.pdf"
-
-
     vQtyOfSitesPOC1  <- vQtySitesPOC
     vQtyOfSitesPOC2  <- vQtyOfSitesPOC1
     vQtyOfSitesPOC2  <- ifelse( vQtyOfSitesPOC2 > 35, 35, vQtyOfSitesPOC2 )
@@ -82,7 +83,9 @@ ComputeMonthlyAccrual <- function( vPatsPerMonthPerSite, vQtyOfSites )
 
 }
 
-
+#' @name SimulateAccrual
+#' @title SimulateAccrual
+#' @description {This function simulates the accural for 2 ISAs.  Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ). }
 #' @export
 SimulateAccrual <- function( nQtyReps,  nMaxQtyPats, dDelayBetweenTrials, vPatsPerMonthPerSite1,
                              vQtyOfSites1, vPatsPerMonthPerSite2, vQtyOfSites2, dDelayToStart)

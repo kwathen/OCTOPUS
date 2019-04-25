@@ -7,7 +7,13 @@
 #
 #############################################################################################################################.
 
-
+#' @name GetBayesianCutoffs
+#' @title GetBayesianCutoffs
+#' @description{ Used in a trial with a Bayesian analysis and parameter of interest \eqn{\theta}, where
+#' the decisions are based two posterior probabilities Pr( \eqn{\theta} > MAV |data ) > vMAVCutoff
+#' and Pr( \eqn{\theta} > TV | data ) > vTVCutoff.
+#' This function returns a list with dMAVCutoff and dTVCutoff.  0 <= dMAVCutoff and dTVCutoff <= 1.
+#' Typically, this function is not called directly but as part of the ComputePosteriorProb function.}
 #' @export
 GetBayesianCutoffs <- function(  cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis )
 {
