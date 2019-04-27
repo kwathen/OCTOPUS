@@ -8,13 +8,23 @@
 #############################################################################################################################.
 
 
-
+#' @name ProcessData
+#' @title ProcessData
+#' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
+#' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
+#' example, the patient data over time is simualted but the data is analyzed as change from baseline. }
 #' @export
 ProcessData <- function( cDS, dCurrentTime)
 {
     UseMethod( "ProcessData", cDS )
 }
 
+#' @name ProcessData.default
+#' @title ProcessData.default.
+#' @description{ No default version is defined to varify that the user correctly specifies the desired function.
+#' This function is used to process the data before the RunAnalysis function is called.  This can
+#' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
+#' example, the patient data over time is simualted but the data is analyzed as change from baseline. }
 #' @export
 ProcessData.default <- function( cDS, dCurrentTime )
 {
@@ -27,13 +37,15 @@ ProcessData.default <- function( cDS, dCurrentTime )
 
 
 
-#This function will use the vObsTime and vStartTime to remove patients that have not enrolled
-#and set outcomes to NA that have not been observed
-# Will return the change from baseline
-#dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes
-
 #' @name ProcessData.ProcessReptMeasChngBaseline
 #' @title ProcessData.ProcessReptMeasChngBaseline
+#' #' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
+#' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
+#' example, the patient data over time is simualted but the data is analyzed as change from baseline.
+#' This function will use the vObsTime and vStartTime to remove patients that have not enrolled
+#' and set outcomes to NA that have not been observed
+#' Will return the change from baseline
+#' dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes }
 #' @export
 ProcessData.ProcessReptMeasChngBaseline <- function(  cDS, dCurrentTime  )
 {

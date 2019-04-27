@@ -11,17 +11,16 @@
 #Analysis model for MCPMod
 # cAnalysis must have cAnalysis$vDose for class of type MCPMod
 #' @export
-RunAnalysis.MCPModAnalysis <- function( cAnalysis, lDataAna,  nFinalAnalysis )
+RunAnalysis.MCPModAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
 {
     print( "RunAnalysis.MCPMod ")
     #print( lDataAna )
     bPlacMinusTrt <- cAnalysis$bPlacMinusTrt
 
-    lCI      <- GetCILimits(  cAnalysis, nFinalAnalysis )
 
-    dLowerCI      <- lCI$dLowerCI
-    dUpperCI      <- lCI$dUpperCI
-
+    lCI      <- GetCILimits(  cAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis )
+    dLowerCI <- lCI$dLowerCI
+    dUpperCI <- lCI$dUpperCI
 
     vDoseIndx <-  match( lDataAna$vTrt, cAnalysis$vTrtLab)
     vPatDose  <- cAnalysis$vDose[ vDoseIndx ]
@@ -43,7 +42,7 @@ RunAnalysis.MCPModAnalysis <- function( cAnalysis, lDataAna,  nFinalAnalysis )
     lDoseDec <- structure(list(), class=class(cAnalysis))
     for( i in 1:nQtyEst )
         lDoseDec[[i]] <- MakeDecisionBasedOnCI(mcpFit$lCIDiff$vPredDiffPlacCILow[ i ], mcpFit$lCIDiff$vPredDiffPlacCIUpper[ i ], cAnalysis)
-    
+
     #print( mcpFit$fitModel )
     lRet <- MakeDecisionMCPMod( lDoseDec )
     #print( paste("Data for MCPMod"))

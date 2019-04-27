@@ -1,7 +1,7 @@
 Package: PlatformTrialSimulator
 Type: Package
 Title: Platform Trial Simulator
-Version: 1.2.1.1
+Version: 1.2.1.2
 Author: J. Kyle Wathen
 Maintainer: The package maintainer J. Kyle Wathen, PhD <kylewathen@gmail.com>
 Authors@R: person("J. Kyle", "wathen", email = "kylewathen@gmail.com",
@@ -10,11 +10,12 @@ Description: This package is used to simulate platform clinical trials.
     For more about platform trials a reference list is provided
 Imports:
     nlme,
-    DoseFinding,
     coda,
-    coin,
     rjags,
-    MASS
+    DoseFinding,
+    coin,
+    MASS,
+    shiny
 Depends: R (>= 3.5.0)
 Suggests: testthat,
           knitr,
