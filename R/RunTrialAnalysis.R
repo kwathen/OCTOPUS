@@ -47,13 +47,60 @@
 # $vObsTime2
 #################################################################################################################.
 
-#Note: Any RunTrialAnalysis must increment vISAAnalysisIndx if an analysis is run for an ISA
+#' @name RunTrialAnalysis
+#' @title RunTrialAnalysis
+#' @description { RunTrialAnalysis is a generic method to execute the trial level analysis, eg execute all ISA analysis.
+#' Any implementation of RunTrialAnalysis must increment vISAAnalysisIndx if an analysis is run for an ISA   }
 #' @export
 RunTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis  )
 {
     UseMethod( "RunTrialAnalysis", cISADesigns )
 }
 
+
+
+# The cEnrolledPats  is all the data in the trial.  Thus, when sending to an ISA analysis it should first be subset
+# it should have the following elements
+# $vStartTimes
+# $vTrt
+# $vISA
+# $lPatOut
+# $lPatOut$mSimOut1
+# [,1]     [,2]    [,3]     [,4]     [,5]
+# [1,] 236.0638 211.916 136.4621 218.7731 206.6974
+# attr(,"class")
+#
+# $lPatOut$mSimOut2
+# [,1]
+# [1,] -1
+# attr(,"class")
+#
+#
+# $vCurrentQtyPatsISA
+# [1] 0 1
+#
+# $vTrtLab
+# [1] 1 2 3 4 1 2 3 4
+#
+# $vISALab  #
+# [1] 1 1 1 1 2 2 2 2
+#
+# $vQtyPatsArmISA (this is the vector of # patients in ISA1, ISA2,...)
+#
+#
+# $vObsTime1
+#$vObsTime2
+
+
+#' @name RunTrialAnalysis
+#' @title RunTrialAnalysis
+#' @description { RunTrialAnalysis is a generic method to execute the trial analysis.
+#' Any implementation of RunTrialAnalysis must increment vISAAnalysisIndx if an analysis is run for an ISA.
+#' Trial level analysis - will go through and conduct the analysis for each ISA.
+#'  This version is sent all the available data in lDataAna then for each ISA gets the subset
+#'   that is specific to that ISA.  If we want to do a version that borrows control info
+#'   a new version could be adapted.
+#'  }
 #' @export
 RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis  )
 {
@@ -94,12 +141,6 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
 
             class( lDataAna ) <- class( cISAAnalysis)
             lDataTmp <- SubsetData( lDataAna, nISA ) #cISAAnalysis$nISA )
-            #lDataTmp<<- lDataTmp
-            #print( paste( "Data for ISA ", cISAAnalysis$nISA ))
-            #print( lDataTmp)
-            #if( vIsFinalISAAnalysis[ nISA] )
-            #    print( sprintf( "FINAL ANALYSIS for ISA %f ", nISA))
-
 
             ###########################
             #  TODO - This use to have vIsFinalISA which has been replaced by index but may not do all that is necessar

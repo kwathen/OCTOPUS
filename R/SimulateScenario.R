@@ -7,6 +7,10 @@
 #
 #############################################################################################################################.
 
+#' @name SimulateScenario
+#' @title SimulateScenario
+#' @description { SimulateScenario This function is the main funciton in simulating a scenario.
+#' The scenario will be simulated cScen$nQtyReps times.  }
 #' @export
 SimulateScenario <- function( cScen, cTrialDesign  )
 {
@@ -14,6 +18,8 @@ SimulateScenario <- function( cScen, cTrialDesign  )
 
 }
 
+#' @title SimulateScenario.default
+#' @describeIn SimulateScenario  Default method that is suitable for most cases.
 #' @export
 SimulateScenario.default <- function( cScen, cTrialDesign  )
 {

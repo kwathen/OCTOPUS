@@ -10,6 +10,9 @@
 ############### ISA Level Analysis  ##################################################################################################
 #  ISA level analysis will go through each ISA and run all the analysis
 
+#' @name RunISAAnalysis
+#' @title RunISAAnalysis
+#' @description {Generic method called to run the ISA analysis.  }
 #' @export
 RunISAAnalysis <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis )
 {
@@ -21,7 +24,7 @@ RunISAAnalysis <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalIS
 
 #' @name RunISAAnalysis.default
 #' @title RunISAAnalysis.default
-#' @description  The cISAAnalysis object has a list of Analysis...
+#' @description  The cISAAnalysis object has a list of Analysis
 #' @export
 RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
 {
@@ -54,11 +57,15 @@ RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, b
 }
 
 
+#' @name RunISAAnalysis.DoseRanging
+#' @title RunISAAnalysis.DoseRanging
+#' @description {Generic method called to run the ISA analysis.  }
+#' @export
 RunISAAnalysis.DoseRanging <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis  )
 {
     #print( "RunISAAnalysis.DoseRanging")
 
-    #This is just an example to show that we could first do a dose rangign type analysis then the decide how/when
+    #This is just an example to show that we could first do a dose ranging type analysis then the decide how/when
     #to do the primary analysis
     nQtyAna <- length( cISAAnalysis$vAnalysis )
     iAna    <- 1

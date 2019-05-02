@@ -54,7 +54,8 @@ InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer, dISAStartTi
 
 #' @name InitializeISARandomizer.POCRandomizer
 #' @title InitializeISARandomizer.POCRandomizer
-#' @description {InitializeISARandomizer.POCRandomizer will randomize the first patients to a select set of arms or doses in the ISA (eg a POC phase)}
+#' @description { InitializeISARandomizer.POCRandomizer will randomize the first patients to a select set of
+#' arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of intitial patients.}
 #' @param  cISARandomizer The cISARandomizer$vQtyPatsInit identifies the initial patients to randomize first, the vQtyPatsInit is part of the vQtyPats for that ISA
 #'   and is not required by other randomizer so this function will stop if it is not defined
 #' @param dISAStartTime Parameter is not utilized for POCRandomizer
@@ -88,7 +89,8 @@ InitializeISARandomizer.POCRandomizer <- function(  cISARandomizer, dISAStartTim
 
 #' @name InitializeISARandomizer.DelayedStartRandomizer
 #' @title InitializeISARandomizer.DelayedStartRandomizer
-#' @description {This version will randomize the first patients to a select set of arms or doses in the ISA (eg a POC phase)}
+#' @description {This version will randomize the first patients to a select set of arms or doses in the ISA (eg a POC phase)
+#'  The remaining arms or doses are opened based on the provided times to open.}
 #' @param  cISARandomizer cISARandomizer$mTreatmentStartTimes identifies how to simulate/assign the start time of each of the treatments (doses) in the ISA.
 #'   Since cISARandomizer$mTreatmentStartTimes is not required by other randomizer so this function will stop if it is not defined.
 #'   The nrow( cISARandomizer$mTreatmentStartTimes  ) = number of treatments in the ISA.

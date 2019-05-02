@@ -9,6 +9,9 @@
 
 ##### TODO(Kyle) - Is this function needed? #####
 
+#' @name SetRunningEnvironment
+#' @title SetRunningEnvironment
+#' @description {This function is used for setting the running environment and output file names accordingly. }
 #' @export
 SetRunningEnvironment <- function(job.id, cmdArgs )
 {

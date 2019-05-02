@@ -10,28 +10,6 @@
 
 ##### TODO(Kyle) - This file need more documentation
 
-#############################################################################################################################.
-#  This function calls SimPatientOutcomes for each ISA.
-#############################################################################################################################.
-#' @export
-SimulateAllPatientOutcomes <- function( cScen,  cTrialDesign )
-{
-    nQtyISAs <- cTrialDesign$nQtyISAs
-    iISA     <- 1
-    lSimOutcomes <- list( )
-    repeat
-    {
-
-        lSimOutcomes[[ iISA ]]  <-  SimPatientOutcomes( cScen$cISADesigns[[ iISA ]]$cSimOutcomes, cTrialDesign$cISADesigns[[ iISA ]] )
-
-        if( iISA == nQtyISAs )
-            break
-        iISA <- iISA + 1
-    }
-    return( lSimOutcomes )
-
-
-}
 
 #The cSimOutcomes is a class of type Independent or Correlated
 # It should contain a list of outcomes to simulate
@@ -53,12 +31,19 @@ SimulateAllPatientOutcomes <- function( cScen,  cTrialDesign )
 #
 #
 
+#' @name SimPatientOutcomes
+#' @title SimPatientOutcomes
+#' @description SimPatientOutcomes {This function is intended to simulate the outcomes for a given ISA.}
 #' @export
 SimPatientOutcomes <- function( cSimOutcomes, cISADesign )
 {
     UseMethod( "SimPatientOutcomes", cSimOutcomes )
 }
 
+#' @title SimPatientOutcomes.default
+#' @describeIn SimPatientOutcomes { This function is intended to simulate the outcomes for a given ISA.
+#' Because several options are provided and there in no well defined default
+#' an stop error occurs if you call the default method. }
 #' @export
 SimPatientOutcomes.default <- function( cSimOutcomes,  cISADesign )
 {
@@ -66,10 +51,10 @@ SimPatientOutcomes.default <- function( cSimOutcomes,  cISADesign )
 }
 
 
-#' @name SimPatientOutcomes.Independent
-#' @title SimPatientOutcomes
-#' @description  The cSimOutcomes object has a list of sim outcomes and this version will go through and call the
-#' SimPatientOutcomes for each type.  Each outcome is simulated independently.
+# ' @name SimPatientOutcomes.Independent
+#' @title SimPatientOutcomes.Independent
+#' @describeIn SimPatientOutcomes { The cSimOutcomes object has a list of sim outcomes and this version will go through and call the
+#' SimPatientOutcomes for each type.  Each outcome is simulated independently. }
 #' @export
 SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign )
 {
@@ -113,11 +98,11 @@ SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign )
 #This version will assume that lSimOutcomes1 contains the info for simulating all outcomes as a MVN.
 #Each lSimOutcome should contain nIndex that gives the columns from the MVN to select for that outcome
 #SimulateCorrelatedPatientData <- function( lScen, lRandInfo, bRandomize = TRUE )
-#' @name SimPatientOutcomes.Correlated
-#' @title SimPatientOutcomes
-#' @description  The cSimOutcomes object has a list of sim outcomes and this version will utilize the
+# ' @name SimPatientOutcomes.Correlated
+#' @title SimPatientOutcomes.Correlated
+#' @describeIn SimPatientOutcomes { The cSimOutcomes object has a list of sim outcomes and this version will utilize the
 #' first outcome to simulate all outcomes correlated.  Each simoutcome must have an attribute vColIndex that
-#' specifies which columns out of the matrix will be used for that outcome.
+#' specifies which columns out of the matrix will be used for that outcome. }
 #' @export
 SimPatientOutcomes.Correlated <- function( cSimOutcomes, cISADesign)
 {

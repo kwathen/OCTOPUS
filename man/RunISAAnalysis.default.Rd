@@ -8,5 +8,5 @@
   bIsFinalISAAnalysis)
 }
 \description{
-The cISAAnalysis object has a list of Analysis...
+The cISAAnalysis object has a list of Analysis
 }

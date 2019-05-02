@@ -7,14 +7,21 @@
 #
 #############################################################################################################################.
 
-
-# RandomizeBetweenISA should just return the index of the ISA the patient is assigned to
+#' @name RandomizeBetweenISA
+#' @title RandomizeBetweenISA
+#' @description { Generic method to randomize between ISAs.   Any version of
+#' RandomizeBetweenISA should just return the index of the ISA the patient is assigned to.  }
 #' @export
 RandomizeBetweenISA <- function( cRandomizer, vISAStatus, dCurrentTime )
 {
     UseMethod( "RandomizeBetweenISA", cRandomizer )
 
 }
+
+#' @name RandomizeBetweenISA.default
+#' @title RandomizeBetweenISA.default
+#' @description {RandomizeBetweenISA.default is not implemented to avoid potential use when the user
+#' misspells the desired ISA randomizer.}
 #' @export
 RandomizeBetweenISA.default <- function( cRandomizer, vISAStatus, dCurrentTime )
 {
@@ -23,7 +30,9 @@ RandomizeBetweenISA.default <- function( cRandomizer, vISAStatus, dCurrentTime )
 
 }
 
-#' @export
+#' @name RandomizeBetweenISA.EqualRandomizer
+#' @title RandomizeBetweenISA.EqualRandomizer
+#' @description {For all ISAs with vISAStus = 1, select an ISA index with equal probability.  }
 RandomizeBetweenISA.EqualRandomizer <- function( cRandomizer, vISAStatus, dCurrentTime )
 {
     nQtyISA   <- length( cRandomizer )      # This is the number of ISAs

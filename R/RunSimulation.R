@@ -8,15 +8,18 @@
 #############################################################################################################################.
 
 
-#The cSimulaiton object shoudl contain a lScenarios, strOutputFile and nGridIndex.
-
+#' @name RunSimulation
+#' @title RunSimulation
+#' @description {Generic function to execute the simulation of a list of scenarios contained in lScenarios.  }
 #' @export
 RunSimulation  <- function( lSimulation )
 {
     UseMethod( "RunSimulation", lSimulation )
 }
 
-
+#' @name RunSimulation.default
+#' @title RunSimulation.RunSimulation
+#' @description {Generic function to execute the simulation of a list of scenarios contained in lScenarios.  }
 #' @export
 RunSimulation.default <- function( lSimulation )
 {

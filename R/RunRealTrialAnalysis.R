@@ -10,13 +10,18 @@
 
 # This file contains the functions needed for a real trial, eg called during trial conduct
 
+#' @name RunRealTrialAnalysis
+#' @title RunRealTrialAnalysis
+#' @description {Generic function that could be used to run an analysis on trial data.  }
 #' @export
 RunRealTrialAnalysis  <- function( cTrialDesign, strInputFile, strOutputFile, nSeed )
 {
     UseMethod( "RunRealTrialAnalysis", cTrialDesign )
 }
 
-
+#' @name RunRealTrialAnalysis.default
+#' @title RunRealTrialAnalysis.default
+#' @description {RunRealTrialAnalysis.default provides the default implmentation as it is not anticipated to be utilized very often.  }
 #' @export
 RunRealTrialAnalysis.default <- function( cTrialDesign, strInputFile, strOutputFile, nSeed )
 {

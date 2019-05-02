@@ -9,9 +9,13 @@
 
 # See also InitilalizeISARandomizer.R
 
-# RandomizeWithInISA should return a list with at least the following items
-#  nTrt - The treatment within the ISA that the patient should receive
-#  cISARand - the same is cISARand but if it is updates this allows the caller to get the update.
+
+#' @title  RandomizeWithinISA
+#' @description { This function is used in close connection with InitializeISARandomizer and
+#' if a new version of this fuction is developed a new version InitializeISARandomizer with the same
+#' class is required.  RandomizeWithInISA should return a list with at least the following items
+#'  nTrt - The treatment within the ISA that the patient should receive
+#'  cISARand - the same is cISARand but if it is updates this allows the caller to get the update. }
 #' @export
 RandomizeWithinISA <- function( cISARand, dCurrentTime )
 {
@@ -19,16 +23,9 @@ RandomizeWithinISA <- function( cISARand, dCurrentTime )
 
 }
 
-#Do not define a default RandomizeWithinISA as we want it to be defined in the trial setup and get to .default by accident.
-#' @export
-RandomizeWithinISA.default <- function( cISARand, dCurrentTime )
-{
-    stop(  "RandomizeWithinISA.default IS NOT IMPLEMENTED.  class( cISARand ) =", class(cISARand ))
-
-
-}
-
-#   This function contains code that is common for randomizer that create a list with InitializeISARandomizer
+#' @title ReturnNextTreatment
+#' @description { This function uses the first element of cISARand and the first item in the vector
+#' and as the assigned treatment.  The cISARand in the return will have this element removed. }
 #' @export
 ReturnNextTreatment <- function( cISARand )
 {
@@ -40,6 +37,21 @@ ReturnNextTreatment <- function( cISARand )
     return( lRet )
 }
 
+
+
+#' @title  RandomizeWithinISA.defaut
+#' @describeIn RandomizeWithinISA { Because several options are provided and there in no well defined default
+#' an stop error occurs if you call the default method. }
+#' @export
+RandomizeWithinISA.default <- function( cISARand, dCurrentTime )
+{
+    stop(  "RandomizeWithinISA.default IS NOT IMPLEMENTED.  class( cISARand ) =", class(cISARand ))
+}
+
+#' @title RandomizeWithinISA.EqualRandomizer
+#' @describeIn RandomizeWithinISA { Patients are randomized equally/fairly amount the treatments in
+#' the ISA. }
+#' @seealso InitializeISARandomizer.EqualRandomizer
 #' @export
 RandomizeWithinISA.EqualRandomizer <- function( cISARand, dCurrentTime )
 {
@@ -48,6 +60,10 @@ RandomizeWithinISA.EqualRandomizer <- function( cISARand, dCurrentTime )
 
 }
 
+#' @title RandomizeWithinISA.POCRandomizer
+#' @describeIn RandomizeWithinISA { This randomzier will randomize the first patients to a select
+#' set of arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of intitial patients. }
+#' @seealso InitializeISARandomizer.POCRandomizer
 #' @export
 RandomizeWithinISA.POCRandomizer <- function( cISARand, dCurrentTime )
 {
@@ -56,6 +72,10 @@ RandomizeWithinISA.POCRandomizer <- function( cISARand, dCurrentTime )
 
 }
 
+#' @title RandomizeWithinISA.DelayedStartRandomizer
+#' @describeIn RandomizeWithinISA { This version will randomize the first patients to a select set of arms or doses in the ISA (eg a POC phase)
+#'  The remaining arms or doses are opened based on the provided times to open. }
+#' @seealso InitializeISARandomizer.DelayedStartRandomizer
 #' @export
 RandomizeWithinISA.DelayedStartRandomizer <- function( cISARand, dCurrentTime )
 {
