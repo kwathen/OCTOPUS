@@ -5,6 +5,7 @@ sudo: false
 cache: packages
 
 warnings_are_errors: false
+notes_are_errors: false
 
 r_packages:
   - covr
