@@ -1,0 +1,19 @@
+Requirements:
+    PlatformTrialSimulator package version 1.2.1.1
+    Install the PTS package on grid with 
+    For Unix systems you may install similar to R CMD INSTALL -l $HOME/R/x86_64-redhat-linux-gnu-library/3.5 PlatformTrialSimulator_1.2.1.1.tar.gz
+ 
+ 
+Description 
+This is set of simulations is used to create step toward the full design.  The design will have the following features
+1 ISA
+
+ISA Descriptions
+1 ISA 
+
+
+Simulation Scenarios
+Patients are simulated as R and NR
+
+
+Testing:
