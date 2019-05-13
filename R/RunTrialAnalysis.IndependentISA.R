@@ -21,7 +21,7 @@ RunTrialAnalysis.IndependentISA <- function( cISADesigns, cEnrolledPats,  vISASt
         }
 
     }
-    lDataAna <-  CreateDataSetForAnalysis( cEnrolledPats, dCurrentTime )
+    lDataAna <-  CreateDataSetForAnalysis( cEnrolledPats, dCurrentTime, vISAStatus )
 
     #vMinMet     <- ifelse( dCurrentTime >= vStartISAAnalysis & vStartISAAnalysis >0, TRUE, FALSE )
 
@@ -33,7 +33,7 @@ RunTrialAnalysis.IndependentISA <- function( cISADesigns, cEnrolledPats,  vISASt
     for( nISA in 1:nQtyISA)
     {
         lISARes <- list()
-        print( paste( "RunTrialAna - ISA ", nISA,  " vISAStatus", vISAStatus[nISA]))
+        #print( paste( "RunTrialAna - ISA ", nISA,  " vISAStatus", vISAStatus[nISA]))
 
         #TODO: Should we run the Analysis for an ISA anytime the vRunISAAnalysis = 1?
 

@@ -28,6 +28,8 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         print( paste( "SimulateSingleTrial.default - Updated "))
 
     #Initialize Variables
+    if( gDebug == TRUE   )
+        browser()
     nQtyISA             <- cTrialDesign$nQtyISAs
     vStartISAAnalysis   <- rep( -1, nQtyISA )
     vISAPauseEnroll     <- rep( 0, nQtyISA)         # Did enrollment have to pause due to this ISA not being started
@@ -97,6 +99,10 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
         if( any( vRunISAAnalysis == 1))
         {
+
+
+            if( gDebug == TRUE   )
+                browser()
 
             if( cScen$nPrintDetail >= 15 )
                 print( paste( "Running trial analysis vRunISAAnalysis =", paste( vRunISAAnalysis, collapse  =", ")))
@@ -213,6 +219,43 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         print(paste( vISAStatus, collapse=", "))
         stop( "Critical Error: SimulateSingleTrial")
     }
+
+
+
+    if( gDebug == TRUE   )
+        browser()
+
+    # Create the enrollment time, isa ad trt vectors
+
+    vAllPatientStartTimes <- c()
+    vAllPatientTreatments <- c()
+    vAllPatientISAs       <- c()
+    for( i in 1:nQtyISA )
+    {
+        vPatientStartTimes <- cEnrolledPats$lPatOut[[ i ]]$vStartTimes
+        vPatientTreatments <- cEnrolledPats$lPatOut[[ i ]]$vTrt
+        vAllPatientStartTimes <- c( vAllPatientStartTimes, vPatientStartTimes)
+        vAllPatientTreatments <- c( vAllPatientTreatments, vPatientTreatments)
+        vAllPatientISAs       <- c( vAllPatientISAs, rep( i, length(  vPatientStartTimes ) ))
+    }
+    vOrderStart <- order( vAllPatientStartTimes )
+    vAllPatientStartTimes <- vAllPatientStartTimes[ vOrderStart ]
+    vAllPatientTreatments <- vAllPatientTreatments[ vOrderStart ]
+    vAllPatientISAs       <- vAllPatientISAs[ vOrderStart ]
+
+    mEnrollment <- cbind( cScen$nDesign, cScen$Scen, cScen$nGridIndex, cScen$nTrialID, round(vAllPatientStartTimes,2) , vAllPatientTreatments, vAllPatientISAs, 1:length( vAllPatientISAs) )
+    colnames( mEnrollment ) <- c("Design", "Scenario", "GridIndex", "TrialID", "StartTime","Treatment", "ISA", "PatientNumber" )
+    strFileName <- paste( "enrollment/ernoll", cScen$nGridIndex, ".csv", sep="" )
+
+
+    if(  cScen$nGridIndex == 1 && cScen$nTrialID == 1 ){
+        strFileName <- paste( "enrollment/1ernoll", cScen$nGridIndex, ".csv", sep="" )
+        write.table( mEnrollment, strFileName, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
+    }
+    else{
+        write.table( mEnrollment, strFileName, sep=", ", append=TRUE, col.name=FALSE, row.names=FALSE)
+    }
+
 
     ### Working HERE... I believe that if we reach this point we need to know when the last FA is so we can run the last analysis
     # This is not implemented yet

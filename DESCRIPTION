@@ -9,18 +9,18 @@ Authors@R: person("J. Kyle", "wathen", email = "kylewathen@gmail.com",
 Description: This package is used to simulate platform clinical trials. 
     For more about platform trials a reference list is provided
 Imports:
-    nlme,
     coda,
     rjags,
-    DoseFinding,
-    coin,
-    MASS,
     shiny
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.5.0),
+       nlme,
+       MASS,
+       DoseFinding,
+       coin
 Suggests: testthat,
           knitr,
           rmarkdown,
-          covr
+          covr,
 VignetteBuilder: knitr
 URL: https://github.com/kwathen/PlatformTrialSimulator
 License: file LICENSE

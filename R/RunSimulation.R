@@ -24,6 +24,8 @@ RunSimulation  <- function( lSimulation )
 RunSimulation.default <- function( lSimulation )
 {
 
+    if( exists( "gDebug" ) == FALSE   )
+        gDebg <- FALSE
 
     lSimulation <- SetupSimulation( lSimulation )
     nGridIndex  <- ifelse( is.null( lSimulation$nGridIndex ), 1, lSimulation$nGridIndex )
@@ -113,6 +115,10 @@ SetupSimulation <- function( lSimulation )
     if( dir.exists("log") == FALSE )
     {
         dir.create("log")
+    }
+    if( dir.exists("enrollment" ) == FALSE )
+    {
+        dir.create( "enrollment")
     }
 
     #create output directories for all ISA outputs - We assume all designs have the same
