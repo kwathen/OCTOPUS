@@ -19,6 +19,7 @@ SetupTrialDesign <- function()
     dFinalPUpper <- 0.80
     dFinalPLower <- 0.1
 
+    vTrtLab      <- c( 1, 2 )    # 1 = treagtment or control, then labels for each treatment
     vQtyPats     <- c( 30, 60 )  # Control, Treatment
     vMinQtyPats  <- c( 30, 90 )
     vMinFUTime   <- c( 24* dConvWeeksToMonths, 24* dConvWeeksToMonths)
@@ -30,7 +31,7 @@ SetupTrialDesign <- function()
     ########################################################################
 
     cISA1Info <- Create1DoseISA( vQtyPats        = vQtyPats,
-                                 vTrtLab         = c( 1, 2 ),
+                                 vTrtLab         = vTrtLab,
                                  vPUpper         = vPUpper,
                                  vPLower         = vPLower,
                                  dFinalPUpper    = dFinalPUpper,

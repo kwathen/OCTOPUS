@@ -12,7 +12,20 @@ This project is designed to help clinical trial designers simulate a platform tr
 
 In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform.  Each of the structures will be details in the sections below. 
 
+To help increase flexibility and allow for new additions to be added by the users, S3 class and generic methods are implemented.  Many aspects can be extended such as new types of analysis, simulation of outcomes and randomization schemes.  For users not familiar with S3 or generic functions, please refer to the example document [Example S3 Generic Methods](https://github.com/kwathen/PlatformTrialSimulator/blob/master/ExampleS3Class.R).
+
 This package is under development and is working and has been used to simulate several trials.  As case studies are created they will be added to the Examples directory of the package to help users create the necessary structures.  The tar.gz files in this repository are included as testing versions for beta testers as new updates are added. 
 
 Please follow this project to be notified of updates.   
 
+#Trial Design Structure
+A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo.  The first step is considered the trial randomizer and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.  
+
+The trial design object is a structure with a class name equal to the desired trial randomizers.   For example,
+
+cTrialDesign <- structure( list(  ), class='EqualRandomizer')
+
+would create the trial design object where patients are equally randomized between ISAs.  The list( ) in the structure would contain information about the platform, such as the number of ISAs, number of patients on each ISA, ect.   Within the list is also a collection of ISA elements to define the specifics of each ISA.  More details of this object are presented in the documentation and examples.  In general, the ISAs may differ as much as needed, however, if ISAs differ too much the advantages of a platform are minimized.  
+#Simulation Design Structure 
+
+The simulation design object contains two pieces, the first is the trial design, described in the previous section, and the simulation object.  The simulation object contains a list of scenarios, such as the null and alternative, to simulate.    
