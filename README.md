@@ -18,7 +18,7 @@ This package is under development and is working and has been used to simulate s
 
 Please follow this project to be notified of updates.   
 
-#Trial Design Structure
+# Trial Design Structure
 A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo.  The first step is considered the trial randomizer and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.  
 
 The trial design object is a structure with a class name equal to the desired trial randomizers.   For example,
@@ -26,6 +26,6 @@ The trial design object is a structure with a class name equal to the desired tr
 cTrialDesign <- structure( list(  ), class='EqualRandomizer')
 
 would create the trial design object where patients are equally randomized between ISAs.  The list( ) in the structure would contain information about the platform, such as the number of ISAs, number of patients on each ISA, ect.   Within the list is also a collection of ISA elements to define the specifics of each ISA.  More details of this object are presented in the documentation and examples.  In general, the ISAs may differ as much as needed, however, if ISAs differ too much the advantages of a platform are minimized.  
-#Simulation Design Structure 
+# Simulation Design Structure 
 
 The simulation design object contains two pieces, the first is the trial design, described in the previous section, and the simulation object.  The simulation object contains a list of scenarios, such as the null and alternative, to simulate.    
