@@ -19,7 +19,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-home">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -67,7 +67,8 @@
       <a href="https://kwathen.github.io/PlatformTrialSimulator/news/index.html">Version 1.2.1.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="news/index.html">Changelog</a>
     </li>
   </ul>
@@ -90,8 +91,11 @@
 
       
       </header><div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
+    
 
+    
+    
 <div id="platform-trial-simulator" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#platform-trial-simulator" class="anchor"></a>Platform Trial Simulator</h1></div>
@@ -117,14 +121,10 @@
 <p>A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo. The first step is considered the trial randomizer and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.</p>
 <p>The trial design object is a structure with a class name equal to the desired trial randomizers. For example,</p>
 <p>cTrialDesign &lt;- structure( list( ), class=‘EqualRandomizer’)</p>
-<p>would create the trial design object where patients are equally randomized between ISAs. The list( ) in the structure would contain information about the platform, such as the number of ISAs, number of patients on each ISA, ect. Within the list is also a collection of ISA elements to define the specifics of each ISA. More details of this object are presented in the documentation and examples. In general, the ISAs may differ as much as needed, however, if ISAs differ too much the advantages of a platform are minimized.</p>
-</div>
-<div id="simulation-design-structure" class="section level1">
-<h1 class="hasAnchor">
-<a href="#simulation-design-structure" class="anchor"></a>Simulation Design Structure</h1>
+<p>would create the trial design object where patients are equally randomized between ISAs. The list( ) in the structure would contain information about the platform, such as the number of ISAs, number of patients on each ISA, ect. Within the list is also a collection of ISA elements to define the specifics of each ISA. More details of this object are presented in the documentation and examples. In general, the ISAs may differ as much as needed, however, if ISAs differ too much the advantages of a platform are minimized.<br>
+# Simulation Design Structure</p>
 <p>The simulation design object contains two pieces, the first is the trial design, described in the previous section, and the simulation object. The simulation object contains a list of scenarios, such as the null and alternative, to simulate.</p>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -149,7 +149,7 @@
 </ul>
 </div>
 
-  <div class="dev-status">
+      <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://codecov.io/github/kwathen/PlatformTrialSimulator?branch=master"><img src="https://img.shields.io/codecov/c/github/kwathen/PlatformTrialSimulator/master.svg" alt="Coverage Status"></a></li>
@@ -157,7 +157,9 @@
 </ul>
 </div>
 </div>
+
 </div>
+
 
       <footer><div class="copyright">
   <p>Developed by J. Kyle wathen.</p>
