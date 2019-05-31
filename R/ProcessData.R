@@ -12,7 +12,7 @@
 #' @title ProcessData
 #' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
 #' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
-#' example, the patient data over time is simualted but the data is analyzed as change from baseline. }
+#' example, the patient data over time is simulated but the data is analysed as change from baseline. }
 #' @export
 ProcessData <- function( cDS, dCurrentTime)
 {
@@ -21,10 +21,10 @@ ProcessData <- function( cDS, dCurrentTime)
 
 #' @name ProcessData.default
 #' @title ProcessData.default.
-#' @description{ No default version is defined to varify that the user correctly specifies the desired function.
+#' @description{ No default version is defined to verify that the user correctly specifies the desired function.
 #' This function is used to process the data before the RunAnalysis function is called.  This can
 #' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
-#' example, the patient data over time is simualted but the data is analyzed as change from baseline. }
+#' example, the patient data over time is simulated but the data is analysed as change from baseline. }
 #' @export
 ProcessData.default <- function( cDS, dCurrentTime )
 {
@@ -41,7 +41,7 @@ ProcessData.default <- function( cDS, dCurrentTime )
 #' @title ProcessData.ProcessReptMeasChngBaseline
 #' #' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
 #' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
-#' example, the patient data over time is simualted but the data is analyzed as change from baseline.
+#' example, the patient data over time is simulated but the data is analysed as change from baseline.
 #' This function will use the vObsTime and vStartTime to remove patients that have not enrolled
 #' and set outcomes to NA that have not been observed
 #' Will return the change from baseline
@@ -136,7 +136,7 @@ ProcessData.ProcessReptMeas <- function(  cDS, dCurrentTime  )
     #If data has not been observed make it NA
     mSimDataAna[ mObsTime > dCurrentTime ] <- NA
 
-    #If the first colum is NA we cannotwe cannot use this patient so drop them off
+    #If the first column is NA we cannot use this patient so drop them off
     vKeep       <- !is.na(mSimDataAna[,1])
 
     mSimDataAna <- matrix(mSimDataAna[ vKeep, ], ncol=ncol(mSimDataAna))      #If the 2nd column (first obs post baseline) is NA cant use

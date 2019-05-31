@@ -39,7 +39,7 @@ setGeneric( name = "Validate", def=function(obj){standardGeneric("Validate")})
 setClass(
     Class = "AccrualMethods",
     representation = representation(
-        m.vQtyPatsPerMonth      = "numeric",        #Required - enrollment rate per month.
+        m.vQtyPatsPerMonth      = "numeric",        #Required - enrolment rate per month.
         #If length=1 constant rate else monthly rate and will only enroll for length( m.vQtyPatPerMonth)-->make sure
         #to provide enough monthly rates to meet max # patients and/or length
         m.nMaxQtyPatients       = "numeric",        #The maximum number of patients to enroll

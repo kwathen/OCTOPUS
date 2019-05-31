@@ -53,3 +53,6 @@ https://shiny.rstudio.com/gallery/
 https://www.rstudio.com/products/shiny/shiny-user-showcase/
 https://www.rstudio.com/wp-content/uploads/2016/01/shiny-cheatsheet.pdf
 
+
+==== JAGS ====
+http://www.sourceforge.net/projects/mcmc-jags/files

@@ -170,13 +170,13 @@ length of the returned vector could be less than nMaxQtyPatient.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>NewAccrualProcess</code> for creating the object.</p></div>
+    <div class='dont-index'><p><code><a href='NewAccrualProcess.html'>NewAccrualProcess</a></code> for creating the object.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='no'>vPatsPerMonth</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>, <span class='fl'>30</span>, <span class='fl'>40</span>, <span class='fl'>50</span>) <span class='co'># The ramp up in expected Pat/month</span>
   <span class='no'>nMaxQtyPats</span>    <span class='kw'>&lt;-</span> <span class='fl'>100</span>  <span class='co'># Maximum of 100 patients</span>
-  <span class='no'>ap</span>             <span class='kw'>&lt;-</span> <span class='fu'>NewAccrualProcess</span>( <span class='kw'>vQtyPatsPerMonth</span> <span class='kw'>=</span> <span class='no'>vPatsPerMonth</span>, <span class='kw'>nMaxQtyPatients</span> <span class='kw'>=</span> <span class='no'>nMaxQtyPats</span> )
+  <span class='no'>ap</span>             <span class='kw'>&lt;-</span> <span class='fu'><a href='NewAccrualProcess.html'>NewAccrualProcess</a></span>( <span class='kw'>vQtyPatsPerMonth</span> <span class='kw'>=</span> <span class='no'>vPatsPerMonth</span>, <span class='kw'>nMaxQtyPatients</span> <span class='kw'>=</span> <span class='no'>nMaxQtyPats</span> )
   <span class='no'>vAccTimes</span>      <span class='kw'>&lt;-</span> <span class='fu'>SimulateArrivalTimes</span>( <span class='no'>ap</span> )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
