@@ -40,7 +40,7 @@ RunTrialAnalysis.IndependentISA <- function( cISADesigns, cEnrolledPats,  vISASt
 
         if( vRunISAAnalysis[ nISA ] == 1 &&  vISAStatus[ nISA ] <=2 )   #If the minimum is met and the ISA is open then do the analysis
         {
-            print( paste( ".....Case 1 - Running analysis for ISA ", nISA, " ISAStatus ", vISAStatus[ nISA ]))
+            #print( paste( ".....Case 1 - Running analysis for ISA ", nISA, " ISAStatus ", vISAStatus[ nISA ]))
             cISAAnalysis <- cISADesigns[[ nISA ]]$cISAAnalysis
             #print( paste( "Data for trial "))
             #print( lDataAna )
@@ -54,7 +54,7 @@ RunTrialAnalysis.IndependentISA <- function( cISADesigns, cEnrolledPats,  vISASt
 
             ####  TODO(Kyle) - This use to have vIsFinalISA which has been replaced by index but may not do all that is necessaru #####
 
-            print( paste( ".....IndependentISA vISAAnalysisIndx ", vISAAnalysisIndx[ nISA], " IsFinalISA ", vIsFinalISAAnalysis[ nISA ], sep =""))
+            #print( paste( ".....IndependentISA vISAAnalysisIndx ", vISAAnalysisIndx[ nISA], " IsFinalISA ", vIsFinalISAAnalysis[ nISA ], sep =""))
             lISARes <- RunISAAnalysis( cISAAnalysis, lDataTmp, vISAAnalysisIndx[ nISA],  vIsFinalISAAnalysis[ nISA ]  )
 
             vISAAnalysisIndx[ nISA ] <- vISAAnalysisIndx[ nISA ] + 1
@@ -62,7 +62,7 @@ RunTrialAnalysis.IndependentISA <- function( cISADesigns, cEnrolledPats,  vISASt
         }
         else if(  vISAStatus[ nISA ] <= 1  )
         {
-            print( ".....Case 2 - Analysis not being run for ISA ", nISA )
+            #print( ".....Case 2 - Analysis not being run for ISA ", nISA )
 
             cISAAnalysis <- cISADesigns[[ nISA ]]$cISAAnalysis
 

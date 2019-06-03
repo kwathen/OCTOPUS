@@ -76,9 +76,9 @@ RunAnalysis.RankedPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, b
         #lRet2[[paste( "lDoseDec", iTrt,sep="")]] <- list(   )
 
     }
-    print( paste( "Outcome Dec ", lAllRet))
+    #print( paste( "Outcome Dec ", lAllRet))
     lRetObj <- MakeDecisionDoses( lAllRet )
-    print( paste( "lRetOb ", lRetObj))
+    #print( paste( "lRetOb ", lRetObj))
 
     if(!is.null(cAnalysis$nVerboseOutput) && cAnalysis$nVerboseOutput== 1)
     {

@@ -21,6 +21,24 @@ t.test.pval <-function( vSamp )
     t.test( vSamp )$p.value
 }
 
+
+CleanSimulationDirectories <- function()
+{
+    if( length( dir("enrollment") ) > 0)
+        file.remove( paste("enrollment/", dir("enrollment"), sep="") )
+
+    if( length( dir( "ISAOut1")) > 0 )
+        file.remove( paste("ISAOut1/", dir( "ISAOut1"), sep="") )
+
+    if( length( dir( "ISAOut2")) > 0 )
+        file.remove( paste("ISAOut2/", dir( "ISAOut2") , sep="") )
+
+    if( length( dir( "log")) > 0 )
+        file.remove( paste("log/", dir( "log") , sep="") )
+
+    if( length( dir( "out")) > 0 )
+        file.remove( paste("out/", dir( "out") , sep="") )
+}
 # This function checks to make sure two lists have the same elements and the values match
 # if bOrderMatters = FALSE then the items do not have to be in the same order.
 AreListsEqual <- function( lList1, lList2, bOrderMatters = FALSE  )

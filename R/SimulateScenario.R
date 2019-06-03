@@ -32,7 +32,7 @@ SimulateScenario.default <- function( cScen, cTrialDesign  )
     cScen$nTrialID  <- cScen$nTrialIDStart
     repeat
     {
-        print( paste( "Rep ", i))
+        #print( paste( "Rep ", i))
         rRes <- SimulateSingleTrial( cScen, cTrialDesign  )
 
         vRes <- rbind( vRes,c( unlist( rRes ) ))

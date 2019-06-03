@@ -245,11 +245,11 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
     mEnrollment <- cbind( cScen$nDesign, cScen$Scen, cScen$nGridIndex, cScen$nTrialID, round(vAllPatientStartTimes,2) , vAllPatientTreatments, vAllPatientISAs, 1:length( vAllPatientISAs) )
     colnames( mEnrollment ) <- c("Design", "Scenario", "GridIndex", "TrialID", "StartTime","Treatment", "ISA", "PatientNumber" )
-    strFileName <- paste( "enrollment/ernoll", cScen$nGridIndex, ".csv", sep="" )
+    strFileName <- paste( "enrollment/enroll", cScen$nGridIndex, ".csv", sep="" )
 
 
     if(  cScen$nGridIndex == 1 && cScen$nTrialID == 1 ){
-        strFileName <- paste( "enrollment/1ernoll", cScen$nGridIndex, ".csv", sep="" )
+        strFileName <- paste( "enrollment/1enroll", cScen$nGridIndex, ".csv", sep="" )
         write.table( mEnrollment, strFileName, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
     }
     else{
