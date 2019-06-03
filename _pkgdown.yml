@@ -6,6 +6,7 @@ navbar:
     - reference
     - articles
     - tutorials
+    - example
     - news
     right: github
   components:
@@ -21,6 +22,9 @@ navbar:
     intro:
       text: Get started
       href: articles/PlatformTrialSimulator.html
+    example:
+      text: Examples
+      href: articles/Examples.html
     github:
       icon: fa-github fa-lg
       href: https://github.com/kwathen/PlatformTrialSimulator

@@ -18,7 +18,7 @@ Requirements:
 Description
 
 Platform trial with 1 ISA.
-1 interim analysis at when 30 patients have 24 weeks of follow-up
+No  interim analysis
 Final Analysis (FA) when all patients have the outcome observed.
 30 patients on control 60 patients on treatment
 Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
@@ -28,8 +28,8 @@ This is the minimum difference between treatment and control
 ( m24 - m0 )Cont – (m24 - m0 )Trt
 
 R Code
-Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
+Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.
 The file TrialDesign.R contains the function necessary to setup the design object.
-The file SimulationDesign.R contains the functions necessary to setup the simulation design.  
+The file SimulationDesign.R contains the functions necessary to setup the simulation design.
 
 

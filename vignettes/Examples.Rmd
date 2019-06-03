@@ -1,0 +1,58 @@
+---
+title: "Examples"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Examples
+
+Examples are included in the installation folder as case studies, CaseStudy2 and CaseStudy3 with corresponding R Studio project files. CaseStudy2.Rpoj and CaseStudy3.Rpoj   
+
+
+## Case Study 2
+
+# Description
+
+Located in the Examples/CaseStudy2
+Platform trial with 1 ISA.
+1 interim analysis at when 30 patients have 24 weeks of follow-up
+Final Analysis (FA) when all patients have the outcome observed.
+30 patients on control 60 patients on treatment
+Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
+Analyze difference from baseline at week 24 compared to control
+Minimum Acceptable Value MAV = 0.5 difference between control and treatment
+This is the minimum difference between treatment and control
+( m24 - m0 )Cont – (m24 - m0 )Trt
+
+# R Code
+Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
+The file TrialDesign.R contains the function necessary to set-up the design object.
+The file SimulationDesign.R contains the functions necessary to set-up the simulation design. 
+
+## Case Study 3
+Located in the Examples/CaseStudy3
+Platform trial with 1 ISA.
+No  interim analysis
+Final Analysis (FA) when all patients have the outcome observed.
+30 patients on control 60 patients on treatment
+Assume same design as Case Study 2
+No need to modify the TrialDesign.R file
+Assume that patients either respond (R) or they are non-responder NR
+If a patient is a responder (R) their outcomes are generated from mean vector 2
+If a patient is a non-responder (NR) their outcomes are generated from mean vector 1
+Utilize SimPatientOutcomes.MVNWithCovariate outcome type
+Historical data suggests that 2% of patients on control will respond.
+Treatment should increase the % of responders.
+
+
+# R Code
+Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
+The file TrialDesign.R contains the function necessary to set-up the design object.
+The file SimulationDesign.R contains the functions necessary to set-up the simulation design. 
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```

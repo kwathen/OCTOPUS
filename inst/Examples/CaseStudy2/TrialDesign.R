@@ -21,7 +21,7 @@ SetupTrialDesign <- function()
 
     vTrtLab      <- c( 1, 2 )    # 1 = treagtment or control, then labels for each treatment
     vQtyPats     <- c( 30, 60 )  # Control, Treatment
-    vMinQtyPats  <- c( 30, 90 )
+    vMinQtyPats  <- c( 90, 90 )
     vMinFUTime   <- c( 24* dConvWeeksToMonths, 24* dConvWeeksToMonths)
     dQtyMonthsBtwIA  <- 0.0
 
