@@ -26,4 +26,11 @@ This package is under development and is working and has been used to simulate s
 Please follow this project to be notified of updates.   
 
 ## Installation 
-Currently this package is not available on CRAN but may be installed direclty from the tar.gz files located in GitHub.  The most recent version is [Version 1.2.1.2](https://github.com/kwathen/PlatformTrialSimulator/blob/master/PlatformTrialSimulator_1.2.1.2.tar.gz).   
+Currently this package is not available on CRAN but may be installed direclty from the tar.gz files located in GitHub.  The most recent version is [Version 1.2.1.2](https://github.com/kwathen/PlatformTrialSimulator/blob/master/PlatformTrialSimulator_1.2.1.2.tar.gz).   If you have the  PlatformTrialSimulator_1.2.1.2.tar.gz in the current working directory the following command will install the package.
+
+```{r, eval = FALSE}
+install.packages("PlatformTrialSimulator_1.2.1.2.tar.gz", repos=NULL)
+````
+
+## Usage 
+In the instillation folder there is an Examples directory that contains full examples. 

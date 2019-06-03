@@ -1,0 +1,24 @@
+
+# License
+
+Copyright (C) 2018 JANSSEN RESEARCH & DEVELOPMENT, LLC
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License  along with this program in the file GPL; if not, see <https://www.gnu.org/licenses>.
+
+Additional permission under GNU GPL version 3 section 7
+
+
+## LIMITATION OF LIABILITY
+
+In accordance with Section 7(a), Section 16 (Limitation of Liability) is hereby deleted in its entirety and replaced with the following:
+
+IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY DIRECT, INDIRECT, GENERAL, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL DAMAGES (INCLUDING WITH RESPECT TO LOST PROFITS) ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+
+## INDEMNIFICATION
+
+In accordance with Section 7(f), if you convey the Program, you will indemnify, defend, and hold harmless each contributor, each contributor's affiliates, and their respective directors, officers, representatives, and employees against all third party claims of any kind whatsoever that may arise or result from (a) your use of the Program (including any and all claims from your end users) or (b) the existence, performance or termination of this License and which are caused through the breach by you of this License or through negligence, fault or carelessness of you or of any person retained by you in the use of the Program, in the implementation of this License, or through your or their failure to observe any applicable statutory and contractual obligations.
