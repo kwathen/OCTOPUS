@@ -12,7 +12,6 @@ Sys.setenv( SGE_TASK_ID = 1)
 cTrialDesign <- SetupTrialDesign2ISASimple( )
 nQtyRep      <- 1
 cSimulation  <- SetupSimulations( cTrialDesign, nQtyRep )
-gDebug       <- FALSE
 
 #----------------------------------------------------------------------------------------------
 #
@@ -27,6 +26,8 @@ test_that("RunSimulation - Outputfiles",
         #Now perform a few random tests to make sure the randomization to the ISAs are equal
         CleanSimulationDirectories( )
         Sys.setenv( SGE_TASK_ID = 1)
+
+        gDebug       <<- FALSE
 
         set.seed(123)
         lRet = RunSimulation( cSimulation )
