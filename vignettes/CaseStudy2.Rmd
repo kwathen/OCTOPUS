@@ -1,0 +1,27 @@
+---
+title: "Case Study 2"
+author: "J. Kyle Wathen"
+date: "June 4, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Case Study 2
+Located in the Examples/CaseStudy2
+Platform trial with 1 ISA.
+1 interim analysis at when 30 patients have 24 weeks of follow-up
+Final Analysis (FA) when all patients have the outcome observed.
+30 patients on control 60 patients on treatment
+Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
+Analyze difference from baseline at week 24 compared to control
+Minimum Acceptable Value MAV = 0.5 difference between control and treatment
+This is the minimum difference between treatment and control
+( m24 - m0 )Cont – (m24 - m0 )Trt
+
+### R Code
+Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
+The file TrialDesign.R contains the function necessary to set-up the design object.
+The file SimulationDesign.R contains the functions necessary to set-up the simulation design. 

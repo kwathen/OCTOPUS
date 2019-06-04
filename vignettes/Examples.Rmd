@@ -1,5 +1,5 @@
 ---
-title: "Examples"
+title: "Introduction"
 output: html_document
 ---
 
@@ -7,16 +7,15 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Examples
+# Examples
+Examples are included in the installation folder as case studies, CaseStudy2 and CaseStudy3 with corresponding R Studio project files CaseStudy2.Rpoj and CaseStudy3.Rpoj, respectively.    Below is a brief description of each case study.  
 
-Examples are included in the installation folder as case studies, CaseStudy2 and CaseStudy3 with corresponding R Studio project files. CaseStudy2.Rpoj and CaseStudy3.Rpoj   
+## Case Study 1
+One of the first tasks that is typically conducted by a team is the comparison of patient recruitment in a platform trial with two ISAs versus two sequential POC studies.  This case study utilized the R Shiny App in this package to compare the recruitment under a given set of assumptions regarding patient recruitment rates, number of sites and time delay for platform trial versus consecutive POC studies.  The focus is on the operational comparisons rather than statistical comparisons.   
 
+[View More](CaseStudy1.html)
 
 ## Case Study 2
-
-# Description
-
-Located in the Examples/CaseStudy2
 Platform trial with 1 ISA.
 1 interim analysis at when 30 patients have 24 weeks of follow-up
 Final Analysis (FA) when all patients have the outcome observed.
@@ -27,10 +26,7 @@ Minimum Acceptable Value MAV = 0.5 difference between control and treatment
 This is the minimum difference between treatment and control
 ( m24 - m0 )Cont – (m24 - m0 )Trt
 
-# R Code
-Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
-The file TrialDesign.R contains the function necessary to set-up the design object.
-The file SimulationDesign.R contains the functions necessary to set-up the simulation design. 
+[View More](CaseStudy2.html)
 
 ## Case Study 3
 Located in the Examples/CaseStudy3
@@ -47,12 +43,7 @@ Utilize SimPatientOutcomes.MVNWithCovariate outcome type
 Historical data suggests that 2% of patients on control will respond.
 Treatment should increase the % of responders.
 
+[View More](CaseStudy3.html)
 
-# R Code
-Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
-The file TrialDesign.R contains the function necessary to set-up the design object.
-The file SimulationDesign.R contains the functions necessary to set-up the simulation design. 
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+

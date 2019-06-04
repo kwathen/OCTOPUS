@@ -1,0 +1,32 @@
+---
+title: "Case Study 3"
+author: "J. Kyle Wathen"
+date: "June 4, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Case Study 3
+
+Located in the Examples/CaseStudy3
+Platform trial with 1 ISA.
+No  interim analysis
+Final Analysis (FA) when all patients have the outcome observed.
+30 patients on control 60 patients on treatment
+Assume same design as Case Study 2
+No need to modify the TrialDesign.R file
+Assume that patients either respond (R) or they are non-responder NR
+If a patient is a responder (R) their outcomes are generated from mean vector 2
+If a patient is a non-responder (NR) their outcomes are generated from mean vector 1
+Utilize SimPatientOutcomes.MVNWithCovariate outcome type
+Historical data suggests that 2% of patients on control will respond.
+Treatment should increase the % of responders.
+
+
+### R Code
+Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
+The file TrialDesign.R contains the function necessary to set-up the design object.
+The file SimulationDesign.R contains the functions necessary to set-up the simulation design. 

@@ -4,9 +4,7 @@ navbar:
     - home
     - intro
     - reference
-    - articles
-    - tutorials
-    - example
+    - examples
     - news
     right: github
   components:
@@ -22,12 +20,23 @@ navbar:
     intro:
       text: Get started
       href: articles/PlatformTrialSimulator.html
-    example:
-      text: Examples
-      href: articles/Examples.html
+    tutorials: ~
+    articles: ~
+
+    examples:
+        text: Examples
+        menu:
+        - text: Introduction
+          href: articles/Examples.html
+        - text: "Case Study 1"
+          href: articles/CaseStudy1.html
+        - text: "Case Study 2"
+          href: articles/CaseStudy2.html
+        - text: "Case Study 3"
+          href: articles/CaseStudy3.html
     github:
-      icon: fa-github fa-lg
-      href: https://github.com/kwathen/PlatformTrialSimulator
+          icon: fa-github fa-lg
+          href: https://github.com/kwathen/PlatformTrialSimulator
 news:
  releases:
  - one_page: false

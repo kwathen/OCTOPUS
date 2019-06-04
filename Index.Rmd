@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Platform Trial Simulator  
+# ViPER - Virtual Platform Evaluator in R   <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/kwathen/PlatformTrialSimulator/master.svg)](https://codecov.io/github/kwathen/PlatformTrialSimulator?branch=master)
 [![Travis-CI Build Status](https://travis-ci.org/kwathen/PlatformTrialSimulator.svg?branch=master)](https://travis-ci.org/kwathen/PlatformTrialSimulator)
@@ -26,7 +26,7 @@ This package is under development and is working and has been used to simulate s
 Please follow this project to be notified of updates.   
 
 ## Installation 
-Currently this package is not available on CRAN but may be installed direclty from the tar.gz files located in GitHub.  The most recent version is [Version 1.2.1.2](https://github.com/kwathen/PlatformTrialSimulator/blob/master/PlatformTrialSimulator_1.2.1.2.tar.gz).   If you have the  PlatformTrialSimulator_1.2.1.2.tar.gz in the current working directory the following command will install the package.
+Currently this package is not available on CRAN but may be installed directly from the tar.gz files located in GitHub.  The most recent version is [Version 1.2.1.2](https://github.com/kwathen/PlatformTrialSimulator/blob/master/PlatformTrialSimulator_1.2.1.2.tar.gz).   If you have the  PlatformTrialSimulator_1.2.1.2.tar.gz in the current working directory the following command will install the package.
 
 ```{r, eval = FALSE}
 install.packages("PlatformTrialSimulator_1.2.1.2.tar.gz", repos=NULL)

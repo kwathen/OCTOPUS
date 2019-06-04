@@ -1,0 +1,33 @@
+---
+title: "Case Study 1"
+author: "J. Kyle Wathen"
+date: "June 4, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Case Study 1
+One of the first tasks that is typically conducted by a team is the comparison of patient recruitment in a platform trial with two ISAs versus two sequential POC studies.  This case study utilized the R Shiny App in this package to compare the recruitment under a given set of assumptions regarding patient recruitment rates, number of sites and time delay for platform trial versus consecutive POC studies.  The focus of this case study is on the operational comparisons rather than statistical comparisons.   
+
+## Assumptions 
+* Assume 2 ISAs, named ISA 1 and ISA 2.
+* Assume ISA 2 is ready in about 24 months.
+* Starting a platform trial will take 6 months longer to get approved and set-up. 
+* Assume a platform trial will have more sites due to the longer recruitment and multiple therapies when compared to two independent POC studies.  
+	+ Assume 60 sites for consecutive POCs
+	+ Assume 90 sites in platform
+* Opening sites in the platform will be slower than the 1^{st} POC 
+* Getting approval for the 2^{nd} ISA will be quicker than open the 2^{nd} POC since it will be a new protocol.
+	
+	* Assume N = 90 for each ISA or POC.
+	
+## R Source
+ This case study is easily done using the R Shiny App included in the package.  To launch the R Shiny App
+ 
+```{r, eval = FALSE}
+library( PlatformTrialSimulator )
+PlatformTrialSimulator::RunExample( "CompareRecruitment" )
+````
