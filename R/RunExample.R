@@ -39,6 +39,6 @@ RunExample <- function(example) {
     }
 
     # find and launch the app
-    appDir <- system.file("ShinyExamples", example, package = strPackage)
+    appDir <- system.file("ShinyExamples", example,"ShinyApp.R", package = strPackage)
     shiny::runApp(appDir, display.mode = "normal")
 }

@@ -1,8 +1,12 @@
 ---
 title: "Case Study 3"
 author: "J. Kyle Wathen"
-date: "June 4, 2019"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Case Study 3}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

@@ -1,8 +1,12 @@
 ---
 title: "Case Study 1"
 author: "J. Kyle Wathen"
-date: "June 4, 2019"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Case Study 1}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -19,8 +23,8 @@ One of the first tasks that is typically conducted by a team is the comparison o
 * Assume a platform trial will have more sites due to the longer recruitment and multiple therapies when compared to two independent POC studies.  
 	+ Assume 60 sites for consecutive POCs
 	+ Assume 90 sites in platform
-* Opening sites in the platform will be slower than the 1^{st} POC 
-* Getting approval for the 2^{nd} ISA will be quicker than open the 2^{nd} POC since it will be a new protocol.
+* Opening sites in the platform will be slower than the 1<sup>st</sup> POC 
+* Getting approval for the 2<sup>nd</sup> ISA will be quicker than open the 2<sup>nd</sup> POC since it will be a new protocol.
 	
 	* Assume N = 90 for each ISA or POC.
 	
@@ -30,4 +34,11 @@ One of the first tasks that is typically conducted by a team is the comparison o
 ```{r, eval = FALSE}
 library( PlatformTrialSimulator )
 PlatformTrialSimulator::RunExample( "CompareRecruitment" )
-````
+```
+
+After launching the app the following screen will show. 
+![Shiny App For Recruitment](ExampleShiny1.png)
+
+
+
+

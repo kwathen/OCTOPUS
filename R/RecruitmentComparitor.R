@@ -45,6 +45,40 @@ PlotPlatformRecruitment <- function( nQtyReps, nMaxQtyPats, vPatsPerMonthPerSite
 
 }
 
+#' @name ggPlotPlatformRecruitment
+#' @title PlotPlatformRecruitment
+#' @description {This function creates a plot of recruitment comparing a platform with 2 ISAs and 2 consecutive POC studies.
+#' Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ).  This version returns a ggplot2 object. }
+#' @export
+ggPlotPlatformRecruitment <- function( nQtyReps, nMaxQtyPats, vPatsPerMonthPerSite1,
+                                     dDelayToStartPOC, dDelayBetweenTrialsPOC,vQtySitesPOC,
+                                     dDelayToStartPlat,dDelayBetweenTrialsPlat, vQtyOfSitesPlat1, vQtyOfSitesPlat2  )
+{
+    vQtyOfSitesPOC1  <- vQtySitesPOC
+    vQtyOfSitesPOC2  <- vQtyOfSitesPOC1
+    vQtyOfSitesPOC2  <- ifelse( vQtyOfSitesPOC2 > 35, 35, vQtyOfSitesPOC2 )
+
+
+
+    #For the POC sending the same vPatsPerMonthPerSite1 for POC1 and 2 because there is no savings in the second
+
+    lSimResPOC <- SimulateAccrual( nQtyReps, nMaxQtyPats, dDelayBetweenTrialsPOC,
+                                   vPatsPerMonthPerSite1, vQtyOfSitesPOC1, vPatsPerMonthPerSite1,
+                                   vQtyOfSitesPOC1, dDelayToStartPOC )
+
+
+
+
+
+    lSimResPlat <- SimulateAccrual( nQtyReps, nMaxQtyPats, dDelayBetweenTrialsPlat,
+                                    vPatsPerMonthPerSite1, vQtyOfSitesPlat1, vPatsPerMonthPerSite1,
+                                    vQtyOfSitesPlat2, dDelayToStartPlat   )
+
+
+    return( ggSummarizeSimple( lSimResPOC, lSimResPlat ) )
+
+}
+
 
 
 ComputeMonthlyAccrual <- function( vPatsPerMonthPerSite, vQtyOfSites )
@@ -377,4 +411,101 @@ SummarizeSimple <- function( lResPOC, lResPlat, strFile, xlim = NA, ylim = NA )
     {
         dev.off()
     }
+}
+
+# lResPOC <- SimulateAccrual( 100, 100,6,
+#                               c(0.1,0.3,0.45, 0.5), c(5,10,15,20,25,35), c(0.1,0.3,0.45, 0.5),
+#                               c(5,10,15,20,25,35), 3 )
+#
+#
+#
+#
+#
+# lResPlat <- SimulateAccrual( 100,100, 1,
+#                                c(0.1,0.3,0.45, 0.5), c(3,8,15,35,50,70),  c(0.1,0.3,0.45, 0.5),
+#                                c(7.5, 15, 23,30, 37.5, 70), 6   )
+#
+# ggSummarizeSimple( lResPOC, lResPlat, "" )
+#  ggPlotPlatformRecruitment ( 100,100, c(0.1,0.3,0.45, 0.5),
+#                                        6, 6, c(3,8,15,35,50,70),
+#                                        6,2, c(3,8,15,35,50,70), c(7.5, 15, 23,30, 37.5, 70) )
+#
+
+ggSummarizeSimple <- function( lResPOC, lResPlat,  xlim = NA, ylim = NA )
+{
+
+
+    strAssump <- paste( "Assumptions - POC\n", lResPOC$strAssumpTr1, "\n\n", "Assumptions - Platform\n", lResPlat$strAssumpTr1, sep="")
+    strPOC <- paste( "     2 POC Studies \n     Ave. Time to Finish Compound 1 (95% CI): ", round(lResPOC$dMeanFinalMonth1,1),
+                     "( ", round(lResPOC$vCI1[1],1),", ", round(lResPOC$vCI1[2],1), ")",
+                     "\n     Ave. Time to Finish Compound 2 (95% CI): ", round(lResPOC$dMeanFinalMonth2,1),
+                     "( ", round(lResPOC$vCI2[1],1),", ", round(lResPOC$vCI2[2],1),")", sep="")
+
+    strPlat <- paste("     Platform \n     Ave. Time to Finish Compound 1 (95% CI): ", round(lResPlat$dMeanFinalMonth1,1),
+                     "( ", round(lResPlat$vCI1[1],1),", ", round(lResPlat$vCI1[2],1), ")",
+                     "\n     Ave. Time to Finish Compound 2 (95% CI): ", round(lResPlat$dMeanFinalMonth2,1),
+                     "( ", round(lResPlat$vCI2[1],1),", ", round(lResPlat$vCI2[2],1), ")",
+                     sep="")
+
+
+    vPOCTime1 <- lResPOC$vFinalMonth1
+    vPlatTime1 <- lResPlat$vFinalMonth1
+    vPercentSavings1 <- (vPOCTime1 - vPlatTime1)/vPOCTime1
+
+    vPercentSavingCI1   <- round( 100*as.vector(quantile(vPercentSavings1 , c(0.025, 0.975))),1)
+    strSavings <- paste("Percent savings on first compound: ", round( mean(vPercentSavings1)*100,1), "% ( ", vPercentSavingCI1[1], "%, ", vPercentSavingCI1[2], "% )", sep="" )
+
+
+    vPOCTime2 <- lResPOC$vFinalMonth2-lResPOC$vFinalMonth1
+    vPlatTime2 <- lResPlat$vFinalMonth2-lResPlat$vFinalMonth1
+    vPercentSavings2 <- (vPOCTime2 - vPlatTime2)/vPOCTime2
+
+    vPercentSavingCI2   <- round( 100*as.vector(quantile(vPercentSavings2 , c(0.025, 0.975))),1)
+    strSavings <- paste(strSavings, "\nPercent savings on second compound: ", round( mean(vPercentSavings2)*100,1), "% ( ", vPercentSavingCI2[1], "%, ", vPercentSavingCI2[2], "% )", sep="" )
+
+
+    strDesc <- paste( strAssump,  "\n\n\nResults\n", strPOC, "\n\n", strPlat, "\n\n", strSavings, sep="")
+
+    vMonth <- lResPOC$vMonth
+
+    #Plot 2 - Means + CI
+    if( is.na( ylim ) )
+        ylim <- max( lResPOC$vStartPerMonthMean,lResPOC$vStartPerMonthMean)
+
+
+    if( is.na( xlim ) )
+    {
+
+        xPoc  <- vMonth[ lResPOC$vLower == max( lResPOC$vLower )]
+        xPlat <- vMonth[ lResPlat$vLower ==  max( lResPlat$vLower)]
+        xlim  <- max( xPoc[1], xPlat[1] )*1.05
+        xlimScale <- scale_x_continuous( limits=c( 0, round( xlim, 0)))
+
+    }
+    else
+    {
+        xlimScale <- NULL
+    }
+
+    df <- data.frame( Month = c(vMonth, vMonth),
+                      startPatPerMonthMean = c( lResPOC$vStartPerMonthMean[vMonth],lResPlat$vStartPerMonthMean[vMonth]),
+                      Type = c(rep( "2 POC", length(vMonth)), rep( "Platform", length( vMonth))),
+                      Lower = c( lResPOC$vLower[vMonth],lResPlat$vLower[vMonth]),
+                      Upper = c( lResPOC$vUpper[vMonth],lResPlat$vUpper[vMonth]))
+
+    p1 = ggplot(data = df, aes( x = Month, y = startPatPerMonthMean, colour=Type) ) +
+        geom_line(lwd =2) +
+        xlimScale +
+        labs( title ="Mean Recruitment", y="# of Patients") +
+        theme_bw() +
+        theme(plot.title =element_text(hjust=0.5), panel.grid.major.y = element_line(size=1.5)) +
+        theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() ) +
+        geom_ribbon( aes( x= Month, ymin=Lower, ymax=Upper, fill=Type), alpha=0.2, colour=NA) +
+        scale_colour_manual( labels=c("2 POC ( 95% CI )","Platform ( 95% CI )"), values=c( "black", "green")) +
+
+        scale_fill_manual(labels=c("2 POC ( 95% CI )","Platform ( 95% CI )"),values=c("gray", "green"))
+
+
+
+    return( p1 )
 }
