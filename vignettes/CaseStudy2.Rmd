@@ -14,9 +14,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 #Case Study 2
-Located in the Examples/CaseStudy2
-Platform trial with 1 ISA.
-1 interim analysis at when 30 patients have 24 weeks of follow-up
+This case study covers a simple case with one ISA and no interim analysis (IA) to help the user become famaliar with the software and the necessay elemnts to setup the simulation.  This packge is designed with the intentent that others can add new fuctionality as needed through the use of S3 classes.  In this case study, we add a new analysis model that is not currently part of the package.   As the R comunity for this package grows, others may add functionitly, like the new analysis model in this case study, to the base package.  
+
+The R code may be found in the Examples/CaseStudy2
+
+## Assumptions 
+
+Platform trial with 1 ISA
+No Interim analysis
 Final Analysis (FA) when all patients have the outcome observed.
 30 patients on control 60 patients on treatment
 Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment

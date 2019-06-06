@@ -122,7 +122,7 @@
       <h1>Case Study 1</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2019-06-05</h4>
+            <h4 class="date">2019-06-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/vignettes/CaseStudy1.Rmd"><code>vignettes/CaseStudy1.Rmd</code></a></small>
       <div class="hidden name"><code>CaseStudy1.Rmd</code></div>
@@ -141,18 +141,34 @@
 <ul>
 <li>Assume 2 ISAs, named ISA 1 and ISA 2.</li>
 <li>Assume ISA 2 is ready in about 24 months.</li>
-<li>Starting a platform trial will take 6 months longer to get approved and set-up.</li>
-<li>Assume a platform trial will have more sites due to the longer recruitment and multiple therapies when compared to two independent POC studies.
+<li>Starting a platform trial will take longer to get approved and set-up.</li>
+<li>Assume a platform trial will have more sites due to the longer recruitment and multiple therapies when compared to two independent</li>
+<li>Opening sites in the platform will be slower than the 1<sup>st</sup> POC</li>
+<li>Getting approval for the 2<sup>nd</sup> ISA will be quicker than open the 2<sup>nd</sup> POC since it will be a new protocol.</li>
+<li>Assume N = 90 patient for each ISA or POC.</li>
+<li>Within a site assume it takes time to ramp-up accrual
 <ul>
-<li>Assume 60 sites for consecutive POCs</li>
-<li>Assume 90 sites in platform</li>
+<li>4 months to get to the maximum rate of 0.15 patient/month within a site</li>
+<li>Assume 0.05, 0.1, 0.12, 0.15 patients for month 1,2,3,4 and 0.15 there after when a new site opens</li>
 </ul>
 </li>
-<li>Opening sites in the platform will be slower than the 1<sup>st</sup> POC</li>
-<li>
-<p>Getting approval for the 2<sup>nd</sup> ISA will be quicker than open the 2<sup>nd</sup> POC since it will be a new protocol.</p>
+<li><p>It takes time to open sites, the amount of time is dependent on POC vs Platform</p></li>
+<li>2 POC trials
 <ul>
-<li>Assume N = 90 for each ISA or POC.</li>
+<li>Assume 60 sites for each POC</li>
+<li>Assume it takes 7 months to open all 60 sites for each POC</li>
+<li>Assume 3 months is required to start the first POC</li>
+<li>Assume 6 months between the end of the first POC and the second</li>
+</ul>
+</li>
+<li>Platform trial with 2 ISAs
+<ul>
+<li>Assume 90 sites in platform<br>
+</li>
+<li>The 1<sup>st</sup> ISA will open 80% the rate of the 1<sup>st</sup> POC</li>
+<li>2<sup>nd</sup> ISA will open sites at a rate of 130% of the 2<sup>nd</sup> POC, this is due to the fact that the only the ISA is approved and should take less time.</li>
+<li>Assume 6 months to start the platform</li>
+<li>Assume 1 month between ISAs</li>
 </ul>
 </li>
 </ul>
@@ -160,10 +176,22 @@
 <div id="r-source" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-source" class="anchor"></a>R Source</h2>
-<p>This case study is easily done using the R Shiny App included in the package. To launch the R Shiny App</p>
+<p>This case study is easily done using the R Shiny App included in the package. To launch the R Shiny App the following code can be used.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>( PlatformTrialSimulator )
 PlatformTrialSimulator<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/PlatformTrialSimulator/topics/RunExample">RunExample</a></span>( <span class="st">"CompareRecruitment"</span> )</code></pre></div>
-<p>After launching the app the following screen will show. <img src="ExampleShiny1.png" alt="Shiny App For Recruitment"></p>
+<p>After launching the app the following screen Shiny app is started with defaults set for Case Study 1.</p>
+<div class="figure">
+<img src="ExampleShiny1.png" alt="Figure 1: Shiny App For Recruitment"><p class="caption">Figure 1: Shiny App For Recruitment</p>
+</div>
+<p>The are four inputs that require a comma separated string, see for example “Enter the number of patients enrolled per month per site”. When the “Generate Plot” is pressed virtual trials are simulated and a plot is displayed.</p>
+</div>
+<div id="results" class="section level2">
+<h2 class="hasAnchor">
+<a href="#results" class="anchor"></a>Results</h2>
+<p>In the Shiny App after clicking the “Generate Plot” button, the Recruitment Plots will automatically be displayed. The three main components that factor into the result are: 1) the delay in starting the platform, 2) the shorter duration to start the second ISA when compare to starting the second POC and 3) the increased number of sites in the platform. In Figure 2 below, these items can be seen in and the effect marked with the corresponding number. Item 1, results in the platform recruitment initially being slower and lower than the first POC. Item 2 is observed by the small flat section for the platform when compared to the POC option. Finally, Item 3 is best observed in the second POC/ISA because the slope is easily identified as steeper (faster recruitment) for the platform compared to the POC version.</p>
+<div class="figure">
+<img src="ExampleShiny2.png" alt="Figure 2: Shiny App For Recruitment"><p class="caption">Figure 2: Shiny App For Recruitment</p>
+</div>
 </div>
 </div>
   </div>
@@ -177,6 +205,7 @@ PlatformTrialSimulator<span class="op">::</span><span class="kw"><a href="https:
 <a href="#case-study-1">Case Study 1</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#assumptions">Assumptions</a></li>
       <li><a href="#r-source">R Source</a></li>
+      <li><a href="#results">Results</a></li>
       </ul>
 </li>
       </ul>

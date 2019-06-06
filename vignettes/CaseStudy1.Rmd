@@ -61,3 +61,5 @@ The are four inputs that require a comma separated string, see for example "Ente
 In the Shiny App after clicking the "Generate Plot" button, the Recruitment Plots will automatically be displayed.  The three main components that factor into the result are: 1) the delay in starting the platform, 2) the shorter duration to start the second ISA when compare to starting the second POC and  3) the increased number of sites in the platform.   In Figure 2 below, these items can be seen in and the effect marked with the corresponding number.   Item 1, results in the platform recruitment initially being slower and lower than the first POC.   Item 2 is observed by the small flat section for the platform when compared to the POC option.   Finally, Item 3 is best observed in the second POC/ISA because the slope is easily identified as steeper (faster recruitment) for the platform compared to the POC version. 
 
 ![Figure 2: Shiny App For Recruitment](ExampleShiny2.png)
+
+
