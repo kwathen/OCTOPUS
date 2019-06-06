@@ -20,15 +20,15 @@ The R code may be found in the Examples/CaseStudy2
 
 ## Assumptions 
 
-Platform trial with 1 ISA
-No Interim analysis
-Final Analysis (FA) when all patients have the outcome observed.
-30 patients on control 60 patients on treatment
-Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
-Analyze difference from baseline at week 24 compared to control
-Minimum Acceptable Value MAV = 0.5 difference between control and treatment
-This is the minimum difference between treatment and control
-( m24 - m0 )Cont – (m24 - m0 )Trt
+* Platform trial with 1 ISA
+* No Interim analysis
+* Final Analysis (FA) when all patients have the outcome observed.
+* 30 patients on control (C) 60 patients on treatment (T)
+* Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
+* Analyze difference from baseline to week 24 compared to control
+* Minimum Acceptable Value MAV = 0.5 difference between control and treatment
+    + This is the minimum difference between treatment and control 
+    $$ ( \mu_{24} - \mu_0 )_{C} – (\mu_{24} - m_0 )_{T}$$
 
 ### R Code
 Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
