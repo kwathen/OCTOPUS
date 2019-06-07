@@ -14,22 +14,110 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 #Case Study 2
-This case study covers a simple case with one ISA and no interim analysis (IA) to help the user become famaliar with the software and the necessay elemnts to setup the simulation.  This packge is designed with the intentent that others can add new fuctionality as needed through the use of S3 classes.  In this case study, we add a new analysis model that is not currently part of the package.   As the R comunity for this package grows, others may add functionitly, like the new analysis model in this case study, to the base package.  
+This case study covers a simple case with one ISA and no interim analysis (IA) to help the user become familiar with the software and the necessary elements to set-up the simulation.  This package is designed with the intention that others can add new functionality as needed through the use of S3 classes.  In this case study, we add a new analysis model that is not currently part of the package.   As the R community for this package grows, others may add functionality to the base package. 
 
 The R code may be found in the Examples/CaseStudy2
 
 ## Assumptions 
 
+### Trial Design Elements
 * Platform trial with 1 ISA
 * No Interim analysis
 * Final Analysis (FA) when all patients have the outcome observed.
 * 30 patients on control (C) 60 patients on treatment (T)
 * Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
-* Analyze difference from baseline to week 24 compared to control
+* Analyze difference from baseline to week 24 compared to control using a Bayesian AR(1) model. 
 * Minimum Acceptable Value MAV = 0.5 difference between control and treatment
     + This is the minimum difference between treatment and control 
     $$ ( \mu_{24} - \mu_0 )_{C} – (\mu_{24} - m_0 )_{T}$$
 
+* Decision Rules
+    + Define $\delta_C = ( \mu_{24} - \mu_0 )_{C}$ and $\delta_T = (\mu_{24} - m_0 )_{T}$
+    + If  $\rho = Pr( \delta_C - \delta_T$ > MAV | data ) $> P_U = 0.8$ then make a "Go" decision
+    + If Pr( $\delta_C - \delta_T$ > MAV | data ) $< P_L = 0.1$ then make a "No Go" decision
+    + Otherwise the decision is indeterminate 
+
+If the goal at the end of the study is to make a decision of Go or No Go, then $P_U = P_L$. 
+
+In the context of this case study, patient outcomes are not expected to change over the 24 weeks for the control treatment, where as the treatment is expected to decrease the values of the patient outcomes.  Thus, $\delta_C - \delta_T$ is expected to be greater than 0 for effective treatments and consequently, high values for $\rho$ indicate an effective treatment.
+
+ The function SetupSimulations() is located in [TrialDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy2/TrialDesign.R) and the function is called to build the simulation object for the BuildMe.R file in this example.
+    
+### Simulation Design Elements 
+
+The simulation object contains all information to specify how the trial is simulate.   Specifically, it contains a list of scenarios, such as the null and alternative,  details about patient accrual rates and in a multiple ISA setting information about how and when the second and subsequent ISAs are added to the trial.  
+
+For case study 2, the data for each patient is simulated from a multi-variate normal.  Based on the historical data we have the following means for control and the treatment effect shown below is used to specify various scenarios in the simulation study, more detail provided below.  
+
+#### Table  1 - True Means
+
+```{r setp, echo=FALSE}
+
+    nQtyCol   <- 7
+
+    vMeanTrt  <- c( 3.5, 3.4, 3.0, 2.5,  2.9, 1.4, 0.9 )
+    vMeanCtrl <- c( 3.5, 3.5, 3.5, 3.5,  3.5, 3.5, 3.5 )
+
+    mVarCov   <- matrix( c( 0.5, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.5, 0.4, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.5, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.5, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.5, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.4, 0.5, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.5), ncol=nQtyCol )
+    dfMean <- data.frame(  rbind( Control =vMeanCtrl,Treatment=vMeanTrt)  )
+    colnames(dfMean) <- c( "Baseline", paste("Week",seq(4,24,4)))
+    knitr::kable( dfMean, caption="True Means", label="TrueMeans" ) 
+    
+    
+    mVarCov   <- matrix( c( 0.5, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.5, 0.4, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.5, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.5, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.5, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.4, 0.5, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.5), ncol=nQtyCol )
+
+
+```
+In addition, the estimates of the variance/covariance over time is 
+
+#### Table 2 - Variance/Covariance Matrix
+
+
+```{r echo=FALSE}
+
+write_matrix <- function(strMatrixName, mMatrix) {
+  begin <- paste( "$$", strMatrixName, " = \\begin{bmatrix}", sep="")
+  end <- "\\end{bmatrix}$$"
+  X <-
+    apply(mMatrix, 1, function(x) {
+      paste(
+        paste(x, collapse = "&"),
+        "\\\\"
+      )
+    })
+  paste(c(begin, X, end), collapse = "")
+}
+
+
+```
+
+
+`r write_matrix( "V",mVarCov)`
+
+The trial recruitment is specified in terms of the number of patients accrued per month per site (patients/month/site) and the number of sites open in the platform.  For simplicity, the ramp-up in the number of patients/month/site is not applied within a site and recruitment to the platform assumes a Poisson process with the rate equal to the number of patients/month/site * number of sites open.  
+
+To specify the scenarios, define the mean for control as $M_C$, for treatment $M_T$ defined in Table 1 above and the percent effect as $p$ and the true mean for the treatment in a given scenario is defined as 
+
+$$
+M^*_T = M_c + p *( m_T - m_C )
+$$
+
+ $( m_T - m_C)$ is the maximum treatment effect and each scenario is defined a a percent ($p$) of the maximum treatment effect. 
+ 
+ The function SetupSimulations() is located in [SimulationDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy2/SimulationDesign.R) and the function is called to build the simulation object for the BuildMe.R file in this example.
+ 
 ### R Code
 Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
 The file TrialDesign.R contains the function necessary to set-up the design object.

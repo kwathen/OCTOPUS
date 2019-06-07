@@ -21,7 +21,7 @@ Please follow this project to be notified of updates.
 # Trial Design Structure
 A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo.  The first step is considered the trial randomizer and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.  
 
-The trial design object is a structure with a class name equal to the desired trial randomizers.   For example,
+The trial design object is a structure with a class name equal to the desired trial randomizer.   For example,
 
 cTrialDesign <- structure( list(  ), class='EqualRandomizer')
 
@@ -29,3 +29,7 @@ would create the trial design object where patients are equally randomized betwe
 # Simulation Design Structure 
 
 The simulation design object contains two pieces, the first is the trial design, described in the previous section, and the simulation object.  The simulation object contains a list of scenarios, such as the null and alternative, to simulate.    
+
+# To Do List
+
+- [ ] In the R Shiny App to compare recruitment (R/RecruitmentComparitor.R)  the function ComputeMonthlyAccrual improves the AccrualMethods class by allowing the ramp up to be on a per site basis.  Move this functionality to the general class so it can be used in simulation.

@@ -33,7 +33,7 @@ Please follow this project to be notified of updates.
 # Trial Design Structure
 A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo.  The first step is considered the trial randomiser and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.  
 
-The trial design object is a structure with a class name equal to the desired trial randomiser.   For example,
+The trial design object is a structure with a class name equal to the desired trial randomizer.   For example,
 
 cTrialDesign <- structure( list(  ), class='EqualRandomizer')
 

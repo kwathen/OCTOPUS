@@ -122,7 +122,7 @@
       <h1>Platform Trial Simulator</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2019-06-06</h4>
+            <h4 class="date">2019-06-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/vignettes/PlatformTrialSimulator.Rmd"><code>vignettes/PlatformTrialSimulator.Rmd</code></a></small>
       <div class="hidden name"><code>PlatformTrialSimulator.Rmd</code></div>
@@ -144,7 +144,7 @@
 <h1 class="hasAnchor">
 <a href="#trial-design-structure" class="anchor"></a>Trial Design Structure</h1>
 <p>A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo. The first step is considered the trial randomiser and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.</p>
-<p>The trial design object is a structure with a class name equal to the desired trial randomiser. For example,</p>
+<p>The trial design object is a structure with a class name equal to the desired trial randomizer. For example,</p>
 <p>cTrialDesign &lt;- structure( list( ), class=‘EqualRandomizer’)</p>
 <p>would create the trial design object where patients are equally randomized between ISAs. The list( ) in the structure would contain information about the platform, such as the number of ISAs, number of patients on each ISA, ect. Within the list is also a collection of ISA elements to define the specifics of each ISA. More details of this object are presented in the documentation and examples. In general, the ISAs may differ as much as needed, however, if ISAs differ too much the advantages of a platform are minimized.</p>
 </div>

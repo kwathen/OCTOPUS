@@ -85,10 +85,12 @@ SetupSimulations <- function( cTrialDesign, nQtyReps  )
     ########################################################################################.
     # Recruitment rates, how many patient are expected to enroll each month in the trial ####
     ########################################################################################.
+    
+    # The infomraiton provided is in terms of the number of patients per month per site and
+    # 
+    vPatsPerMonthPerSite1   <- c(0.1,0.3,0.45, 0.5, 0.5 )
 
-    vPatsPerMonthPerSite1   <- c(0.1,0.3,0.45, rep( 0.5, 1000))[1:100]
-
-    vQtyOfSitesPlat        <- c(3,8,15,35,50,70,rep( 70,100))[1:100]
+    vQtyOfSitesPlat        <- c(3,8,15,35,50,70)
     vQtyOfPatsPerMonth1     <- vPatsPerMonthPerSite1 * vQtyOfSitesPlat
 
     ap                      <- NewAccrualProcess( vQtyPatsPerMonth = vQtyOfPatsPerMonth1, nMaxQtyPatients = nMaxQtyPats )
