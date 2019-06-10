@@ -23,12 +23,18 @@ source( "TrialDesign.R")
 source( "SimulationDesign.R")
 source( "TrialDesignFunctions.R")
 
-#Files specific for specific example
-source( "AnalysisModelBayesianAR1.R")
-
-
 cTrialDesign <- SetupTrialDesign( )
 cSimulation  <- SetupSimulations( cTrialDesign, nQtyReps=5 )
+
+#  As a general best practice it is good to remove all objects in the global environment just to make sure they are not inadvertently used.
+#  The only object that is needed is the cSimulation object.
+rm( list=(ls()[ls()!="cSimulation" ]))
+
+gDebug <- FALSE
+
+#Files specific for specific example
+source( "AnalysisModelBayesianAR1.R")
+source( "SimPatientOutcomes.MVNWithCovariateCS3.R")   # Add a new type of simulaiton outcome.
 
 RunSimulation( cSimulation )
 

@@ -29,6 +29,7 @@ cSimulation  <- SetupSimulations( cTrialDesign, nQtyReps=1 )
 #  The only object that is needed is the cSimulation object.
 rm( list=(ls()[ls()!="cSimulation" ]))
 
+gDebug <- FALSE
 
 #Files specific to this Case study that are needed for simulation.
 source( "RunAnalysis.BayesianNormalAR1.R")    #This file implements a Bayesian AR(1) analysis.
