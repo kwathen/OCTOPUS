@@ -19,38 +19,44 @@ Examples are included in the installation folder as case studies, CaseStudy2 and
 
 ## Case Study 1
 One of the first tasks that is typically conducted by a team is the comparison of patient recruitment in a platform trial with two ISAs versus two sequential POC studies.  This case study utilized the R Shiny App in this package to compare the recruitment under a given set of assumptions regarding patient recruitment rates, number of sites and time delay for platform trial versus consecutive POC studies.  The focus is on the operational comparisons rather than statistical comparisons.   
+Located in Examples/CaseStudy1
 
 [View More](CaseStudy1.html)
 
 ## Case Study 2
-Platform trial with 1 ISA.
-1 interim analysis at when 30 patients have 24 weeks of follow-up
-Final Analysis (FA) when all patients have the outcome observed.
-30 patients on control 60 patients on treatment
-Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
-Analyze difference from baseline at week 24 compared to control
-Minimum Acceptable Value MAV = 0.5 difference between control and treatment
-This is the minimum difference between treatment and control
-( m24 - m0 )Cont – (m24 - m0 )Trt
+
+* Located in Examples/CaseStudy2
+* Platform trial with 1 ISA.
+* No interim analysis and final analysis when all patients have 24 weeks of follow-up
+* 30 patients on control 60 patients on treatment
+* Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
+* Analyze difference from baseline at week 24 compared to control
+* Minimum Acceptable Value MAV = 0.5 difference between control and treatment
+* Demonstrates how to add a new analysis method
 
 [View More](CaseStudy2.html)
 
 ## Case Study 3
-Located in the Examples/CaseStudy3
-Platform trial with 1 ISA.
-No  interim analysis
-Final Analysis (FA) when all patients have the outcome observed.
-30 patients on control 60 patients on treatment
-Assume same design as Case Study 2
-No need to modify the TrialDesign.R file
-Assume that patients either respond (R) or they are non-responder NR
-If a patient is a responder (R) their outcomes are generated from mean vector 2
-If a patient is a non-responder (NR) their outcomes are generated from mean vector 1
-Utilize SimPatientOutcomes.MVNWithCovariate outcome type
-Historical data suggests that 2% of patients on control will respond.
-Treatment should increase the % of responders.
+
+* Builds onto Case Study 2. 
+* Located in the Examples/CaseStudy3
+* Assume that patients either respond (R) or they are non-responder (NR) 
+* If a patient is a non-responder (NR) their outcomes are generated from mean vector 1
+* If a patient is a responder (R) their outcomes are generated from mean vector 2
+* Created a new patient outcome simulation type. 
+* Develope SimPatientOutcomes.MVNWithCovariateCS3 based on SimPatientOutcomes.MVNWithCovariate to demonstrate how to add a new patient outcome simulator type 
+* Historical data suggests that 2% of patients on control will respond.
+* Treatment should increase the % of responders.
 
 [View More](CaseStudy3.html)
 
 
+## Case Study 4
+* Builds on Case Study 3
+* Located in the Examples/CaseStudy4
+* Add ISA 2
+* Demonstrate how new ISAs enter the platform
+* Introduce the concept of borrowing control data
 
+
+[View More](CaseStudy4.html)

@@ -13,7 +13,6 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Case Study 1
 One of the first tasks that is typically conducted by a team is the comparison of patient recruitment in a platform trial with two ISAs versus two sequential POC studies.  This case study utilized the R Shiny App in this package to compare the recruitment under a given set of assumptions regarding patient recruitment rates, number of sites and time delay for platform trial versus consecutive POC studies.  The focus of this case study is on the operational comparisons rather than statistical comparisons.   
 
 ## Assumptions 

@@ -34,6 +34,8 @@ navbar:
           href: articles/CaseStudy2.html
         - text: "Case Study 3"
           href: articles/CaseStudy3.html
+        - text: "Case Study 4"
+          href: articles/CaseStudy4.html
     github:
           icon: fa-github fa-lg
           href: https://github.com/kwathen/PlatformTrialSimulator

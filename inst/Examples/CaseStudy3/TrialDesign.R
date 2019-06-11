@@ -25,10 +25,9 @@ SetupTrialDesign <- function()
     vMinFUTime   <- c( 24* dConvWeeksToMonths, 24* dConvWeeksToMonths)
     dQtyMonthsBtwIA  <- 0.0
 
-
-    ########################################################################
-    #  ISA 1 Information
-    ########################################################################
+    ########################################################################.
+    #  ISA 1 Information                                                ####
+    ########################################################################.
 
     cISA1Info <- Create1DosePh2AISA( vQtyPats     = vQtyPats,
                                      vTrtLab      = c( 1, 2 ),

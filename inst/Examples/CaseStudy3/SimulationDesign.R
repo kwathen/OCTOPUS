@@ -37,9 +37,9 @@ SetupSimulations <- function( cTrialDesign, nQtyReps  )
     #Setup the first Scenario, starting with non-ISA specific information
     nDesign         <- 1
 
-    #############################################
-    # Setup ISA1 cISADesign element
-    #############################################
+    #############################################.
+    # Setup ISA1 cISADesign element          ####
+    #############################################.
 
     cISAStart1   <- structure( list( dParam1=0), class="SetTime" )
 
@@ -77,17 +77,17 @@ SetupSimulations <- function( cTrialDesign, nQtyReps  )
 
 
 
-    #############################################
-    # Setup the cISADesign element
-    #############################################
+    #############################################.
+    # Setup the cISADesign element          ####
+    #############################################.
 
     cISADesigns <- structure( list( cISA1 = cISA1Info ) )
 
 
 
-    #############################################
-    # Setup the non-ISA specific info and sceanrios
-    #############################################
+    #####################################################.
+    # Setup the non-ISA specific info and sceanrios ####
+    #####################################################.
 
 
     nMaxQtyPats <- 0
@@ -106,18 +106,18 @@ SetupSimulations <- function( cTrialDesign, nQtyReps  )
     }
 
 
-    #################################################################################
-    #Recuitment rates, how many patient are expected to enroll each month in the trial
-    #################################################################################
+    #########################################################################################.
+    #Recuitment rates, how many patient are expected to enroll each month in the trial ####
+    #########################################################################################.
     # The infomraiton provided is in terms of the number of patients per month per site and
     #
-    vPatsPerMonthPerSite1   <- c(0.1,0.3,0.45, 0.5, 0.5 )
 
-    vQtyOfSitesPlat        <- c(3,8,15,35,50,70)
+    vPatsPerMonthPerSite1   <- c(0.1, 0.3, 0.45, 0.5, 0.5, 0.5 )
+    vQtyOfSitesPlat         <- c(3,     8,  15,   35,  50, 70)
     vQtyOfPatsPerMonth1     <- vPatsPerMonthPerSite1 * vQtyOfSitesPlat
 
     ap                      <- NewAccrualProcess( vQtyPatsPerMonth = vQtyOfPatsPerMonth1, nMaxQtyPatients = nMaxQtyPats )
-    #################################################################################
+    #################################################################################.
 
 
 

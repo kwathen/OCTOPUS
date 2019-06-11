@@ -13,9 +13,7 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Case Study 3
-
-This case study build on [Case Study 2](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy2.html) by adding a new method for simulating patient outcomes.  It covers a simple case with one ISA and no interim analysis (IA) and provides an example of how to add a new approach for simulating patient outcomes.  This package is designed with the intention that others can add new functionality as needed through the use of S3 classes.  
+This case study builds on [Case Study 2](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy2.html) by adding a new method for simulating patient outcomes.  It covers a simple case with one ISA and no interim analysis (IA) and provides an example of how to add a new approach for simulating patient outcomes.  This package is designed with the intention that others can add new functionality as needed through the use of S3 classes.  
 
 The ability to simulate from a MVN with a covariate has been included since Case Study 3 was originally developed.  Thus, for Case Study 3 we name the new outcome MVNWithCovariateCS3 but please note this code was largely copied from MVNWithCovariate in the base package.
 

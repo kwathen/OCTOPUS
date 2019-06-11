@@ -1,0 +1,29 @@
+Requirements:
+    PlatformTrialSimulator package version 1.2.1.1
+    Install the PTS package on grid with
+    For Unix systems you may install similar to R CMD INSTALL -l $HOME/R/x86_64-redhat-linux-gnu-library/3.5 PlatformTrialSimulator_1.2.1.1.tar.gz
+
+
+
+
+Description
+Case study 4 builds on case study 3 and adds a second ISA
+Platform trial with 2 ISAs.
+2nd ISA enters the platform between month 3 and 6.
+No  interim analysis
+Final Analysis (FA) when all patients have the outcome observed.
+30 patients on control 60 patients on treatment
+Assume same design as Case Study 2
+No need to modify the TrialDesign.R file
+Assume that patients either respond (R) or they are non-responder NR
+If a patient is a responder (R) their outcomes are generated from mean vector 2
+If a patient is a non-responder (NR) their outcomes are generated from mean vector 1
+Utilize SimPatientOutcomes.MVNWithCovariate outcome type
+Historical data suggests that 2% of patients on control will respond.
+Treatment should increase the % of responders.
+
+R Code
+Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.
+The file TrialDesign.R contains the function necessary to setup the design object.
+The file SimulationDesign.R contains the functions necessary to setup the simulation design.
+

@@ -12,8 +12,6 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-#Case Study 2
 This case study covers a simple case with one ISA and no interim analysis (IA) to help the user become familiar with the software and the necessary elements to set-up the simulation.  This package is designed with the intention that others can add new functionality as needed through the use of S3 classes.  In this case study, we add a new analysis model that is not currently part of the package.   As the R community for this package grows, others may add functionality to the base package. 
 
 The R code may be found in the Examples/CaseStudy2
