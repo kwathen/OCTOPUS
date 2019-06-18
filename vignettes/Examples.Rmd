@@ -14,7 +14,6 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Examples
 Examples are included in the installation folder as case studies, CaseStudy2 and CaseStudy3 with corresponding R Studio project files CaseStudy2.Rpoj and CaseStudy3.Rpoj, respectively.    Below is a brief description of each case study.  
 
 ## Case Study 1

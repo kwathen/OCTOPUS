@@ -1,0 +1,24 @@
+model 
+{
+	for (i in 1:nQtyPats) {  # N individuals
+		for (w in 1:nQtyTimePts) {  # time
+			mY[i,w]~dnorm(theta[i,w],tau)
+			#mu[i,w]<- exp(alpha) * (1 - exp( -beta * vX[w] ))
+			mu[i,w]<-alpha+beta*vX[w] 
+
+		}
+		theta[i,1]<-mu[i,1]  # time 0
+		for (w in 2:nQtyTimePts) {
+			theta[i,w]<-mu[i,w]+gamma*(mY[i,w-1]-mu[i,w-1])
+        }
+    }
+  # Priors
+  alpha~dnorm( 0,.1)
+  
+  beta~dnorm( 0, 0.1)
+  
+  gamma~dnorm(0,0.1)
+  tau~dgamma(1.12,2.54)
+  sigma.sq<-1/tau  # Normal errors
+}
+

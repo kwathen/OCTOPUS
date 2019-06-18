@@ -16,25 +16,25 @@ NewTrialDesign <- function( lISADesigns, strISARandomizer )
     nQtyISAs  <- length( lISADesigns )
     vISANames <- paste( "cISA", 1:nQtyISAs, sep="" )
     names( lISADesigns ) <- vISANames
-    cISADesigns <- structure( lISADesigns ) 
-    
-    nMaxQtyPats      <- 0 
-    vMaxQtyPatsInISA <-  rep( 0, nQtyISAs ) 
-    
-    
+    cISADesigns <- structure( lISADesigns )
+
+    nMaxQtyPats      <- 0
+    vMaxQtyPatsInISA <-  rep( 0, nQtyISAs )
+
+
     vTrtLab <- vector()   # Used to help keep track of the number of patients on
     vISALab <- vector()
     for( nISA in 1:nQtyISAs)
     {
         nMaxQtyPatsISA           <- sum( cISADesigns[[ nISA ]]$vQtyPats )
         nMaxQtyPats              <- nMaxQtyPats + nMaxQtyPatsISA
-        
+
         vMaxQtyPatsInISA[ nISA ] <- nMaxQtyPatsISA
         vTrtLab               <- c( vTrtLab, cISADesigns[[ nISA ]]$vTrtLab )
         vISALab               <- c( vISALab, rep( nISA, length( cISADesigns[[ nISA ]]$vTrtLab ) ) )
     }
-    
-   
+
+
     cTrialDesign   <- structure( list(
         nQtyISAs          = nQtyISAs,
         nMaxQtyPats       = nMaxQtyPats,
@@ -43,62 +43,62 @@ NewTrialDesign <- function( lISADesigns, strISARandomizer )
         vTrtLab           = vTrtLab,
         cISADesigns       = cISADesigns ), class=strISARandomizer )
     return( cTrialDesign )
-    
+
 }
 
 ########################################################################
 # P2A type design - 1 Dose ISA returned
-#   Arguments: 
-#       strBorrow: "AllControls" or "NoBorrowing" 
+#   Arguments:
+#       strBorrow: "AllControls" or "NoBorrowing"
 #       strModel:  "BayesianNormalAR1", "BayesianNormal"
 ########################################################################
-Create1DosePh2AISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpper,   dFinalPLower, 
+Create1DosePh2AISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpper,   dFinalPLower,
                                  strBorrow = "AllControls", strModel = "BayesianNormalAR1",
                                  vMinQtyPats = c(-1), vMinFUTime = c(-1), dQtyMonthsBtwIA = 0)
 {
-    
-     
+
+
     dConvWeeksToMonths <- 12/52
-    
+
     bNoIA              <- FALSE
     nMaxQtyPats        <- sum( vQtyPats )
-    
+
     if( all(vMinQtyPats == -1))
     {
         vMinQtyPats        <- c( nMaxQtyPats, nMaxQtyPats )# nMaxQtyPats * 0.5  #The minimum number of patients at before a compound is dropped
-    
+
         vMinFUTime         <- c(24 * dConvWeeksToMonths, 24 * dConvWeeksToMonths)
     }
-    
+
     strBorrow          <- strBorrow
     strRandomizer      <- "EqualRandomizer"
     lDecisionOut       <- structure(list(strApproachIA = "default", strApproachFA="default"), class = "General")
     #lDecisionOut       <- structure(list(strApproachIA = "AtLeastOne", strApproachFA="AtLeastOne"), class = "GeneralDoses")
-    
-    
-    
-    
+
+
+
+
     #Define the MAV and TV targets and what level of confidence to utilize
     vObsTime            <- c( 0,  4,  8, 12, 16, 20, 24) * dConvWeeksToMonths
-    
+
     #Outcome 1
     vAnalysisInfo1      <- c( strModel, "MAVOnly", "ProcessReptMeasChngBaseline" )
-    
+
     dMAV1               <- 0.5
-    
-    
+
+
     bPlaceMinusTrt1     <- TRUE
     vObsTimeOut1        <- vObsTime
-    
+
     cISA1Info <- NewISAInfo( vTrtLab,
                              vQtyPats,
                              vMinQtyPats,
                              vMinFUTime,
                              dQtyMonthsBtwIA,
                              strRandomizer,
-                             lDecisionOut, 
+                             lDecisionOut,
                              strBorrow)
-    
+
     cISAInfo <- AddBayesianOutcome( cISAInfo      = cISA1Info,
                                     vAnalysisInfo = vAnalysisInfo1,
                                     vTrtLab       = vTrtLab,
@@ -114,43 +114,44 @@ Create1DosePh2AISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
 
 ########################################################################
 # P2A type design - 2 Dose ISA
-#   Arguments: 
-#       strBorrow: "AllControls" or "NoBorrowing" 
+#   Arguments:
+#       strBorrow: "AllControls" or "NoBorrowing"
 #       strModel:  "BayesianNormalAR1", "BayesianNormal"
 ########################################################################
-Create2DosePh2AISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpper,   dFinalPLower, 
-                                 strBorrow = "AllControls", strModel = "BayesianNormalAR1" )
+Create2DosePh2AISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpper,   dFinalPLower,
+                                 strBorrow = "AllControls", strModel = "BayesianNormalAR1" ,
+                                 vMinQtyPats = c(-1), vMinFUTime = c(-1), dQtyMonthsBtwIA = 0 )
 {
-       
+
     dConvWeeksToMonths <- 12/52
-    
-    
+
+
     bNoIA              <- FALSE
-    
+
     nMaxQtyPats        <- sum( vQtyPats )
-    
+
     vMinQtyPats        <- c( nMaxQtyPats, nMaxQtyPats )# nMaxQtyPats * 0.5  #The minimum number of patients at before a compound is dropped
     vMinFUTime         <- c(24 * dConvWeeksToMonths, 24 * dConvWeeksToMonths)
     dQtyMonthsBtwIA    <- 0
-    
+
     strBorrow          <- strBorrow
     strRandomizer      <- "EqualRandomizer"
-    
+
     #This is the line that is different from 1 dose and the fact that the vQtyPats should have at least 3 elements
     lDecisionOut       <- structure(list(strApproachIA = "AtLeastOne", strApproachFA="AtLeastOne"), class = "GeneralDoses")
-    
-    
+
+
     #Define the MAV and TV targets and what level of confidence to utilize
     vObsTime            <- c( 0,  4,  8, 12, 16, 20, 24) * dConvWeeksToMonths
-    
+
     #Outcome 1
     vAnalysisInfo      <- c( strModel, "MAVOnly", "ProcessReptMeasChngBaseline" )
-    
+
     dMAV1               <- 0.5
-    
-    
+
+
     bPlaceMinusTrt1     <- TRUE
-    
+
     nISA      <- 1
     cISAInfo <- NewISAInfo( vTrtLab,
                             vQtyPats,
@@ -158,9 +159,9 @@ Create2DosePh2AISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
                             vMinFUTime,
                             dQtyMonthsBtwIA,
                             strRandomizer,
-                            lDecisionOut, 
+                            lDecisionOut,
                             strBorrow)
-    
+
     cISAInfo <- AddBayesianOutcome( cISAInfo      = cISAInfo,
                                     vAnalysisInfo = vAnalysisInfo,
                                     vTrtLab       = vTrtLab,
@@ -171,49 +172,49 @@ Create2DosePh2AISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
                                     dFinalPUpper  = dFinalPUpper,
                                     dFinalPLower  = dFinalPLower,
                                     bPlaceMinusTrt= bPlaceMinusTrt1 )
-    
+
     return( cISAInfo )
 }
 
 
 ########################################################################
 # P2B type design - 1 Dose ISA retured
-#   Arguments: 
+#   Arguments:
 #       strModel:  "BayesianNormalAR1", "BayesianNormalMultiDose"
-#           
+#
 #   Note the BayesianNormalMultiDose is used so this model is faster as
 #       we are not using the HBsAg decline in 2b ISAs at the moment
 ########################################################################
 
-Create1DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpper,   dFinalPLower , 
+Create1DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpper,   dFinalPLower ,
                                  strModel = "BayesianNormal" )
 {
-    
+
     dConvWeeksToMonths <- 12/52
-    
+
     nMaxQtyPats        <- sum( vQtyPats )
-    
+
     vMinQtyPats        <- c( nMaxQtyPats, nMaxQtyPats )# nMaxQtyPats * 0.5  #The minimum number of patients at before a compound is dropped
     vMinFUTime         <- c(48 * dConvWeeksToMonths, 48 * dConvWeeksToMonths)
     dQtyMonthsBtwIA    <- 0
     lDecisionOut       <- structure(list(strApproachIA = "Outcome2Only", strApproachFA="Outcome2Only"), class = "General")
     #lDecisionOut3       <- structure(list(strApproachIA = c("Outcome2Only", "AtLeastOne"), strApproachFA=c("Outcome2Only", "AtLeastOne")), class = "GeneralDoses2Outcome")
-    
-    
+
+
     strBorrow          <- "NoBorrowing"
-    
+
     strRandomizer      <- "EqualRandomizer"
     vObsTime <- c( 0,  4,  8, 12, 16, 20, 24) * dConvWeeksToMonths
-    
-    
+
+
     #Outcome 1
     vAnalysisInfo1      <- c( strModel, "MAVOnly", "ProcessReptMeasChngBaseline" )
-    
+
     dMAV1               <- 0.5
-    
-    
+
+
     bPlaceMinusTrt1     <- TRUE
-    
+
     cISAInfo <- NewISAInfo( vTrtLab,
                             vQtyPats,
                             vMinQtyPats,
@@ -222,8 +223,8 @@ Create1DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
                             strRandomizer,
                             lDecisionOut,
                             strBorrow )
-    
-    
+
+
     cISAInfo <- AddBayesianOutcome( cISAInfo      = cISAInfo,
                                     vAnalysisInfo = vAnalysisInfo1,
                                     vTrtLab       = vTrtLab,
@@ -234,15 +235,15 @@ Create1DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
                                     dFinalPUpper  = dFinalPUpper,
                                     dFinalPLower  = dFinalPLower,
                                     bPlaceMinusTrt= bPlaceMinusTrt1 )
-    
+
     #Outcome 2
     vAnalysisInfo2      <- c( "BayesianBetaBinom", "MAVOnly", "ProcessSingleTimeOutcome" )
-    
+
     dMAV2               <- 0.15
-    
+
     bPlaceMinusTrt2     <- FALSE
     vObsTimeOutPh2B        <- c(48) *  dConvWeeksToMonths
-    
+
     cISAInfo <- AddBayesianOutcome( cISAInfo       = cISAInfo,
                                     vAnalysisInfo = vAnalysisInfo2,
                                     vTrtLab       = vTrtLab,
@@ -259,40 +260,40 @@ Create1DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
 ########################################################################
 # P2B type design - 2 Dose ISA
 #       strModel:  "BayesianNormalAR1", "BayesianNormalMultiDose"
-#           
+#
 #   Note the BayesianNormalMultiDose is used so this model is faster as
 #       we are not using the HBsAg decline in 2b ISAs at the moment
 ########################################################################
-Create2DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpper,   dFinalPLower , 
+Create2DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpper,   dFinalPLower ,
                                  strModel = "BayesianNormalMultiDose"  )
 {
-    
-   
+
+
     dConvWeeksToMonths <- 12/52
-    
-    
+
+
     nMaxQtyPats        <- sum( vQtyPats )
-    
+
     vMinQtyPats        <- c( nMaxQtyPats, nMaxQtyPats )# nMaxQtyPats * 0.5  #The minimum number of patients at before a compound is dropped
     vMinFUTime         <- c(48 * dConvWeeksToMonths, 48 * dConvWeeksToMonths)
     dQtyMonthsBtwIA    <- 0
-    
+
     lDecisionOut       <- structure(list(strApproachIA = c("Outcome2Only", "AtLeastOne"), strApproachFA=c("Outcome2Only", "AtLeastOne")), class = "GeneralDoses2Outcome")
-    
+
     strRandomizer      <- "EqualRandomizer"
     strBorrow          <- "NoBorrowing"
-    
+
     vObsTime <- c( 0,  4,  8, 12, 16, 20, 24) * dConvWeeksToMonths
-    
-    
+
+
     #Outcome 1
     vAnalysisInfo      <- c( strModel, "MAVOnly", "ProcessReptMeasChngBaseline" )
-    
+
     dMAV1               <- 0.5
-    
-    
+
+
     bPlaceMinusTrt1     <- TRUE
-    
+
     cISAInfo <- NewISAInfo( vTrtLab,
                             vQtyPats,
                             vMinQtyPats,
@@ -301,8 +302,8 @@ Create2DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
                             strRandomizer,
                             lDecisionOut,
                             strBorrow )
-    
-    
+
+
     cISAInfo <- AddBayesianOutcome(  cISAInfo      = cISAInfo,
                                      vAnalysisInfo = vAnalysisInfo,
                                      vTrtLab       = vTrtLab,
@@ -313,16 +314,16 @@ Create2DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
                                      dFinalPUpper  = dFinalPUpper,
                                      dFinalPLower  = dFinalPLower,
                                      bPlaceMinusTrt= bPlaceMinusTrt1 )
-    
+
     #Outcome 2
     vAnalysisInfo2      <- c( "BayesianBetaBinom", "MAVOnly", "ProcessSingleTimeOutcome" )
-    
+
     dMAV2               <- 0.15
-    
-    
+
+
     bPlaceMinusTrt2     <- FALSE
     vObsTimeOutPh2B        <- c(48) *  dConvWeeksToMonths
-    
+
     cISAInfo <- AddBayesianOutcome(  cISAInfo      = cISAInfo,
                                      vAnalysisInfo = vAnalysisInfo2,
                                      vTrtLab       = vTrtLab,
@@ -333,7 +334,7 @@ Create2DosePh2BISA <- function(  vQtyPats, vTrtLab, vPUpper, vPLower, dFinalPUpp
                                      dFinalPUpper  = dFinalPUpper,
                                      dFinalPLower  = dFinalPLower,
                                      bPlaceMinusTrt= bPlaceMinusTrt2 )
-    
+
     return( cISAInfo )
 }
 
@@ -352,7 +353,7 @@ NewISAInfo <- function( vTrtLab,
                         strBorrow)
 {
     cISAAnalysis <- structure( list(   vAnalysis = list()), class=c(strBorrow))# ,  "Independent"))
-    
+
     cISAInfo <- structure( list(  vQtyPats        = vQtyPats,
                                   vTrtLab         = vTrtLab,
                                   vMinQtyPats     = vMinQtyPats,
@@ -360,9 +361,9 @@ NewISAInfo <- function( vTrtLab,
                                   dQtyMonthsBtwIA = dQtyMonthsBtwIA,
                                   lDecision       = lDecisionOut,
                                   cISAAnalysis    = cISAAnalysis ), class=strRandomizer )
-    
+
     return( cISAInfo )
-    
+
 }
 
 
@@ -393,16 +394,16 @@ AddOutcome  <- function( cISAInfo ,
                                    vTrtLab       = vTrtLab,
                                    vObsTime      = vObsTime),
                              class= vAnalysisInfo)
-    
-    
-    
+
+
+
     cISAAnalysis <- cISAInfo$cISAAnalysis
     nOut <- length( cISAAnalysis$vAnalysis ) + 1
-    
+
     cISAAnalysis$vAnalysis[[ nOut  ]] <- cAnalysis
     cISAInfo$cISAAnalysis = cISAAnalysis
     return( cISAInfo )
-    
+
 }
 
 #############################################################
@@ -430,14 +431,14 @@ AddBayesianOutcome  <- function( cISAInfo ,
                                    vTrtLab       = vTrtLab,
                                    vObsTime      = vObsTime),
                              class= vAnalysisInfo)
-    
-    
-    
+
+
+
     cISAAnalysis <- cISAInfo$cISAAnalysis
     nOut <- length( cISAAnalysis$vAnalysis ) + 1
-    
+
     cISAAnalysis$vAnalysis[[ nOut  ]] <- cAnalysis
     cISAInfo$cISAAnalysis = cISAAnalysis
     return( cISAInfo )
-    
+
 }

@@ -87,7 +87,7 @@ SimPatientOutcomes.MVNWithCovariate <- function( cSimOutcomes,  cISADesign )
     {
         bValid <- FALSE
         strErr <- paste( strErrPrfx, "The number of arms in ISA ( ", nQtyArms, " )")
-        strErr <- paste( strErr, " != number of lSimArms ( ", length( cSimoutcomes), " in cSimOutcomes object.")
+        strErr <- paste( strErr, " != number of lSimArms ( ", length( cSimOutcomes), " in cSimOutcomes object.")
     }
 
     for( iArm in 1:nQtyArms )

@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-This case study (CS) builds on [Case Study 3](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy3.html) by adding a second ISA and introduces the concept of simulating the enrty type of ISA 2.  For simplicity, the case study assume both ISAs have 2 treatment ( control vs treatment ) and assume the same treatment effect for both experimental arms.  
+This case study (CS) builds on [Case Study 3](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy3.html) by adding a second ISA and introduces the concept of simulating the enrty type of ISA 2.  For simplicity, this case study assumes both ISAs have 2 treatment ( control vs treatment ) and assume the same treatment effect for both experimental arms.  
 
 In this case study, the ability to "borrow" control patients is demonstrated for the first time.  Each ISA must specify what type of borrowing is done.   This allows an ISA to either borrow the control patients or only utilize the patients within the ISA on an ISA level rather than at the trial level, more detail about borrowing below.   
 
