@@ -163,7 +163,7 @@ Previous code example with NO interim Analysis.
     dQtyMonthsBtwIA  <- 0.0
     
 ```
-
+ 
 **Interim Analysis Option 2** -  This option allows you to set when the IAs start a frequency (in months) and when the FA occurs.  In this example the first IA is conducted when 30 patients have 12 weeks of FU, after the first IA additional IAs are conducted every 2 months.  The time between when the IAs start and the next one is conducted is determined by the variable dQtyMonthsBtwIA.  The FA is conducted when 90 patients had 24 weeks of FU.  
 
 ```{#numCode .R .numberLines}
