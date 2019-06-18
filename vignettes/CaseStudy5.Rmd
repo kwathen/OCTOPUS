@@ -14,9 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-This case study (CS) builds on [Case Study 4](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy4.html) by adding a second dose to ISA 2.  For simplicity, thos case study assumes both doses in ISA 2 have the same treatment effect.  For ISA 2, the decision to go is based on a Go decision for either dose or the No Go decision is made if both doses are a No Go. 
+This case study (CS) builds on [Case Study 4](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy4.html) by adding a second dose to ISA 2.  For simplicity, this case study assumes both doses in ISA 2 have the same treatment effect.  For ISA 2, the decision to go is based on a Go decision for either dose or the No Go decision is made if both doses are a No Go. 
 
-The R code may be found in the Examples/CaseStudy5.  The main differences are found in the SimulationDesign.R file when multipe
+The R code may be found in the Examples/CaseStudy5.  The main differences are found in the SimulationDesign.R file when multiple arms are added to ISA 2.
 
 ## Assumptions 
 
@@ -42,7 +42,7 @@ If the goal at the end of the study is to make a decision of Go or No Go, then $
 
 In the context of this case study, patient outcomes are not expected to change over the 24 weeks for the control treatment, where as the treatment is expected to decrease the values of the patient outcomes.  Thus, $\delta_C - \delta_T$ is expected to be greater than 0 for effective treatments and consequently, high values for $\rho$ indicate an effective treatment.
 
- The function SetupTrialDesign() is located in [TrialDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/TrialDesign.R) and the function is called to build the trial object from the BuildMe.R file in this example.
+ The function SetupTrialDesign() is located in [TrialDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy5/TrialDesign.R) and the function is called to build the trial object from the BuildMe.R file in this example.
     
 ### Simulation Design Elements 
 
@@ -119,49 +119,10 @@ During the simulation of a virtual trials, a patient is first simulated as a res
 
 The function SetupSimulations() is located in [SimulationDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/SimulationDesign.R) and the function is called to build the simulation object for the BuildMe.R file in this example.
  
-### R Code
+## R Code
 Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
 The file TrialDesign.R contains the function necessary to set-up the design object.
 The file SimulationDesign.R contains the functions necessary to set-up the simulation design.  In this case study, it is important to look at both the TrialDesign.R and SimulaitonDesign.R to understand how the addition of a second ISA impacts the trial design and simulation design elements. 
 
-### Borrowing Control Patients
-In this case study a second ISA is included with two dose, generically names arm 2 and arm 3.  Since borrowing is at the ISA level, each ISA can have a different borrowing approach, eg ISA 1 could perform no borrowing and ISA 2 could utilize patients from ISA 1.   There are two parts to determining how data is borrowed across ISAs.  The first part is determined by how the dataset is created for analysis (includes  control patients for all ISAs or just the specific ISA) and the second part is determined by the analysis method.  
-
-In order to share information between ISAs, when a virtual trial is simulated and the dataset created for analysis, the dataset can include data from other ISAs. The code snip below was taken from the  [TrialDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/TrialDesign.R) and creates the object for ISA 1 is created.   
-
-```{#numCode .R .numberLines}
-    strBorrow <- "AllControls"
-    strModel  <- "BayesianNormalAR1"
-    vPUpper   <- c( 1.0, 1.0 )
-    vPLower   <- c( 0.0, 0.0 )
-    dFinalPUpper <- 0.45
-    dFinalPLower <- 0.05
-
-    vQtyPats     <- c( 30, 60 )  # Control, Treatment
-    vMinQtyPats  <- c( 90, 90 )
-    vMinFUTime   <- c( 24* dConvWeeksToMonths, 24* dConvWeeksToMonths)
-    dQtyMonthsBtwIA  <- 0.0
-
-    ########################################################################.
-    #  ISA 1 Information                                                ####
-    ########################################################################.
-
-    cISA1Info <- Create1DosePh2AISA( vQtyPats     = vQtyPats,
-                                     vTrtLab      = c( 1, 2 ),
-                                     vPUpper      = vPUpper,
-                                     vPLower      = vPLower,
-                                     dFinalPUpper = dFinalPUpper,
-                                     dFinalPLower = dFinalPLower,
-                                     strBorrow    = strBorrow,
-                                     strModel     = strModel,
-                                     vMinQtyPats  = vMinQtyPats,
-                                     vMinFUTime   = vMinFUTime,
-                                     dQtyMonthsBtwIA = dQtyMonthsBtwIA )
-```
-
-
-On line 1 in the code block above, the strBorrow is set to "AllControl" and sent as an argument in Create1DosePh2AISA which is included into the design element for ISA 1.  A view of the cISA1Info object is provided below, note the red box to highlight the S3 class of AllControls.   This class determines how the dataset is created before the analysis is performed.  This option will result in the dataset including all control patient data.  
-
-![Trial Design Object - Red square to highlight the S3 class type of AllControls](TrialDesignObject.png)
-
-In this example, the dataset is created with all control patients and the RunAnalysis function determines how to analyze the data.  In this example, all control patients are utilized the same regardless of which ISA they were enrolled into.   Many approaches for borrowing control patients could be developed, such as hierarchical borrowing, time dependent patient weights or dropping all control patients enrolled prior to the start of an ISA.  
+## Borrowing Control Patients
+For borrowing of control patients please see [Case Study 4](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy4.html).

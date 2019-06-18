@@ -12,7 +12,7 @@
 
 <meta name="author" content="J. Kyle Wathen" />
 
-<meta name="date" content="2019-06-11" />
+<meta name="date" content="2019-06-18" />
 
 <title>Case Study 4</title>
 
@@ -95,13 +95,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Case Study 4</h1>
 <h4 class="author">J. Kyle Wathen</h4>
-<h4 class="date">2019-06-11</h4>
+<h4 class="date">2019-06-18</h4>
 
 
 
-<p>This case study (CS) builds on <a href="https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy3.html">Case Study 3</a> by adding a second ISA and introduces the concept of simulating the enrty type of ISA 2. For simplicity, the case study assume both ISAs have 2 treatment ( control vs treatment ) and assume the same treatment effect for both experimental arms.</p>
+<p>This case study (CS) builds on <a href="https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy3.html">Case Study 3</a> by adding a second ISA and introduces the concept of simulating the entry type of ISA 2. For simplicity, this case study assumes both ISAs have 2 treatment ( control vs treatment ) and assume the same treatment effect for both experimental arms.</p>
 <p>In this case study, the ability to “borrow” control patients is demonstrated for the first time. Each ISA must specify what type of borrowing is done. This allows an ISA to either borrow the control patients or only utilize the patients within the ISA on an ISA level rather than at the trial level, more detail about borrowing below.</p>
-<p>For CS 4, we utlilize the patient simulator that is included with the package rather than adding a new one.</p>
+<p>For CS 4, we utilize the patient simulator that is included with the package rather than adding a new one.</p>
 <p>The R code may be found in the Examples/CaseStudy4</p>
 <div id="assumptions" class="section level2">
 <h2>Assumptions</h2>
@@ -185,13 +185,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The function SetupSimulations() is located in <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/SimulationDesign.R">SimulationDesign.R</a> and the function is called to build the simulation object for the BuildMe.R file in this example.</p>
 </div>
 </div>
-<div id="r-code" class="section level3">
-<h3>R Code</h3>
+</div>
+<div id="r-code" class="section level2">
+<h2>R Code</h2>
 <p>Begin with the BuildMe.R file. This file loads the PlatformTrialSimulator package and sources the design file.<br />
 The file TrialDesign.R contains the function necessary to set-up the design object. The file SimulationDesign.R contains the functions necessary to set-up the simulation design. In this case study, it is important to look at both the TrialDesign.R and SimulaitonDesign.R to understand how the addition of a second ISA impacts the trial design and simulation design elements.</p>
 </div>
-<div id="borrowing-control-patients" class="section level3">
-<h3>Borrowing Control Patients</h3>
+<div id="borrowing-control-patients" class="section level2">
+<h2>Borrowing Control Patients</h2>
 <p>In this case study a second ISA is included for the first time. Since borrowing is at the ISA level, each ISA can have a different borrowing approach, eg ISA 1 could perform no borrowing and ISA 2 could utilize patients from ISA 1. There are two parts to determining how data is borrowed across ISAs. The first part is determined by how the dataset is created for analysis (includes control patients for all ISAs or just the specific ISA) and the second part is determined by the analysis method.</p>
 <p>In order to share information between ISAs, when a virtual trial is simulated and the dataset created for analysis, the dataset can include data from other ISAs. The code snip below was taken from the <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/TrialDesign.R">TrialDesign.R</a> and creates the object for ISA 1 is created.</p>
 <div class="sourceCode" id="numCode"><table class="sourceCode R numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
@@ -254,7 +255,6 @@ The file TrialDesign.R contains the function necessary to set-up the design obje
 <p class="caption">Trial Design Object - Red square to highlight the S3 class type of AllControls</p>
 </div>
 <p>In this example, the dataset is created with all control patients and the RunAnalysis function determines how to analyze the data. In this example, all control patients are utilized the same regardless of which ISA they were enrolled into. Many approaches for borrowing control patients could be developed, such as hierarchical borrowing, time dependent patient weights or dropping all control patients enrolled prior to the start of an ISA.</p>
-</div>
 </div>
 
 

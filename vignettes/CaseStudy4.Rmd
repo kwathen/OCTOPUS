@@ -14,11 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-This case study (CS) builds on [Case Study 3](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy3.html) by adding a second ISA and introduces the concept of simulating the enrty type of ISA 2.  For simplicity, this case study assumes both ISAs have 2 treatment ( control vs treatment ) and assume the same treatment effect for both experimental arms.  
+This case study (CS) builds on [Case Study 3](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy3.html) by adding a second ISA and introduces the concept of simulating the entry type of ISA 2.  For simplicity, this case study assumes both ISAs have 2 treatment ( control vs treatment ) and assume the same treatment effect for both experimental arms.  
 
 In this case study, the ability to "borrow" control patients is demonstrated for the first time.  Each ISA must specify what type of borrowing is done.   This allows an ISA to either borrow the control patients or only utilize the patients within the ISA on an ISA level rather than at the trial level, more detail about borrowing below.   
 
-For CS 4, we utlilize the patient simulator that is included with the package rather than adding a new one.
+For CS 4, we utilize the patient simulator that is included with the package rather than adding a new one.
 
 The R code may be found in the Examples/CaseStudy4
 
@@ -122,12 +122,12 @@ During the simulation of a virtual trials, a patient is first simulated as a res
 
 The function SetupSimulations() is located in [SimulationDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/SimulationDesign.R) and the function is called to build the simulation object for the BuildMe.R file in this example.
  
-### R Code
+## R Code
 Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
 The file TrialDesign.R contains the function necessary to set-up the design object.
 The file SimulationDesign.R contains the functions necessary to set-up the simulation design.  In this case study, it is important to look at both the TrialDesign.R and SimulaitonDesign.R to understand how the addition of a second ISA impacts the trial design and simulation design elements. 
 
-### Borrowing Control Patients
+## Borrowing Control Patients
 In this case study a second ISA is included for the first time. Since borrowing is at the ISA level, each ISA can have a different borrowing approach, eg ISA 1 could perform no borrowing and ISA 2 could utilize patients from ISA 1.   There are two parts to determining how data is borrowed across ISAs.  The first part is determined by how the dataset is created for analysis (includes  control patients for all ISAs or just the specific ISA) and the second part is determined by the analysis method.  
 
 In order to share information between ISAs, when a virtual trial is simulated and the dataset created for analysis, the dataset can include data from other ISAs. The code snip below was taken from the  [TrialDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/TrialDesign.R) and creates the object for ISA 1 is created.   

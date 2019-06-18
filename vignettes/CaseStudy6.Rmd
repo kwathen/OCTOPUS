@@ -1,0 +1,180 @@
+---
+title: "Case Study 6"
+author: "J. Kyle Wathen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Case Study 6}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+This case study (CS) builds on [Case Study 5](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy5.html) by adding interim analysis.  Currently, this package offers two options for determining when interim analysis are conducted.   
+
+The R code may be found in the Examples/CaseStudy6.  The main differences are found in the TrialDesign.R file.
+
+## Interim Analysis Options (IA)
+Typically, a minimum amount of information is needed within an ISA before any analysis is conducted or decisions made about an intervention.  To provide flexibility in when the IAs are conducted the following options are currently available.   
+
+### Interim Analysis Option 1 
+Each ISA specifies a number of patients and the amount of follow-up desired for an IA.  For example, an ISA with 200 patients could have one IA when 100 of the patients have 12 weeks of data observed.   If additional IA are desired more can be specified in the same fashion, a number of patients with a specified FU.  For example, ISA 1 could have IA 1 when 100 patients have 12 weeks of data observed, IA 2 when 150 patients have 12 weeks of data and the final analysis when all 200 patients have 12 weeks of FU.  This option allows you to add a pre-specified number of IAs. 
+    
+### Interim Analysis Option 2
+Each ISA specifies when to start IAs as a minimum number of patient with specific FU and the IAs occur based on a time frequency until the Final Analysis (FA) define by number of patients with FU. Each ISA can specify a different rule 
+Example: IA to start when 30 patients with 24 weeks FU; once a month thereafter until 90 patients have 24 weeks FU.  This option allows you specify the frequency of IAs.   
+
+
+## Assumptions 
+
+### Trial Design Elements
+* Platform trial with 2 ISAs
+* Interim Analysis to start when 30 patients have 24 weeks of data and monthly thereafter.  
+* Final Analysis to occur for each ISA when 90 patients have 24 weeks of data
+* Final Analysis (FA) when all patients have the outcome observed.
+* 30 patients on control (C) 60 patients on treatment (T) in ISA 1
+* 30 patient on control (C), 20 patients on Low Dose (arm 2) and 60 on high dose (arm 3) for ISA 2
+* Primary outcome is repeated measure evaluated at baseline, 4, 8, 12, 16, 20 and 24 weeks after treatment
+* Analyze difference from baseline to week 24 compared to control using a Bayesian AR(1) model. 
+* Minimum Acceptable Value MAV = 0.5 difference between control and treatment
+    + This is the minimum difference between treatment and control 
+    $$ ( \mu_{24} - \mu_0 )_{C} – (\mu_{24} - m_0 )_{T}$$
+
+* Decision Rules
+    + Define $\delta_C = ( \mu_{24} - \mu_0 )_{C}$ and $\delta_T = (\mu_{24} - m_0 )_{T}$
+    + If  $\rho = Pr( \delta_C - \delta_T$ > MAV | data ) $> P_U = 0.8$ then make a "Go" decision
+    + If Pr( $\delta_C - \delta_T$ > MAV | data ) $< P_L = 0.1$ then make a "No Go" decision
+    + Otherwise the decision is indeterminate 
+
+If the goal at the end of the study is to make a decision of Go or No Go, then $P_U = P_L$. 
+
+In the context of this case study, patient outcomes are not expected to change over the 24 weeks for the control treatment, where as the treatment is expected to decrease the values of the patient outcomes.  Thus, $\delta_C - \delta_T$ is expected to be greater than 0 for effective treatments and consequently, high values for $\rho$ indicate an effective treatment.
+
+ The function SetupTrialDesign() is located in [TrialDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy6/TrialDesign.R) and the function is called to build the trial object from the BuildMe.R file in this example.
+    
+### Simulation Design Elements 
+
+The simulation object contains all information to specify how the trial is simulated.   Specifically, it contains a list of scenarios, such as the null and alternative,  details about patient accrual rates and in a multiple ISA setting information about how and when the second and subsequent ISAs are added to the trial.  
+
+For case study 6, the data for each patient is simulated from a multi-variate normal with a binary covariate. The patient covariate is specified as a responder or non-responder and the outcome value over time is simulated from a MVN with a separate mean vector specified for responders and non-responders.    Based on the historical data we have the following means for responders and non-responders shown below is used to specify various scenarios in the simulation study, more detail provided below.  
+
+#### Table  1 - True Means
+
+```{r stup, echo=FALSE}
+
+    nQtyCol   <- 7
+
+    vMeanTrt  <- c( 3.5, 3.4, 3.0, 2.5,  2.9, 1.4, 0.9 )
+    vMeanCtrl <- c( 3.5, 3.5, 3.5, 3.5,  3.5, 3.5, 3.5 )
+
+    mVarCov   <- matrix( c( 0.5, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.5, 0.4, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.5, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.5, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.5, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.4, 0.5, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.5), ncol=nQtyCol )
+    dfMean <- data.frame(  rbind( Nonresponders =vMeanCtrl,Responder=vMeanTrt)  )
+    row.names( dfMean) <- c("Non-responders", "Responders")
+    colnames(dfMean) <- c( "Baseline", paste("Week",seq(4,24,4)))
+    knitr::kable( dfMean, caption="True Means", label="TrueMeans" ) 
+    
+    
+    mVarCov   <- matrix( c( 0.5, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.5, 0.4, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.5, 0.4, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.5, 0.4, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.5, 0.4, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.4, 0.5, 0.4,
+                            0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.5), ncol=nQtyCol )
+
+
+```
+
+In addition, the estimates of the variance/covariance over time is 
+
+#### Table 2 - Variance/Covariance Matrix
+
+
+```{r echo=FALSE}
+
+write_matrix <- function(strMatrixName, mMatrix) {
+  begin <- paste( "$$", strMatrixName, " = \\begin{bmatrix}", sep="")
+  end <- "\\end{bmatrix}$$"
+  X <-
+    apply(mMatrix, 1, function(x) {
+      paste(
+        paste(x, collapse = "&"),
+        "\\\\"
+      )
+    })
+  paste(c(begin, X, end), collapse = "")
+}
+
+
+```
+
+
+`r write_matrix( "V",mVarCov)`
+
+In general, the responders and non-responders could have different var-cov matrix but for simplicity in this case study they are assumed to be the same.  
+
+The trial recruitment is specified in terms of the number of patients accrued per month per site (patients/month/site) and the number of sites open in the platform.  For simplicity, the ramp-up in the number of patients/month/site is not applied within a site and recruitment to the platform assumes a Poisson process with the rate equal to the number of patients/month/site * number of sites open.  
+
+To specify the scenarios, each treatment specifies a percent of patients that are responders and non-responders.   For the control treatment, the percent of responders is 2% in all scenarios.   The treatment are varies the percent of responders from 2% (the null case) to 40%. 
+
+During the simulation of a virtual trials, a patient is first simulated as a responder or non-responder and then their observed values over time from the corresponding MVN.  In this case study, an effective treatment is expected to move patients from the non-responder category to the responder category.   
+
+The function SetupSimulations() is located in [SimulationDesign.R](https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy6/SimulationDesign.R) and the function is called to build the simulation object for the BuildMe.R file in this example.
+ 
+## R Code
+For this case study, the new additions are located in the TrialDesign.R file.  Below is an example of how to specify each option above. 
+
+Previous code example with NO interim Analysis. 
+```{#numCode .R .numberLines}
+
+    vQtyPats         <- c( 30, 60 )  # Control, Treatment
+    vMinQtyPats      <- c( 30, 90 )
+    vMinFUTime       <- c( 24* dConvWeeksToMonths, 24* dConvWeeksToMonths)
+    dQtyMonthsBtwIA  <- 0.0
+    
+```
+
+**Interim Analysis Option 1** -  Example code start the interim analysis when the minimum of 30 patients have been enrolled and followed for 24 week.   The vectors vMinQtyPats and vMinFUTime have corresponding element to define when the IAs occur.  The example below ill have one IA when 30 patients have 24 weeks of FU and the FA when 90 patients have 24 weeks of FU. 
+```{#numCode .R .numberLines}
+
+    vQtyPats         <- c( 30, 60 )  # Control, Treatment
+    vMinQtyPats      <- c( 30, 90 )
+    vMinFUTime       <- c( 24* dConvWeeksToMonths, 24* dConvWeeksToMonths)
+    dQtyMonthsBtwIA  <- 0.0
+    
+```
+
+**Interim Analysis Option 1** -  Additional IAs added.  This option would have 3 IAs and 1 FU.   The IAs would be when 30 patients have enrolled with 12 weeks of FU, 45 patients with 24 weeks FU, 75 patients with 24 weeks and the FA when 90 patients with 24 weeks FU.
+```{#numCode .R .numberLines}
+
+    vQtyPats         <- c( 30, 60 )  # Control, Treatment
+    vMinQtyPats      <- c( 30, 45, 75, 90 )
+    vMinFUTime       <- c( 12* dConvWeeksToMonths, 24* dConvWeeksToMonths, 24* dConvWeeksToMonths, 24* dConvWeeksToMonths)
+    dQtyMonthsBtwIA  <- 0.0
+    
+```
+
+**Interim Analysis Option 2** -  This option allows you to set when the IAs start a frequency (in months) and when the FA occurs.  In this example the first IA is conducted when 30 patients have 12 weeks of FU, after the first IA additional IAs are conducted every 2 months.  The time between when the IAs start and the next one is conducted is determined by the variable dQtyMonthsBtwIA.  The FA is conducted when 90 patients had 24 weeks of FU.  
+
+```{#numCode .R .numberLines}
+
+    vQtyPats         <- c( 30, 60 )  # Control, Treatment
+    vMinQtyPats      <- c( 30, 90 )
+    vMinFUTime       <- c( 12* dConvWeeksToMonths, 24* dConvWeeksToMonths)
+    dQtyMonthsBtwIA  <- 2.0
+    
+```
+
+## Borrowing Control Patients
+For borrowing of control patients please see [Case Study 4](https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy4.html).
+
