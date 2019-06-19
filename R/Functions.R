@@ -69,6 +69,8 @@ AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  cEnrolledPats, nPrin
     iCov        <- 1
     strCovName  <- paste( strCov, iCov, sep="" )
 
+    #TODO: Check if this has a bug the cEnrolledPats$lPatOut[[1]][[strCovName]] looks like it should be
+    # cEnrolledPats$lPatOut[[nISA]][[strCovName]]
     while( strCovName %in% names( lPatOut[[ nISA ]] ) )
     {
         cEnrolledPats$lPatOut[[1]][[strCovName]] <- c( cEnrolledPats$lPatOut[[1]][[strCovName]], lPatOut[[1]][[strCovName ]][nIndx])
