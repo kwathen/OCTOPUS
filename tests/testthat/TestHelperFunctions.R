@@ -621,3 +621,16 @@ SetupSimulations <- function( cTrialDesign, nQtyReps  )
 
     return( lSimulation )
 }
+
+
+
+SetupSimulateCovariateObject = function( )
+{
+    Cov1 = structure( list( vProbs = c( 0.4, 0.6 ) ),      class = "Categorical" )
+    Cov2 = structure( list( vProbs = c( 0.2, 0.3, 0.5 ) ), class = "Categorical" )
+
+    cSimCovariates = structure( list( Cov1 = Cov1, Cov2 = Cov2 ), class= "default" )
+    return( cSimCovariates )
+}
+
+

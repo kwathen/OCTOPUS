@@ -64,11 +64,16 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     vISAStartTimes  <- SimulateAllISAStartTimes( cScen$cISADesigns )            # Simulate the times the ISAs start
 
     vStartTimes     <- SimulateArrivalTimes( cScen$cAcc )
-    lPatOut         <- SimulateAllPatientOutcomes( cScen,  cTrialDesign)
+    lPatCov         <- SimulateAllPatientCovariates( cScen$cSimCovariates, cTrialDesign )  # This will need to go into the next line to simulate pateitn outcomes
+    lPatOut         <- SimulateAllPatientOutcomes( cScen,  cTrialDesign )
     cRandomizer     <- InitializeTrialRandomizer( cTrialDesign, vISAStartTimes )
 
     iPat <- 1
     lResAnaFinal <- list()
+    #TODO(Covs) When moving to the version with covaraite and allowing stopping of groups within an ISA, we may need to change the for loop
+    # and possibly need to generate more patient outcomes.   See Functions->AppendPatientLists to allow more patients to be added to the
+    # patient database. To be able to add more start times could simply call SimulateArrivalTimes and add the last start time to the retured
+    #start times
 
     for( iPat in 1:(nMaxQtyPats) )
     {
@@ -76,6 +81,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         dCurrentTime <- vStartTimes[ iPat ]
         vISAStatus   <- ifelse( dCurrentTime > vISAStartTimes & vISAStatus < 2, 1, vISAStatus   )
 
+        #TODO(Covs) - Check if ISAs/Arms are open based on covs
         cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime  )
         cRandomizer  <- cRandUpdate$cRandomizer
 
