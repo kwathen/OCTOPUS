@@ -7,13 +7,15 @@
 \alias{SimPatientOutcomes.Correlated}
 \title{SimPatientOutcomes}
 \usage{
-SimPatientOutcomes(cSimOutcomes, cISADesign)
+SimPatientOutcomes(cSimOutcomes, cISADesign, lPatCovISA)
 
-\method{SimPatientOutcomes}{default}(cSimOutcomes, cISADesign)
+\method{SimPatientOutcomes}{default}(cSimOutcomes, cISADesign, lPatCovISA)
 
-\method{SimPatientOutcomes}{Independent}(cSimOutcomes, cISADesign)
+\method{SimPatientOutcomes}{Independent}(cSimOutcomes, cISADesign,
+  lPatCovISA)
 
-\method{SimPatientOutcomes}{Correlated}(cSimOutcomes, cISADesign)
+\method{SimPatientOutcomes}{Correlated}(cSimOutcomes, cISADesign,
+  lPatCovISA)
 }
 \description{
 SimPatientOutcomes {This function is intended to simulate the outcomes for a given ISA.}

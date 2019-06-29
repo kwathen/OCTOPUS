@@ -15,6 +15,7 @@ source("TestHelperFunctions.R")
 
 test_that("SimulatePatientCovariates.default",
 {
+    set.seed( 123 )
     nMaxQtyPats         = 1000
     cSimulateCovariates = SetupSimulateCovariateObject( )
 

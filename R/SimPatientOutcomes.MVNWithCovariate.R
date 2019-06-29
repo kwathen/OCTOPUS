@@ -65,8 +65,10 @@
 #'  cSimOutcomes <- structure( list(lSimArm1 = lSimArm1, lSimArm2 = lSimArm2), class =  "MVNWithCovariate" )
 #' }
 #' @export
-SimPatientOutcomes.MVNWithCovariate <- function( cSimOutcomes,  cISADesign )
+SimPatientOutcomes.MVNWithCovariate <- function( cSimOutcomes,  cISADesign , lPatCovISA )
 {
+    if( !is.null( lPatCovISA ) )
+        stop( "SimPatientOutcomes.MVNWithCovariate is not designed to incorporate patient covariates and lPatCovISA is not NULL.")
     #print("SimPatientOutcomes.MVNWithCovariate" )
 
     vQtyPats        <- cISADesign$vQtyPats

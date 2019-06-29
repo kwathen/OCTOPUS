@@ -10,6 +10,9 @@ SimulateAllPatientCovariates(cSimCovariates, cTrialDesign)
 \method{SimulateAllPatientCovariates}{default}(cSimCovariates,
   cTrialDesign)
 }
+\value{
+A list with length equal to the number of ISAs in the trial.   Each element represents the simulated covariates for each ISA.
+}
 \description{
 SimulateAllPatientCovariates {This function is used to simulate all patient covariates in the platform.  }
 

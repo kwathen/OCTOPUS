@@ -5,7 +5,8 @@
 \alias{{SimPatientOutcomes.MVNWithCovariate}}
 \title{SimPatientOutcomes.MVNWithCovariate}
 \usage{
-\method{SimPatientOutcomes}{MVNWithCovariate}(cSimOutcomes, cISADesign)
+\method{SimPatientOutcomes}{MVNWithCovariate}(cSimOutcomes, cISADesign,
+  lPatCovISA)
 }
 \description{
 In this SimPatientOutcomes function we simulate patients from a MVN where there is a group covariate.

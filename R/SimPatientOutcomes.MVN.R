@@ -12,8 +12,11 @@
 #' @title SimPatientOutcomes.MVN
 #' @description  Simulate a MVN outcomes.  This one will likely be used by outcomes that are simulated as correlated.
 #' @export
-SimPatientOutcomes.MVN <- function(  cSimOutcomes, cISADesign )
+SimPatientOutcomes.MVN <- function(  cSimOutcomes, cISADesign, lPatCovISA )
 {
+    if( !is.null( lPatCovISA ) )
+        stop( "SimPatientOutcomes.MVN is not designed to incorporate patient covariates and lPatCovISA is not NULL.")
+
     #TODO: Check
     # The length( vQtyPats ) should = nrow(cSimOutcomes)
     #print( "SimPatientOutcomes.MVN 2")

@@ -57,7 +57,7 @@ test_that("AppendPatientLists",
     load( "PatOut1.RData")
     load( "PatOut2.RData")
 
-    lFullList <- AppendPatientLists2( lPatOut1, lPatOut2 )
+    lFullList <- AppendPatientLists( lPatOut1, lPatOut2 )
     expect_equal( length( lFullList ), length( lPatOut1 ), label = "Full list length = original list length" )
 
     TestISA( lPatOut1[[ 1 ]], lPatOut2[[ 1 ]], lFullList[[1]], "ISA 1")

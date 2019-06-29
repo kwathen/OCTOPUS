@@ -4,7 +4,7 @@
 \alias{SimPatientOutcomes.MVN}
 \title{SimPatientOutcomes.MVN}
 \usage{
-\method{SimPatientOutcomes}{MVN}(cSimOutcomes, cISADesign)
+\method{SimPatientOutcomes}{MVN}(cSimOutcomes, cISADesign, lPatCovISA)
 }
 \description{
 Simulate a MVN outcomes.  This one will likely be used by outcomes that are simulated as correlated.
