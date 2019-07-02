@@ -5,7 +5,7 @@
 \alias{AddPatient}
 \title{AddPatient}
 \usage{
-AddPatient(lPatOut, dCurrentTime, nISA, nTrt, cEnrolledPats,
+AddPatient(lPatOut, dCurrentTime, nISA, nTrt, dfCov, cEnrolledPats,
   nPrintDetail = 0)
 }
 \description{

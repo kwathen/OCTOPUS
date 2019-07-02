@@ -5,9 +5,9 @@
 \alias{SimulateAllPatientOutcomes.default}
 \title{SimulateAllPatientOutcomes}
 \usage{
-SimulateAllPatientOutcomes(cScen, cTrialDesign, lPatCov)
+SimulateAllPatientOutcomes(cScen, cTrialDesign, dfPatCov)
 
-\method{SimulateAllPatientOutcomes}{default}(cScen, cTrialDesign, lPatCov)
+\method{SimulateAllPatientOutcomes}{default}(cScen, cTrialDesign, dfPatCov)
 }
 \description{
 SimulateAllPatientOutcomes {This function is used to simulate all patient outcomes in the platform.}

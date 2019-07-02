@@ -44,7 +44,8 @@ InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer, dISAStartTi
     vTmpTrt  <- rep( vTrtLab, vQtyPats )
     vISARand <- sample( vTmpTrt, length( vTmpTrt ) )
 
-    cISARand <- structure( list(vISARand), class= class(cISARandomizer))
+    cISARand <- structure( list( vISARand = vISARand,
+                                 dfSubGroupEnrollmentStatus = cISARandomizer$dfSubgroupEnrollmentStatus), class= class(cISARandomizer))
     return( cISARand )
 
 
@@ -79,7 +80,8 @@ InitializeISARandomizer.POCRandomizer <- function(  cISARandomizer, dISAStartTim
     vISARand     <- c( vISARand, sample( vTmpTrt, length( vTmpTrt ) ) ) # Randomize the remainder of the patients
 
 
-    cISARand <- structure( list(vISARand), class= class(cISARandomizer))
+    cISARand <- structure( list(vISARand = vISARand,
+                                dfSubGroupEnrollmentStatus = cISARandomizer$dfSubgroupEnrollmentStatus), class= class(cISARandomizer))
 
     return( cISARand )
 

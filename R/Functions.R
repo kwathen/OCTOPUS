@@ -13,7 +13,7 @@
 #' @title AddPatient
 #' @description {This function uses the lPatOut as a database of patients, it pulls 1 patient out and adds it to lEnrolledPats}
 #' @export
-AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  cEnrolledPats, nPrintDetail = 0 )
+AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  dfCov, cEnrolledPats, nPrintDetail = 0 )
 {
     if( nPrintDetail >= 15)
         print(paste( "....AddPatient Time ", round( dCurrentTime,3), " Patient Randomized to ISA ", nISA, " Treatment ", nTrt, " # In ISA ", cEnrolledPats$vCurrentQtyPatsISA[ nISA ]))
@@ -33,8 +33,21 @@ AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  cEnrolledPats, nPrin
     #Now we need to get the patient outcomes from lPatOut and remove that data from lPatOut
     nRemainOut <- length( lPatOut[[ nISA ]]$vPatTrt )
     vIndx <- 1:nRemainOut
-    vIndx <- vIndx[ lPatOut[[ nISA ]]$vPatTrt== nTrt  ]  #This now contain only patients indexes from the correct ISA, Trt
 
+    #TODO(Covs) - Select a paient with the covs = dfCov
+    lTmpList       <- lPatOut[[ nISA ]][c(names( dfCov), "vPatTrt")]
+    lColValues     <- cbind( dfCov, nTrt )
+    if( length( lTmpList[[1]]) == 0 )
+    {
+        return( -1  )
+        # No patients on the
+    }
+    vMatchCriteria <- SelectList( lTmpList, lColValues )
+    vIndx          <- vIndx[ vMatchCriteria  ]  #This now contain only patients indexes from the correct ISA, Trt
+    if( length( vIndx ) == 0 )
+    {
+        return( -1  )
+    }
     # Note: In case SimulatePatientOutcome created the lPatOut simulated patients in a predictable manner the next
     # block of code will randomly select from the patient that are in the correct ISA/Trt.
     #You cannot simply use sample( vIndx, 1) because if vIndx is of length = 1 and > 1 then sample would select 1 value
@@ -46,7 +59,7 @@ AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  cEnrolledPats, nPrin
                                  # based on a particular order, this could cause a pattern in the patients if we just take them in order.
     #print( paste( "nIndex ", nIndx))
 
-    lPatOut$vPatTrt <- lPatOut[[ nISA ]]$vPatTrt[ -nIndx ]
+    #lPatOut$vPatTrt <- lPatOut[[ nISA ]]$vPatTrt[ -nIndx ]
 
     i <- 1
     #Note in this for loop we move the row from the lPatOut to the lEnrolledPatOut and use structure(, class=..) to make sure the class of each
@@ -59,24 +72,28 @@ AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  cEnrolledPats, nPrin
         #lPatOutG <<- lPatOut
 
         #print( lPatOut[[strOut]])
-        cEnrolledPats$lPatOut[[nISA]][[ strOut ]] <- structure(  rbind(cEnrolledPats$lPatOut[[nISA]][[strOut ]], lPatOut[[ nISA ]][[ strSimOut ]][nIndx, ]), class=class(cEnrolledPats$lPatOut[[nISA]][[strOut ]]) )
+        cEnrolledPats$lPatOut[[nISA]][[ strOut ]]   <- structure(  rbind(cEnrolledPats$lPatOut[[nISA]][[strOut ]], lPatOut[[ nISA ]][[ strSimOut ]][nIndx, ]), class=class(cEnrolledPats$lPatOut[[nISA]][[strOut ]]) )
         lPatOut[[ nISA ]][[ strSimOut ]]            <- structure(lPatOut[[ nISA ]][[ strSimOut ]][-nIndx, , drop=FALSE], class=class( lPatOut[[ nISA ]][[ strSimOut ]]))   # The , drop = false keeps the matrix from being converted to a vector when we drop the second to last row
 
         strObsTime <- paste( "vObsTime",i,sep="")
         cEnrolledPats$lPatOut[[nISA]][[ strObsTime ]] <- lPatOut[[ nISA ]][[ strObsTime ]]
     }
+
     #Copy any covariate
-    strCov      <- "vCov"
-    iCov        <- 1
-    strCovName  <- paste( strCov, iCov, sep="" )
-
-
-    while( strCovName %in% names( lPatOut[[ nISA ]] ) )
+    if( is.null( dfCov ) == FALSE  )
     {
-        cEnrolledPats$lPatOut[[ nISA ]][[strCovName]] <- c( cEnrolledPats$lPatOut[[ nISA ]][[strCovName]], lPatOut[[ nISA ]][[strCovName ]][nIndx])
-        lPatOut[[ nISA ]][[strCovName ]] <- lPatOut[[ nISA ]][[strCovName ]][-nIndx]
-        iCov        <- iCov + 1
+        strCov      <- "vCov"
+        iCov        <- 1
         strCovName  <- paste( strCov, iCov, sep="" )
+
+
+        while( strCovName %in% names( lPatOut[[ nISA ]] ) )
+        {
+            cEnrolledPats$lPatOut[[ nISA ]][[strCovName]] <- c( cEnrolledPats$lPatOut[[ nISA ]][[strCovName]], lPatOut[[ nISA ]][[strCovName ]][nIndx])
+            lPatOut[[ nISA ]][[strCovName ]] <- lPatOut[[ nISA ]][[strCovName ]][-nIndx]
+            iCov        <- iCov + 1
+            strCovName  <- paste( strCov, iCov, sep="" )
+        }
     }
 
 
@@ -135,4 +152,25 @@ AppendPatientLists <- function( lList1, lList2, vNamesToExclude = NULL )
 
 }
 
+#' @name SelectList
+#' @title SelectList
+#' @description {Determine if the elements of lData have the values of lValue, this is like SQL select statement with AND for all values}
+#' @param lData - The dataset (as a list) that you want to select from
+#' @param lValue - A list with the desired values for each column in lData
+#' @export
+SelectList <- function( lData, lValue )
+{
+    if( dim(lValue)[2] == 1)
+    {
+        vResults <-  ( lData[[1]]==rep( lValue, length((lData[[1]]))) )
+        return( vResults )
+    }
+    subsetColumn <- function( l1, value )
+    {
+        return( l1 == value )
+    }
+    mColumnResults <- mapply( FUN = subsetColumn, lData, lValue )   #This will create a matrix with a row for each row in lData and a column ofr each column with TRUE/FALSE if it equals the desired value
+    vResults       <- apply( mColumnResults, 1, all )
+    return( vResults )
+}
 

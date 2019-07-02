@@ -26,20 +26,28 @@ SimulateAllPatientCovariates <- function( cSimCovariates,  cTrialDesign   )
 #' @export
 SimulateAllPatientCovariates.default <- function( cSimCovariates,  cTrialDesign   )
 {
-    nQtyPats = cTrialDesign$nMaxQtyPats
-    nQtyCovs = length( cSimCovariates )
-    iCov = 1
-    lCovRet = list( )
-    repeat
-    {
-        lCovRet[[ iCov ]] = SimulatePatientCovariates( cSimCovariates[[ iCov ]], nQtyPats  )
+    nQtyPats <- cTrialDesign$nMaxQtyPats
+    nQtyCovs <- length( cSimCovariates )
+    #iCov     <- 1
+    #dfCovRet <- data.frame( matrix( NA, nrow = nQtyPats, ncol = nQtyCovs ) )
+    #Estimate a new nQtyPats  the likelyhood of a group is low that we we could
+    # avoid repeated calls to Simulating additonal patients ect
+    nQtyPatsToSimulate <- EstimateNumberOfPatientsToSimulate( cSimCovariates, nQtyPats )
+    nQtyISAs           <- cTrialDesign$nQtyISAs
 
-        if( iCov == nQtyCovs )
-            break
-        iCov = iCov + 1
-
-    }
-    return( lCovRet )
+    print( paste( "SImulating ", nQtyPatsToSimulate,  " patients "))
+    dfCovRet <- data.frame( mapply(FUN = SimulatePatientCovariates,  cSimCovariates,  nQtyOfPatients = nQtyPatsToSimulate ) )
+    # repeat
+    # {
+    #     dfCovRet[ , iCov] = SimulatePatientCovariates( cSimCovariates[[ iCov ]], nQtyPats  )
+    #
+    #     if( iCov == nQtyCovs )
+    #         break
+    #     iCov = iCov + 1
+    #
+    # }
+    names(dfCovRet) <- paste( "vCov", 1:nQtyCovs, sep="")
+    return( dfCovRet )
 }
 
 SimulateAllPatientCovariates.NULL <- function( cSimCovariates,  cTrialDesign   )

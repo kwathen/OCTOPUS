@@ -16,8 +16,8 @@
 #               To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomizer is called.
 #
 
-#' @name BuildResultsDataSet
-#' @title BuildResultsDataSet
+#' @name Randomize
+#' @title Randomize
 #' @description { Randomize should return a list with at least the following items
 #'  nTrt - The treatment within the ISA that the patient should receive
 #'  nISA - The index of the ISA
@@ -31,7 +31,7 @@
 #'               To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomizer is called.
 #'   }
 #' @export
-Randomize <- function( cRandomizer, vISAStatus, dCurrentTime, nPrintDetail )
+Randomize <- function( cRandomizer, vISAStatus, dCurrentTime, dfCov, nPrintDetail )
 {
     UseMethod( "Randomize", cRandomizer )
 
@@ -44,7 +44,7 @@ Randomize <- function( cRandomizer, vISAStatus, dCurrentTime, nPrintDetail )
 #  $nISA - the index of the ISA the patient was assigned to
 #  #nTrt - the treatment the patient was assigned to
 #' @export
-Randomize.default   <- function( cRandomizer, vISAStatus, dCurrentTime, nPrintDetail = 0 )
+Randomize.default   <- function( cRandomizer, vISAStatus, dCurrentTime, dfCov = NULL, nPrintDetail = 0 )
 {
     if( nPrintDetail >= 100 )
         print( "Randomize.default")
@@ -54,7 +54,14 @@ Randomize.default   <- function( cRandomizer, vISAStatus, dCurrentTime, nPrintDe
     if( nQtyISA != length( vISAStatus ) )
         stop( paste( "Critical Error in RandomizeBetweenISA.Equal: The number of ISAs in cRandomizer does not equal the length( vISAStatus) " ))
 
+    vISAStatus  <- CheckISAEnrollmentStatus( vISAStatus, cRandomizer, dfCov )
 
+    if( all( vISAStatus != 1 ) )
+    {
+        # if no element in vISAStatus == 1 --> No ISA is open for the patient with dfCov covariates, return a list with nISA = NA, nTrt = NA
+        return( list( cRandomizer = cRandomizer, nISA = NA, nTrt = NA ) )
+
+    }
     nISA        <- RandomizeBetweenISA( cRandomizer, vISAStatus,  dCurrentTime )
     cISARand    <- cRandomizer[[ nISA ]]
     lRet        <- RandomizeWithinISA( cISARand,  dCurrentTime )
@@ -67,6 +74,28 @@ Randomize.default   <- function( cRandomizer, vISAStatus, dCurrentTime, nPrintDe
 
 }
 
+#' @name CheckISAEnrollmentStatus
+#' @title CheckISAEnrollmentStatus
+#' @description{ This function will check the cRandomzier to make sure if an ISA is open for the covariate group dfCov}
+#' @export
+CheckISAEnrollmentStatus <- function( vISAStatus, cRandomizer, dfCov )
+{
+    if( is.null( dfCov ) )  #Covariates are not included no need to check
+        return( vISAStatus )
 
+    vRetISAStatus <- vISAStatus
+    cRandomizer[[1]]$dfSubGroupEnrollmentStatus
+    for( iISA in 1:length( vISAStatus ))
+    {
+        if( vRetISAStatus[ iISA ] == 1 )
+        {
+            #If the enrollment status is anything other than 1 patients will not be enrolled to it, thus if it != before no need to check
+            vElement              <- SelectList( cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus[,-3], dfCov)
+            nISAStatusEnrollment  <- cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus[ vElement, 3]
+            vRetISAStatus[ iISA ] <- nISAStatusEnrollment
+        }
+    }
+    return( vRetISAStatus )
+}
 
 

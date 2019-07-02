@@ -54,6 +54,8 @@ setClass(
 
 setGeneric( name = "SimulateArrivalTimes",          def=function(cAP){standardGeneric("SimulateArrivalTimes")})
 
+setGeneric( name = "SimulateAdditionalArrivalTimes",def=function(cAP, nQtyPats, vCurrentStartTimes){standardGeneric("SimulateAdditionalArrivalTimes")})
+
 #GetSlot Generics
 setGeneric( name = "GetMaxQtyPats",                 def=function(cAP){standardGeneric("GetMaxQtyPats")})
 setGeneric( name = "GetMaxQtyMonths",               def=function(cAP){standardGeneric("GetMaxQtyMonths")})
@@ -215,6 +217,7 @@ setMethod(  f="Validate",
             }
 )
 
+# SimulateArrivalTimes #####
 #' @name SimulateArrivalTimes
 #' @title SimulateArrivalTimes
 #' @description {This class can be used to simulate the arrival times of patients in a simulated clinical trial.  The function
@@ -309,6 +312,47 @@ setMethod(  f = "SimulateArrivalTimes",
                     vRetAccTimes <- vRetAccTimes[ vRetAccTimes < nMaxMonths  ]
                 if( nMaxQtyPats > 0 & length( vRetAccTimes ) > nMaxQtyPats )
                     vRetAccTimes <- vRetAccTimes[ 1:nMaxQtyPats ]
+
+                return( vRetAccTimes )
+            }
+)
+
+
+#  SimulateAdditionalArrivalTimes #####
+#' @name SimulateAdditionalArrivalTimes
+#' @title SimulateAdditionalArrivalTimes
+#' @description {
+#' }
+#' @seealso \code{\link{NewAccrualProcess}} for creating the object.
+#' @param nQtyPats  Number of additonal times to simulate
+#' @param vCurrentStartTimes a vector of the current start times.   The new times will be after the last element and the vector appended to.
+
+#' @details{ }
+#' @examples
+#'   vPatsPerMonth  <- c(5, 10, 15, 20, 30, 40, 50) # The ramp up in expected Pat/month
+#'   nMaxQtyPats    <- 100  # Maximum of 100 patients
+#'   ap             <- NewAccrualProcess( vQtyPatsPerMonth = vPatsPerMonth, nMaxQtyPatients = nMaxQtyPats )
+#'   vAccTimes      <- SimulateArrivalTimes( ap )
+#'
+#' @export
+setMethod(  f = "SimulateAdditionalArrivalTimes",
+            signature( cAP ="AccrualMethods" ),
+            definition=function( cAP, nQtyPats, vCurrentStartTimes )
+            {
+                if( !cAP@m.bValid )
+                {
+                    stop( "Error: The AccrualMethods object must be valid before calling SimulateArrivalTimes.")
+                }
+
+                vRetAccTimes     <- vector()
+                vPatsPerMonth    <- cAP@m.vQtyPatsPerMonth
+
+                dRecruitmentRate <- vPatsPerMonth[ length( vPatsPerMonth) ]
+
+                vRetAccTimes     <- cumsum( rexp( nQtyPats,dRecruitmentRate  ) )
+
+                vRetAccTimes     <- vRetAccTimes +  vCurrentStartTimes[ length( vCurrentStartTimes ) ]
+                vRetAccTimes     <- c( vCurrentStartTimes, vRetAccTimes )  #Return the append list
 
                 return( vRetAccTimes )
             }

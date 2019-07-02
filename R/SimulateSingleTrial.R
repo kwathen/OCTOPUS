@@ -22,8 +22,7 @@ SimulateSingleTrial <- function( cScen, cTrialDesign )
 #' the simulation.}
 #' @export
 SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
-{
-    #TODO: In validating the  cTrialDesign$cISADesigns need to make sure the ProcessDataXXX class type is the same in all ISAs
+{    #TODO: In validating the  cTrialDesign$cISADesigns need to make sure the ProcessDataXXX class type is the same in all ISAs
     if( cScen$nPrintDetail >= 100 )
         print( paste( "SimulateSingleTrial.default - Updated "))
 
@@ -64,8 +63,8 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     vISAStartTimes  <- SimulateAllISAStartTimes( cScen$cISADesigns )            # Simulate the times the ISAs start
 
     vStartTimes     <- SimulateArrivalTimes( cScen$cAcc )
-    lPatCov         <- SimulateAllPatientCovariates( cScen$cSimCovariates, cTrialDesign )  # This will need to go into the next line to simulate pateitn outcomes
-    lPatOut         <- SimulateAllPatientOutcomes( cScen,  cTrialDesign, lPatCov  )
+    dfPatCov        <- SimulateAllPatientCovariates( cScen$cSimCovariates, cTrialDesign )  # This will need to go into the next line to simulate pateitn outcomes
+    lPatOut         <- SimulateAllPatientOutcomes( cScen,  cTrialDesign, dfPatCov  )
     cRandomizer     <- InitializeTrialRandomizer( cTrialDesign, vISAStartTimes )
 
     iPat <- 1
@@ -75,6 +74,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     # patient database. To be able to add more start times could simply call SimulateArrivalTimes and add the last start time to the retured
     #start times
 
+    nTmp <- 0
     for( iPat in 1:(nMaxQtyPats) )
     {
 
@@ -82,10 +82,66 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         vISAStatus   <- ifelse( dCurrentTime > vISAStartTimes & vISAStatus < 2, 1, vISAStatus   )
 
         #TODO(Covs) - Check if ISAs/Arms are open based on covs
-        cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime  )
+        #Thinking - Each ISA has a list of covarates with True/false to indicate if the ISA is enrolling for that type of patient
+        #This would likely get added to the cRandomzier in the InitialzieTrialRandomizer above and could be modified due to analysis
+        #Before a patient is randomized we have to know the covarites so we could use lPatOut to get the values of the covariates
+        # remove the ones used, send the selected covs into Randomize and that way when we select the patient based on ISA/Treatment
+        #we would also need to select based on covs
+
+        if( is.null( dfPatCov ) )
+            dfCov    <- NULL
+        else
+        {
+            iIndx        <- sample( 1:nrow( dfPatCov ), size = 1 )
+            dfCov        <- dfPatCov[  iIndx, ]
+            dfPatCov     <- dfPatCov[ -iIndx, ]
+        }
+
+
+        cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime, dfCov )
+        while( is.na( cRandUpdate$nISA ) )
+        {
+            # This could occure when no ISAs are open for a given patient dfCov
+            #TODO(Covs) - Need to keep track of the number of times a patient cannot enroll
+            vStartTimes <- vStartTimes[ -iPat ]
+            if( length( vStartTimes ) < nMaxQtyPats ) #Simulate more times
+            {
+                vStartTimes <- SimulateAdditionalArrivalTimes( cScen$cAcc, nMaxQtyPats, vStartTimes )
+            }
+
+            #Restart the loop above
+            dCurrentTime <- vStartTimes[ iPat ]
+            vISAStatus   <- ifelse( dCurrentTime > vISAStartTimes & vISAStatus < 2, 1, vISAStatus   )
+
+            if( is.null( dfPatCov ) )
+                dfCov    <- NULL
+            else
+            {
+                iIndx        <- sample( 1:nrow( dfPatCov ), size = 1 )
+                dfCov        <- dfPatCov[  iIndx, ]
+                dfPatCov     <- dfPatCov[ -iIndx, ]
+            }
+
+            cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime, dfCov )
+
+        }
         cRandomizer  <- cRandUpdate$cRandomizer
 
-        lRet         <- AddPatient( lPatOut, dCurrentTime,   cRandUpdate$nISA, cRandUpdate$nTrt, cEnrolledPats, nPrintDetail = cScen$nPrintDetail )
+        #TODO(COvs) - Handle the situation when there are no more patients in lPatOut for the given ISA/nTrt/Cov group..
+
+        lRet         <- AddPatient( lPatOut, dCurrentTime,   cRandUpdate$nISA, cRandUpdate$nTrt, dfCov, cEnrolledPats, nPrintDetail = cScen$nPrintDetail )
+       # bAddBreak <- FALSE
+        while( !is.list( lRet ) && lRet == -1 )
+        {
+
+            #lPatOut does not contain any simulated pateints in the correct ISA,TRT with dfCov; therefore simualte more patients
+            dfPatCov2   <- SimulateAllPatientCovariates( cScen$cSimCovariates, cTrialDesign )  # This will need to go into the next line to simulate pateitn outcomes
+            lPatOut2    <- SimulateAllPatientOutcomes( cScen,  cTrialDesign, dfPatCov2  )
+            dfPatCov    <- rbind( dfPatCov, dfPatCov2 )
+            lPatOut     <- AppendPatientLists( lPatOut, lPatOut2 )
+            lRet        <- AddPatient( lPatOut, dCurrentTime,   cRandUpdate$nISA, cRandUpdate$nTrt, dfCov, cEnrolledPats, nPrintDetail = cScen$nPrintDetail )
+
+        }
 
         cEnrolledPats<- lRet$cEnrolledPats
         lPatOut      <- lRet$lPatOut

@@ -35,7 +35,7 @@
 #' @title SimPatientOutcomes
 #' @description SimPatientOutcomes {This function is intended to simulate the outcomes for a given ISA.}
 #' @export
-SimPatientOutcomes <- function( cSimOutcomes, cISADesign, lPatCovISA )
+SimPatientOutcomes <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 {
     UseMethod( "SimPatientOutcomes", cSimOutcomes )
 }
@@ -45,7 +45,7 @@ SimPatientOutcomes <- function( cSimOutcomes, cISADesign, lPatCovISA )
 #' Because several options are provided and there in no well defined default
 #' an stop error occurs if you call the default method. }
 #' @export
-SimPatientOutcomes.default <- function( cSimOutcomes,  cISADesign, lPatCovISA )
+SimPatientOutcomes.default <- function( cSimOutcomes,  cISADesign, dfPatCovISA )
 {
     stop(print("ERROR: The default sim patient outcomes is not defined.", class( cSimOutcomes)))
 }
@@ -56,10 +56,10 @@ SimPatientOutcomes.default <- function( cSimOutcomes,  cISADesign, lPatCovISA )
 #' @describeIn SimPatientOutcomes { The cSimOutcomes object has a list of sim outcomes and this version will go through and call the
 #' SimPatientOutcomes for each type.  Each outcome is simulated independently. }
 #' @export
-SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, lPatCovISA )
+SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 {
-    if( !is.null( lPatCovISA ) )
-        stop( "SimPatientOutcomes.Independent is not designed to incorporate patient covariates and lPatCovISA is not NULL.")
+    if( !is.null( dfPatCovISA ) )
+        stop( "SimPatientOutcomes.Independent is not designed to incorporate patient covariates and dfPatCovISA is not NULL.")
     vQtyPats        <-  cISADesign$vQtyPats
     #print( "SimPatientOutcomes.Independent")
 
@@ -71,7 +71,7 @@ SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, lPatCovISA
     {
 
         lTmpSimOut  <- cSimOutcomes[[ iOut ]] #GetSimOutome( lScen, iOut )
-        lSimOut     <- SimPatientOutcomes( lTmpSimOut, cISADesign )
+        lSimOut     <- SimPatientOutcomes( lTmpSimOut, cISADesign,  dfPatCovISA )
         #mSimOut     <- SimulatePatientOutcome( lScen$vQtyPats, lTmpSimOut )
         #mSimOut     <- mSimOut[ lRandInfo$vRndIndx, ]
 
@@ -106,10 +106,10 @@ SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, lPatCovISA
 #' first outcome to simulate all outcomes correlated.  Each simoutcome must have an attribute vColIndex that
 #' specifies which columns out of the matrix will be used for that outcome. }
 #' @export
-SimPatientOutcomes.Correlated <- function( cSimOutcomes, cISADesign, lPatCovISA )
+SimPatientOutcomes.Correlated <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 {
-    if( !is.null( lPatCovISA ) )
-        stop( "SimPatientOutcomes.Correlated is not designed to incorporate patient covariates and lPatCovISA is not NULL.")
+    if( !is.null( dfPatCovISA ) )
+        stop( "SimPatientOutcomes.Correlated is not designed to incorporate patient covariates and dfPatCovISA is not NULL.")
     #print( "SimPatientOutcomes.Correlated")
     nQtyOutcomes    <- length( cSimOutcomes )
     lSimDataRet     <- list()            #Each simulated outcome matrix will be added to the list with names mSimOut1, mSimOut2...
@@ -119,7 +119,7 @@ SimPatientOutcomes.Correlated <- function( cSimOutcomes, cISADesign, lPatCovISA 
 
     lTmpSimOut  <- cSimOutcomes[[ 1 ]] #GetSimOutome( lScen, iOut )
     #print( paste("Sim class", class( lTmpSimOut)))
-    lSimOut     <- SimPatientOutcomes( lTmpSimOut, cISADesign, lPatCovISA  )
+    lSimOut     <- SimPatientOutcomes( lTmpSimOut, cISADesign, dfPatCovISA  )
     mSimOut     <- lSimOut[[1]]
 
     #mSimOut     <- SimulatePatientOutcome( lScen$vQtyPats, lTmpSimOut )
