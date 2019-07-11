@@ -35,7 +35,6 @@ SimulateAllPatientCovariates.default <- function( cSimCovariates,  cTrialDesign 
     nQtyPatsToSimulate <- EstimateNumberOfPatientsToSimulate( cSimCovariates, nQtyPats )
     nQtyISAs           <- cTrialDesign$nQtyISAs
 
-    print( paste( "SImulating ", nQtyPatsToSimulate,  " patients "))
     dfCovRet <- data.frame( mapply(FUN = SimulatePatientCovariates,  cSimCovariates,  nQtyOfPatients = nQtyPatsToSimulate ) )
     # repeat
     # {
