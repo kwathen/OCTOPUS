@@ -348,10 +348,6 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         write.table( mEnrollment, strFileName, sep=", ", append=TRUE, col.name=FALSE, row.names=FALSE)
     }
 
-
-    ### Working HERE... I believe that if we reach this point we need to know when the last FA is so we can run the last analysis
-    # This is not implemented yet
-
      # May need vIsFinalISAAnalysis = TRUE for all ISA
     if( any(vISAStatus == 2 ))
     {
