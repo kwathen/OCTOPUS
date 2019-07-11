@@ -98,11 +98,13 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         }
 
 
-        cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime, dfCov )
-        while( is.na( cRandUpdate$nISA ) )
+        vEnrollmentStatus  <- CheckISAEnrollmentStatus( cRandomizer, vISAStatus, dfCov )
+
+        while( all( vEnrollmentStatus != 1 ) )
         {
-            # This could occure when no ISAs are open for a given patient dfCov
-            #TODO(Covs) - Need to keep track of the number of times a patient cannot enroll
+            #print( paste( "Trying next..."))
+            # if no element in vISAStatus == 1 --> No ISA is open for the patient with dfCov covariates, remove this patient and go to the next
+            # until an ISA is open for the patient
             vStartTimes <- vStartTimes[ -iPat ]
             if( length( vStartTimes ) < nMaxQtyPats ) #Simulate more times
             {
@@ -121,10 +123,38 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
                 dfCov        <- dfPatCov[  iIndx, ]
                 dfPatCov     <- dfPatCov[ -iIndx, ]
             }
-
-            cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime, dfCov )
+            vEnrollmentStatus  <- CheckISAEnrollmentStatus( cRandomizer, vISAStatus, dfCov )
 
         }
+        #print( paste( "Randomzier call ", class( cRandomizer) ) )
+        cRandUpdate  <- Randomize( cRandomizer, vEnrollmentStatus, dCurrentTime, dfCov )
+        #Move this up - should be able to be removed
+        # while( is.na( cRandUpdate$nISA ) )
+        # {
+        #     # This could occure when no ISAs are open for a given patient dfCov
+        #     #TODO(Covs) - Need to keep track of the number of times a patient cannot enroll
+        #     vStartTimes <- vStartTimes[ -iPat ]
+        #     if( length( vStartTimes ) < nMaxQtyPats ) #Simulate more times
+        #     {
+        #         vStartTimes <- SimulateAdditionalArrivalTimes( cScen$cAcc, nMaxQtyPats, vStartTimes )
+        #     }
+        #
+        #     #Restart the loop above
+        #     dCurrentTime <- vStartTimes[ iPat ]
+        #     vISAStatus   <- ifelse( dCurrentTime > vISAStartTimes & vISAStatus < 2, 1, vISAStatus   )
+        #
+        #     if( is.null( dfPatCov ) )
+        #         dfCov    <- NULL
+        #     else
+        #     {
+        #         iIndx        <- sample( 1:nrow( dfPatCov ), size = 1 )
+        #         dfCov        <- dfPatCov[  iIndx, ]
+        #         dfPatCov     <- dfPatCov[ -iIndx, ]
+        #     }
+        #
+        #     cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime, dfCov )
+        #
+        # }
         cRandomizer  <- cRandUpdate$cRandomizer
 
         #TODO(COvs) - Handle the situation when there are no more patients in lPatOut for the given ISA/nTrt/Cov group..
@@ -156,7 +186,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         if( cScen$nPrintDetail >= 15 )
         {
             strStatus <- paste( "ISA Status ", paste( vstrStatus[ vISAStatus+1 ], collapse=", "), collapse = " " )
-            print( paste( "Patient ", iPat, " Analysis Index ", paste( vISAAnalysisIndx, collapse=", "), strStatus ))
+            #print( paste( "Patient ", iPat, " Analysis Index ", paste( vISAAnalysisIndx, collapse=", "), strStatus ))
         }
 
         if( any( vRunISAAnalysis == 1))

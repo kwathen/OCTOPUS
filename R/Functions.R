@@ -160,7 +160,7 @@ AppendPatientLists <- function( lList1, lList2, vNamesToExclude = NULL )
 #' @export
 SelectList <- function( lData, lValue )
 {
-    if( dim(lValue)[2]  == 1)
+    if( length(lValue) == 1)
     {
         vResults <-  ( lData[[1]]==rep( lValue, length((lData[[1]]))) )
         return( vResults )

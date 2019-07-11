@@ -3,6 +3,7 @@
 S3method(AddControlData,ProcessReptMeas)
 S3method(AddControlData,ProcessReptMeasChngBaseline)
 S3method(AddControlData,ProcessSingleTimeOutcome)
+S3method(CheckISAEnrollmentStatus,default)
 S3method(CheckNextTrialAnalysisTime,default)
 S3method(CheckTrialMonitor,default)
 S3method(ComputePosteriorProbs,MAVOnly)
