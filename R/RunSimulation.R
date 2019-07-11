@@ -25,7 +25,9 @@ RunSimulation.default <- function( lSimulation )
 {
 
     if( exists( "gDebug" ) == FALSE   )
-        gDebg <<- FALSE
+    {
+        gDebug <<- FALSE
+    }
 
     lSimulation <- SetupSimulation( lSimulation )
     nGridIndex  <- ifelse( is.null( lSimulation$nGridIndex ), 1, lSimulation$nGridIndex )
