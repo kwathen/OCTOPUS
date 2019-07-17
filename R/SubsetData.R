@@ -69,30 +69,24 @@ SubsetData.NoBorrowing <- function( cSimDataAna, nISA )
 SubsetData.AllControls <- function( cSimDataAna, nISA )
 {
     #First include all patients that are in the desired ISA
-    cISAData      <- cSimDataAna[[nISA]]
-
-    #cISAData$vISA <- rep( nISA, length( cISAData$vTrt) )
-
-    #2nd get the control patients for all other ISAs
-    nQtyISA <-  length( cSimDataAna )
-    vISA <- 1:nQtyISA
-    vISA <- vISA[ vISA != nISA ]
-
-
-    nQtyOut <- length( cISAData )
-
+    cISAData    <- cSimDataAna[[nISA]]
+    nQtyOut     <- length( cISAData )
 
     for( iOut in 1:nQtyOut )
     {
-
         cISAData[[iOut]]$vISA <- rep( nISA, length(cISAData[[iOut]]$vTrt ))
-
     }
 
+
+    #2nd get the control patients for all other ISAs
+    nQtyISA <- length( cSimDataAna )
+    vISA    <- 1:nQtyISA
+    vISA    <- vISA[ vISA != nISA ]
 
     for( iISA in vISA )
     {
         cSourceISA <- cSimDataAna[[ iISA]]
+        nQtyOut    <- length( cSourceISA )  #If ISAs had differing number of outcomes, we need to use whatever the current source ISA is.
         for( iOut in 1:nQtyOut )
         {
             if( length( cSourceISA) > 0 )  #=0 means there is no data to add.
