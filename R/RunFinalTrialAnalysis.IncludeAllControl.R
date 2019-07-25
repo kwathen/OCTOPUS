@@ -7,7 +7,7 @@
 #
 #############################################################################################################################.
 
-
+#TODO(Kyle) - CHeck to see if this function is still needed, looks to be no longer needed 7.18.2019
 
 #' @export
 RunFinalTrialAnalysis.IncludeAllControl <- function( cISADesigns, cEnrolledPats,  vISAStatus,  vISAAnalysisIndx )

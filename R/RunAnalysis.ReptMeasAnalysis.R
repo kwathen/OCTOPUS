@@ -14,7 +14,7 @@
 #' weights = varIdent(form = ~1|vTime),
 #' correlation = corSymm(form=~1|vIND), na.action = na.omit )"  }
 #' @export
-RunAnalysis.ReptMeasAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis)
+RunAnalysis.ReptMeasAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer)
 {
 
     #print( "RunAnalysis.ReptMeasAnalysis ")

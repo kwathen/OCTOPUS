@@ -12,7 +12,7 @@
 #' @description {This is the method used for running the Ranked analysis using wilcox_test from the coin package.
 #' Specifically, wilcox_test (DO NO CONFUSE with wilcox.test) with exact = TRUE"  }
 #' @export
-RunAnalysis.RankedExact <- function( cAnalysis, lDataAna,   nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis.RankedExact <- function( cAnalysis, lDataAna,   nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
 
 

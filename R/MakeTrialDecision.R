@@ -8,7 +8,7 @@
 #############################################################################################################################.
 
 #' @export
-MakeTrialDecision <- function( cISADesigns, lResAnalysis,  vISAStatus,  vIsFinalISAAnalysis )
+MakeTrialDecision <- function( cISADesigns, lResAnalysis,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer )
 {
     UseMethod( "MakeTrialDecision", cISADesigns )
 
@@ -42,7 +42,7 @@ MakeTrialDecision <- function( cISADesigns, lResAnalysis,  vISAStatus,  vIsFinal
 #   6 = Closed - No Go at the FA
 #   7 = Closed - Pause at the FA
 #' @export
-MakeTrialDecision.default <- function( cISADesigns, lResAnalysis,  vISAStatus,  vIsFinalISAAnalysis  )
+MakeTrialDecision.default <- function( cISADesigns, lResAnalysis,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer  )
 {
 
     nQtyISA <- length( cISADesigns )
@@ -57,7 +57,7 @@ MakeTrialDecision.default <- function( cISADesigns, lResAnalysis,  vISAStatus,  
 
         if( vISAStatus[ nISA ] <= 2 && lResAnalysis[[ nISA ]]$bISAAnalysisRun )
         {
-            lDec <- MakeDecision( lDecision, lResAnalysis[[ nISA ]], vIsFinalISAAnalysis[ nISA ] )
+            lDec <- MakeDecision( lDecision, lResAnalysis[[ nISA ]], vIsFinalISAAnalysis[ nISA ], cRandomizer[[ nISA ]] )
 
             if( !vIsFinalISAAnalysis[ nISA ] )
             {

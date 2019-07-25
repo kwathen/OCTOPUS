@@ -27,7 +27,7 @@
 #' @description {This is the method used for running the analysis.  There are several options available for different types
 #' of data.}
 #' @export
-RunAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
     UseMethod( "RunAnalysis", cAnalysis )
 }
@@ -38,7 +38,7 @@ RunAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnal
 #' @description {This is the method used for running the analysis as a default.  This method is not defined and is
 #' in place in-case someone provides an invalid class type for RunAnalysis.  This version will stop execution.  }
 #' @export
-RunAnalysis.default <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis.default <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
     #print(paste( "ERROR: The default RunAnalysis is not defined.  Class name= ", class(cAnalysis)))
     stop( paste( "ERROR: The default RunAnalysis is not defined.  Class name=", class(cAnalysis)))

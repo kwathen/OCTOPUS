@@ -8,7 +8,7 @@
 #############################################################################################################################.
 
 #' @export
-RunAnalysis.TTestPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
+RunAnalysis.TTestPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {
     #print( "RunAnalysis.TTestPerDose ")
 

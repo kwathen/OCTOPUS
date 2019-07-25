@@ -11,7 +11,7 @@
 #Analysis model for MCPMod
 # cAnalysis must have cAnalysis$vDose for class of type MCPMod
 #' @export
-RunAnalysis.MCPModAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis.MCPModAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
     print( "RunAnalysis.MCPMod ")
     #print( lDataAna )

@@ -36,14 +36,14 @@
 #' @return A list like the following:  list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ) with only one of the element = 1.
 #'
 #' @export
-MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     UseMethod( "MakeDecision", lDecision )
 }
 
 
 #' @export
-MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     if( length( lResAnalysis ) == 2 )  #There is just one outcome so return it.  Checking if 2 because the length( lResAnalysis) = # outcomes + 1 (for binary if analysis is run)
         return( list( nGo = lResAnalysis[[1]]$nGo, nNoGo = lResAnalysis[[1]]$nNoGo, nPause = lResAnalysis[[1]]$nPause)  )
@@ -64,7 +64,7 @@ MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis )
 #' MakeDecision.TwoOutcomeOptions2.
 #' }
 #' @export
-MakeDecision.General <- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.General <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     #print( paste( "MakeDecision.General"))
 
@@ -81,7 +81,7 @@ MakeDecision.General <- function( lDecision, lResAnalysis, bFinalAnalysis )
 }
 
 
-MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
 
     print( "MakeDecision.GeneralDoses")
@@ -134,7 +134,7 @@ MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis )
 #' }
 #' }
 #' @export
-MakeDecision.Outcome1Only <- function( lDecision, lResAnalysis, bFinalAnalysis)
+MakeDecision.Outcome1Only <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer)
 {
     lResAnalysis1  <- lResAnalysis[[1]]
 
@@ -156,7 +156,7 @@ MakeDecision.Outcome1Only <- function( lDecision, lResAnalysis, bFinalAnalysis)
 #' }
 #' }
 #' @export
-MakeDecision.Outcome2Only<- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.Outcome2Only<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
 
     lResAnalysis2  <- lResAnalysis[[2]]
@@ -190,7 +190,7 @@ MakeDecision.Outcome2Only<- function( lDecision, lResAnalysis, bFinalAnalysis )
 #                   NG  P   G
 #                    Outcome 1
 #' @export
-MakeDecision.TwoOutcomeOption1 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.TwoOutcomeOption1 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     #print( paste( "MakeDecision.TwoOutcomeOption1"))
     nGo <- nNoGo <- nPause <- 0
@@ -236,7 +236,7 @@ MakeDecision.TwoOutcomeOption1 <- function( lDecision, lResAnalysis, bFinalAnaly
 #                   NG  P   G
 #                    Outcome 1
 #' @export
-MakeDecision.TwoOutcomeOption2 <- function(  lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.TwoOutcomeOption2 <- function(  lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     #print( paste( "MakeDecision.TwoOutcomeOption2"))
     nGo <- nNoGo <- nPause <- 0
@@ -283,7 +283,7 @@ MakeDecision.TwoOutcomeOption2 <- function(  lDecision, lResAnalysis, bFinalAnal
 #                   NG  P   G
 #                    Outcome 1
 #' @export
-MakeDecision.TwoOutcomeOption3 <- function( lDecision,lResAnalysis, bFinalAnalysis  )
+MakeDecision.TwoOutcomeOption3 <- function( lDecision,lResAnalysis, bFinalAnalysis, cRandomizer  )
 {
     #print( paste( "MakeDecision.TwoOutcomeOption3"))
     lResAnalysis1  <- lResAnalysis[[1]]
@@ -325,7 +325,7 @@ MakeDecision.TwoOutcomeOption3 <- function( lDecision,lResAnalysis, bFinalAnalys
 #                   NG  P   G
 #                    Outcome 1
 #' @export
-MakeDecision.TwoOutcomeOption4 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.TwoOutcomeOption4 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     lResAnalysis1  <- lResAnalysis[[1]]
     lResAnalysis2  <- lResAnalysis[[2]]
@@ -366,7 +366,7 @@ MakeDecision.TwoOutcomeOption4 <- function( lDecision, lResAnalysis, bFinalAnaly
 #                   NG  P   G
 #                    Outcome 1
 #' @export
-MakeDecision.TwoOutcomeOption5 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.TwoOutcomeOption5 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     lResAnalysis1  <- lResAnalysis[[1]]
     lResAnalysis2  <- lResAnalysis[[2]]
@@ -403,7 +403,7 @@ MakeDecision.TwoOutcomeOption5 <- function( lDecision, lResAnalysis, bFinalAnaly
 #' }
 #' }
 #' @export
-MakeDecision.TwoOutcomeOption7 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.TwoOutcomeOption7 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     lResAnalysis1  <- lResAnalysis[[1]]
     lResAnalysis2  <- lResAnalysis[[2]]
@@ -449,7 +449,7 @@ MakeDecision.TwoOutcomeOption7 <- function( lDecision, lResAnalysis, bFinalAnaly
 #                   NG  P   G
 #                    Outcome 1
 #' @export
-MakeDecision.TwoOutcomeOption11 <- function( lDecision, lResAnalysis, bFinalAnalysis )
+MakeDecision.TwoOutcomeOption11 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     #print( paste( "MakeDecision.TwoOutcomeOption11"))
 

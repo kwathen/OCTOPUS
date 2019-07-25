@@ -34,7 +34,8 @@ InitializeISARandomizer.default <- function( cISARandomizer, dISAStartTime )
 #' @description {This function is used to initialize the EqualRandomzier for an ISA. It uses the vTrtLab and vQtyPats
 #' to sample the desired number of each treatment in the ISA. }
 #' @param  cISARandomizer Must contain elements cISARandomizer$vTrtLab and cISARandomizer$vQtyPats and the lengths must
-#' be equal.
+#' be equal. If cISARandomizer contains a definition of cISARandomizer$dfSubgroupEnrollmentStatus it is used as the enrollment to a specific
+#' covariate signature.
 #' @param dISAStartTime Parameter is not utilized for EqualRandomizer
 #' @export
 InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer, dISAStartTime )

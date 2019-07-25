@@ -52,7 +52,7 @@
 #' @description { RunTrialAnalysis is a generic method to execute the trial level analysis, eg execute all ISA analysis.
 #' Any implementation of RunTrialAnalysis must increment vISAAnalysisIndx if an analysis is run for an ISA   }
 #' @export
-RunTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis  )
+RunTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
 {
     UseMethod( "RunTrialAnalysis", cISADesigns )
 }
@@ -100,9 +100,10 @@ RunTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentT
 #'  This version is sent all the available data in lDataAna then for each ISA gets the subset
 #'   that is specific to that ISA.  If we want to do a version that borrows control info
 #'   a new version could be adapted.
+#'   Because the decision is tied to the analysis, each ISA analysis should contain the elementsnGo, nNoGo, nPause as part ot the list retured.
 #'  }
 #' @export
-RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis  )
+RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
 {
     nQtyISA <- length( cISADesigns )
 
@@ -146,7 +147,7 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
             #  TODO - This use to have vIsFinalISA which has been replaced by index but may not do all that is necessar
 
             #print( paste( ".....IndependentISA vISAAnalysisIndx ", vISAAnalysisIndx[ nISA], " IsFinalISA ", vIsFinalISAAnalysis[ nISA ], sep =""))
-            lISARes <- RunISAAnalysis( cISAAnalysis, lDataTmp, vISAAnalysisIndx[ nISA],  vIsFinalISAAnalysis[ nISA ]  )
+            lISARes <- RunISAAnalysis( cISAAnalysis, lDataTmp, vISAAnalysisIndx[ nISA],  vIsFinalISAAnalysis[ nISA ], cRandomizer[[ nISA ]]  )
 
             vISAAnalysisIndx[ nISA ] <- vISAAnalysisIndx[ nISA ] + 1
 

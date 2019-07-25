@@ -12,7 +12,7 @@
 #' @title RunAnalysis.Ranked
 #' @description {This is the method used for running the Ranked analysis. Specifically, wilcox.test with exact = TRUE"  }
 #' @export
-RunAnalysis.Ranked <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis.Ranked <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
 
 

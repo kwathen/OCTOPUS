@@ -97,9 +97,14 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
             dfPatCov     <- dfPatCov[ -iIndx, ]
         }
 
-
+        #vEnrollmentStatus - Two cases
+        # If No covaraite - dfCov = NULL then  vEnrollmentStatus = vISAStatus
+        # If Covariates - dfCov != NULL then vEnrollmentStatus = vISAStatus but if an ISA does not enroll for dfCov the value will be
         vEnrollmentStatus  <- CheckISAEnrollmentStatus( cRandomizer, vISAStatus, dfCov )
 
+        #In the event that no ISA is enrolling for the patient that enrolled due to dfCov, then this while loop
+        #will keep checking the next patients until one can be enrolled.
+        #TODO(Covs) - THis while loop could be refactored, currently leaving it here to complete development on Covs
         while( all( vEnrollmentStatus != 1 ) )
         {
             #print( paste( "Trying next..."))
@@ -128,41 +133,16 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         }
         #print( paste( "Randomzier call ", class( cRandomizer) ) )
         cRandUpdate  <- Randomize( cRandomizer, vEnrollmentStatus, dCurrentTime, dfCov )
-        #Move this up - should be able to be removed
-        # while( is.na( cRandUpdate$nISA ) )
-        # {
-        #     # This could occure when no ISAs are open for a given patient dfCov
-        #     #TODO(Covs) - Need to keep track of the number of times a patient cannot enroll
-        #     vStartTimes <- vStartTimes[ -iPat ]
-        #     if( length( vStartTimes ) < nMaxQtyPats ) #Simulate more times
-        #     {
-        #         vStartTimes <- SimulateAdditionalArrivalTimes( cScen$cAcc, nMaxQtyPats, vStartTimes )
-        #     }
-        #
-        #     #Restart the loop above
-        #     dCurrentTime <- vStartTimes[ iPat ]
-        #     vISAStatus   <- ifelse( dCurrentTime > vISAStartTimes & vISAStatus < 2, 1, vISAStatus   )
-        #
-        #     if( is.null( dfPatCov ) )
-        #         dfCov    <- NULL
-        #     else
-        #     {
-        #         iIndx        <- sample( 1:nrow( dfPatCov ), size = 1 )
-        #         dfCov        <- dfPatCov[  iIndx, ]
-        #         dfPatCov     <- dfPatCov[ -iIndx, ]
-        #     }
-        #
-        #     cRandUpdate  <- Randomize( cRandomizer, vISAStatus, dCurrentTime, dfCov )
-        #
-        # }
+
         cRandomizer  <- cRandUpdate$cRandomizer
 
-        #TODO(COvs) - Handle the situation when there are no more patients in lPatOut for the given ISA/nTrt/Cov group..
 
         lRet         <- AddPatient( lPatOut, dCurrentTime,   cRandUpdate$nISA, cRandUpdate$nTrt, dfCov, cEnrolledPats, nPrintDetail = cScen$nPrintDetail )
        # bAddBreak <- FALSE
         while( !is.list( lRet ) && lRet == -1 )
         {
+            # Handle the situation when there are no more patients in lPatOut for the given ISA/nTrt/Cov group by simulating more patients
+            #TODO(COvs) - This code block could be refactored.
 
             #lPatOut does not contain any simulated pateints in the correct ISA,TRT with dfCov; therefore simualte more patients
             dfPatCov2   <- SimulateAllPatientCovariates( cScen$cSimCovariates, cTrialDesign )  # This will need to go into the next line to simulate pateitn outcomes
@@ -177,12 +157,12 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         lPatOut      <- lRet$lPatOut
 
         vTimeFinalEnrollment <- ifelse( cEnrolledPats$vCurrentQtyPatsISA == vMaxPatsInISA & vISAStatus < 2, dCurrentTime, vTimeFinalEnrollment )
-        vISAStatus   <- ifelse( cEnrolledPats$vCurrentQtyPatsISA == vMaxPatsInISA & vISAStatus < 2, 2, vISAStatus )
+        vISAStatus           <- ifelse( cEnrolledPats$vCurrentQtyPatsISA == vMaxPatsInISA & vISAStatus < 2, 2, vISAStatus )
 
-        lMonitor            <- CheckTrialMonitor(  cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime  )
-        vPreviousIATime     <- lMonitor$vPreviousIATime
-        vRunISAAnalysis     <- lMonitor$vRunISAAnalysis
-        vIsFinalISAAnalysis <- lMonitor$vIsFinalISAAnalysis
+        lMonitor             <- CheckTrialMonitor(  cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime  )
+        vPreviousIATime      <- lMonitor$vPreviousIATime
+        vRunISAAnalysis      <- lMonitor$vRunISAAnalysis
+        vIsFinalISAAnalysis  <- lMonitor$vIsFinalISAAnalysis
         if( cScen$nPrintDetail >= 15 )
         {
             strStatus <- paste( "ISA Status ", paste( vstrStatus[ vISAStatus+1 ], collapse=", "), collapse = " " )
@@ -198,11 +178,16 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
             if( cScen$nPrintDetail >= 15 )
                 print( paste( "Running trial analysis vRunISAAnalysis =", paste( vRunISAAnalysis, collapse  =", ")))
-            lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis  )
+
+            #TODO(Covs) -The RunTrialAnalysis needs cRandomizer info because it will return the nGo, nNoGo, nPause status, possibly for multiple doses, or in this case covariates
+
+            lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
 
             lResAna             <- lRet$lResISA
 
-            lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis)
+            #TODO(Covs) - For covs if lRet object has info for a cov group then make MakeTrialDecision may need to update cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus
+            #             There is another call to MakeTrialDecision below, make sure to implement changes there as well
+            lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer )
 
             vTimeStartAnalysis  <- ifelse( vRunISAAnalysis == 1 & vISAAnalysisIndx == 1, dCurrentTime, vTimeStartAnalysis )
             #If the ISA was open and this analysis closed it then we need to keep the result of this ISA analysis
@@ -220,14 +205,15 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
         if( any( vISAStatus == 0 ) && all(vISAStatus >= 2 | vISAStatus == 0))
         {
+            #This is the case where an ISA has not opened but all other ISAs have opened and closed, eg nothing currently open
+
+            #However, for multiple ISAs there could be analysis run before the next ISA opens so we need to run those
             if( cScen$nPrintDetail >= 15 )
             {
                 print( paste( "At time = ", dCurrentTime , " there are no ISAs open for enrollment and at least one ISA remains to be added to the platform."))
                 print( paste( "...Checking if additional analysis need to run prior to the start of the next ISA starting."))
             }
-            #This is the case where an ISA has not opened but all other ISAs have opened and closed, eg nothing currently open
 
-            #However, for multiple ISAs there could be analysis run before the next ISA opens so we need to run those
             dNextISAStart           <- min( vISAStartTimes[ vISAStatus == 0 ] )
             dNextISAAnalysis        <- CheckNextTrialAnalysisTime(  cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime  )
 
@@ -263,11 +249,12 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
                     if( cScen$nPrintDetail >= 15 )
                         print( paste( "Running trial analysis vRunISAAnalysis =", paste( vRunISAAnalysis, collapse  =", ")))
-                    lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis  )
+                    lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
 
                     lResAna             <- lRet$lResISA
 
-                    lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis)
+                    #TODO(Covs) - For covs if lRet object has info for a cov group then make MakeTrialDecision may need to update cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus
+                    lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer)
 
                     #If the ISA was open and this analysis closed it then we need to keep the result of this ISA analysis
                     vFinalAnalysis      <- ( vRunISAAnalysis == 1 & lDecision$vISAStatus > 2 )
@@ -297,7 +284,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
             break
         }
 
-    }
+    } #End of main loop
 
 
 
@@ -379,11 +366,11 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
                 if( cScen$nPrintDetail >= 15 )
                     print( paste( "Running trial analysis vRunISAAnalysis =", paste( vRunISAAnalysis, collapse  =", ")))
-                lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis  )
+                lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
 
                 lResAna             <- lRet$lResISA
 
-                lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis)
+                lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer)
 
                 #If the ISA was open and this analysis closed it then we need to keep the result of this ISA analysis
                 vFinalAnalysis      <- ( vRunISAAnalysis == 1 & lDecision$vISAStatus > 2 )

@@ -12,9 +12,10 @@
 
 #' @name RunISAAnalysis
 #' @title RunISAAnalysis
-#' @description {Generic method called to run the ISA analysis.  }
+#' @description {Generic method called to run the ISA analysis.
+#' Because the decision is tied to the analysis, each RunISAAnalysis should contain the elements nGo, nNoGo, nPause as part ot the list retured.}
 #' @export
-RunISAAnalysis <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunISAAnalysis <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
     UseMethod( "RunISAAnalysis", cISAAnalysis )
 }
@@ -26,7 +27,7 @@ RunISAAnalysis <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalIS
 #' @title RunISAAnalysis.default
 #' @description  The cISAAnalysis object has a list of Analysis
 #' @export
-RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
+RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {
     #print( "RunISAAnalysis.Independent")
 
@@ -43,7 +44,7 @@ RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, b
         # lArgs        <- list( cAnalysis = lTmpAna, lDataAna = lTmpData, nFinalAnalysis = nFinalAnalysis )
 
         #print( paste( "Independent bIsFinalAnalysis ",bIsFinalISAAnalysis, sep =""))
-        lAnaRes      <- RunAnalysis( cAnalysis=lTmpAna, lDataAna = lTmpData, nISAAnalysisIndx = nISAAnalysisIndx,  bIsFinalISAAnalysis= bIsFinalISAAnalysis )
+        lAnaRes      <- RunAnalysis( cAnalysis=lTmpAna, lDataAna = lTmpData, nISAAnalysisIndx = nISAAnalysisIndx,  bIsFinalISAAnalysis= bIsFinalISAAnalysis, cRandomizer )
         #lAnaRes      <- do.call( lTmpAna$strAnalysisMethod, lArgs )
         lResAna[[paste("lAnalysis", iAna, sep="")]] <- lAnaRes
 
@@ -61,7 +62,7 @@ RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, b
 #' @title RunISAAnalysis.DoseRanging
 #' @description {Generic method called to run the ISA analysis.  }
 #' @export
-RunISAAnalysis.DoseRanging <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis  )
+RunISAAnalysis.DoseRanging <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {
     #print( "RunISAAnalysis.DoseRanging")
 
@@ -75,7 +76,7 @@ RunISAAnalysis.DoseRanging <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx
         lTmpAna      <- cISAAnalysis$vAnalysis[[ iAna ]]
         lTmpData     <- lDataAna[[ iAna ]]
         # lArgs        <- list( cAnalysis = lTmpAna, lDataAna = lTmpData, nFinalAnalysis = nFinalAnalysis )
-        lAnaRes      <- RunAnalysis( cAnalysis=lTmpAna, lDataAna = lTmpData,nISAAnalysisIndx = nISAAnalysisIndx,  bIsFinalISAAnalysis= bIsFinalISAAnalysis  )
+        lAnaRes      <- RunAnalysis( cAnalysis=lTmpAna, lDataAna = lTmpData,nISAAnalysisIndx = nISAAnalysisIndx,  bIsFinalISAAnalysis= bIsFinalISAAnalysis, cRandomizer  )
         #lAnaRes      <- do.call( lTmpAna$strAnalysisMethod, lArgs )
         lResAna[[paste("lAnalysis", iAna, sep="")]] <- lAnaRes
 

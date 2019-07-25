@@ -8,7 +8,7 @@
 #############################################################################################################################.
 
 #' @export
-RunAnalysis.RankedPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
+RunAnalysis.RankedPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {
     #print( "RunAnalysis.RankedPerDose ")
 

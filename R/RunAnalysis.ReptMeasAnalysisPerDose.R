@@ -9,7 +9,7 @@
 # cAnalysis must have cAnalysis$vDose for class of type MCPMod
 #' @export
 #'
-RunAnalysis.ReptMeasAnalysisPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
+RunAnalysis.ReptMeasAnalysisPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {
     #print( "RunAnalysis.ReptMeasAnalysisPerDose ")
 

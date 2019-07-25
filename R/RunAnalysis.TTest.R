@@ -14,7 +14,7 @@
 #' Specifically,
 #' t.test(lDataAna$vOut ~ as.factor(lDataAna$vTrt), alternative = c("two.sided"),mu = 0, exact = NULL, correct = TRUE,  conf.int = TRUE, conf.level = dCILevel)"  }
 #' @export
-RunAnalysis.TTest <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis.TTest <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
 
 

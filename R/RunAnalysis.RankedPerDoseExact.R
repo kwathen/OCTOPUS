@@ -8,7 +8,7 @@
 #############################################################################################################################.
 
 #' @export
-RunAnalysis.RankedPerDoseExact <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
+RunAnalysis.RankedPerDoseExact <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {
     #print( "RunAnalysis.RankedPerDoseExact XX")
 
