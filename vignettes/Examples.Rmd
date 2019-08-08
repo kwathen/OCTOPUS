@@ -59,3 +59,20 @@ Located in Examples/CaseStudy1
 
 
 [View More](CaseStudy4.html)
+
+## Case Study 5
+* Builds on Case Study 4, by adding a second dose to ISA2.
+* Located in the Examples/CaseStudy5
+* Add dose to ISA 2
+
+[View More](CaseStudy5.html)
+
+## Case Study 6
+* Builds on Case Study 5, by adding an interim analysis (IA)
+* Located in the Examples/CaseStudy6
+* Add ISA 2
+* Demonstrate how IAs may impact the design
+
+
+[View More](CaseStudy6.html)
+

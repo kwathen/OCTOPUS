@@ -39,7 +39,8 @@
 
 <meta property="og:title" content="RunISAAnalysis — RunISAAnalysis" />
 
-<meta property="og:description" content="Generic method called to run the ISA analysis." />
+<meta property="og:description" content="Generic method called to run the ISA analysis.
+Because the decision is tied to the analysis, each RunISAAnalysis should contain the elements nGo, nNoGo, nPause as part ot the list retured." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -171,12 +172,13 @@
 
     <div class="ref-description">
     
-    <p>Generic method called to run the ISA analysis.</p>
+    <p>Generic method called to run the ISA analysis.
+Because the decision is tied to the analysis, each RunISAAnalysis should contain the elements nGo, nNoGo, nPause as part ot the list retured.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>RunISAAnalysis</span>(<span class='no'>cISAAnalysis</span>, <span class='no'>lDataAna</span>, <span class='no'>nISAAnalysisIndx</span>,
-  <span class='no'>bIsFinalISAAnalysis</span>)</pre>
+  <span class='no'>bIsFinalISAAnalysis</span>, <span class='no'>cRandomizer</span>)</pre>
         
 
   </div>

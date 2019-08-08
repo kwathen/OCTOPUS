@@ -46,7 +46,8 @@ Any implementation of RunTrialAnalysis must increment vISAAnalysisIndx if an ana
 Trial level analysis - will go through and conduct the analysis for each ISA.
  This version is sent all the available data in lDataAna then for each ISA gets the subset
   that is specific to that ISA.  If we want to do a version that borrows control info
-  a new version could be adapted." />
+  a new version could be adapted.
+  Because the decision is tied to the analysis, each ISA analysis should contain the elementsnGo, nNoGo, nPause as part ot the list retured." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -185,16 +186,18 @@ Any implementation of RunTrialAnalysis must increment vISAAnalysisIndx if an ana
 Trial level analysis - will go through and conduct the analysis for each ISA.
  This version is sent all the available data in lDataAna then for each ISA gets the subset
   that is specific to that ISA.  If we want to do a version that borrows control info
-  a new version could be adapted.</p>
+  a new version could be adapted.
+  Because the decision is tied to the analysis, each ISA analysis should contain the elementsnGo, nNoGo, nPause as part ot the list retured.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>RunTrialAnalysis</span>(<span class='no'>cISADesigns</span>, <span class='no'>cEnrolledPats</span>, <span class='no'>vISAStatus</span>, <span class='no'>dCurrentTime</span>,
-  <span class='no'>vRunISAAnalysis</span>, <span class='no'>vISAAnalysisIndx</span>, <span class='no'>vIsFinalISAAnalysis</span>)
+  <span class='no'>vRunISAAnalysis</span>, <span class='no'>vISAAnalysisIndx</span>, <span class='no'>vIsFinalISAAnalysis</span>, <span class='no'>cRandomizer</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>RunTrialAnalysis</span>(<span class='no'>cISADesigns</span>, <span class='no'>cEnrolledPats</span>, <span class='no'>vISAStatus</span>,
-  <span class='no'>dCurrentTime</span>, <span class='no'>vRunISAAnalysis</span>, <span class='no'>vISAAnalysisIndx</span>, <span class='no'>vIsFinalISAAnalysis</span>)</pre>
+  <span class='no'>dCurrentTime</span>, <span class='no'>vRunISAAnalysis</span>, <span class='no'>vISAAnalysisIndx</span>, <span class='no'>vIsFinalISAAnalysis</span>,
+  <span class='no'>cRandomizer</span>)</pre>
         
 
   </div>

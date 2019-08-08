@@ -39,18 +39,7 @@
 
 <meta property="og:title" content="BuildResultsDataSet — BuildResultsDataSet" />
 
-<meta property="og:description" content="This function is used to read in the input files and created a combined output file.
-Randomize should return a list with at least the following items
- nTrt - The treatment within the ISA that the patient should receive
- nISA - The index of the ISA
- cISARand - the same is cISARand but if it is updates this allows the caller to get the update.
- For a platform trial the randomization is a two step process.  The two steps are as follows:
-      1.  First  randomize between the ISAs.
-              To do this RandomizeBetweenISA is called and the class( cRandomizer ) will determine which version of this function
-              is called.  For example, if class( cRandomzier ) = &quot;Equal&quot; see RandomizeBetweenISA.Equal() for that definition.
-              Each ISA RandomzieBetweenISA function will return an integer nISA to indicate which ISA the patient was randomized to.
-      2.  Randomize within the ISA.
-              To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomizer is called." />
+<meta property="og:description" content="This function is used to read in the input files and created a combined output file." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -176,30 +165,17 @@ Randomize should return a list with at least the following items
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>BuildResultsDataSet</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kwathen/PlatformTrialSimulator/blob/master/R/BuildResultsDataSet.R'><code>R/BuildResultsDataSet.R</code></a>, <a href='https://github.com/kwathen/PlatformTrialSimulator/blob/master/R/Randomize.R'><code>R/Randomize.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/kwathen/PlatformTrialSimulator/blob/master/R/BuildResultsDataSet.R'><code>R/BuildResultsDataSet.R</code></a></small>
     <div class="hidden name"><code>BuildResultsDataSet.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
     <p>This function is used to read in the input files and created a combined output file.</p>
-<p>Randomize should return a list with at least the following items
- nTrt - The treatment within the ISA that the patient should receive
- nISA - The index of the ISA
- cISARand - the same is cISARand but if it is updates this allows the caller to get the update.
- For a platform trial the randomization is a two step process.  The two steps are as follows:
-      1.  First  randomize between the ISAs.
-              To do this RandomizeBetweenISA is called and the class( cRandomizer ) will determine which version of this function
-              is called.  For example, if class( cRandomzier ) = "Equal" see RandomizeBetweenISA.Equal() for that definition.
-              Each ISA RandomzieBetweenISA function will return an integer nISA to indicate which ISA the patient was randomized to.
-      2.  Randomize within the ISA.
-              To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomizer is called.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>BuildResultsDataSet</span>(<span class='no'>strMainResultsFile</span>, <span class='no'>vStrISAResultsFile</span>, <span class='no'>vISANumber</span>)
-
-<span class='fu'>Randomize</span>(<span class='no'>cRandomizer</span>, <span class='no'>vISAStatus</span>, <span class='no'>dCurrentTime</span>, <span class='no'>nPrintDetail</span>)</pre>
+    <pre class="usage"><span class='fu'>BuildResultsDataSet</span>(<span class='no'>strMainResultsFile</span>, <span class='no'>vStrISAResultsFile</span>, <span class='no'>vISANumber</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
