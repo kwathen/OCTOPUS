@@ -5,8 +5,9 @@
 \title{RunISAAnalysis}
 \usage{
 RunISAAnalysis(cISAAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis)
+  bIsFinalISAAnalysis, cRandomizer)
 }
 \description{
-{Generic method called to run the ISA analysis.  }
+{Generic method called to run the ISA analysis.
+Because the decision is tied to the analysis, each RunISAAnalysis should contain the elements nGo, nNoGo, nPause as part ot the list retured.}
 }

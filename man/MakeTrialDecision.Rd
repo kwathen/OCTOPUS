@@ -6,7 +6,7 @@
 \title{MakeTrialDecision}
 \usage{
 \method{MakeTrialDecision}{default}(cISADesigns, lResAnalysis, vISAStatus,
-  vIsFinalISAAnalysis)
+  vIsFinalISAAnalysis, cRandomizer)
 }
 \description{
 {This function determines the status of a trial (all ISAs) based on the input. Each ISA

@@ -5,7 +5,7 @@
 \title{RunISAAnalysis.DoseRanging}
 \usage{
 \method{RunISAAnalysis}{DoseRanging}(cISAAnalysis, lDataAna,
-  nISAAnalysisIndx, bIsFinalISAAnalysis)
+  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer)
 }
 \description{
 {Generic method called to run the ISA analysis.  }

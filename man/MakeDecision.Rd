@@ -4,7 +4,7 @@
 \alias{MakeDecision}
 \title{MakeDecision}
 \usage{
-MakeDecision(lDecision, lResAnalysis, bFinalAnalysis)
+MakeDecision(lDecision, lResAnalysis, bFinalAnalysis, cRandomizer)
 }
 \value{
 A list like the following:  list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ) with only one of the element = 1.

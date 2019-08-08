@@ -6,10 +6,11 @@
 \title{RunTrialAnalysis}
 \usage{
 RunTrialAnalysis(cISADesigns, cEnrolledPats, vISAStatus, dCurrentTime,
-  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis)
+  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer)
 
 \method{RunTrialAnalysis}{default}(cISADesigns, cEnrolledPats, vISAStatus,
-  dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis)
+  dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis,
+  cRandomizer)
 }
 \description{
 { RunTrialAnalysis is a generic method to execute the trial level analysis, eg execute all ISA analysis.
@@ -21,5 +22,6 @@ Trial level analysis - will go through and conduct the analysis for each ISA.
  This version is sent all the available data in lDataAna then for each ISA gets the subset
   that is specific to that ISA.  If we want to do a version that borrows control info
   a new version could be adapted.
+  Because the decision is tied to the analysis, each ISA analysis should contain the elementsnGo, nNoGo, nPause as part ot the list retured.
  }
 }

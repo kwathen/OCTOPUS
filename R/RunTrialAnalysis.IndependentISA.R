@@ -8,7 +8,7 @@
 #############################################################################################################################.
 
 #' @export
-RunTrialAnalysis.IndependentISA <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis  )
+RunTrialAnalysis.IndependentISA <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
 {
     nQtyISA <- length( cISADesigns )
 

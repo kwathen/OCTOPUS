@@ -5,7 +5,7 @@
 \title{RunAnalysis.TTest}
 \usage{
 \method{RunAnalysis}{TTest}(cAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis)
+  bIsFinalISAAnalysis, cRandomizer)
 }
 \description{
 {This is the method used for running the Repeated Measure Analysis .

@@ -4,7 +4,8 @@
 \alias{RunAnalysis}
 \title{RunAnalysis}
 \usage{
-RunAnalysis(cAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis)
+RunAnalysis(cAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis,
+  cRandomizer)
 }
 \description{
 {This is the method used for running the analysis.  There are several options available for different types

@@ -5,7 +5,7 @@
 \title{RunISAAnalysis.default}
 \usage{
 \method{RunISAAnalysis}{default}(cISAAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis)
+  bIsFinalISAAnalysis, cRandomizer)
 }
 \description{
 The cISAAnalysis object has a list of Analysis

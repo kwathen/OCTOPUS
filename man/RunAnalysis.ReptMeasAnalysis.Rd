@@ -5,7 +5,7 @@
 \title{RunAnalysis.ReptMeasAnalysis}
 \usage{
 \method{RunAnalysis}{ReptMeasAnalysis}(cAnalysis, lDataAna,
-  nISAAnalysisIndx, bIsFinalISAAnalysis)
+  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer)
 }
 \description{
 {This is the method used for running the Repeated Measure Analysis .

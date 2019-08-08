@@ -9,7 +9,8 @@
 }
 \arguments{
 \item{cISARandomizer}{Must contain elements cISARandomizer$vTrtLab and cISARandomizer$vQtyPats and the lengths must
-be equal.}
+be equal. If cISARandomizer contains a definition of cISARandomizer$dfSubgroupEnrollmentStatus it is used as the enrollment to a specific
+covariate signature.}
 
 \item{dISAStartTime}{Parameter is not utilized for EqualRandomizer}
 }

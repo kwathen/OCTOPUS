@@ -4,7 +4,8 @@
 \alias{MakeDecision.General}
 \title{MakeDecision.General}
 \usage{
-\method{MakeDecision}{General}(lDecision, lResAnalysis, bFinalAnalysis)
+\method{MakeDecision}{General}(lDecision, lResAnalysis, bFinalAnalysis,
+  cRandomizer)
 }
 \description{
 {This is the General version of Make decisions that allows for one approach at IAs (IA)

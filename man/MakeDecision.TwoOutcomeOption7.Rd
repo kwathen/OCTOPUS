@@ -5,7 +5,7 @@
 \title{MakeDecision.TwoOutcomeOption7}
 \usage{
 \method{MakeDecision}{TwoOutcomeOption7}(lDecision, lResAnalysis,
-  bFinalAnalysis)
+  bFinalAnalysis, cRandomizer)
 }
 \description{
 {This two outcome decision options priority on a Go for Outcome 1

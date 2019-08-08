@@ -5,7 +5,7 @@
 \title{RunAnalysis.default}
 \usage{
 \method{RunAnalysis}{default}(cAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis)
+  bIsFinalISAAnalysis, cRandomizer)
 }
 \description{
 {This is the method used for running the analysis as a default.  This method is not defined and is

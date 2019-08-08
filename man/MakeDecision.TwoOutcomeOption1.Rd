@@ -5,7 +5,7 @@
 \title{MakeDecision.TwoOutcomeOption1}
 \usage{
 \method{MakeDecision}{TwoOutcomeOption1}(lDecision, lResAnalysis,
-  bFinalAnalysis)
+  bFinalAnalysis, cRandomizer)
 }
 \description{
 {This two outcome decision options utilizes modified OR between two outcomes.

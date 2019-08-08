@@ -5,7 +5,7 @@
 \title{MakeDecision.TwoOutcomeOption3}
 \usage{
 \method{MakeDecision}{TwoOutcomeOption3}(lDecision, lResAnalysis,
-  bFinalAnalysis)
+  bFinalAnalysis, cRandomizer)
 }
 \description{
 {This two outcome decision options makes if GO if either outcome is a Go and makes a No Go

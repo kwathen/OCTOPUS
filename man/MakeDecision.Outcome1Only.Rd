@@ -5,7 +5,7 @@
 \title{MakeDecision.Outcome1Only}
 \usage{
 \method{MakeDecision}{Outcome1Only}(lDecision, lResAnalysis,
-  bFinalAnalysis)
+  bFinalAnalysis, cRandomizer)
 }
 \description{
 {This option ONLY uses the decision from Outcome 1.
