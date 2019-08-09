@@ -15,9 +15,15 @@
 #' @export
 AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  dfCov, cEnrolledPats, nPrintDetail = 0 )
 {
-    if( nPrintDetail >= 15)
-        print(paste( "....AddPatient Time ", round( dCurrentTime,3), " Patient Randomized to ISA ", nISA, " Treatment ", nTrt, " # In ISA ", cEnrolledPats$vCurrentQtyPatsISA[ nISA ]))
-
+    if( nPrintDetail >= 15  | gnPrintDetail >= 15)
+    {
+        strCov <- " No covariates "
+        if( !is.null( dfCov ) )
+        {
+            strCov <- paste( "Pat. Covariates ", paste( dfCov, collapse= ", " ))
+        }
+        print(paste( "....AddPatient() Time ", round( dCurrentTime,3), strCov, " Patient Randomized to ISA ", nISA, " Treatment ", nTrt, " # In ISA ", cEnrolledPats$vCurrentQtyPatsISA[ nISA ]))
+    }
     cEnrolledPats$vCurrentQtyPatsISA[ nISA ] <- cEnrolledPats$vCurrentQtyPatsISA[ nISA ] + 1
     #lEnrolledPats$vISA <- c( lEnrolledPats$vISA, nISA )
     #lEnrolledPats$vTrt <- c( lEnrolledPats$vTrt, nTrt )
@@ -172,5 +178,26 @@ SelectList <- function( lData, lValue )
     mColumnResults <- mapply( FUN = subsetColumn, lData, lValue )   #This will create a matrix with a row for each row in lData and a column ofr each column with TRUE/FALSE if it equals the desired value
     vResults       <- apply( mColumnResults, 1, all )
     return( vResults )
+}
+
+
+
+#' @name CheckGlobalVariables
+#' @title CheckGlobalVariables
+#' @description {Determine if the global variables that are needed have been defined and if not define them. Use of global variables
+#' should be restricted to the variables that are used throughout the code and only in VERY limited use.}
+#' @param lData - The dataset (as a list) that you want to select from
+#' @param lValue - A list with the desired values for each column in lData
+#' @export
+CheckGlobalVariables <- function()
+{
+    if( exists( "gDebug" ) == FALSE   )
+    {
+        gDebug <<- FALSE
+    }
+    if( exists( "gnPrintDetail") == FALSE )
+    {
+        gnPrintDetail <<- 0
+    }
 }
 
