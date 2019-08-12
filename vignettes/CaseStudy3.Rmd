@@ -123,3 +123,4 @@ The function SetupSimulations() is located in [SimulationDesign.R](https://githu
 Begin with the BuildMe.R file.    This file loads the PlatformTrialSimulator package and sources the design file.  
 The file TrialDesign.R contains the function necessary to set-up the design object.
 The file SimulationDesign.R contains the functions necessary to set-up the simulation design. 
+
