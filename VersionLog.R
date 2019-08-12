@@ -34,3 +34,12 @@ OK:       728
 Failed:   0
 Warnings: 0
 Skipped:  0
+
+##################################################.
+######  Version 1.2.1.2 Development          #####
+##################################################.
+
+1.  Major change to include covariates and all designs to make decisions for subgroups of patients.
+2.  To make printing option during the simulations easier to utilize added a global variable gnPrintDetail that is used to control print levels.
+    The main purpose of this variable is used when debugging or watching trials run.   It will replace the variable cScen$nPrintDetail, but for this
+    version cScen$nPrintDetail is still included for backward compatability.

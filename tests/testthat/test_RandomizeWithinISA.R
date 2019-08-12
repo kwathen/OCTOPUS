@@ -25,6 +25,8 @@ strPrefixTest <- "ISA 2 Randomizer - POCRandomizer"
 test_that(strPrefixTest,
 {
 
+    gnPrintDetail <<- 0
+
     #Set everything
     vISAStartTime <- c(0, 0)
     cTrialDesign  <- SetupTrialDesign2ISA( )
@@ -157,6 +159,7 @@ test_that(strPrefixTest,
 {
     #Reset everything
 
+    gnPrintDetail <<- 0
     vISAStartTime <- c(0, 0)
     cTrialDesign  <- SetupTrialDesign2ISA( )
     cTrialRand    <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime  )
@@ -295,6 +298,7 @@ test_that(strPrefixTest,
 {
     #Reset everything
 
+    gnPrintDetail <<- 0
     vISAStartTime <- c( 0, 6 )
     cTrialDesign  <- SetupTrialDesign2ISA(strISA2Randomizer = "DelayedStartRandomizer" )
     cTrialRand    <- InitializeTrialRandomizer( cTrialDesign, vISAStartTime  )

@@ -23,11 +23,7 @@ RunSimulation  <- function( lSimulation )
 #' @export
 RunSimulation.default <- function( lSimulation )
 {
-
-    if( exists( "gDebug" ) == FALSE   )
-    {
-        gDebug <<- FALSE
-    }
+    CheckGlobalVariables( )  #Function to check, and declare if needed, variables like gDebug, gnPrintDetail
 
     lSimulation <- SetupSimulation( lSimulation )
     nGridIndex  <- ifelse( is.null( lSimulation$nGridIndex ), 1, lSimulation$nGridIndex )

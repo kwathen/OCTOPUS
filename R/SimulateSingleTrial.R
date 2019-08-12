@@ -23,7 +23,7 @@ SimulateSingleTrial <- function( cScen, cTrialDesign )
 #' @export
 SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 {    #TODO: In validating the  cTrialDesign$cISADesigns need to make sure the ProcessDataXXX class type is the same in all ISAs
-    if( cScen$nPrintDetail >= 100 )
+    if( cScen$nPrintDetail >= 100 | gnPrintDetail >= 100 )
         print( paste( "SimulateSingleTrial.default - Updated "))
 
     #Initialize Variables
@@ -163,7 +163,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         vPreviousIATime      <- lMonitor$vPreviousIATime
         vRunISAAnalysis      <- lMonitor$vRunISAAnalysis
         vIsFinalISAAnalysis  <- lMonitor$vIsFinalISAAnalysis
-        if( cScen$nPrintDetail >= 15 )
+        if( cScen$nPrintDetail >= 15 | gnPrintDetail >= 15 )
         {
             strStatus <- paste( "ISA Status ", paste( vstrStatus[ vISAStatus+1 ], collapse=", "), collapse = " " )
             #print( paste( "Patient ", iPat, " Analysis Index ", paste( vISAAnalysisIndx, collapse=", "), strStatus ))
@@ -176,13 +176,13 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
             if( gDebug == TRUE   )
                 browser()
 
-            if( cScen$nPrintDetail >= 15 )
+            if( cScen$nPrintDetail >= 15 | gnPrintDetail >= 15)
                 print( paste( "Running trial analysis vRunISAAnalysis =", paste( vRunISAAnalysis, collapse  =", ")))
 
             #TODO(Covs) -The RunTrialAnalysis needs cRandomizer info because it will return the nGo, nNoGo, nPause status, possibly for multiple doses, or in this case covariates
 
             lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
-
+            #cRandomizer         <- lRet$cRandomizer
             lResAna             <- lRet$lResISA
 
             #TODO(Covs) - For covs if lRet object has info for a cov group then make MakeTrialDecision may need to update cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus
@@ -208,7 +208,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
             #This is the case where an ISA has not opened but all other ISAs have opened and closed, eg nothing currently open
 
             #However, for multiple ISAs there could be analysis run before the next ISA opens so we need to run those
-            if( cScen$nPrintDetail >= 15 )
+            if( cScen$nPrintDetail >= 15 | gnPrintDetail >= 15 )
             {
                 print( paste( "At time = ", dCurrentTime , " there are no ISAs open for enrollment and at least one ISA remains to be added to the platform."))
                 print( paste( "...Checking if additional analysis need to run prior to the start of the next ISA starting."))
@@ -237,7 +237,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
                 vRunISAAnalysis     <- lMonitor$vRunISAAnalysis
                 vIsFinalISAAnalysis <- lMonitor$vIsFinalISAAnalysis
 
-                if( cScen$nPrintDetail >= 15 )
+                if( cScen$nPrintDetail >= 15 | gnPrintDetail >=15 )
                 {
                     strStatus <- paste( "ISA Status ", paste( vstrStatus[ vISAStatus+1 ], collapse=", "), collapse = " " )
                     print( paste( "Patient ", iPat, ", No ISAs open Current Time ", dCurrentTime, ". Analysis Index ", paste( vISAAnalysisIndx, collapse=", "), strStatus ))
@@ -247,10 +247,10 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
                 {
                     vTimeStartAnalysis  <- ifelse( vRunISAAnalysis == 1 & vISAAnalysisIndx == 1, dCurrentTime, vTimeStartAnalysis )
 
-                    if( cScen$nPrintDetail >= 15 )
+                    if( cScen$nPrintDetail >= 15 | gnPrintDetail >= 15 )
                         print( paste( "Running trial analysis vRunISAAnalysis =", paste( vRunISAAnalysis, collapse  =", ")))
                     lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
-
+                    #cRandomizer         <- lRet$cRandomizer
                     lResAna             <- lRet$lResISA
 
                     #TODO(Covs) - For covs if lRet object has info for a cov group then make MakeTrialDecision may need to update cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus
@@ -279,7 +279,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         }
         if( all( vISAStatus >= 2)) # All ISAs have opened and closed, trial is done
         {
-            if( cScen$nPrintDetail >= 1 )
+            if( cScen$nPrintDetail >= 1 | gnPrintDetail >= 1 )
                 print( "All ISA Status are closed, ending main loop")
             break
         }
@@ -288,7 +288,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
 
 
-    if( cScen$nPrintDetail >= 15 )
+    if( cScen$nPrintDetail >= 15 | gnPrintDetail >= 15)
         print( paste( "********************** FINISHED THE MAIN LOOP***********************"))
 
     #At this point, if you have multiple ISAs the vISAStatus should be >=2 for all of them otherwise we have a problem
@@ -352,7 +352,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
             vRunISAAnalysis     <- lMonitor$vRunISAAnalysis
             vIsFinalISAAnalysis <- lMonitor$vIsFinalISAAnalysis
 
-            if( cScen$nPrintDetail >= 15 )
+            if( cScen$nPrintDetail >= 15 | gnPrintDetail >= 15)
             {
                 strStatus <- paste( "ISA Status ", paste( vstrStatus[ vISAStatus+1 ], collapse=", "), collapse = " " )
                 print( paste( "All Patients Enrolled - Patient ", iPat, " Analysis Index ", paste( vISAAnalysisIndx, collapse=", "), strStatus ))
@@ -364,10 +364,10 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
                 vTimeStartAnalysis  <- ifelse( vRunISAAnalysis == 1 & vISAAnalysisIndx == 1, dCurrentTime, vTimeStartAnalysis )
 
-                if( cScen$nPrintDetail >= 15 )
+                if( cScen$nPrintDetail >= 15  | gnPrintDetail >= 15 )
                     print( paste( "Running trial analysis vRunISAAnalysis =", paste( vRunISAAnalysis, collapse  =", ")))
                 lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
-
+                #cRandomizer         <- lRet$cRandomizer
                 lResAna             <- lRet$lResISA
 
                 lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer)
@@ -412,7 +412,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
 
 
-    if( cScen$nPrintDetail >= 15 )
+    if( cScen$nPrintDetail >= 15  | gnPrintDetail >= 15 )
     {
         strStatus <- paste( "Final ISA Status ", paste( vstrStatus[ vISAStatus+1 ], collapse=", "), collapse = " " )
         print( paste( strStatus) )

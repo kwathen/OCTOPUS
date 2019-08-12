@@ -15,8 +15,8 @@ source("TestHelperFunctions.R")
 #Each test will created an lExp that gives the expected outcome of each test.
 
 
-cTrialDesign <- SetupTrialDesign2ISA( )
-cTrialRand   <- InitializeTrialRandomizer( cTrialDesign )
+cTrialDesign  <- SetupTrialDesign2ISA( )
+cTrialRand    <- InitializeTrialRandomizer( cTrialDesign )
 
 #----------------------------------------------------------------------------------------------
 #
@@ -33,6 +33,8 @@ test_that("Equal Randomizer - Class Names",
 
 test_that("Equal Randomizer - Random tests",
           {
+
+              gnPrintDetail <<- 0
 
               #Now perform a few random tests to make sure the randomization to the ISAs are equal
               vISAStatus <- c( 1, 1 )

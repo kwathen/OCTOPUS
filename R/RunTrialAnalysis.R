@@ -146,8 +146,9 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
             ###########################
             #  TODO - This use to have vIsFinalISA which has been replaced by index but may not do all that is necessar
 
-            #print( paste( ".....IndependentISA vISAAnalysisIndx ", vISAAnalysisIndx[ nISA], " IsFinalISA ", vIsFinalISAAnalysis[ nISA ], sep =""))
+            #TODO(Covs) - Copyithe returned randomizre   cRandomizer[[ nISA]]$dfSubGroupEnrollmentStatus
             lISARes <- RunISAAnalysis( cISAAnalysis, lDataTmp, vISAAnalysisIndx[ nISA],  vIsFinalISAAnalysis[ nISA ], cRandomizer[[ nISA ]]  )
+            #cRandomizer[[ nISA ]]$dfSubGroupEnrollmentStatus <- lISARes$cRandomizer$dfSubGroupEnrollmentStatus
 
             vISAAnalysisIndx[ nISA ] <- vISAAnalysisIndx[ nISA ] + 1
 
@@ -177,12 +178,12 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
             #print( "Case 3")
         }
         lISARes$bISAAnalysisRun <- (vRunISAAnalysis[ nISA ] == 1)
-        lResISA[[paste("lResISA", nISA, sep="")]] <- lISARes
+        lResISA[[paste("lResISA", nISA, sep="")]] <- lISARes[ names( lISARes ) != "cRandomizer" ]
 
 
 
     }
-    lRet <- list( lResISA = lResISA, vISAAnalysisIndx = vISAAnalysisIndx )
+    lRet <- list( lResISA = lResISA, vISAAnalysisIndx = vISAAnalysisIndx ) #, cRandomizer = cRandomizer )
     return( lRet )
 
 }

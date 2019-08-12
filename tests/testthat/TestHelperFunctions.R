@@ -436,7 +436,7 @@ SetupTrialDesign2ISASimple <- function( strISA2Randomizer = "EqualRandomizer" )
     # has other options.
     cISA1Analysis <- structure( list(   vAnalysis = list( cAnalysis1 = cAnalysis1,
                                                           cAnalysis2 = cAnalysis2),
-                                        nISA = 1), class= "Independent")
+                                        nISA = 1), class= c("NoBorrowing"))
 
 
 

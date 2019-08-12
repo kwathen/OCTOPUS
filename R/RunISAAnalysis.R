@@ -45,13 +45,27 @@ RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, b
 
         #print( paste( "Independent bIsFinalAnalysis ",bIsFinalISAAnalysis, sep =""))
         lAnaRes      <- RunAnalysis( cAnalysis=lTmpAna, lDataAna = lTmpData, nISAAnalysisIndx = nISAAnalysisIndx,  bIsFinalISAAnalysis= bIsFinalISAAnalysis, cRandomizer )
+
+        #TODO(Covs) - Assuming the RunAnalysis return an object with lAnaRes$cRandomizer and there are multiple outcomes how do we want to combine the different decisions,
+        # for example outcome 1 says to stop group 1, outcome 2 does not what do we want to do with the cRanomzier then
         #lAnaRes      <- do.call( lTmpAna$strAnalysisMethod, lArgs )
+
+        #TODO(Covs) - Working here, at this point we have the cRandomizer in lAnaRes for each analysis and then copy it to the the return object
+        #but dont remove it.   Once the are combined then the lAnaRs$cRandomizer should be remove -- current problem here
         lResAna[[paste("lAnalysis", iAna, sep="")]] <- lAnaRes
 
         if( iAna == nQtyAna )
             break
         iAna <- iAna + 1
     }
+    # if( nQtyAna == 1 )
+    # {
+    #     lResAna <- lResAna[ names( lResAna ) != "cRandomizer"]   #Dropping the randomzier in th lResAna becuase it will be coppied to the return part
+    # }
+
+    #TODO(Covs) - for now assuming 1 outcome and will copy the lAnaRes to the return
+    #lResAna$cRandomizer <- lAnaRes$cRandomizer
+
 
     #Write tests for this function
     return(lResAna )

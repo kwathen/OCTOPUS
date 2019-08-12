@@ -46,7 +46,7 @@ Randomize <- function( cRandomizer, vISAStatus, dCurrentTime, dfCov, nPrintDetai
 #' @export
 Randomize.default   <- function( cRandomizer, vISAStatus, dCurrentTime, dfCov = NULL, nPrintDetail = 0 )
 {
-    if( nPrintDetail >= 100 )
+    if( nPrintDetail >= 100  | gnPrintDetail >= 100)
         print( "Randomize.default")
     nQtyISA   <- length( cRandomizer )  #This is the number of ISAs
 
