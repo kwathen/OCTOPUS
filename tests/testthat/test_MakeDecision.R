@@ -29,6 +29,9 @@ source("TestHelperFunctions.R")
 
 lDecision       <- structure( list( strApproachFA = "Outcome1Only", strApproachIA= "Outcome1Only"), class="General")
 
+cTrialDesign  <- SetupTrialDesign2ISA( )
+cTrialRand    <- InitializeTrialRandomizer( cTrialDesign )
+cRandomizer   <- cTrialRand[[1]]
 #Outcome 2 = Futility
 
 
@@ -36,20 +39,20 @@ test_that("MakeDecision.Outcome1Only - Outcome 2 Futility",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
 
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
     })
@@ -59,20 +62,20 @@ test_that("TwoOutcomeOption1 - Outcome 2 Pause",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_equal( lRet, lExp )
 
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -81,21 +84,21 @@ test_that("TwoOutcomeOption1 - Outcome 2 Go",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
 
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -112,20 +115,20 @@ test_that("Outcome2Only - Outcome 2 Futility",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -134,21 +137,21 @@ test_that("Outcome2Only - Outcome 2 Pause",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
 
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -158,21 +161,21 @@ test_that("Outcome2Only - Outcome 2 No Go",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
 
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
 
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -188,20 +191,20 @@ test_that("TwoOutcomeOption1 - Outcome 2 Futility",
           {
               lResOut1        <- list( nGo = 0, nNoGo = 1, nPause = 0)
               lResOut2        <- list( nGo = 0, nNoGo = 1, nPause = 0 )
-              lExp            <- list( nGo = 0, nNoGo = 1, nPause = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 0, nNoGo = 1, nPause = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
 
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nGo = 0, nNoGo = 1, nPause = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 0, nNoGo = 1, nPause = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
 
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nGo = 1, nNoGo = 0, nPause = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 1, nNoGo = 0, nPause = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
 
           })
@@ -213,21 +216,21 @@ test_that("TwoOutcomeOption1 - Outcome 2 Pause",
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nGo = 0, nNoGo = 1, nPause = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 0, nNoGo = 1, nPause = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
 
 
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nGo = 0, nNoGo = 0, nPause = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 0, nNoGo = 0, nPause = 1, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
 
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nGo = 1, nNoGo = 0, nPause = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 1, nNoGo = 0, nPause = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -239,20 +242,20 @@ test_that("Outcome 2 = Go",
 
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nGo = 1, nNoGo = 0, nPause = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 1, nNoGo = 0, nPause = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
 
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nGo = 1 , nNoGo = 0, nPause = 0)
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 1 , nNoGo = 0, nPause = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
 
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nGo = 1, nNoGo = 0, nPause = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nGo = 1, nNoGo = 0, nPause = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -270,8 +273,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 No Go Case 1",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -279,8 +282,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 No Go Case 2",
     {
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -288,8 +291,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 No Go Case 3",
     {
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -298,8 +301,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 Pause Case 4",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -307,8 +310,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 Pause Case 5",
     {
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -316,8 +319,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 Pause Case 6",
     {
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -329,8 +332,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 Go  Case 7",
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -338,8 +341,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 Go Case 8",
     {
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -347,8 +350,8 @@ test_that("TwoOutcomeOption2 - Outcome 2 Go Case 9",
     {
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer  )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -372,8 +375,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 1"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -381,8 +384,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 2"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer  )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer   )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -390,8 +393,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 3"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -400,8 +403,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 4"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -409,8 +412,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 5"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -418,8 +421,8 @@ test_that(paste( strOptionName, " Outcome 2 Pause Case 6"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -431,8 +434,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go  Case 7"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -440,8 +443,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 8"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -449,8 +452,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 9"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -478,8 +481,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 1"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -487,8 +490,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 2"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -496,8 +499,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 3"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -506,8 +509,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 4"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -515,8 +518,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 5"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -524,8 +527,8 @@ test_that(paste( strOptionName, " Outcome 2 Pause Case 6"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -537,8 +540,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go  Case 7"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -546,8 +549,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 8"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -555,8 +558,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 9"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -583,8 +586,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 1"),
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -592,8 +595,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 2"),
     {
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -601,8 +604,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 3"),
     {
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -611,8 +614,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 4"),
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -620,8 +623,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 5"),
     {
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -629,8 +632,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 6"),
     {
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -639,8 +642,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 7"),
     {
         lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -648,8 +651,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 8"),
     {
         lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -657,8 +660,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 9"),
     {
         lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
         lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+        lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+        lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
         expect_true( AreListsEqual( lRet, lExp ) )
     })
 
@@ -685,8 +688,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 1"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -694,8 +697,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 2"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -703,8 +706,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 3"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -713,8 +716,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 4"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -722,8 +725,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 5"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -731,8 +734,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 6"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -741,8 +744,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 7"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -750,8 +753,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 8"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -759,8 +762,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 9"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -788,8 +791,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 1"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 1, nPause = 0, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -797,8 +800,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 2"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -806,8 +809,8 @@ test_that(paste( strOptionName, " - Outcome 2 No Go Case 3"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -816,8 +819,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 4"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -825,8 +828,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 5"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -834,8 +837,8 @@ test_that(paste( strOptionName, " - Outcome 2 Pause Case 6"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -844,8 +847,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 7"),
           {
               lResOut1        <- list( nNoGo = 1, nPause = 0, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 1, nGo = 0, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -853,8 +856,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 8"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 1, nGo = 0 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 
@@ -862,8 +865,8 @@ test_that(paste( strOptionName, " - Outcome 2 Go Case 9"),
           {
               lResOut1        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
               lResOut2        <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1 )
-              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE  )
+              lExp            <- list( nNoGo = 0, nPause = 0, nGo = 1, cRandomizer = cRandomizer )
+              lRet            <- MakeDecision( lDecision, list( lResOut1, lResOut2  ), bFinalAnalysis=TRUE, cRandomizer = cRandomizer  )
               expect_true( AreListsEqual( lRet, lExp ) )
           })
 

@@ -51,6 +51,7 @@ RunAnalysis.ReptMeasAnalysisPerDose <- function( cAnalysis, lDataAna,  nISAAnaly
     {
         lRetObj[["lRet2"]] <- lRet
     }
+    lRetObj$cRandomizer <- cRandomizer
     #print( lRetComb )
     #lRet2 <-  c(GetLSDiffGLS( fit, nTrt[2], lDataAna$vObsTime[ nQtyTimePts], dMAV, dTV, dLowerCI, dUpperCI,bPlacMinusTrt ), nAnalysisUsed = 5)
     #lRet2 <<- lRet2

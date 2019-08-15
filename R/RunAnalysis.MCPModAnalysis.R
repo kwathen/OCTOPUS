@@ -51,7 +51,7 @@ RunAnalysis.MCPModAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, 
     #mcpFit <-  FitMCPMod(dose =cAnalysis$vDose, vPatDose = vPatDose,resp= vPatOut,cAnalysis$lModels,mod.sel=1)
     #print( mcpFit )
 
-
+    lRet$cRandomizer <- cRandomizer
     return( lRet )
 
 }

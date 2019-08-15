@@ -102,6 +102,7 @@ RunAnalysis.RankedPerDoseExact <- function( cAnalysis, lDataAna,  nISAAnalysisIn
         lRetObj[["lRet2"]] <- lRet2
     }
 
+    lRetObj$cRandomizer <- cRandomizer
     #print( paste( "CI ", dLower, " ", dUpper, " TV ", lAnalysis$dTV, " ", nSuccess, " ", nFutility, " ", nPause ))
 
     #return( list( nSuccess = nSuccess, nFutility = nFutility, nPause = nPause,

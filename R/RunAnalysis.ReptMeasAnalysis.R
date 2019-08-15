@@ -43,7 +43,9 @@ RunAnalysis.ReptMeasAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx
     nQtyTimePts <- length( lDataAna$vObsTime )
 
     bPlacMinusTrt <- cAnalysis$bPlacMinusTrt
-    return(  c(GetLSDiffGLS( fit, nTrt[1], lDataAna$vObsTime[ nQtyTimePts], dMAV, dTV, dLowerCI, dUpperCI,bPlacMinusTrt ), nAnalysisUsed = 5) )
+    lRet <- c(GetLSDiffGLS( fit, nTrt[1], lDataAna$vObsTime[ nQtyTimePts], dMAV, dTV, dLowerCI, dUpperCI,bPlacMinusTrt ), nAnalysisUsed = 5)
+    lRet$cRandomizer <-cRandomizer
+    return( lRet  )
 
 
 }

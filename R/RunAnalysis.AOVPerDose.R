@@ -8,7 +8,7 @@
 #############################################################################################################################.
 
 #' @export
-RunAnalysis.AOVPerDose <- function( cAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis  )
+RunAnalysis.AOVPerDose <- function( cAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {
 
     #print( "RunAnalysis.AOV")
@@ -80,6 +80,7 @@ RunAnalysis.AOVPerDose <- function( cAnalysis, lDataAna, nISAAnalysisIndx, bIsFi
     {
         lRet[["lRet2"]] <- lRet2
     }
+    lRet$cRandomizer <- cRandomizer
 
     return( lRet )
 

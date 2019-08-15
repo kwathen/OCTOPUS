@@ -164,7 +164,7 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
             lISARes <- list()
             repeat
             {
-                lISARes[[paste("lAnalysis", iAna, sep="")]] <- list( nGo = 0, nNoGo = 0, nPause = 1)
+                lISARes[[paste("lAnalysis", iAna, sep="")]] <- list( nGo = 0, nNoGo = 0, nPause = 1, cRandomizer =  cRandomizer[[ nISA ]])
 
                 if( iAna == nQtyAna )
                     break
@@ -178,7 +178,7 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
             #print( "Case 3")
         }
         lISARes$bISAAnalysisRun <- (vRunISAAnalysis[ nISA ] == 1)
-        lResISA[[paste("lResISA", nISA, sep="")]] <- lISARes[ names( lISARes ) != "cRandomizer" ]
+        lResISA[[paste("lResISA", nISA, sep="")]] <- lISARes #[ names( lISARes ) != "cRandomizer" ]
 
 
 

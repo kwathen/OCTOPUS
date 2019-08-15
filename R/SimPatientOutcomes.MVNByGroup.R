@@ -7,14 +7,15 @@
 #
 #############################################################################################################################.
 
+#Formerley called SimPatientOutcomes.MVNWithCovariate but name was changed to be more descriptive
 #####################################################################################
-#' @name SimPatientOutcomes.MVNWithCovariate
-#' @aliases{SimPatientOutcomes.MVNWithCovariate}
-#' @title SimPatientOutcomes.MVNWithCovariate
+#' @name SimPatientOutcomes.MVNByGroup
+#' @aliases{SimPatientOutcomes.MVNByGroup}
+#' @title SimPatientOutcomes.MVNByGroup
 #' @description  In this SimPatientOutcomes function we simulate patients from a MVN where there is a group covariate.
 #'   For each arm in the ISA you specify a lSimArm that specifies how the patients in that
 #'   arm are to be simulated.
-#'   The cSimoutcomes is a structure( list(lSimArm1, lSimArm2,..., lSimArmXX), class="MVNWithCovariate" )
+#'   The cSimoutcomes is a structure( list(lSimArm1, lSimArm2,..., lSimArmXX), class="MVNByGroup" )
 #'   Assuming the number of groups you want to simulate from is J, each lSimArm will have the following elements
 #'
 #'   Required for XX in 1:J :
@@ -62,14 +63,14 @@
 #'                     dMinimum   = 0,
 #'                     vObsTime   = c( 0, 2, 4 ))
 #'
-#'  cSimOutcomes <- structure( list(lSimArm1 = lSimArm1, lSimArm2 = lSimArm2), class =  "MVNWithCovariate" )
+#'  cSimOutcomes <- structure( list(lSimArm1 = lSimArm1, lSimArm2 = lSimArm2), class =  "MVNByGroup" )
 #' }
 #' @export
-SimPatientOutcomes.MVNWithCovariate <- function( cSimOutcomes,  cISADesign , dfPatCovISA )
+SimPatientOutcomes.MVNByGroup <- function( cSimOutcomes,  cISADesign , dfPatCovISA )
 {
     if( !is.null(  dfPatCovISA  ) )
-        stop( "SimPatientOutcomes.MVNWithCovariate is not designed to incorporate patient covariates and  dfPatCovISA  is not NULL.")
-    #print("SimPatientOutcomes.MVNWithCovariate" )
+        stop( "SimPatientOutcomes.MVNByGroup is not designed to incorporate patient covariates and  dfPatCovISA  is not NULL, please try SimPatOutcomes.MVNWithCovariates.")
+    #print("SimPatientOutcomes.MVNByGroup" )
 
     vQtyPats        <- cISADesign$vQtyPats
     nQtyGroups      <- length( cSimOutcomes$lSimArm1$vProbGroup)
@@ -84,7 +85,7 @@ SimPatientOutcomes.MVNWithCovariate <- function( cSimOutcomes,  cISADesign , dfP
     #TODO: Validation to be moved to a Validate phase?
     bValid <- TRUE
     strErr <- ""
-    strErrPrfx <- "SimPatientOutcomes.MVNWithCovariate - Validation Error: "
+    strErrPrfx <- "SimPatientOutcomes.MVNByGroup - Validation Error: "
     if( length( cSimOutcomes ) != nQtyArms )
     {
         bValid <- FALSE

@@ -53,11 +53,11 @@ MakeTrialDecision.default <- function( cISADesigns, lResAnalysis,  vISAStatus,  
         lDec <- list()
 
         lDecision <- cISADesigns[[ nISA ]]$lDecision
-        #
 
         if( vISAStatus[ nISA ] <= 2 && lResAnalysis[[ nISA ]]$bISAAnalysisRun )
         {
             lDec <- MakeDecision( lDecision, lResAnalysis[[ nISA ]], vIsFinalISAAnalysis[ nISA ], cRandomizer[[ nISA ]] )
+            cRandomizer[[ nISA ]] <- lDec$cRandomizer
 
             if( !vIsFinalISAAnalysis[ nISA ] )
             {
@@ -103,6 +103,6 @@ MakeTrialDecision.default <- function( cISADesigns, lResAnalysis,  vISAStatus,  
         lDecRet[[ paste("lDecISA", nISA, sep="") ]] <- lDec
     }
 
-    return( list( lDecRet = lDecRet, vISAStatus = vISAStatus)  )
+    return( list( lDecRet = lDecRet, vISAStatus = vISAStatus, cRandomizer = cRandomizer)  )
 
 }

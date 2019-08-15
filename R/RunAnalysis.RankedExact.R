@@ -60,7 +60,7 @@ RunAnalysis.RankedExact <- function( cAnalysis, lDataAna,   nISAAnalysisIndx, bI
 
 
     return( list(nGo = lRet$nGo, nNoGo = lRet$nNoGo, nPause = lRet$nPause,
-                 dEstimate = dEstimate, dCILow= dLower, dCIUp= dUpper))
+                 dEstimate = dEstimate, dCILow= dLower, dCIUp= dUpper, cRandomizer = cRandomizer))
 
 
 }

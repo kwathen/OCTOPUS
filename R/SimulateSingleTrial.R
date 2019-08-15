@@ -132,6 +132,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
         }
         #print( paste( "Randomzier call ", class( cRandomizer) ) )
+
         cRandUpdate  <- Randomize( cRandomizer, vEnrollmentStatus, dCurrentTime, dfCov )
 
         cRandomizer  <- cRandUpdate$cRandomizer
@@ -182,12 +183,14 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
             #TODO(Covs) -The RunTrialAnalysis needs cRandomizer info because it will return the nGo, nNoGo, nPause status, possibly for multiple doses, or in this case covariates
 
             lRet                <- RunTrialAnalysis( cTrialDesign$cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
-            #cRandomizer         <- lRet$cRandomizer
             lResAna             <- lRet$lResISA
 
             #TODO(Covs) - For covs if lRet object has info for a cov group then make MakeTrialDecision may need to update cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus
             #             There is another call to MakeTrialDecision below, make sure to implement changes there as well
             lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer )
+
+            #if( !is.null( dfPatCov ) )
+                cRandomizer         <- lDecision$cRandomizer
 
             vTimeStartAnalysis  <- ifelse( vRunISAAnalysis == 1 & vISAAnalysisIndx == 1, dCurrentTime, vTimeStartAnalysis )
             #If the ISA was open and this analysis closed it then we need to keep the result of this ISA analysis
@@ -254,7 +257,11 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
                     lResAna             <- lRet$lResISA
 
                     #TODO(Covs) - For covs if lRet object has info for a cov group then make MakeTrialDecision may need to update cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus
+
                     lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer)
+
+                    #if( !is.null( dfPatCov ) )
+                        cRandomizer         <- lDecision$cRandomizer
 
                     #If the ISA was open and this analysis closed it then we need to keep the result of this ISA analysis
                     vFinalAnalysis      <- ( vRunISAAnalysis == 1 & lDecision$vISAStatus > 2 )
@@ -309,21 +316,41 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     vAllPatientStartTimes <- c()
     vAllPatientTreatments <- c()
     vAllPatientISAs       <- c()
+
+
+    nQtyCovs <- length( cScen$cSimCovariates )
+    if( nQtyCovs > 0)
+    {
+        mAllPatientCovs <- matrix( ncol = nQtyCovs, nrow=0)
+        vCovName        <-  paste( "Cov", 1:nQtyCovs, sep="")
+    }
+    else
+    {
+        vCovName <- NULL
+        mAllPatientCovs <- NULL
+    }
+
     for( i in 1:nQtyISA )
     {
         vPatientStartTimes <- cEnrolledPats$lPatOut[[ i ]]$vStartTimes
         vPatientTreatments <- cEnrolledPats$lPatOut[[ i ]]$vTrt
+        mPatientCovs       <- data.frame( cEnrolledPats$lPatOut[[ i ]][ c( paste( "vCov", 1:nQtyCovs, sep="" ) ) ] )
         vAllPatientStartTimes <- c( vAllPatientStartTimes, vPatientStartTimes)
         vAllPatientTreatments <- c( vAllPatientTreatments, vPatientTreatments)
         vAllPatientISAs       <- c( vAllPatientISAs, rep( i, length(  vPatientStartTimes ) ))
+        mAllPatientCovs       <- rbind( mAllPatientCovs, mPatientCovs)
     }
     vOrderStart <- order( vAllPatientStartTimes )
     vAllPatientStartTimes <- vAllPatientStartTimes[ vOrderStart ]
     vAllPatientTreatments <- vAllPatientTreatments[ vOrderStart ]
     vAllPatientISAs       <- vAllPatientISAs[ vOrderStart ]
+    if( !is.null( mAllPatientCovs ) )
+        mAllPatientCovs       <- mAllPatientCovs[ vOrderStart, ]
 
-    mEnrollment <- cbind( cScen$nDesign, cScen$Scen, cScen$nGridIndex, cScen$nTrialID, round(vAllPatientStartTimes,2) , vAllPatientTreatments, vAllPatientISAs, 1:length( vAllPatientISAs) )
-    colnames( mEnrollment ) <- c("Design", "Scenario", "GridIndex", "TrialID", "StartTime","Treatment", "ISA", "PatientNumber" )
+    mEnrollment <- cbind( cScen$nDesign, cScen$Scen, cScen$nGridIndex, cScen$nTrialID, round(vAllPatientStartTimes,2) , vAllPatientTreatments, vAllPatientISAs, 1:length( vAllPatientISAs), mAllPatientCovs )
+
+    colnames( mEnrollment ) <- c("Design", "Scenario", "GridIndex", "TrialID", "StartTime","Treatment", "ISA", "PatientNumber",vCovName )
+
     strFileName <- paste( "enrollment/enroll", cScen$nGridIndex, ".csv", sep="" )
 
 
@@ -371,6 +398,9 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
                 lResAna             <- lRet$lResISA
 
                 lDecision           <- MakeTrialDecision( cTrialDesign$cISADesigns, lResAna,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer)
+
+                #if( !is.null( dfPatCov ) )
+                    cRandomizer         <- lDecision$cRandomizer
 
                 #If the ISA was open and this analysis closed it then we need to keep the result of this ISA analysis
                 vFinalAnalysis      <- ( vRunISAAnalysis == 1 & lDecision$vISAStatus > 2 )

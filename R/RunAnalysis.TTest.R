@@ -49,7 +49,7 @@ RunAnalysis.TTest <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalI
     }
 
     lRet <- MakeDecisionBasedOnCI( dLower, dUpper, cAnalysis )
-
+    lRet$cRandomizer <- cRandomizer
 
     return( lRet )
 

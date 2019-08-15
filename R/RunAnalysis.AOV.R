@@ -12,7 +12,7 @@
 #' @description {This is the method used for running the Analysis of Variance (AOV) .
 #' Specifically, lm( vOut ~ vBaseline + vTrt,na.action = na.omit)"  }
 #' @export
-RunAnalysis.AOV <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis.AOV <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
 
     #print( "RunAnalysis.AOV")
@@ -71,7 +71,7 @@ RunAnalysis.AOV <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISA
 
     vRet <- list(dEstimate = dEst, dStdErr = dSE, dTStat = dTStat, dPVal = dPVal, nDOF = nDOF,
                  dCILow = dCILow, dCIUp = dCIUp, nGO = lRet$nGo, nNoGo = lRet$nNoGo,
-                 nPause = lRet$nPause )
+                 nPause = lRet$nPause,  cRandomizer = cRandomizer )
     names(vRet)[5:10] <- c("nDOF", "dCILow", "dCIUp", "nGo", "nNoGo","nPause")
     return( vRet )
 

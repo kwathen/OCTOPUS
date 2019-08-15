@@ -13,7 +13,7 @@
 #' @title RunAnalysis.BayesianNormal
 #' @description {This is the method used for running the analysis of a BayesianNormal normal model.}
 #' @export
-RunAnalysis.BayesianNormal <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis.BayesianNormal <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
     vOut        <- lDataAna$vOut
 
@@ -59,7 +59,7 @@ RunAnalysis.BayesianNormal <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, 
     lSamples <- list( vPostSampPlac = vPostSampPlac, vPostSampTrt = vPostSampTrt )
     lRet <- ComputePosteriorProbs( cAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis, lSamples  )
 
-
+    lRet$cRandomizer <- cRandomizer
     ###### TODO(Kyle) - Test this function #############
     #}
     return( lRet )

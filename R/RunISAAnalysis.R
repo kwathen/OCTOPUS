@@ -48,7 +48,7 @@ RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, b
 
         #TODO(Covs) - Assuming the RunAnalysis return an object with lAnaRes$cRandomizer and there are multiple outcomes how do we want to combine the different decisions,
         # for example outcome 1 says to stop group 1, outcome 2 does not what do we want to do with the cRanomzier then
-        #lAnaRes      <- do.call( lTmpAna$strAnalysisMethod, lArgs )
+
 
         #TODO(Covs) - Working here, at this point we have the cRandomizer in lAnaRes for each analysis and then copy it to the the return object
         #but dont remove it.   Once the are combined then the lAnaRs$cRandomizer should be remove -- current problem here

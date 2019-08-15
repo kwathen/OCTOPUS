@@ -58,8 +58,8 @@ SimPatientOutcomes.default <- function( cSimOutcomes,  cISADesign, dfPatCovISA )
 #' @export
 SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 {
-    if( !is.null( dfPatCovISA ) )
-        stop( "SimPatientOutcomes.Independent is not designed to incorporate patient covariates and dfPatCovISA is not NULL.")
+    # if( !is.null( dfPatCovISA ) )
+    #     stop( "SimPatientOutcomes.Independent is not designed to incorporate patient covariates and dfPatCovISA is not NULL.")
     vQtyPats        <-  cISADesign$vQtyPats
     #print( "SimPatientOutcomes.Independent")
 
@@ -87,6 +87,9 @@ SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, dfPatCovIS
 
 
     }
+
+    if( !is.null( dfPatCovISA ) )
+        lSimDataRet[names( dfPatCovISA) ] <- dfPatCovISA[names( dfPatCovISA)]
 
     lSimDataRet$nQtyOut  <- nQtyOutcomes
     lSimDataRet$vPatTrt  <- rep( cISADesign$vTrtLab, cISADesign$vQtyPats )

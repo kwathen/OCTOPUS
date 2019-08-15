@@ -46,14 +46,18 @@ MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
     if( length( lResAnalysis ) == 2 )  #There is just one outcome so return it.  Checking if 2 because the length( lResAnalysis) = # outcomes + 1 (for binary if analysis is run)
-        return( list( nGo = lResAnalysis[[1]]$nGo, nNoGo = lResAnalysis[[1]]$nNoGo, nPause = lResAnalysis[[1]]$nPause)  )
+    {
+        lRet <- list( nGo = lResAnalysis[[1]]$nGo, nNoGo = lResAnalysis[[1]]$nNoGo, nPause = lResAnalysis[[1]]$nPause )
+        lRet$cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+        #lRet$cRandomizer <- lResAnalysis[[1]]$cRandomizer
+        return( lRet  )
+    }
     else
     {
         stop(paste( "ERROR: The default MakeDecision is not defined, class(lDecision) = ", class( lDecision)))
     }
 
 }
-
 
 #' @name MakeDecision.General
 #' @title MakeDecision.General
@@ -74,8 +78,9 @@ MakeDecision.General <- function( lDecision, lResAnalysis, bFinalAnalysis, cRand
         strApproach <- lDecision$strApproachIA
 
     #print( paste( "MakeDecision ", strApproach))
-    lDecTmp <- structure( lDecision, class = strApproach )
-    lRet <- MakeDecision( lDecTmp, lResAnalysis, bFinalAnalysis )
+    lDecTmp          <- structure( lDecision, class = strApproach )
+    lRet             <- MakeDecision( lDecTmp, lResAnalysis, bFinalAnalysis, cRandomizer )
+    #lRet$cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis )
     return(  lRet )
 
 }
@@ -84,7 +89,7 @@ MakeDecision.General <- function( lDecision, lResAnalysis, bFinalAnalysis, cRand
 MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
 
-    print( "MakeDecision.GeneralDoses")
+    #print( "MakeDecision.GeneralDoses")
 
     if( bFinalAnalysis )
         strApproach <- lDecision$strApproachFA
@@ -94,7 +99,9 @@ MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis, 
     if( lResAnalysis$bISAAnalysisRun == TRUE )
     {
 
-        nQtyAnalysis <- length( lResAnalysis[[1]] )
+
+        lAnalysisTmp <- lResAnalysis[[1]][ names(lResAnalysis[[1]]) != "cRandomizer"]
+        nQtyAnalysis <- length( lAnalysisTmp )
         lDecTmp <- vector( "list", length = nQtyAnalysis)
         for( i in 1:nQtyAnalysis )
         {
@@ -113,6 +120,7 @@ MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis, 
     }
     #print( paste( ".....MakeDecision ", strApproach))
     lRet <- MakeDecisionDoses( lDecTmp )
+    lRet$cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer)
 
     #print( paste( ".....MakeDecision ", strApproach, " ",lRet))
     return( lRet )
@@ -136,9 +144,9 @@ MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis, 
 #' @export
 MakeDecision.Outcome1Only <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer)
 {
-    lResAnalysis1  <- lResAnalysis[[1]]
-
-    return( lResAnalysis1 )
+    lRet  <- lResAnalysis[[1]]
+    lRet$cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer)
+    return( lRet )
 
 }
 
@@ -159,9 +167,11 @@ MakeDecision.Outcome1Only <- function( lDecision, lResAnalysis, bFinalAnalysis, 
 MakeDecision.Outcome2Only<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
 
-    lResAnalysis2  <- lResAnalysis[[2]]
 
-    return( lResAnalysis2 )
+    lRet  <- lResAnalysis[[2]]
+    lRet$cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+    return( lRet )
+
 
 }
 
@@ -209,7 +219,11 @@ MakeDecision.TwoOutcomeOption1 <- function( lDecision, lResAnalysis, bFinalAnaly
     {
         nPause <- 1
     }
-    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+
+    cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+    lRet        <- list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, cRandomizer = cRandomizer )
+    return( lRet )
 
 }
 
@@ -255,7 +269,10 @@ MakeDecision.TwoOutcomeOption2 <- function(  lDecision, lResAnalysis, bFinalAnal
     {
         nPause <- 1
     }
-    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+    cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+    lRet        <- list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, cRandomizer = cRandomizer )
+    return( lRet )
 
 }
 
@@ -302,7 +319,10 @@ MakeDecision.TwoOutcomeOption3 <- function( lDecision,lResAnalysis, bFinalAnalys
     {
         nPause <- 1
     }
-    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+    cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+    lRet        <- list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, cRandomizer = cRandomizer )
+    return( lRet )
 
 }
 
@@ -344,7 +364,10 @@ MakeDecision.TwoOutcomeOption4 <- function( lDecision, lResAnalysis, bFinalAnaly
     {
         nPause <- 1
     }
-    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+    cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+    lRet        <- list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, cRandomizer = cRandomizer )
+    return( lRet )
 
 }
 #' @name MakeDecision.TwoOutcomeOption5
@@ -384,7 +407,10 @@ MakeDecision.TwoOutcomeOption5 <- function( lDecision, lResAnalysis, bFinalAnaly
     {
         nPause <- 1
     }
-    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+    cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+    lRet        <- list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, cRandomizer = cRandomizer )
+    return( lRet )
 
 }
 
@@ -421,7 +447,10 @@ MakeDecision.TwoOutcomeOption7 <- function( lDecision, lResAnalysis, bFinalAnaly
     {
         nPause <- 1
     }
-    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+
+    cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+    lRet        <- list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, cRandomizer = cRandomizer )
+    return( lRet )
 
 }
 
@@ -493,7 +522,9 @@ MakeDecision.TwoOutcomeOption11 <- function( lDecision, lResAnalysis, bFinalAnal
     {
         nPause <- 1
     }
-    return( list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ))
+    cRandomizer <- UpdateRandomizer( lDecision, lResAnalysis, cRandomizer )
+    lRet        <- list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, cRandomizer = cRandomizer )
+    return( lRet )
 
 }
 

@@ -52,7 +52,7 @@ RunAnalysis.Ranked <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinal
     #print( paste( "CI ", dLower, " ", dUpper, " TV ", lAnalysis$dTV, " ", nSuccess, " ", nFutility, " ", nPause ))
 
     return( list(nGo = lRet$nGo, nNoGo = lRet$nNoGo, nPause = lRet$nPause,
-                 dEstimate = wt$estimate[[1]], dCILow= wt$conf.int[1], dCIUp= wt$conf.int[2]))
+                 dEstimate = wt$estimate[[1]], dCILow= wt$conf.int[1], dCIUp= wt$conf.int[2], cRandomizer = cRandomizer))
     return( lRet )
 
 }
