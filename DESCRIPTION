@@ -1,7 +1,7 @@
 Package: PlatformTrialSimulator
 Type: Package
 Title: Platform Trial Simulator
-Version: 1.2.1.2
+Version: 1.3.0.1
 Author: J. Kyle Wathen
 Maintainer: The package maintainer J. Kyle Wathen, PhD <kylewathen@gmail.com>
 Authors@R: person("J. Kyle", "wathen", email = "kylewathen@gmail.com",

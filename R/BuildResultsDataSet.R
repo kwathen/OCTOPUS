@@ -14,7 +14,9 @@
 #' @param strMainResultsFile The main output file produced when running a simulation.  Typically, it is found in the out/ subdirectory.
 #' @param vStrISAResultsFile The file that contains the output from in ISA.  For ISA XXX it is typically the ISAXXX/ subdirectory.
 #' @param vISANumber {An integer that will be used to prefix all of the ISA output variables names.  For example, if nISANumber =1, then all variables names
-#' in the file will be prefixed with ISA1.}
+#' in the file will be prefixed with ISA1.
+#'
+#' For an improved version of this function, see BuildSimulationDataSet.}
 #' @export
 BuildResultsDataSet <- function( strMainResultsFile, vStrISAResultsFile, vISANumber  )
 {

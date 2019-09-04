@@ -2,7 +2,8 @@
 ^\.travis\.yml$
 ^codecov\.yml$
 ^.*\Sandbox$
-
 ^.*\.Rproj$
 ^doc$
 ^Meta$
+^.*\MiscFiles$
+^.*\Design.Logo.ViPER$

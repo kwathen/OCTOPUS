@@ -4,7 +4,7 @@
 
 1.  Added dCurrentTime to randomizer so that a treatment within an ISA could have a delayed start.
 
-2.  Added delayed randomizer to allow a treatment within and ISA to to have a delayed start.  For example, an ISA with 4 treatments but the 4th treatment only opens for enrollment 4-5 months after the ISA starts.
+2.  Added delayed randomizer to allow a treatment within an ISA to to have a delayed start.  For example, an ISA with 4 treatments but the 4th treatment only opens for enrollment 4-5 months after the ISA starts.
     Functions added: InitializeISARandomizer.DelayedStartRandomizer  RandomizeWithinISA.DelayedStartRandomizer
 
 3.  Added tests for DelayedStartRandomizer.
@@ -36,10 +36,22 @@ Warnings: 0
 Skipped:  0
 
 ##################################################.
-######  Version 1.2.1.2 Development          #####
+######  Version 1.2.1.2                      #####
 ##################################################.
 
 1.  Major change to include covariates and all designs to make decisions for subgroups of patients.
 2.  To make printing option during the simulations easier to utilize added a global variable gnPrintDetail that is used to control print levels.
     The main purpose of this variable is used when debugging or watching trials run.   It will replace the variable cScen$nPrintDetail, but for this
     version cScen$nPrintDetail is still included for backward compatability.
+
+##################################################.
+######  Version 1.3.0.1                      #####
+##################################################.
+
+    Release Date 9/4/2019
+
+1.  Version with updates for covariates.
+2.  Built with R 3.6.1
+3.  Added BuildSimulationResultsDataSet to process the results on the grid and create the output file.
+4.  Removed the Misc and previous .tar.gz files from the package build so the resulting tar.gz is much smaller.
+2.  Next version will include examples with analysis and decicion funcitons for the covariates.

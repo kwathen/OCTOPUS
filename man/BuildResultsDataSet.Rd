@@ -12,7 +12,9 @@ BuildResultsDataSet(strMainResultsFile, vStrISAResultsFile, vISANumber)
 \item{vStrISAResultsFile}{The file that contains the output from in ISA.  For ISA XXX it is typically the ISAXXX/ subdirectory.}
 
 \item{vISANumber}{{An integer that will be used to prefix all of the ISA output variables names.  For example, if nISANumber =1, then all variables names
-in the file will be prefixed with ISA1.}}
+in the file will be prefixed with ISA1.
+
+For an improved version of this function, see BuildSimulationDataSet.}}
 }
 \description{
 {This function is used to read in the input files and created a combined output file.    }

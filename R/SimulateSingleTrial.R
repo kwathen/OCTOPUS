@@ -464,8 +464,11 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     nQtyAnaRes <- length( lResAnaFinal )
     for( nISA in 1:nQtyAnaRes )
     {
-        strFileName <- paste( "ISAOut", nISA, "/isaout", cScen$nGridIndex, ".csv", sep="" )
-        vISAResult  <- rbind( c(cScen$nGridIndex, cScen$nTrialID, nISA, unlist( lResAnaFinal[[nISA]] )))
+        strFileName                 <- paste( "ISAOut", nISA, "/isaout", cScen$nGridIndex, ".csv", sep="" )
+        vAnaResults                 <- unlist( lResAnaFinal[[nISA]] )
+        vNonRandomizerElements      <- grep( "cRandomizer",names( vAnaResults ), invert=TRUE)
+
+        vISAResult                  <- rbind( c(cScen$nGridIndex, cScen$nTrialID, nISA, vAnaResults[ vNonRandomizerElements ] ))
         colnames( vISAResult )[1:3] <- c( "GridIndex", "TrialID", "ISA")
 
         if(  cScen$nGridIndex == 1 && cScen$nTrialID == 1 ){
