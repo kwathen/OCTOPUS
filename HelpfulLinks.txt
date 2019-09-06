@@ -60,6 +60,8 @@ library( "hexSticker")
 #This line will create the hex sticker with a red background and a black border
 sticker( subplot="viper5.jpg", s_x=100, s_y=100 , package="", filename="hexlogo.png", dpi=1200, h_fill="#DD0433", h_color="#000000")
 
+sticker( subplot="MiscFiles/OctopusPic.png", s_x=1.0,s_y=.75, s_height = .7, s_width=.6, package="OCTOPUS", filename="Octopus4.png", dpi=600, h_fill="#ffffff", h_color="#000080", p_size=48, p_color="#000082", p_family = "Aller_Bd")
+
 
 ==== JAGS ====
 http://www.sourceforge.net/projects/mcmc-jags/files
