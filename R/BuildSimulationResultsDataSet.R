@@ -17,6 +17,7 @@
 BuildSimulationResultsDataSet <- function( )
 {
 
+
     strMainDir <- "out"
     print( paste( "Combining main output files in the out subdirectory..." ) )
     simsMain   <- CombineOutputFiles( "out" )
@@ -35,9 +36,10 @@ BuildSimulationResultsDataSet <- function( )
         names( simsISA )[3:nQtyCol] <- paste( "ISA", iISA, names(simsISA)[3:nQtyCol] , sep="")
 
         #Save the object
+        strObjName  <- paste( "simsISA", iISA, sep="" )
         strFileName <- paste( strObjName, ".RData", sep="" )
         print( paste( ".....Saving combined ISA", iISA, "output as", strFileName ) )
-        strObjName <-  paste( "simsISA", iISA, sep="" )
+
         assign(  strObjName, simsISA )
         save( list= strObjName, file= strFileName )
 
@@ -50,7 +52,7 @@ BuildSimulationResultsDataSet <- function( )
         strISA <- paste( "ISAOut", iISA,sep="")
     }
     simsCombined <- simsCombined[order( simsCombined$iScen),]
-    paste( "Saving combined main and ISA output as simsCombined.RData" )
+    print( paste( "Saving combined main and ISA output as simsCombined.RData" ) )
     save( simsCombined, file = "simsCombined.RData" )
     return( simsCombined )
 
