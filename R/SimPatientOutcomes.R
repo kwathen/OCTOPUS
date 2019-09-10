@@ -111,8 +111,8 @@ SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, dfPatCovIS
 #' @export
 SimPatientOutcomes.Correlated <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 {
-    if( !is.null( dfPatCovISA ) )
-        stop( "SimPatientOutcomes.Correlated is not designed to incorporate patient covariates and dfPatCovISA is not NULL.")
+    #if( !is.null( dfPatCovISA ) )
+    #    stop( "SimPatientOutcomes.Correlated is not designed to incorporate patient covariates and dfPatCovISA is not NULL.")
     #print( "SimPatientOutcomes.Correlated")
     nQtyOutcomes    <- length( cSimOutcomes )
     lSimDataRet     <- list()            #Each simulated outcome matrix will be added to the list with names mSimOut1, mSimOut2...

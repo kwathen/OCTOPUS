@@ -28,7 +28,12 @@ SimPatientOutcomes.MVNWithCovariates <- function( cSimOutcomes,  cISADesign,  df
     vstrSimArm      <- paste( "lSimArm", 1:nQtyArms, sep="" )
 
     #Setup the return list
-    lSimDataRet <- structure( list( mSimOut1  = matrix(NA, nrow = nMaxQtyPats, ncol= length( cSimOutcomes$vObsTime) ),
+    #Could use the length( )
+    lSimArm     <- cSimOutcomes[[ vstrSimArm[ 1 ]]]
+    lGroupInfo    <- lSimArm[[ 1 ]]
+    vMean         <- lGroupInfo[[ "vMean" ]]
+
+    lSimDataRet <- structure( list( mSimOut1  = matrix(NA, nrow = nMaxQtyPats, ncol= length( vMean) ),
                                     vObsTime1 = cSimOutcomes$vObsTime,
                                     nQtyOut   = 1,
                                     vPatTrt   = vPatTrt ), class= class(cSimOutcomes))
