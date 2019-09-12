@@ -11,12 +11,12 @@ Description: This package is used to simulate platform clinical trials.
 Imports:
     coda,
     rjags,
-    shiny
-Depends: R (>= 3.6.0),
+    shiny,
        nlme,
        MASS,
        DoseFinding,
        coin
+Depends: R (>= 3.6.0)
 Suggests: testthat,
           knitr,
           rmarkdown,

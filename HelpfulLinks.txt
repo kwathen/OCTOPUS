@@ -19,6 +19,10 @@ https://www.atlassian.com/git/tutorials/setting-up-a-repository
 ======   R Packages  ======
 Imports vs Depends https://campus.datacamp.com/courses/developing-r-packages/checking-and-building-r-packages?ex=8
 
+====== Packrat =====
+Useful to create a private package library in the project.  Helpful, for making projects reproducable.
+https://rstudio.github.io/packrat/walkthrough.html
+
 ======   S3 Classes  ======
 See ExampleS3Class.R for a worked example with S3 classes and how the generic function usage.
 http://adv-r.had.co.nz/S3.html - Good introduction to S3 classes
@@ -38,6 +42,13 @@ https://www.rstudio.com/resources/webinars/covr-bringing-test-coverage-to-r/
 
 ====  Travis CI (Continusous Integration) ================
 https://docs.travis-ci.com/user/tutorial/
+
+
+==== remotes package ====
+To install packages from GitHub
+https://remotes.r-lib.org/
+
+Example: remotes::install_github( "kwathen/PlatformTrialSimulator", "Version1.3.0.2")
 
 
 === GitHub Website with pkgdown =============
