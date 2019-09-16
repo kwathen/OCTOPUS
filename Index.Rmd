@@ -9,13 +9,13 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# ViPER - Virtual Platform Evaluator in R   <img src="man/figures/logo.png" align="right" alt="" width="120" />
+# OCTOPUS - Optimize Clincial Trials On Platforms Using SImulations   <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
-[![Coverage Status](https://img.shields.io/codecov/c/github/kwathen/PlatformTrialSimulator/master.svg)](https://codecov.io/github/kwathen/PlatformTrialSimulator?branch=master)
-[![Travis-CI Build Status](https://travis-ci.org/kwathen/PlatformTrialSimulator.svg?branch=master)](https://travis-ci.org/kwathen/PlatformTrialSimulator)
+[![Coverage Status](https://img.shields.io/codecov/c/github/kwathen/OCTOPUS/master.svg)](https://codecov.io/github/kwathen/OCTOPUS?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/kwathen/PlatformTrialSimulator.svg?branch=master)](https://travis-ci.org/kwathen/OCTOPUS)
  
 ## License 
-This package is governed by the JRD Platform Trial Simulation License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in [LICENSE](https://github.com/kwathen/PlatformTrialSimulatorP/blob/master/inst/LICENSE) and [GPL](https://github.com/kwathen/PlatformTrialSimulatorP/blob/master/inst/GPL).
+This package is governed by the JRD OCTOPUS License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in [LICENSE](https://github.com/kwathen/OCTOPUS/blob/master/inst/LICENSE) and [GPL](https://github.com/kwathen/OCTOPUS/blob/master/inst/GPL).
 
 
 ## Introduction
@@ -26,7 +26,7 @@ This package is under development. It is functional and has already been used to
 Using your GitHub account, you may want to "Watch" this project for updates.   Alternatively, please contact the author to be added to the distribution list.    
 
 ## Installation 
-Currently this package is not available on CRAN but may be installed directly from the tar.gz files located in GitHub.  The most recent version is [Version 1.2.1.2](https://github.com/kwathen/PlatformTrialSimulator/blob/master/PlatformTrialSimulator_1.2.1.2.tar.gz).   If you have the  PlatformTrialSimulator_1.2.1.2.tar.gz in the current working directory the following command will install the package.
+Currently this package is not available on CRAN but may be installed directly from the tar.gz files located in GitHub.  The most recent version is [Version 1.2.1.2](https://github.com/kwathen/OCTOPUS/blob/master/OCTOPUS1.3.0.2.tar.gz).   If you have the  PlatformTrialSimulator_1.2.1.2.tar.gz in the current working directory the following command will install the package.
 
 ```{r, eval = FALSE}
 install.packages("PlatformTrialSimulator_1.2.1.2.tar.gz", repos=NULL)

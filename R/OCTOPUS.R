@@ -8,19 +8,19 @@
 #############################################################################################################################.
 
 
-#' Platform Trial Simulator
+#' OCTOPUS
 #'
-#' This package is used to simulate platform clinical trials.  Platform trials are clinical trials that are designed with the flexibility to add
+#' The OCTOPUS package is used to simulate platform clinical trials.  Platform trials are clinical trials that are designed with the flexibility to add
 #' new interventions as the trial progresses.
 #'
 #' @section License:
-#' This package is governed by the JRD Platform Trial Simulation License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in the files LICENSE and GPL.
+#' This package is governed by the JRD OCTOPUS License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in the files LICENSE and GPL.
 #'
 #' To view license you may use the following command:
 #'
-#' file.show( system.file("LICENSE", package="PlatformTrialSimulatorP"))
+#' file.show( system.file("LICENSE", package="OCTOPUS"))
 #'
-#' file.show( system.file("GPL", package="PlatformTrialSimulatorP"))
+#' file.show( system.file("GPL", package="OCTOPUS"))
 #'
 #' @section Introduction:
 #' General intro to the packages ..
@@ -29,6 +29,6 @@
 #' Stuff
 #'
 #' @docType package
-#' @name PlatformTrialSimulator
+#' @name OCTOPUS
 "_PACKAGE"
 

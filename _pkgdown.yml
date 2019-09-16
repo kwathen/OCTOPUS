@@ -42,14 +42,14 @@ navbar:
           href: articles/CaseStudy6.html
     github:
           icon: fa-github fa-lg
-          href: https://github.com/kwathen/PlatformTrialSimulator
+          href: https://github.com/kwathen/OCTOPUS
 news:
  releases:
  - one_page: false
  - text: "Version 1.2.1.1"
-   href: https://kwathen.github.io/PlatformTrialSimulator/news/index.html
+   href: https://kwathen.github.io/OCTOPUS/news/index.html
  - text: "Version 1.2.1.0"
-   href: https://kwathen.github.io/PlatformTrialSimulator/news/index.html
+   href: https://kwathen.github.io/OCTOPUS/news/index.html
 
 reference:
 - title: All functions
@@ -91,7 +91,7 @@ reference:
   - '`MakeTrialDecision`'
   - '`NewAccrualProcess`'
   - '`PlatformTrialSimulator`'
-  - '`PlatformTrialSimulator-package`'
+  - '`OCTOPUS-package`'
   - '`ProcessData.ProcessReptMeasChngBaseline`'
   - '`RunAnalysis.AOV`'
   - '`RunAnalysis.BayesianNormal`'
@@ -121,5 +121,5 @@ reference:
 articles:
 - title: All vignettes
   desc: ~
-  contents: '`PlatformTrialSimulator`'
+  contents: '`OCTOPUS`'
 
