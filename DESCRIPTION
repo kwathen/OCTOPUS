@@ -14,9 +14,9 @@ Imports:
     shiny,
        nlme,
        MASS,
-       DoseFinding,
+       DoseFinding
+Depends: R (>= 3.6.0),
        coin
-Depends: R (>= 3.6.0)
 Suggests: testthat,
           knitr,
           rmarkdown,
