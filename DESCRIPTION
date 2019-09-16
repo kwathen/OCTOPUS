@@ -20,7 +20,7 @@ Depends: R (>= 3.6.0),
 Suggests: testthat,
           knitr,
           rmarkdown,
-          covr,
+          covr
 VignetteBuilder: knitr
 URL: https://github.com/kwathen/PlatformTrialSimulator
 License: file LICENSE
