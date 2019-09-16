@@ -2,7 +2,8 @@
 % Please edit documentation in R/PlatformTrialSimulator.R
 \docType{package}
 \name{PlatformTrialSimulator}
-\alias{PlatformTrialSimulator}
+\alias{OCTOPUS}
+\alias{OCTOPUS-package}
 \alias{PlatformTrialSimulator-package}
 \title{Platform Trial Simulator}
 \description{
@@ -33,7 +34,7 @@ Stuff
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/kwathen/PlatformTrialSimulator}
+  \item \url{https://github.com/kwathen/OCTOPUS}
 }
 
 }

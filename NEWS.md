@@ -1,6 +1,9 @@
-# PlatformTrialSimulator 1.2.1.1
+# OCTOPUS 1.3.0.2
+Rename to OCTOPUS from Platform Trial Simulator
 
-## Release Date 04/17/2019
+## Version 1.3.0.2
+
+## Version 1.2.1.1 Release Date 04/17/2019
 
 ## Major Features
 

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Case Study 4 • PlatformTrialSimulator</title>
+<title>Case Study 4 • OCTOPUS</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -36,8 +36,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">PlatformTrialSimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1.2</span>
+        <a class="navbar-link" href="../index.html">OCTOPUS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.3</span>
       </span>
     </div>
 
@@ -131,9 +131,9 @@
       <h1>Case Study 4</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2019-08-09</h4>
+            <h4 class="date">2019-09-16</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/vignettes/CaseStudy4.Rmd"><code>vignettes/CaseStudy4.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/CaseStudy4.Rmd"><code>vignettes/CaseStudy4.Rmd</code></a></small>
       <div class="hidden name"><code>CaseStudy4.Rmd</code></div>
 
     </div>
@@ -245,36 +245,36 @@ The file TrialDesign.R contains the function necessary to set-up the design obje
 <a href="#borrowing-control-patients" class="anchor"></a>Borrowing Control Patients</h2>
 <p>In this case study a second ISA is included for the first time. Since borrowing is at the ISA level, each ISA can have a different borrowing approach, eg ISA 1 could perform no borrowing and ISA 2 could utilize patients from ISA 1. There are two parts to determining how data is borrowed across ISAs. The first part is determined by how the dataset is created for analysis (includes control patients for all ISAs or just the specific ISA) and the second part is determined by the analysis method.</p>
 <p>In order to share information between ISAs, when a virtual trial is simulated and the dataset created for analysis, the dataset can include data from other ISAs. The code snip below was taken from the <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/TrialDesign.R">TrialDesign.R</a> and creates the object for ISA 1 is created.</p>
-<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><a class="sourceLine" id="numCode-1" title="1">    strBorrow &lt;-<span class="st"> "AllControls"</span></a>
-<a class="sourceLine" id="numCode-2" title="2">    strModel  &lt;-<span class="st"> "BayesianNormalAR1"</span></a>
-<a class="sourceLine" id="numCode-3" title="3">    vPUpper   &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="fl">1.0</span>, <span class="fl">1.0</span> )</a>
-<a class="sourceLine" id="numCode-4" title="4">    vPLower   &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="fl">0.0</span>, <span class="fl">0.0</span> )</a>
-<a class="sourceLine" id="numCode-5" title="5">    dFinalPUpper &lt;-<span class="st"> </span><span class="fl">0.45</span></a>
-<a class="sourceLine" id="numCode-6" title="6">    dFinalPLower &lt;-<span class="st"> </span><span class="fl">0.05</span></a>
-<a class="sourceLine" id="numCode-7" title="7"></a>
-<a class="sourceLine" id="numCode-8" title="8">    vQtyPats     &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></a>
-<a class="sourceLine" id="numCode-9" title="9">    vMinQtyPats  &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="dv">90</span>, <span class="dv">90</span> )</a>
-<a class="sourceLine" id="numCode-10" title="10">    vMinFUTime   &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</a>
-<a class="sourceLine" id="numCode-11" title="11">    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></a>
-<a class="sourceLine" id="numCode-12" title="12"></a>
-<a class="sourceLine" id="numCode-13" title="13">    <span class="co">########################################################################.</span></a>
-<a class="sourceLine" id="numCode-14" title="14">    <span class="co">#  ISA 1 Information                                                ####</span></a>
-<a class="sourceLine" id="numCode-15" title="15">    <span class="co">########################################################################.</span></a>
-<a class="sourceLine" id="numCode-16" title="16"></a>
-<a class="sourceLine" id="numCode-17" title="17">    cISA1Info &lt;-<span class="st"> </span><span class="kw">Create1DosePh2AISA</span>( <span class="dt">vQtyPats     =</span> vQtyPats,</a>
-<a class="sourceLine" id="numCode-18" title="18">                                     <span class="dt">vTrtLab      =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="dv">1</span>, <span class="dv">2</span> ),</a>
-<a class="sourceLine" id="numCode-19" title="19">                                     <span class="dt">vPUpper      =</span> vPUpper,</a>
-<a class="sourceLine" id="numCode-20" title="20">                                     <span class="dt">vPLower      =</span> vPLower,</a>
-<a class="sourceLine" id="numCode-21" title="21">                                     <span class="dt">dFinalPUpper =</span> dFinalPUpper,</a>
-<a class="sourceLine" id="numCode-22" title="22">                                     <span class="dt">dFinalPLower =</span> dFinalPLower,</a>
-<a class="sourceLine" id="numCode-23" title="23">                                     <span class="dt">strBorrow    =</span> strBorrow,</a>
-<a class="sourceLine" id="numCode-24" title="24">                                     <span class="dt">strModel     =</span> strModel,</a>
-<a class="sourceLine" id="numCode-25" title="25">                                     <span class="dt">vMinQtyPats  =</span> vMinQtyPats,</a>
-<a class="sourceLine" id="numCode-26" title="26">                                     <span class="dt">vMinFUTime   =</span> vMinFUTime,</a>
-<a class="sourceLine" id="numCode-27" title="27">                                     <span class="dt">dQtyMonthsBtwIA =</span> dQtyMonthsBtwIA )</a></code></pre></div>
+<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><span id="numCode-1"><a href="#numCode-1"></a>    strBorrow &lt;-<span class="st"> "AllControls"</span></span>
+<span id="numCode-2"><a href="#numCode-2"></a>    strModel  &lt;-<span class="st"> "BayesianNormalAR1"</span></span>
+<span id="numCode-3"><a href="#numCode-3"></a>    vPUpper   &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="fl">1.0</span>, <span class="fl">1.0</span> )</span>
+<span id="numCode-4"><a href="#numCode-4"></a>    vPLower   &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="fl">0.0</span>, <span class="fl">0.0</span> )</span>
+<span id="numCode-5"><a href="#numCode-5"></a>    dFinalPUpper &lt;-<span class="st"> </span><span class="fl">0.45</span></span>
+<span id="numCode-6"><a href="#numCode-6"></a>    dFinalPLower &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<span id="numCode-7"><a href="#numCode-7"></a></span>
+<span id="numCode-8"><a href="#numCode-8"></a>    vQtyPats     &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></span>
+<span id="numCode-9"><a href="#numCode-9"></a>    vMinQtyPats  &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="dv">90</span>, <span class="dv">90</span> )</span>
+<span id="numCode-10"><a href="#numCode-10"></a>    vMinFUTime   &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</span>
+<span id="numCode-11"><a href="#numCode-11"></a>    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></span>
+<span id="numCode-12"><a href="#numCode-12"></a></span>
+<span id="numCode-13"><a href="#numCode-13"></a>    <span class="co">########################################################################.</span></span>
+<span id="numCode-14"><a href="#numCode-14"></a>    <span class="co">#  ISA 1 Information                                                ####</span></span>
+<span id="numCode-15"><a href="#numCode-15"></a>    <span class="co">########################################################################.</span></span>
+<span id="numCode-16"><a href="#numCode-16"></a></span>
+<span id="numCode-17"><a href="#numCode-17"></a>    cISA1Info &lt;-<span class="st"> </span><span class="kw">Create1DosePh2AISA</span>( <span class="dt">vQtyPats     =</span> vQtyPats,</span>
+<span id="numCode-18"><a href="#numCode-18"></a>                                     <span class="dt">vTrtLab      =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>( <span class="dv">1</span>, <span class="dv">2</span> ),</span>
+<span id="numCode-19"><a href="#numCode-19"></a>                                     <span class="dt">vPUpper      =</span> vPUpper,</span>
+<span id="numCode-20"><a href="#numCode-20"></a>                                     <span class="dt">vPLower      =</span> vPLower,</span>
+<span id="numCode-21"><a href="#numCode-21"></a>                                     <span class="dt">dFinalPUpper =</span> dFinalPUpper,</span>
+<span id="numCode-22"><a href="#numCode-22"></a>                                     <span class="dt">dFinalPLower =</span> dFinalPLower,</span>
+<span id="numCode-23"><a href="#numCode-23"></a>                                     <span class="dt">strBorrow    =</span> strBorrow,</span>
+<span id="numCode-24"><a href="#numCode-24"></a>                                     <span class="dt">strModel     =</span> strModel,</span>
+<span id="numCode-25"><a href="#numCode-25"></a>                                     <span class="dt">vMinQtyPats  =</span> vMinQtyPats,</span>
+<span id="numCode-26"><a href="#numCode-26"></a>                                     <span class="dt">vMinFUTime   =</span> vMinFUTime,</span>
+<span id="numCode-27"><a href="#numCode-27"></a>                                     <span class="dt">dQtyMonthsBtwIA =</span> dQtyMonthsBtwIA )</span></code></pre></div>
 <p>On line 1 in the code block above, the strBorrow is set to “AllControl” and sent as an argument in Create1DosePh2AISA which is included into the design element for ISA 1. A view of the cISA1Info object is provided below, note the red box to highlight the S3 class of AllControls. This class determines how the dataset is created before the analysis is performed. This option will result in the dataset including all control patient data.</p>
 <div class="figure">
-<img src="TrialDesignObject.png" alt="Trial Design Object - Red square to highlight the S3 class type of AllControls"><p class="caption">Trial Design Object - Red square to highlight the S3 class type of AllControls</p>
+<img src="TrialDesignObject.png" alt=""><p class="caption">Trial Design Object - Red square to highlight the S3 class type of AllControls</p>
 </div>
 <p>In this example, the dataset is created with all control patients and the RunAnalysis function determines how to analyze the data. In this example, all control patients are utilized the same regardless of which ISA they were enrolled into. Many approaches for borrowing control patients could be developed, such as hierarchical borrowing, time dependent patient weights or dropping all control patients enrolled prior to the start of an ISA.</p>
 </div>

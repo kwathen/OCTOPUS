@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>NewAccrualProcess — NewAccrualProcess • PlatformTrialSimulator</title>
+<title>NewAccrualProcess — NewAccrualProcess • OCTOPUS</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -79,8 +79,8 @@ The class assumes
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">PlatformTrialSimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1.2</span>
+        <a class="navbar-link" href="../index.html">OCTOPUS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.3</span>
       </span>
     </div>
 
@@ -173,7 +173,7 @@ The class assumes
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>NewAccrualProcess</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kwathen/PlatformTrialSimulator/blob/master/R/AccrualMethods.R'><code>R/AccrualMethods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/kwathen/OCTOPUS/blob/master/R/AccrualMethods.R'><code>R/AccrualMethods.R</code></a></small>
     <div class="hidden name"><code>NewAccrualProcess.Rd</code></div>
     </div>
 
@@ -218,14 +218,14 @@ length of the returned vector could be less than nMaxQtyPatient.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='SimulateArrivalTimes.html'>SimulateArrivalTimes</a></code> for simulating the arrival times once you have created the object..</p></div>
+    <div class='dont-index'><p><code>SimulateArrivalTimes</code> for simulating the arrival times once you have created the object..</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>  <span class='no'>vPatsPerMonth</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>, <span class='fl'>30</span>, <span class='fl'>40</span>, <span class='fl'>50</span>) <span class='co'># The ramp up in expected Pat/month</span>
   <span class='no'>nMaxQtyPats</span>    <span class='kw'>&lt;-</span> <span class='fl'>100</span>  <span class='co'># Maximum of 100 patients</span>
   <span class='no'>ap</span>             <span class='kw'>&lt;-</span> <span class='fu'>NewAccrualProcess</span>( <span class='kw'>vQtyPatsPerMonth</span> <span class='kw'>=</span> <span class='no'>vPatsPerMonth</span>, <span class='kw'>nMaxQtyPatients</span> <span class='kw'>=</span> <span class='no'>nMaxQtyPats</span> )
-  <span class='no'>vAccTimes</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='SimulateArrivalTimes.html'>SimulateArrivalTimes</a></span>( <span class='no'>ap</span> )</div></pre>
+  <span class='no'>vAccTimes</span>      <span class='kw'>&lt;-</span> <span class='fu'>SimulateArrivalTimes</span>( <span class='no'>ap</span> )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

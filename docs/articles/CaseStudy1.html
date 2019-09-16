@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Case Study 1 • PlatformTrialSimulator</title>
+<title>Case Study 1 • OCTOPUS</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -36,8 +36,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">PlatformTrialSimulator</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1.2</span>
+        <a class="navbar-link" href="../index.html">OCTOPUS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.3</span>
       </span>
     </div>
 
@@ -131,9 +131,9 @@
       <h1>Case Study 1</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2019-08-09</h4>
+            <h4 class="date">2019-09-16</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/vignettes/CaseStudy1.Rmd"><code>vignettes/CaseStudy1.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/CaseStudy1.Rmd"><code>vignettes/CaseStudy1.Rmd</code></a></small>
       <div class="hidden name"><code>CaseStudy1.Rmd</code></div>
 
     </div>
@@ -145,21 +145,23 @@
 <h2 class="hasAnchor">
 <a href="#assumptions" class="anchor"></a>Assumptions</h2>
 <ul>
-<li>Assume 2 ISAs, named ISA 1 and ISA 2.</li>
-<li>Assume ISA 2 is ready in about 24 months.</li>
-<li>Starting a platform trial will take longer to get approved and set-up.</li>
-<li>Assume a platform trial will have more sites due to the longer recruitment and multiple therapies when compared to two independent</li>
-<li>Opening sites in the platform will be slower than the 1<sup>st</sup> POC</li>
-<li>Getting approval for the 2<sup>nd</sup> ISA will be quicker than open the 2<sup>nd</sup> POC since it will be a new protocol.</li>
-<li>Assume N = 90 patient for each ISA or POC.</li>
-<li>Within a site assume it takes time to ramp-up accrual
+<li><p>Assume 2 ISAs, named ISA 1 and ISA 2.</p></li>
+<li><p>Assume ISA 2 is ready in about 24 months.</p></li>
+<li><p>Starting a platform trial will take longer to get approved and set-up.</p></li>
+<li><p>Assume a platform trial will have more sites due to the longer recruitment and multiple therapies when compared to two independent</p></li>
+<li><p>Opening sites in the platform will be slower than the 1<sup>st</sup> POC</p></li>
+<li><p>Getting approval for the 2<sup>nd</sup> ISA will be quicker than open the 2<sup>nd</sup> POC since it will be a new protocol.</p></li>
+<li><p>Assume N = 90 patient for each ISA or POC.</p></li>
+<li>
+<p>Within a site assume it takes time to ramp-up accrual</p>
 <ul>
 <li>4 months to get to the maximum rate of 0.15 patient/month within a site</li>
 <li>Assume 0.05, 0.1, 0.12, 0.15 patients for month 1,2,3,4 and 0.15 there after when a new site opens</li>
 </ul>
 </li>
 <li><p>It takes time to open sites, the amount of time is dependent on POC vs Platform</p></li>
-<li>2 POC trials
+<li>
+<p>2 POC trials</p>
 <ul>
 <li>Assume 60 sites for each POC</li>
 <li>Assume it takes 7 months to open all 60 sites for each POC</li>
@@ -167,7 +169,8 @@
 <li>Assume 6 months between the end of the first POC and the second</li>
 </ul>
 </li>
-<li>Platform trial with 2 ISAs
+<li>
+<p>Platform trial with 2 ISAs</p>
 <ul>
 <li>Assume 90 sites in platform<br>
 </li>
@@ -183,11 +186,11 @@
 <h2 class="hasAnchor">
 <a href="#r-source" class="anchor"></a>R Source</h2>
 <p>This case study is easily done using the R Shiny App included in the package. To launch the R Shiny App the following code can be used.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>( PlatformTrialSimulator )</a>
-<a class="sourceLine" id="cb1-2" title="2">PlatformTrialSimulator<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/PlatformTrialSimulator/topics/RunExample">RunExample</a></span>( <span class="st">"CompareRecruitment"</span> )</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>( PlatformTrialSimulator )</span>
+<span id="cb1-2"><a href="#cb1-2"></a>PlatformTrialSimulator<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/PlatformTrialSimulator/topics/RunExample">RunExample</a></span>( <span class="st">"CompareRecruitment"</span> )</span></code></pre></div>
 <p>After launching the app the following screen Shiny app is started with defaults set for Case Study 1.</p>
 <div class="figure">
-<img src="ExampleShiny1.png" alt="Figure 1: Shiny App For Recruitment"><p class="caption">Figure 1: Shiny App For Recruitment</p>
+<img src="ExampleShiny1.png" alt=""><p class="caption">Figure 1: Shiny App For Recruitment</p>
 </div>
 <p>The are four inputs that require a comma separated string, see for example “Enter the number of patients enrolled per month per site”. When the “Generate Plot” is pressed virtual trials are simulated and a plot is displayed.</p>
 </div>
@@ -196,7 +199,7 @@
 <a href="#results" class="anchor"></a>Results</h2>
 <p>In the Shiny App after clicking the “Generate Plot” button, the Recruitment Plots will automatically be displayed. The three main components that factor into the result are: 1) the delay in starting the platform, 2) the shorter duration to start the second ISA when compare to starting the second POC and 3) the increased number of sites in the platform. In Figure 2 below, these items can be seen in and the effect marked with the corresponding number. Item 1, results in the platform recruitment initially being slower and lower than the first POC. Item 2 is observed by the small flat section for the platform when compared to the POC option. Finally, Item 3 is best observed in the second POC/ISA because the slope is easily identified as steeper (faster recruitment) for the platform compared to the POC version.</p>
 <div class="figure">
-<img src="ExampleShiny2.png" alt="Figure 2: Shiny App For Recruitment"><p class="caption">Figure 2: Shiny App For Recruitment</p>
+<img src="ExampleShiny2.png" alt=""><p class="caption">Figure 2: Shiny App For Recruitment</p>
 </div>
 </div>
   </div>
