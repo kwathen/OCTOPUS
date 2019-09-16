@@ -48,7 +48,7 @@ https://docs.travis-ci.com/user/tutorial/
 To install packages from GitHub
 https://remotes.r-lib.org/
 
-Example: remotes::install_github( "kwathen/PlatformTrialSimulator", "Version1.3.0.2")
+Example: remotes::install_github( "kwathen/PlatformTrialSimulator", "Version1.3.0.2" )
 
 
 === GitHub Website with pkgdown =============
