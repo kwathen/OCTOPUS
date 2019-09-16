@@ -1,5 +1,13 @@
 pandoc: 2.7.3
 pkgdown: 1.3.0
 pkgdown_sha: ~
-articles: []
+articles:
+  CaseStudy1: CaseStudy1.html
+  CaseStudy2: CaseStudy2.html
+  CaseStudy3: CaseStudy3.html
+  CaseStudy4: CaseStudy4.html
+  CaseStudy5: CaseStudy5.html
+  CaseStudy6: CaseStudy6.html
+  Examples: Examples.html
+  PlatformTrialSimulator: PlatformTrialSimulator.html
 
