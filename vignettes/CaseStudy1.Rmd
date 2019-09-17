@@ -45,8 +45,8 @@ One of the first tasks that is typically conducted by a team is the comparison o
  This case study is easily done using the R Shiny App included in the package.  To launch the R Shiny App the following code can be used.
  
 ```{r, eval = FALSE}
-library( PlatformTrialSimulator )
-PlatformTrialSimulator::RunExample( "CompareRecruitment" )
+library( OCTOPUS )
+OCTOPUS::RunExample( "CompareRecruitment" )
 ```
 
 After launching the app the following screen Shiny app is started with defaults set for Case Study 1.

@@ -54,7 +54,7 @@ PostProcess1ISA  <- function( mSims, nScen )
 }
 
 
-library( PlatformTrialSimulator)
+library( OCTOPUS )
 
 
 #########################################################################################################.

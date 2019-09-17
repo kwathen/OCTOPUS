@@ -12,7 +12,7 @@ remove( list=ls() )
 
 context("Test Simulate Trial With Covariates")
 source("TestHelperFunctions.R")
-require( "PlatformTrialSimulator" )
+require( "OCTOPUS" )
 Sys.setenv(SGE_TASK_ID=1)
 
 

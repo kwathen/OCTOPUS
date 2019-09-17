@@ -9,10 +9,10 @@
 
 
 
-library( PlatformTrialSimulator)
+library( OCTOPUS )
 strMain     <- "allmain.csv"
 vStrISA     <- c("allISA1.csv" ) #You could add the other ISAs if need, "allISA2.csv","allISA3.csv","allISA3.csv")
-vISANumber  <- c(1)              #Could add more ISAs here like 
+vISANumber  <- c(1)              #Could add more ISAs here like
 
 simsAll     <- BuildResultsDataSet( strMain, vStrISA, vISANumber )  #This is a fct in the PTS Package
 

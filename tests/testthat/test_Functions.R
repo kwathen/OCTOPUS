@@ -13,7 +13,7 @@ context("Test - Functions.R")
 # source("TestHelperFunctions.R")
 
 # source("TestHelperFunctions.R")
-# require( "PlatformTrialSimulator" )
+# require( "OCTOPUS" )
 #Each test will created an lExp that gives the expected outcome of each test.
 
 ##

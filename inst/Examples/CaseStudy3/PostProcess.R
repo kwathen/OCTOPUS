@@ -9,8 +9,8 @@
 
 
 ###########################################################################
-#   This file will post process the results from the simulation 
-#   The the PostProcess functions are used for a calculating summary statistics on 
+#   This file will post process the results from the simulation
+#   The the PostProcess functions are used for a calculating summary statistics on
 #   simulations that are run on the grid
 #   This functions are not generic (have not had time for this) and hence are based on
 #   number of ISAs in the simulation
@@ -19,20 +19,20 @@
 
 PostProcess1ISA  <- function( mSims, nScen )
 {
-    
+
     mSimsTmp <- mSims[ mSims$iScen == nScen, ]
     print(paste( "Scen ", nScen, " Qty Reps ", nrow(mSimsTmp)))
     dAvePlacISA1  <- mean( mSimsTmp$ISA1Trt1 )
     dAveTrtISA1   <- mean( mSimsTmp$ISA1Trt2 )
-  
-    
-    dAveN     <- dAvePlacISA1 + dAveTrtISA1 
-    
+
+
+    dAveN     <- dAvePlacISA1 + dAveTrtISA1
+
     #ISA 1 status
     vISAStatus <- c(mSimsTmp$ISA1Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA1 <- sum(vTableStatus[1:2])
     dProbFAISA1       <- sum( vTableStatus[3:5])
     dProbGoISA1       <- vTableStatus[1]+vTableStatus[3]
@@ -45,8 +45,8 @@ PostProcess1ISA  <- function( mSims, nScen )
     #   5 = closed - Go at the FA
     #   6 = Closed - No Go at the FA
     #   7 = Closed - Pause at the FA
-   
-    
+
+
     return( c( dAvePlacISA1=dAvePlacISA1,
                   dAveTrtISA1 = dAveTrtISA1,
                   dProbClosedIAISA1 = dProbClosedIAISA1,
@@ -58,22 +58,22 @@ PostProcess1ISA  <- function( mSims, nScen )
 
 PostProcess2ISA  <- function( mSims, nScen )
 {
-    
+
     mSimsTmp <- mSims[ mSims$iScen == nScen, ]
     print(paste( "Scen ", nScen, " Qty Reps ", nrow(mSimsTmp)))
     dAvePlacISA1  <- mean( mSimsTmp$ISA1Trt1 )
     dAveTrtISA1   <- mean( mSimsTmp$ISA1Trt2 )
-    
+
     dAvePlacISA2   <- mean( mSimsTmp$ISA2Trt1 )
     dAveTrtISA2    <- mean( mSimsTmp$ISA2Trt3 )
-    
+
     dAveN     <- dAvePlacISA1 + dAveTrtISA1 + dAvePlacISA2 + dAveTrtISA2
-    
+
     #ISA 1 status
     vISAStatus <- c(mSimsTmp$ISA1Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA1 <- sum(vTableStatus[1:2])
     dProbFAISA1       <- sum( vTableStatus[3:5])
     dProbGoISA1       <- vTableStatus[1]+vTableStatus[3]
@@ -90,12 +90,12 @@ PostProcess2ISA  <- function( mSims, nScen )
     vISAStatus <- c(mSimsTmp$ISA2Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA2 <- sum(vTableStatus[1:2])
     dProbFAISA2       <- sum( vTableStatus[3:5])
     dProbGoISA2       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA2     <- vTableStatus[2]+vTableStatus[4]
-    
+
     return( list( dAvePlacISA1=dAvePlacISA1,
                   dAveTrtISA1 = dAveTrtISA1,
                   dAvePlacISA2 = dAvePlacISA2,
@@ -113,25 +113,25 @@ PostProcess2ISA  <- function( mSims, nScen )
 
 PostProcess3ISA  <- function( mSims, nScen )
 {
-    
+
     mSimsTmp <- mSims[ mSims$iScen == nScen, ]
     print(paste( "Scen ", nScen, " Qty Reps ", nrow(mSimsTmp)))
     dAvePlacISA1  <- mean( mSimsTmp$ISA1Trt1 )
     dAveTrtISA1   <- mean( mSimsTmp$ISA1Trt2 )
-    
+
     dAvePlacISA2   <- mean( mSimsTmp$ISA2Trt1 )
     dAveTrtISA2    <- mean( mSimsTmp$ISA2Trt3 )
-    
+
     dAvePlacISA3   <- mean( mSimsTmp$ISA3Trt1 )
     dAveTrtISA3    <- mean( mSimsTmp$ISA3Trt4 )
-    
+
     dAveN     <- dAvePlacISA1 + dAveTrtISA1 + dAvePlacISA2 + dAveTrtISA2 + dAvePlacISA3 + dAveTrtISA3
-    
+
     #ISA 1 status
     vISAStatus <- c(mSimsTmp$ISA1Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA1 <- sum(vTableStatus[1:2])
     dProbFAISA1       <- sum( vTableStatus[3:5])
     dProbGoISA1       <- vTableStatus[1]+vTableStatus[3]
@@ -148,22 +148,22 @@ PostProcess3ISA  <- function( mSims, nScen )
     vISAStatus <- c(mSimsTmp$ISA2Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA2 <- sum(vTableStatus[1:2])
     dProbFAISA2       <- sum( vTableStatus[3:5])
     dProbGoISA2       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA2     <- vTableStatus[2]+vTableStatus[4]
-    
+
     #ISA 3 status
     vISAStatus <- c(mSimsTmp$ISA3Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA3 <- sum(vTableStatus[1:2])
     dProbFAISA3       <- sum( vTableStatus[3:5])
     dProbGoISA3       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA3     <- vTableStatus[2]+vTableStatus[4]
-    
+
     vRet <- c( dAvePlacISA1,
                dAveTrtISA1,
                dAvePlacISA2,
@@ -183,34 +183,34 @@ PostProcess3ISA  <- function( mSims, nScen )
                dProbGoISA3,
                dProbNoGoISA3)
     return( vRet)
-  
+
 }
 
 
 PostProcess4ISA  <- function( mSims, nScen )
 {
-    
+
     mSimsTmp <- mSims[ mSims$iScen == nScen, ]
     print(paste( "Scen ", nScen, " Qty Reps ", nrow(mSimsTmp)))
     dAvePlacISA1  <- mean( mSimsTmp$ISA1Trt1 )
     dAveTrtISA1   <- mean( mSimsTmp$ISA1Trt2 )
-    
+
     dAvePlacISA2   <- mean( mSimsTmp$ISA2Trt1 )
     dAveTrtISA2    <- mean( mSimsTmp$ISA2Trt3 )
-    
+
     dAvePlacISA3   <- mean( mSimsTmp$ISA3Trt1 )
     dAveTrtISA3    <- mean( mSimsTmp$ISA3Trt4 )
-    
+
     dAvePlacISA4   <- mean( mSimsTmp$ISA4Trt1 )
     dAveTrtISA4    <- mean( mSimsTmp$ISA4Trt5 )
-    
+
     dAveN     <- dAvePlacISA1 + dAveTrtISA1 + dAvePlacISA2 + dAveTrtISA2 + dAvePlacISA3 + dAveTrtISA3 + dAvePlacISA4 + dAveTrtISA4
-    
+
     #ISA 1 status
     vISAStatus <- c(mSimsTmp$ISA1Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA1 <- sum(vTableStatus[1:2])
     dProbFAISA1       <- sum( vTableStatus[3:5])
     dProbGoISA1       <- vTableStatus[1]+vTableStatus[3]
@@ -227,33 +227,33 @@ PostProcess4ISA  <- function( mSims, nScen )
     vISAStatus <- c(mSimsTmp$ISA2Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA2 <- sum(vTableStatus[1:2])
     dProbFAISA2       <- sum( vTableStatus[3:5])
     dProbGoISA2       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA2     <- vTableStatus[2]+vTableStatus[4]
-    
+
     #ISA 3 status
     vISAStatus <- c(mSimsTmp$ISA3Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA3 <- sum(vTableStatus[1:2])
     dProbFAISA3       <- sum( vTableStatus[3:5])
     dProbGoISA3       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA3     <- vTableStatus[2]+vTableStatus[4]
-    
-    
+
+
     #ISA 4 status
     vISAStatus <- c(mSimsTmp$ISA4Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA4 <- sum(vTableStatus[1:2])
     dProbFAISA4       <- sum( vTableStatus[3:5])
     dProbGoISA4       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA4     <- vTableStatus[2]+vTableStatus[4]
-    
+
     vRet <- c( dAvePlacISA1,
                dAveTrtISA1,
                dAvePlacISA2,
@@ -285,35 +285,35 @@ PostProcess4ISA  <- function( mSims, nScen )
 
 PostProcess4ISA2Dose  <- function( mSims, nScen )
 {
-    
+
     mSimsTmp <- mSims[ mSims$iScen == nScen, ]
     print(paste( "Scen ", nScen, " Qty Reps ", nrow(mSimsTmp)))
     dAvePlacISA1  <- mean( mSimsTmp$ISA1Trt1 )
     dAveTrt1ISA1   <- mean( mSimsTmp$ISA1Trt2 )
     dAveTrt2ISA1   <- mean( mSimsTmp$ISA1Trt3 )
-    
+
     dAvePlacISA2   <- mean( mSimsTmp$ISA2Trt1 )
     dAveTrt1ISA2    <- mean( mSimsTmp$ISA2Trt4 )
     dAveTrt2ISA2    <- mean( mSimsTmp$ISA2Trt5 )
-    
+
     dAvePlacISA3   <- mean( mSimsTmp$ISA3Trt1 )
     dAveTrt1ISA3    <- mean( mSimsTmp$ISA3Trt6 )
     dAveTrt2ISA3    <- mean( mSimsTmp$ISA3Trt7 )
-    
+
     dAvePlacISA4   <- mean( mSimsTmp$ISA4Trt1 )
     dAveTrt1ISA4    <- mean( mSimsTmp$ISA4Trt8 )
     dAveTrt2ISA4    <- mean( mSimsTmp$ISA4Trt9 )
-    
-    dAveN     <- dAvePlacISA1 + dAveTrt1ISA1 + dAveTrt2ISA1 + 
-        dAvePlacISA2 + dAveTrt1ISA2 + dAveTrt2ISA2 + 
-        dAvePlacISA2 + dAveTrt1ISA3 + dAveTrt2ISA3 + 
+
+    dAveN     <- dAvePlacISA1 + dAveTrt1ISA1 + dAveTrt2ISA1 +
+        dAvePlacISA2 + dAveTrt1ISA2 + dAveTrt2ISA2 +
+        dAvePlacISA2 + dAveTrt1ISA3 + dAveTrt2ISA3 +
         dAvePlacISA4 + dAveTrt1ISA4 + dAveTrt2ISA4
-    
+
     #ISA 1 status
     vISAStatus <- c(mSimsTmp$ISA1Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA1 <- sum(vTableStatus[1:2])
     dProbFAISA1       <- sum( vTableStatus[3:5])
     dProbGoISA1       <- vTableStatus[1]+vTableStatus[3]
@@ -330,33 +330,33 @@ PostProcess4ISA2Dose  <- function( mSims, nScen )
     vISAStatus <- c(mSimsTmp$ISA2Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA2 <- sum(vTableStatus[1:2])
     dProbFAISA2       <- sum( vTableStatus[3:5])
     dProbGoISA2       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA2     <- vTableStatus[2]+vTableStatus[4]
-    
+
     #ISA 3 status
     vISAStatus <- c(mSimsTmp$ISA3Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA3 <- sum(vTableStatus[1:2])
     dProbFAISA3       <- sum( vTableStatus[3:5])
     dProbGoISA3       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA3     <- vTableStatus[2]+vTableStatus[4]
-    
-    
+
+
     #ISA 4 status
     vISAStatus <- c(mSimsTmp$ISA4Status, 3:7)
     vTableStatus <- table( vISAStatus ) - 1  #Subtracting 1 because the 3:7 added all possible status options
     vTableStatus <- vTableStatus/nrow( mSimsTmp )
-    
+
     dProbClosedIAISA4 <- sum(vTableStatus[1:2])
     dProbFAISA4       <- sum( vTableStatus[3:5])
     dProbGoISA4       <- vTableStatus[1]+vTableStatus[3]
     dProbNoGoISA4     <- vTableStatus[2]+vTableStatus[4]
-    
+
     vRet <- c( dAvePlacISA1,
                dAveTrt1ISA1,
                dAveTrt2ISA1,
@@ -388,7 +388,7 @@ PostProcess4ISA2Dose  <- function( mSims, nScen )
     return( vRet)
 }
 
-library( PlatformTrialSimulator)
+library( OCTOPUS )
 
 
 ########################################################################
@@ -414,7 +414,7 @@ for( i in 1:length(vTrueProb ))
 
 
 ########################################################################
-#   Read in the data from the simulation with borrowing 
+#   Read in the data from the simulation with borrowing
 #   make sure your working directory is the same as this file or
 #   add the directory to the string below
 ########################################################################

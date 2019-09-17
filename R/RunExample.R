@@ -10,11 +10,11 @@
 #' @name RunExample
 #' @title RunExample
 #' @description {This function is used to run the example in the package.  For a current list of example call
-#'   PlatformTrialSimulator::RunExample() and you will get a list of the available examples.
+#'   OCTOPUS::RunExample() and you will get a list of the available examples.
 #'
 #'   There are example(s) that require shiny so you must install the shiny package to run some of the examples.
 #'   }
-#' @examples \dontrun{{PlatformTrialSimulator::RunExample( "CompareRecruitment" )
+#' @examples \dontrun{{OCTOPUS::RunExample( "CompareRecruitment" )
 #' }}
 #' @export
 RunExample <- function(example) {

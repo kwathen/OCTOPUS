@@ -8,7 +8,7 @@
 #############################################################################################################################.
 
 
-library( PlatformTrialSimulator)
+library( OCTOPUS )
 strMain     <- "allmain.csv"
 vStrISA     <- c("allISA1.csv" )
 vISANumber  <- c(1)

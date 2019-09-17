@@ -41,7 +41,7 @@ Download the tar.gz file [Version 1.3.0.3](https://github.com/kwathen/OCTOPUS/bl
 In R with the tar.gz file in your  current working directory the following command will install the package.
 
 ```{r, eval = FALSE}
-install.packages("PlatformTrialSimulator_1.3.0.3.tar.gz", repos=NULL)
+install.packages("OCTOPUS_1.3.0.3.tar.gz", repos=NULL)
 ````
 
 ## Usage 

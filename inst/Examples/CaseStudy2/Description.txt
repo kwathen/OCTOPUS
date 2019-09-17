@@ -10,7 +10,7 @@
 Case Study 1
 
 Requirements:
-    PlatformTrialSimulator package version  >= 1.2.1.0
+    OCTOPUS package version  >= 1.2.1.0
     Install the PTS package on grid with
     R CMD INSTALL -l $HOME/R/x86_64-redhat-linux-gnu-library/3.5 PlatformTrialSimulator_1.2.0.2.tar.gz
 

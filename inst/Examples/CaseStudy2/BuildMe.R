@@ -11,7 +11,7 @@
 
 remove( list=ls() )
 
-library( PlatformTrialSimulator )
+library( OCTOPUS )
 library( rjags )
 ####################################################################################################.
 #   Source the setup files

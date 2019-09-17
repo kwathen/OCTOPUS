@@ -388,7 +388,7 @@ PostProcess4ISA2Dose  <- function( mSims, nScen )
     return( vRet)
 }
 
-library( PlatformTrialSimulator)
+library( OCTOPUS)
 
 
 ########################################################################

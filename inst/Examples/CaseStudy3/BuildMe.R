@@ -14,7 +14,7 @@ library( R2jags)
 #The next line is just so this example will print the headers on the output file if you are running it locally.  Otherwise leave it commented out
 #Sys.setenv(SGE_TASK_ID=1)
 
-library( PlatformTrialSimulator)
+library( OCTOPUS)
 
 ####################################################################################################
 #   Source the setup files

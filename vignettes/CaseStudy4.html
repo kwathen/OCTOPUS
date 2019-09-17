@@ -99,7 +99,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<p>This case study (CS) builds on <a href="https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy3.html">Case Study 3</a> by adding a second ISA and introduces the concept of simulating the entry type of ISA 2. For simplicity, this case study assumes both ISAs have 2 treatment ( control vs treatment ) and assume the same treatment effect for both experimental arms.</p>
+<p>This case study (CS) builds on <a href="https://kwathen.github.io/OCTOPUS/articles/CaseStudy3.html">Case Study 3</a> by adding a second ISA and introduces the concept of simulating the entry type of ISA 2. For simplicity, this case study assumes both ISAs have 2 treatment ( control vs treatment ) and assume the same treatment effect for both experimental arms.</p>
 <p>In this case study, the ability to “borrow” control patients is demonstrated for the first time. Each ISA must specify what type of borrowing is done. This allows an ISA to either borrow the control patients or only utilize the patients within the ISA on an ISA level rather than at the trial level, more detail about borrowing below.</p>
 <p>For CS 4, we utilize the patient simulator that is included with the package rather than adding a new one.</p>
 <p>The R code may be found in the Examples/CaseStudy4</p>
@@ -128,7 +128,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 <p>If the goal at the end of the study is to make a decision of Go or No Go, then <span class="math inline">\(P_U = P_L\)</span>.</p>
 <p>In the context of this case study, patient outcomes are not expected to change over the 24 weeks for the control treatment, where as the treatment is expected to decrease the values of the patient outcomes. Thus, <span class="math inline">\(\delta_C - \delta_T\)</span> is expected to be greater than 0 for effective treatments and consequently, high values for <span class="math inline">\(\rho\)</span> indicate an effective treatment.</p>
-<p>The function SetupTrialDesign() is located in <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/TrialDesign.R">TrialDesign.R</a> and the function is called to build the trial object from the BuildMe.R file in this example.</p>
+<p>The function SetupTrialDesign() is located in <a href="https://github.com/kwathen/OCTOPUS/blob/master/inst/Examples/CaseStudy4/TrialDesign.R">TrialDesign.R</a> and the function is called to build the trial object from the BuildMe.R file in this example.</p>
 </div>
 <div id="simulation-design-elements" class="section level3">
 <h3>Simulation Design Elements</h3>
@@ -182,7 +182,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The trial recruitment is specified in terms of the number of patients accrued per month per site (patients/month/site) and the number of sites open in the platform. For simplicity, the ramp-up in the number of patients/month/site is not applied within a site and recruitment to the platform assumes a Poisson process with the rate equal to the number of patients/month/site * number of sites open.</p>
 <p>To specify the scenarios, each treatment specifies a percent of patients that are responders and non-responders. For the control treatment, the percent of responders is 2% in all scenarios. The treatment are varies the percent of responders from 2% (the null case) to 40%.</p>
 <p>During the simulation of a virtual trials, a patient is first simulated as a responder or non-responder and then their observed values over time from the corresponding MVN. In this case study, an effective treatment is expected to move patients from the non-responder category to the responder category.</p>
-<p>The function SetupSimulations() is located in <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/SimulationDesign.R">SimulationDesign.R</a> and the function is called to build the simulation object for the BuildMe.R file in this example.</p>
+<p>The function SetupSimulations() is located in <a href="https://github.com/kwathen/OCTOPUS/blob/master/inst/Examples/CaseStudy4/SimulationDesign.R">SimulationDesign.R</a> and the function is called to build the simulation object for the BuildMe.R file in this example.</p>
 </div>
 </div>
 </div>
@@ -194,7 +194,7 @@ The file TrialDesign.R contains the function necessary to set-up the design obje
 <div id="borrowing-control-patients" class="section level2">
 <h2>Borrowing Control Patients</h2>
 <p>In this case study a second ISA is included for the first time. Since borrowing is at the ISA level, each ISA can have a different borrowing approach, eg ISA 1 could perform no borrowing and ISA 2 could utilize patients from ISA 1. There are two parts to determining how data is borrowed across ISAs. The first part is determined by how the dataset is created for analysis (includes control patients for all ISAs or just the specific ISA) and the second part is determined by the analysis method.</p>
-<p>In order to share information between ISAs, when a virtual trial is simulated and the dataset created for analysis, the dataset can include data from other ISAs. The code snip below was taken from the <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy4/TrialDesign.R">TrialDesign.R</a> and creates the object for ISA 1 is created.</p>
+<p>In order to share information between ISAs, when a virtual trial is simulated and the dataset created for analysis, the dataset can include data from other ISAs. The code snip below was taken from the <a href="https://github.com/kwathen/OCTOPUS/blob/master/inst/Examples/CaseStudy4/TrialDesign.R">TrialDesign.R</a> and creates the object for ISA 1 is created.</p>
 <div class="sourceCode" id="numCode"><table class="sourceCode R numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
 3

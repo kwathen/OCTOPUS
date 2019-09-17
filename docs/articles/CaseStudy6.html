@@ -140,7 +140,7 @@
 
     
     
-<p>This case study (CS) builds on <a href="https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy5.html">Case Study 5</a> by adding interim analysis. Currently, this package offers two options for determining when interim analysis are conducted.</p>
+<p>This case study (CS) builds on <a href="https://kwathen.github.io/OCTOPUS/articles/CaseStudy5.html">Case Study 5</a> by adding interim analysis. Currently, this package offers two options for determining when interim analysis are conducted.</p>
 <p>The R code may be found in the Examples/CaseStudy6. The main differences are found in the TrialDesign.R file.</p>
 <div id="interim-analysis-options-ia" class="section level2">
 <h2 class="hasAnchor">
@@ -191,7 +191,7 @@
 </ul>
 <p>If the goal at the end of the study is to make a decision of Go or No Go, then <span class="math inline">\(P_U = P_L\)</span>.</p>
 <p>In the context of this case study, patient outcomes are not expected to change over the 24 weeks for the control treatment, where as the treatment is expected to decrease the values of the patient outcomes. Thus, <span class="math inline">\(\delta_C - \delta_T\)</span> is expected to be greater than 0 for effective treatments and consequently, high values for <span class="math inline">\(\rho\)</span> indicate an effective treatment.</p>
-<p>The function SetupTrialDesign() is located in <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy6/TrialDesign.R">TrialDesign.R</a> and the function is called to build the trial object from the BuildMe.R file in this example.</p>
+<p>The function SetupTrialDesign() is located in <a href="https://github.com/kwathen/OCTOPUS/blob/master/inst/Examples/CaseStudy6/TrialDesign.R">TrialDesign.R</a> and the function is called to build the trial object from the BuildMe.R file in this example.</p>
 </div>
 <div id="simulation-design-elements" class="section level3">
 <h3 class="hasAnchor">
@@ -246,7 +246,7 @@
 <p>The trial recruitment is specified in terms of the number of patients accrued per month per site (patients/month/site) and the number of sites open in the platform. For simplicity, the ramp-up in the number of patients/month/site is not applied within a site and recruitment to the platform assumes a Poisson process with the rate equal to the number of patients/month/site * number of sites open.</p>
 <p>To specify the scenarios, each treatment specifies a percent of patients that are responders and non-responders. For the control treatment, the percent of responders is 2% in all scenarios. The treatment are varies the percent of responders from 2% (the null case) to 40%.</p>
 <p>During the simulation of a virtual trials, a patient is first simulated as a responder or non-responder and then their observed values over time from the corresponding MVN. In this case study, an effective treatment is expected to move patients from the non-responder category to the responder category.</p>
-<p>The function SetupSimulations() is located in <a href="https://github.com/kwathen/PlatformTrialSimulator/blob/master/inst/Examples/CaseStudy6/SimulationDesign.R">SimulationDesign.R</a> and the function is called to build the simulation object for the BuildMe.R file in this example.</p>
+<p>The function SetupSimulations() is located in <a href="https://github.com/kwathen/OCTOPUS/blob/master/inst/Examples/CaseStudy6/SimulationDesign.R">SimulationDesign.R</a> and the function is called to build the simulation object for the BuildMe.R file in this example.</p>
 </div>
 </div>
 </div>
@@ -286,7 +286,7 @@
 <div id="borrowing-control-patients" class="section level2">
 <h2 class="hasAnchor">
 <a href="#borrowing-control-patients" class="anchor"></a>Borrowing Control Patients</h2>
-<p>For borrowing of control patients please see <a href="https://kwathen.github.io/PlatformTrialSimulator/articles/CaseStudy4.html">Case Study 4</a>.</p>
+<p>For borrowing of control patients please see <a href="https://kwathen.github.io/OCTOPUS/articles/CaseStudy4.html">Case Study 4</a>.</p>
 </div>
   </div>
 
