@@ -1,12 +1,11 @@
 ##### COPYRIGHT #############################################################################################################
 #
 # Copyright (C) 2018 JANSSEN RESEARCH & DEVELOPMENT, LLC
-# This package is governed by the JRD Platform Trial Simulation License, which is the
+# This package is governed by the JRD OCTOPUS License, which is the
 # GNU General Public License V3 with additional terms. The precise license terms are located in the files
 # LICENSE and GPL.
 #
 #############################################################################################################################.
-
 
 #' @name RunExample
 #' @title RunExample
@@ -19,7 +18,7 @@
 #' }}
 #' @export
 RunExample <- function(example) {
-    strPackage <- "PlatformTrialSimulator"
+    strPackage <- "OCTOPUS"
     # locate all the shiny app examples that exist  call using runExample("myapp")
     validExamples <- list.files(system.file("ShinyExamples", package = strPackage))
 
