@@ -12,7 +12,7 @@
 #' @title  AddControlData
 #' @description {Used to include control data.}
 #' @param  cISAData The ISA object, the class( cISAData ) will determine which version of AddControlData is utilized.
-#' @param  cSourceData The object with the paient data to be used as the patient database for pulling control data from.  THis object must have
+#' @param  cSourceData The object with the patient data to be used as the patient database for pulling control data from.  THis object must have
 #' the following elements:
 #' 1) cSourceData$vIND
 #' 2) cSourceData$vOut
