@@ -40,7 +40,7 @@ http://r-pkgs.had.co.nz/tests.html  - Great overview and introduction to testtha
 Package covr
 https://www.rstudio.com/resources/webinars/covr-bringing-test-coverage-to-r/
 
-====  Travis CI (Continusous Integration) ================
+====  Travis CI (Continuous Integration) ================
 https://docs.travis-ci.com/user/tutorial/
 
 
@@ -52,6 +52,8 @@ Example: remotes::install_github( "kwathen/OCTOPUS", "Version1.3.0.3" )
 
 
 === GitHub Website with pkgdown =============
+
+https://www.r-bloggers.com/building-a-website-with-pkgdown-a-short-guide/
 
 
 =====    Including Shiny app Examples in a Package ====

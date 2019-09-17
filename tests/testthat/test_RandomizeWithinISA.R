@@ -1,7 +1,7 @@
 ##### COPYRIGHT #############################################################################################################
 #
 # Copyright (C) 2018 JANSSEN RESEARCH & DEVELOPMENT, LLC
-# This package is governed by the JRD Platform Trial Simulation License, which is the
+# This package is governed by the JRD OCTOPUS License, which is the
 # GNU General Public License V3 with additional terms. The precise license terms are located in the files
 # LICENSE and GPL.
 #
@@ -239,7 +239,7 @@ test_that(strPrefixTest,
         strErr <- paste( strErr, paste( vTrtCount, collapse = ", ") )
         strErr <- paste( strErr, " Note: this test is run ", nQtyTest, " times, if only 1-2 errors are reported it may not be a problem as this could happen by chance.")
 
-        bRet      <- dPVal >= 0.05
+        bRet      <- dPVal >= 0.01
         #if( !bRet )
         #    print(paste( "pval 1 ", dPVal))
         expect_true( bRet,  strErr)
@@ -268,7 +268,7 @@ test_that(strPrefixTest,
         # Note: this test is run ", nQtyTest, " times, if only 1-2 errors are reported it may not be a problem as this could happen by chance.")
 
 
-        bRet      <- dPVal >= 0.05
+        bRet      <- dPVal >= 0.01
 
         if( !bRet )
             print(paste( "pval 2 ", dPVal))
@@ -393,7 +393,7 @@ test_that(strPrefixTest,
         strErr <- paste( strErr, paste( vTrtCount, collapse = ", ") )
         strErr <- paste( strErr, " Note: this test is run ", nQtyTest, " times, if only 1-2 errors are reported it may not be a problem as this could happen by chance.")
 
-        bRet      <- dPVal >= 0.05
+        bRet      <- dPVal >= 0.01
         #if( !bRet )
         #    print(paste( "pval 1 ", dPVal))
         expect_true( bRet,  strErr)

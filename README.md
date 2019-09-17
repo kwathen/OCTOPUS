@@ -4,7 +4,7 @@
 [![Travis-CI Build Status](https://travis-ci.org/kwathen/OCTOPUS.svg?branch=master)](https://travis-ci.org/kwathen/OCTOPUS)
  
 ## License 
-This package is governed by the JRD Platform Trial Simulation License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in [LICENSE](https://github.com/kwathen/OCTOPUS/blob/master/inst/LICENSE) and [GPL](https://github.com/kwathen/OCTOPUS/blob/master/inst/GPL).
+This package is governed by the JRD OCTOPUS License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in [LICENSE](https://github.com/kwathen/OCTOPUS/blob/master/inst/LICENSE) and [GPL](https://github.com/kwathen/OCTOPUS/blob/master/inst/GPL).
 
 
 ## Introduction

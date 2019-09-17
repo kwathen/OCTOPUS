@@ -90,7 +90,6 @@ reference:
   - '`MakeDecisionDoses.HighDoseOnly`'
   - '`MakeTrialDecision`'
   - '`NewAccrualProcess`'
-  - '`PlatformTrialSimulator`'
   - '`OCTOPUS-package`'
   - '`ProcessData.ProcessReptMeasChngBaseline`'
   - '`RunAnalysis.AOV`'
@@ -122,4 +121,5 @@ articles:
 - title: All vignettes
   desc: ~
   contents: '`OCTOPUS`'
+
 
