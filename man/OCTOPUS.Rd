@@ -33,7 +33,7 @@ Stuff
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/kwathen/OCTOPUS}
+  \item \url{https://kwathen.github.io/OCTOPUS/}
 }
 
 }

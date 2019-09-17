@@ -9,7 +9,7 @@
 
 #AddPatient( lPatOut, dCurrentTime,   nISA <-cRandUpdate$nISA, nTrt <-cRandUpdate$nTrt, cEnrolledPats <- cEnrolledPats )
 
-#' @name AddPatint
+#' @name AddPatient
 #' @title AddPatient
 #' @description {This function uses the lPatOut as a database of patients, it pulls 1 patient out and adds it to lEnrolledPats}
 #' @export
