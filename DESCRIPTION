@@ -22,7 +22,7 @@ Suggests: testthat,
           rmarkdown,
           covr
 VignetteBuilder: knitr
-URL: https://kwathen.github.io/OCTOPUS/
+URL: https://github.com/kwathen/OCTOPUS
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
