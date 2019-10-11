@@ -6,14 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ProcessData.ProcessReptMeasChngBaseline
-#' @description This function is used to process the data before the RunAnalysis function is called.  This can
-be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
-example, the patient data over time is simulated but the data is analysed as change from baseline.
-This function will use the vObsTime and vStartTime to remove patients that have not enrolled
-and set outcomes to NA that have not been observed
-Will return the change from baseline
-dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes — ProcessData.ProcessReptMeasChngBaseline • OCTOPUS</title>
+<title>ProcessData.ProcessReptMeasChngBaseline — ProcessData.ProcessReptMeasChngBaseline • OCTOPUS</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -30,13 +23,15 @@ dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes — ProcessData.ProcessReptMea
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,24 +39,15 @@ dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes — ProcessData.ProcessReptMea
 
 
 
-<meta property="og:title" content="ProcessData.ProcessReptMeasChngBaseline
-#' @description This function is used to process the data before the RunAnalysis function is called.  This can
-be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
-example, the patient data over time is simulated but the data is analysed as change from baseline.
-This function will use the vObsTime and vStartTime to remove patients that have not enrolled
-and set outcomes to NA that have not been observed
-Will return the change from baseline
-dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes — ProcessData.ProcessReptMeasChngBaseline" />
+<meta property="og:title" content="ProcessData.ProcessReptMeasChngBaseline — ProcessData.ProcessReptMeasChngBaseline" />
 
-<meta property="og:description" content="ProcessData.ProcessReptMeasChngBaseline
-#' @description This function is used to process the data before the RunAnalysis function is called.  This can
-be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
+<meta property="og:description" content="This function is used to process the data before the RunAnalysis function is called.  This can
+be useful for cases where the data is simulated/collected in one form but another form is needed for analysis.  For
 example, the patient data over time is simulated but the data is analysed as change from baseline.
 This function will use the vObsTime and vStartTime to remove patients that have not enrolled
 and set outcomes to NA that have not been observed
 Will return the change from baseline
-dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes
-ProcessData.ProcessReptMeasChngBaseline" />
+dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -76,6 +62,7 @@ ProcessData.ProcessReptMeasChngBaseline" />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -94,7 +81,7 @@ ProcessData.ProcessReptMeasChngBaseline" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">OCTOPUS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.4</span>
       </span>
     </div>
 
@@ -142,31 +129,8 @@ ProcessData.ProcessReptMeasChngBaseline" />
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Changelog
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-header">Releases</li>
-    <li>
-      <a></a>
-    </li>
-    <li>
-      <a href="https://kwathen.github.io/OCTOPUS/news/index.html">Version 1.3.0.3</a>
-    </li>
-    <li>
-      <a href="https://kwathen.github.io/OCTOPUS/news/index.html">Version 1.2.1.1</a>
-    </li>
-    <li>
-      <a href="https://kwathen.github.io/OCTOPUS/news/index.html">Version 1.2.1.0</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="../news/index.html">Changelog</a>
-    </li>
-  </ul>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -184,41 +148,30 @@ ProcessData.ProcessReptMeasChngBaseline" />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>ProcessData.ProcessReptMeasChngBaseline
-#' @description This function is used to process the data before the RunAnalysis function is called.  This can
-be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
-example, the patient data over time is simulated but the data is analysed as change from baseline.
-This function will use the vObsTime and vStartTime to remove patients that have not enrolled
-and set outcomes to NA that have not been observed
-Will return the change from baseline
-dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes</h1>
+    <h1>ProcessData.ProcessReptMeasChngBaseline</h1>
     <small class="dont-index">Source: <a href='https://github.com/kwathen/OCTOPUS/blob/master/R/ProcessData.R'><code>R/ProcessData.R</code></a></small>
     <div class="hidden name"><code>ProcessData.ProcessReptMeasChngBaseline.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>ProcessData.ProcessReptMeasChngBaseline
-#' @description This function is used to process the data before the RunAnalysis function is called.  This can
-be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
+    <p>This function is used to process the data before the RunAnalysis function is called.  This can
+be useful for cases where the data is simulated/collected in one form but another form is needed for analysis.  For
 example, the patient data over time is simulated but the data is analysed as change from baseline.
 This function will use the vObsTime and vStartTime to remove patients that have not enrolled
 and set outcomes to NA that have not been observed
 Will return the change from baseline
 dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes</p>
-<p>ProcessData.ProcessReptMeasChngBaseline</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for ProcessReptMeasChngBaseline</span>
-<span class='fu'><a href='ProcessData.html'>ProcessData</a></span>(<span class='no'>cDS</span>, <span class='no'>dCurrentTime</span>)
-
-<span class='co'># S3 method for ProcessReptMeas</span>
 <span class='fu'><a href='ProcessData.html'>ProcessData</a></span>(<span class='no'>cDS</span>, <span class='no'>dCurrentTime</span>)</pre>
         
 
@@ -231,19 +184,23 @@ dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes</p>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by J. Kyle wathen.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

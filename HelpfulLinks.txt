@@ -55,6 +55,7 @@ Example: remotes::install_github( "kwathen/OCTOPUS", "Version1.3.0.3" )
 
 https://www.r-bloggers.com/building-a-website-with-pkgdown-a-short-guide/
 
+pkgdown::build_favicons(overwrite=TRUE)
 
 =====    Including Shiny app Examples in a Package ====
 https://www.r-bloggers.com/supplementing-your-r-package-with-a-shiny-app-2/

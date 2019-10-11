@@ -7,3 +7,4 @@
 ^Meta$
 ^.*\MiscFiles$
 ^.*\Design.Logo.ViPER$
+pkgdown/
