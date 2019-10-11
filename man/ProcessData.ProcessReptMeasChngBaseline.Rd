@@ -2,29 +2,16 @@
 % Please edit documentation in R/ProcessData.R
 \name{ProcessData.ProcessReptMeasChngBaseline}
 \alias{ProcessData.ProcessReptMeasChngBaseline}
-\alias{ProcessData.ProcessReptMeas}
-\title{ProcessData.ProcessReptMeasChngBaseline
-#' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
-be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
-example, the patient data over time is simulated but the data is analysed as change from baseline.
-This function will use the vObsTime and vStartTime to remove patients that have not enrolled
-and set outcomes to NA that have not been observed
-Will return the change from baseline
-dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes }}
+\title{ProcessData.ProcessReptMeasChngBaseline}
 \usage{
 \method{ProcessData}{ProcessReptMeasChngBaseline}(cDS, dCurrentTime)
-
-\method{ProcessData}{ProcessReptMeas}(cDS, dCurrentTime)
 }
 \description{
-ProcessData.ProcessReptMeasChngBaseline
-#' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
-be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
+{ This function is used to process the data before the RunAnalysis function is called.  This can
+be useful for cases where the data is simulated/collected in one form but another form is needed for analysis.  For
 example, the patient data over time is simulated but the data is analysed as change from baseline.
 This function will use the vObsTime and vStartTime to remove patients that have not enrolled
 and set outcomes to NA that have not been observed
 Will return the change from baseline
 dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes }
-
-ProcessData.ProcessReptMeasChngBaseline
 }

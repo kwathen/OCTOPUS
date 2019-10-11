@@ -11,7 +11,7 @@
 #' @name ProcessData
 #' @title ProcessData
 #' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
-#' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
+#' be useful for cases where the data is simulated/collected in one form, but another form is needed for analysis.  For
 #' example, the patient data over time is simulated but the data is analysed as change from baseline. }
 #' @export
 ProcessData <- function( cDS, dCurrentTime)
@@ -39,8 +39,8 @@ ProcessData.default <- function( cDS, dCurrentTime )
 
 #' @name ProcessData.ProcessReptMeasChngBaseline
 #' @title ProcessData.ProcessReptMeasChngBaseline
-#' #' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
-#' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
+#' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
+#' be useful for cases where the data is simulated/collected in one form but another form is needed for analysis.  For
 #' example, the patient data over time is simulated but the data is analysed as change from baseline.
 #' This function will use the vObsTime and vStartTime to remove patients that have not enrolled
 #' and set outcomes to NA that have not been observed
@@ -113,8 +113,8 @@ ProcessData.ProcessReptMeasChngBaseline <- function(  cDS, dCurrentTime  )
 }
 
 
-#' @name ProcessData.ProcessReptMeasChngBaseline
-#' @title ProcessData.ProcessReptMeasChngBaseline
+#' @name ProcessData.ProcessReptMeas
+#' @title ProcessData.ProcessReptMeas
 #' @export
 ProcessData.ProcessReptMeas <- function(  cDS, dCurrentTime  )
 {
@@ -171,6 +171,10 @@ ProcessData.ProcessReptMeas <- function(  cDS, dCurrentTime  )
 
 }
 
+
+
+#' @name ProcessData.ProcessSingleTimeOutcome
+#' @title ProcessData.ProcessSingleTimeOutcome
 #' @export
 ProcessData.ProcessSingleTimeOutcome <- function(  cDS, dCurrentTime  )
 {

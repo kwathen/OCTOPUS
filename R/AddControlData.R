@@ -46,6 +46,7 @@ AddControlData.ProcessReptMeasChngBaseline <- function( cISAData, cSourceData, n
     cRetData$vIND      <- c( cRetData$vIND,       ( cSourceData$vIND[  vSubsetCtrl ] +nMaxIND) )
     cRetData$vBaseline <- c( cRetData$vBaseline,  cSourceData$vBaseline[  vSubsetCtrl ] )
     cRetData$vISA      <- c( cRetData$vISA,       rep( nISA, length( cSourceData$vTrt[  vSubsetCtrl ]) ))
+    cRetData           <- CopyControlCovariates( cRetData, cSourceData, vSubsetCtrl )
     cRetData$nQtyPats  <- length( unique( cRetData$vIND ) )
     return( cRetData )
 
@@ -70,9 +71,27 @@ AddControlData.ProcessReptMeas <- function( cISAData, cSourceData, nISA )
     cRetData$vTrt      <- c( cRetData$vTrt,       cSourceData$vTrt[  vSubsetCtrl ] )
     cRetData$vIND      <- c( cRetData$vIND,       ( cSourceData$vIND[  vSubsetCtrl ] +nMaxIND) )
     cRetData$vISA      <- c( cRetData$vISA,       rep( nISA, length( cSourceData$vTrt[  vSubsetCtrl ]) ))
+
+    cRetData           <- CopyControlCovariates( cRetData, cSourceData, vSubsetCtrl )
     cRetData$nQtyPats  <- length( unique( cRetData$vIND ) )
+
     return( cRetData )
 
+}
+
+CopyControlCovariates <- function( cDestData, cSourceData,  vSubsetCtrl )
+{
+    strCov      <- "vCov"
+    iCov        <- 1
+    strCovName  <- paste( strCov, iCov, sep="" )
+
+    while( strCovName %in% names( cSourceData ) )
+    {
+        cDestData[[ strCovName ]] <- c( cDestData[[ strCovName ]], cSourceData[[ strCovName ]][ vSubsetCtrl ] )
+        iCov        <- iCov + 1
+        strCovName  <- paste( strCov, iCov, sep="" )
+    }
+    return( cDestData )
 }
 
 
@@ -96,6 +115,7 @@ AddControlData.ProcessSingleTimeOutcome <- function( cISAData, cSourceData, nISA
     cRetData$vTrt      <- c( cRetData$vTrt,       cSourceData$vTrt[  vSubsetCtrl ] )
     cRetData$vIND      <- c( cRetData$vIND,       ( cSourceData$vIND[  vSubsetCtrl ] +nMaxIND) )
     cRetData$vISA      <- c( cRetData$vISA,       rep( nISA, length( cSourceData$vTrt[  vSubsetCtrl ]) ))
+    cRetData           <- CopyControlCovariates( cRetData, cSourceData, vSubsetCtrl )
     cRetData$nQtyPats  <- length( unique( cRetData$vIND ) )
     return( cRetData )
 
