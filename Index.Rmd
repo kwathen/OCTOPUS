@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# OCTOPUS - Optimize Clinical Trials On Platforms Using Simulation   <img src="man/figures/logo.png" align="right" alt="" width="120" />
+# OCTOPUS - Optimize Clinical Trials On Platforms Using Simulation   <img src="logo.png" align="right" alt="" width="120" />
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/kwathen/OCTOPUS/master.svg)](https://codecov.io/github/kwathen/OCTOPUS?branch=master)
 [![Travis-CI Build Status](https://travis-ci.org/kwathen/OCTOPUS.svg?branch=master)](https://travis-ci.org/kwathen/OCTOPUS)
