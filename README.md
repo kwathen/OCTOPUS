@@ -1,10 +1,11 @@
 # OCTOPUS - Optimize Clinical Trials On Platforms Using Simulation  <img src="logo.png" align="right" alt="" width="120" />
 
+
 [![Coverage Status](https://img.shields.io/codecov/c/github/kwathen/OCTOPUS/master.svg)](https://codecov.io/github/kwathen/OCTOPUS?branch=master)
 [![Travis-CI Build Status](https://travis-ci.org/kwathen/OCTOPUS.svg?branch=master)](https://travis-ci.org/kwathen/OCTOPUS)
  
 ## License 
-This package is governed by the JRD OCTOPUS License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in [LICENSE](https://github.com/kwathen/OCTOPUS/blob/master/inst/LICENSE) and [GPL](https://github.com/kwathen/OCTOPUS/blob/master/inst/GPL).
+This package is governed by the JRD OCTOPUS License, which is the GNU General Public License V3 with additional terms. The precise license terms are located in [LICENSE](https://github.com/kwathen/OCTOPUS/blob/master/inst/LICENSE) and [GPL](https://github.com/kwathen/OCTOPUS/blob/master/inst/GPL). 
 
 
 ## Introduction
@@ -37,13 +38,13 @@ The simulation design object contains two pieces, the first is the trial design,
 
 
 ## Installation 
-Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is [Version 1.3.0.3](https://github.com/kwathen/OCTOPUS/blob/master/MiscFiles/OCTOPUS1.3.0.3.tar.gz).   
+Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is listed under the [Versions link](https://github.com/kwathen/OCTOPUS/releases) by selected the zip or tar.gz   
 
 ### Installation Option 1 - From GitHub
 Utilizing the [remotes package](https://remotes.r-lib.org/)
 
-```{r, eval = FALSE}
-  remotes::install_github( "kwathen/OCTOPUS", "Version1.3.0.3" )
+```
+  remotes::install_github( "kwathen/OCTOPUS")
 ```
 
 ### Installation Option 2 - Using a tar.gz File
@@ -51,9 +52,9 @@ Utilizing the [remotes package](https://remotes.r-lib.org/)
 Download the tar.gz file [Version 1.3.0.3](https://github.com/kwathen/OCTOPUS/blob/master/MiscFiles/OCTOPUS1.3.0.3.tar.gz).
 In R with the tar.gz file in your  current working directory the following command will install the package.
 
-```{r, eval = FALSE}
+```
 install.packages("OCTOPUS_1.3.0.3.tar.gz", repos=NULL)
-````
+```
 
 ## Usage 
 In the instillation folder there is an Examples directory that contains full examples. 
