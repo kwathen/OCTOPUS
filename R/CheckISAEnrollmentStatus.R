@@ -40,6 +40,10 @@ CheckISAEnrollmentStatus.default <- function( cRandomizer, vISAStatus, dfCov  )
                 #If the enrollment status is anything other than 1 patients will not be enrolled to it, thus if it != before no need to check
                 vElement              <- SelectList( cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus[,-nColStatus], dfCov)
                 nISAStatusEnrollment  <- cRandomizer[[ iISA ]]$dfSubGroupEnrollmentStatus[ vElement, nColStatus]
+                if( is.na(nISAStatusEnrollment) | is.null( nISAStatusEnrollment) | length(nISAStatusEnrollment ) != 1 )
+                {
+                    browser()
+                }
                 vRetISAStatus[ iISA ] <- nISAStatusEnrollment
             }
         }

@@ -57,7 +57,7 @@ RunSimulation.default <- function( lSimulation )
             mResAll <- rbind( mResAll, mResScen )
             if( iScen %% nQtySave  == 0 )
             {
-                names( mResAll)[c(1)]<-c( "Design")
+                colnames( mResAll)[c(1)]<-c( "Design")
                 if( nGridIndex == 1){
                     write.table( mResAll, strOutFile, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
                 }

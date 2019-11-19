@@ -127,7 +127,7 @@ ComputePosteriorProbs.MAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFina
 
 
 #' @name ComputePosteriorProbs.MAVTarget
-#' @title ComputePosteriorProbs.MAVTargety
+#' @title ComputePosteriorProbs.MAVTarget
 #' @description {Used in a trial with a Bayesian analysis and parameter of interest \eqn{\theta}, where
 #' the decisions are based one posterior probabilities Pr(  \eqn{\theta_T} > MAV |data ).
 #' This function returns a list with dPrGrtMAV, dMAVCutoff and dTVCutoff.  0 <= dMAVCutoff and dTVCutoff <= 1}

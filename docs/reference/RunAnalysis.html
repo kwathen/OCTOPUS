@@ -42,7 +42,16 @@
 <meta property="og:title" content="RunAnalysis — RunAnalysis" />
 
 <meta property="og:description" content="This is the method used for running the analysis.  There are several options available for different types
-of data." />
+of data.
+Inputs:
+    cAnalysis - The class( cAnalysis ) determines the specific version of RunAnalysis that is called. It contains
+                the details about the analysis such as the priors, MAV, TV, decsiion cutoff boundaries.
+    lDataAna  - The data that is used int he analysis.  Typically contains vISA (the ISA for the patient),
+                vTrt (treatment for each patient), vOut (the outcome for each patient)Return:   Each Analysis must return a list with at least the following
+ list( nGo = nGo, nNoGo= nNoGo,  nPause = nPause)
+  The list is a list of indicator that only one of which = 1, the others are 0
+For example, if you did a Go/NoGo with a CI see the results of MakeDecisionBasedOnCI()
+If the analysis return more info that is fine." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -76,7 +85,7 @@ of data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">OCTOPUS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.5</span>
       </span>
     </div>
 
@@ -157,19 +166,66 @@ of data." />
     <div class="ref-description">
     
     <p>This is the method used for running the analysis.  There are several options available for different types
-of data.</p>
+of data.
+Inputs:
+    cAnalysis - The class( cAnalysis ) determines the specific version of RunAnalysis that is called. It contains
+                the details about the analysis such as the priors, MAV, TV, decsiion cutoff boundaries.
+    lDataAna  - The data that is used int he analysis.  Typically contains vISA (the ISA for the patient),
+                vTrt (treatment for each patient), vOut (the outcome for each patient)Return:   Each Analysis must return a list with at least the following
+ list( nGo = nGo, nNoGo= nNoGo,  nPause = nPause)
+  The list is a list of indicator that only one of which = 1, the others are 0
+For example, if you did a Go/NoGo with a CI see the results of MakeDecisionBasedOnCI()
+If the analysis return more info that is fine.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>RunAnalysis</span>(<span class='no'>cAnalysis</span>, <span class='no'>lDataAna</span>, <span class='no'>nISAAnalysisIndx</span>, <span class='no'>bIsFinalISAAnalysis</span>,
   <span class='no'>cRandomizer</span>)</pre>
-        
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>cAnalysis</th>
+      <td><p>The class( cAnalysis ) determines the specific version of RunAnalysis that is called. It contains
+the details about the analysis such as the priors, MAV, TV, decsiion cutoff boundaries.</p></td>
+    </tr>
+    <tr>
+      <th>lDataAna</th>
+      <td><p>The data that is used int he analysis.  Typically contains vISA (the ISA for the patient),
+vTrt (treatment for each patient), vOut (the outcome for each patient)</p></td>
+    </tr>
+    <tr>
+      <th>nISAAnalysisIndx</th>
+      <td><p>index of the analysis used for changing boundaries)</p></td>
+    </tr>
+    <tr>
+      <th>cRandomizer</th>
+      <td><p>The randomizer, mainly used for cases with covariates. For most cases without covariates,
+simply add cRandomizer = cRandomizer to the return list.</p></td>
+    </tr>
+    <tr>
+      <th>bIsFinaISAAnalysis</th>
+      <td><p>TRUE or FALSE, often we change the value of the cutoff at the final analysis for an ISA</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Each Analysis must return a list with at least the following list( nGo = nGo, nNoGo= nNoGo,  nPause = nPause, cRandomizer = cRandomizer ).
+The list is a list of indicator that only one of which = 1, the others are 0
+For example, if you did a Go/NoGo with a CI see the results of MakeDecisionBasedOnCI()
+If the analysis return more info that is fine.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

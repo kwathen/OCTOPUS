@@ -45,8 +45,11 @@ InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer, dISAStartTi
     vTmpTrt  <- rep( vTrtLab, vQtyPats )
     vISARand <- sample( vTmpTrt, length( vTmpTrt ) )
 
+    #The intent of the dfSubGroupEnrollmentStatusOriginal is to maintin the default that was set in the trial
+    # design and not change it.  If the calculations want to open/close groups it should use dfSubGroupEnrollmentStatus
     cISARand <- structure( list( vISARand = vISARand,
-                                 dfSubGroupEnrollmentStatus = cISARandomizer$dfSubgroupEnrollmentStatus), class= class(cISARandomizer))
+                                 dfSubGroupEnrollmentStatus = cISARandomizer$dfSubgroupEnrollmentStatus,
+                                 dfSubGroupEnrollmentStatusOriginal = cISARandomizer$dfSubgroupEnrollmentStatus), class= class(cISARandomizer))
     return( cISARand )
 
 

@@ -124,7 +124,18 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
                 dfCov    <- NULL
             else
             {
+                if( nrow( dfPatCov ) == 0 )   #Out of patients need to add more
+                {
+
+                    #lPatOut does not contain any simulated pateints in the correct ISA,TRT with dfCov; therefore simualte more patients
+                    dfPatCov2   <- SimulateAllPatientCovariates( cScen$cSimCovariates, cTrialDesign )  # This will need to go into the next line to simulate pateitn outcomes
+                    lPatOut2    <- SimulateAllPatientOutcomes( cScen,  cTrialDesign, dfPatCov2  )
+                    dfPatCov    <- rbind( dfPatCov, dfPatCov2 )
+                    lPatOut     <- AppendPatientLists( lPatOut, lPatOut2 )
+
+                }
                 iIndx        <- sample( 1:nrow( dfPatCov ), size = 1 )
+                #print( paste( "Index ", iIndx, " nrow(dfPatCov) ", nrow( dfPatCov ) ))
                 dfCov        <- dfPatCov[  iIndx, ]
                 dfPatCov     <- dfPatCov[ -iIndx, ]
             }

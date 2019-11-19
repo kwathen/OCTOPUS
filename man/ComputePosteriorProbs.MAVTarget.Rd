@@ -2,7 +2,7 @@
 % Please edit documentation in R/ComputePosteriorProbs.R
 \name{ComputePosteriorProbs.MAVTarget}
 \alias{ComputePosteriorProbs.MAVTarget}
-\title{ComputePosteriorProbs.MAVTargety}
+\title{ComputePosteriorProbs.MAVTarget}
 \usage{
 \method{ComputePosteriorProbs}{MAVTarget}(cAnalysis, nISAAnalysisIndx,
   bIsFinalISAAnalysis, lSamples)
