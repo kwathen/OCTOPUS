@@ -1,0 +1,31 @@
+Requirements:
+    OCTOPUS V 1.3.0.4
+    If you are on a Grid the OCTOPUS package could be installed in a subdirectory, such as RLibrary if needed and then just reference the
+    correct package.  The same approach could be taken if you are not running on a grid.
+    
+    Example:
+    Install
+    install.packages("OCTOPUS_1.3.0.4.tar.gz", repos = NULL, type = "source", lib="RLibrary")
+
+    Reference
+    library( "OCTOPUS", lib.loc = "RLibrary" )
+
+   
+
+
+Description
+This example is to simulate a platform trial with 3 ISAs. 
+The primary outcome is a binary outcome observed 6 months after the patient is treated.
+The analysis that will be done is a Bayesian Beta-Binomial.
+
+Since a binary outcome and the Beta-Binomial model are not part of the core OCTOPUS package new functions need to be develped to
+simulate the patient outcomes and run the Beta-Binomial analysis.
+
+R Code
+
+Begin with the BuildMe.R file.    This file loads the OCTOPUS package and sources the design file as well as the new files 
+for the binary outcome and the new analysis. 
+
+The file TrialDesign.R contains the function necessary to setup the design object.
+The file SimulationDesign.R contains the functions necessary to setup the simulation design.
+
