@@ -5,9 +5,9 @@
 #   TODO: Test this function.
 ################################################################################################### #
 
-SimPatientOutcomes.Binary <- function(  cSimOutcomes, cISADesign, dfPatCovISA )
+SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME <- function(  cSimOutcomes, cISADesign, dfPatCovISA )
 {
-    print( "Executing SimPatientOutcomes.Binary ...")
+    print( "Executing SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME ...")
     if( !is.null(  dfPatCovISA  ) )
         stop( "SimPatientOutcomes.Binary is not designed to incorporate patient covariates and  dfPatCovISA  is not NULL.")
     
@@ -37,3 +37,4 @@ SimPatientOutcomes.Binary <- function(  cSimOutcomes, cISADesign, dfPatCovISA )
     return( lSimDataRet )
     
 }
+

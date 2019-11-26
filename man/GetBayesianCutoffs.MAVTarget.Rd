@@ -2,7 +2,7 @@
 % Please edit documentation in R/GetBayesianCutoffs.R
 \name{GetBayesianCutoffs.MAVTarget}
 \alias{GetBayesianCutoffs.MAVTarget}
-\title{GetBayesianCutoffs.MAVOnly}
+\title{GetBayesianCutoffs.MAVTarget}
 \usage{
 \method{GetBayesianCutoffs}{MAVTarget}(cAnalysis, nISAAnalysisIndx,
   bIsFinalISAAnalysis)

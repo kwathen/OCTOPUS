@@ -19,7 +19,7 @@ source("TestHelperFunctions.R")
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------
-#  Check Trial Monitor Case 1 - Which is based on a number of patients puls follow-up
+#  Check Trial Monitor Case 1 - Which is based on a number of patients plus follow-up
 #--------------------------------------------------------------------------------------------------------------------------------------------------
 test_that("No Patient Test - Case 1",
     {
@@ -211,6 +211,45 @@ test_that("No Patient Test - Case 2",
           }
 )
 
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------
+#   Check Trial Monitor Case 1 - With dQtyMonthsBtwIA = 0 so only 1 IA
+#--------------------------------------------------------------------------------------------------------------------------------------------------
+test_that("No Patient Test - Case 3 - No IA, just a FA",
+          {
+              cTrialDesign     <- SetupTrialDesign1ISA()
+              lEnrolledPats    <- InitializePatientList( cTrialDesign )
+              vISAStatus       <- c( 1 )
+              dCurrentTime     <- 0
+              vISAAnalysisIndx <- c( 1 )
+              vPreviousIATime  <- c( 0 )
+              dQtyMonthsBtwIA  <- 0
+
+
+              cTrialDesign$cISADesigns[[1]]$dQtyMonthsBtwIA    <- dQtyMonthsBtwIA  #Setting this to  0 should result in ISA with the udpated  info
+              cTrialDesign$cISADesigns[[1]]$vMinFUTime         <- c( 1 )
+              cTrialDesign$cISADesigns[[1]]$vMinQtyPats        <- c( 90 )
+
+              lRet    <- CheckTrialMonitor( cTrialDesign$cISADesigns, lEnrolledPats, vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime  )
+
+              lRetExp <- list( vRunISAAnalysis=c(0), vPreviousIATime = c(0), vIsFinalISAAnalysis =c(FALSE), vCase = c(1))
+              expect_equal( lRet, lRetExp )
+
+
+              #Add patients so the 1st analysis should run
+              nQtyPats                              <- cTrialDesign$cISADesigns[[1]]$vMinQtyPats[ 1 ]
+              lEnrolledPats$vCurrentQtyPatsISA[ 1 ] <- nQtyPats
+              lEnrolledPats$lPatOut[[1]]$vStartTimes             <- rep( 0, nQtyPats )
+              lEnrolledPats$lPatOut[[1]]$vISA                    <- rep( 1, nQtyPats )
+              dCurrentTime <- cTrialDesign$cISADesigns[[1]]$vMinFUTime[ 1 ] + 2 #Make sure the current time is past the min FU so Analysis should be run
+
+              lRet    <- CheckTrialMonitor( cTrialDesign$cISADesigns, lEnrolledPats, vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime )
+              lRetExp <- list( vRunISAAnalysis=c(1), vPreviousIATime = c(dCurrentTime ), vIsFinalISAAnalysis =c(TRUE), vCase = c(1))
+              expect_equal( lRet, lRetExp )
+
+          }
+)
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------
 #    Test the results when ISA is not open or it is closed

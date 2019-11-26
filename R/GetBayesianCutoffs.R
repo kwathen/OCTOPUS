@@ -107,7 +107,7 @@ GetBayesianCutoffs.MAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalIS
 
 
 #' @name GetBayesianCutoffs.MAVTarget
-#' @title GetBayesianCutoffs.MAVOnly
+#' @title GetBayesianCutoffs.MAVTarget
 #' @description {This function is the same as GetBayesianCutoffs.MAVOnly as MAVTarget inheirts from MAVOnly }
 #' @param  cAnalysis$vPUpper Vector of upper cutoffs, typically used in the context of success if a posterior probability > vPUpper,
 #' 0 <=  vPLowerCutoff <= vPUpperCutoff <= 1

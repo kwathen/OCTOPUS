@@ -38,6 +38,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: J. Kyle wathen \email{kylewathen@gmail.com}
+\strong{Maintainer}: J. Kyle Wathen \email{KyleWathen@gmail.com}
 
 }

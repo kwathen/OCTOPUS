@@ -18,45 +18,31 @@ CheckTrialMonitor(cISADesigns, lEnrolledPats, vISAStatus, dCurrentTime,
           vRunISAAnalysis = 0, vPreviousIATime = vPreviousIATime , vIsFinalISAAnalysis = FALSE, vCase = corresponding case )}
 }
 \description{
-{An ISA monitoring plan consists of the specifying a minimum number of patients and follow-up (FU) time.
+{CheckTrialMonitor An ISA monitoring plan consists of the specifying a minimum number of patients and follow-up (FU) time.
 You must specify the minimum number of patients to perform an analysis and the final analysis FU time.
 This is done by specifying the elements vMinQtyPats and  vMinFUTime  with at least 2 elements.
 The first elements define when to
 start monitoring based on a number of patients enrolled with additional FU (in months) and the last elements in the vectors
 define when to do the final analysis.
 
-For example, if the maximum sample size for an ISA  is 200 patients and  we define the
-elements in the following way:
-
-vMinQtyPats <- c( 30, 200 )
-
-vMinFUTime  <- c( 3,  3)
-
-would start monitoring patients 3 months after the 30th patient enrolled and the final analysis (FA) would be done 3 months after the 200th (last patient) enrolled.
-
 To increase flexibility there are two options for adding additional IAs.  Which option is used is based on dQtyMonthsBtwIA ==0  or > 0
       \enumerate{
-      \item \strong{Option 1}:  the vMinQtyPats and vMinFUTime are of equal length with length > 2 then the trial would consist of length( vMinQtyPats )-1 IAs and 1 FA
-          Example:    dQtyMonthsBtwIA  <-  0
-                      vMinQtyPats     <- c( 30, 90, 150, 200 )
-                      vMinFUTime      <- c( 3,  3,  0,    3)
-              Would perform  IA 1 at 3 months after the 30th patient enrolled, IA 2 at 3 months after the 90th patient enrolled, IA 3 when the 150th patient enrolled,
-              (not since the 3rd element of vMinFUTime = 0 IA 3 is performed when the 150th patient is enrolled) and the FA is performed 3 months after the 200th patient
-              NOTE: With dQtyMonthsBtwIA > 0 and length( vMinQtyPats ) > 2 --> ERROR and stops running
+      \item \strong{Option 1}:  vMinQtyPats and vMinFUTime are of equal length with length > 2 then the trial would consist of length( vMinQtyPats )-1 IAs and 1 FA.  See Example 1.
 
-
-      \item \strong{Option 2}: You MUST have the lengths of vMinQtyPats and vMinFUTime equal to 2.
-          Example:    dQtyMonthsBtwIA <-  2
-                      vMinQtyPats     <- c( 30, 200 )
-                      vMinFUTime      <- c( 3,   3)
-                      This option will run the first IA 3 months after the 30th patient.  After that, the ISA is monitored every 2 months (vQtyMonthsBtwIA[1])
-                      and the FA is 3 months after the 200th patient
+      \item \strong{Option 2}: You MUST have the lengths of vMinQtyPats and vMinFUTime equal to 2.  See Example 3
         }
 }
 }
 \examples{
 \dontrun{
-#Example 1 - 1 Interim analysis (IA) at 30 patients with 3 months of FU
+# Example 1 :   Perform  IA 1 at 3 months after the 30th patient enrolled, IA 2 at 3 months after the 90th patient enrolled, IA 3 when the 150th patient enrolled,
+#               (not since the 3rd element of vMinFUTime = 0 IA 3 is performed when the 150th patient is enrolled) and the FA is performed 3 months after the 200th patient.
+
+     dQtyMonthsBtwIA <- 0
+     vMinQtyPats     <- c( 30, 90, 150, 200 )
+     vMinFUTime      <- c( 3,  3,  0,    3)
+
+#Example 2 - 1 Interim analysis (IA) at 30 patients with 3 months of FU
 #            No additional IA
 #            Final Analysis (FA) at 200 patients with 3 months FU
 
@@ -64,12 +50,18 @@ To increase flexibility there are two options for adding additional IAs.  Which 
      vMinQtyPats     <- c( 30, 200 )
      vMinFUTime      <- c( 3,   3)
 
-#Example 2 - Start the IA 30 patients with 3 months of FU, continue
+#Example 3 - Start the IA 30 patients with 3 months of FU, continue
 #            Perform additional analysis every 2 months after the first IA
 #            Final Analysis (FA) at 200 patients with 3 months FU
 
      dQtyMonthsBtwIA <- 2
      vMinQtyPats     <- c( 30, 200 )
      vMinFUTime      <- c( 3,   3)
+
+#Example 4 - No IA becasue the IA is done at the same time as the FA
+     dQtyMonthsBtwIA <- 0
+     vMinQtyPats     <- c( 200, 200 )
+     vMinFUTime      <- c( 3,   3)
+
 }
 }

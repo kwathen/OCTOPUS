@@ -62,13 +62,19 @@ BuildSimulationResultsDataSet <- function( )
 CombineOutputFiles <- function( strDirectory )
 {
     vFileNames  <- list.files( path=strDirectory, full.names=TRUE)
+    nQtyFiles   <- length( vFileNames )
     dataset1    <- read.table( vFileNames[1], header=TRUE, sep=",")
-    vFileNames  <- vFileNames[-1]
-    dataset     <- do.call("rbind", lapply(vFileNames , FUN = function(file) {
-        read.table(file, header=FALSE, sep=",")
-    }))
-    colnames(dataset ) <- colnames(dataset1)
+    if( nQtyFiles > 1 )
+    {
+        vFileNames  <- vFileNames[-1]
 
-    dataset1 <- rbind( dataset1, dataset )
+        dataset     <- do.call("rbind", lapply(vFileNames , FUN = function(file) {
+            read.table(file, header=FALSE, sep=",") }))
+
+        colnames(dataset ) <- colnames(dataset1)
+
+        dataset1 <- rbind( dataset1, dataset )
+
+    }
     return( dataset1 )
 }
