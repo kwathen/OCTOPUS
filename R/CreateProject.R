@@ -77,7 +77,9 @@ CreateProject <- function( strProjectDirectory = "", strProjectName = "NewProjec
     if( file.exists( strRProjName ) )
     {
         strNewRProjName <- paste( strNewProjectDirectory, "/", strProjectName, ".Rproj", sep = "" )
+
         file.rename( strRProjName, strNewRProjName )
+        strRProjName  <- strNewRProjName
     }
 
     #Replace Analysis name everyone it needs to be changed
@@ -112,7 +114,7 @@ CreateProject <- function( strProjectDirectory = "", strProjectName = "NewProjec
     writeLines( strTemplate, con = strBuildMeFile )
 
     strRet          <- paste( nCopySuccess, "file(s) were successfully coppied and ", nCopyFail, " file(s) were not coppied correctly.")
-    strInstrucitons <- paste( "Use R Studio to open the", strNewRProjName, "project file and begin by reading the BuildMe.R file.")
+    strInstrucitons <- paste( "Use R Studio to open the", strRProjName, "project file and begin by reading the BuildMe.R file.")
     strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strInstrucitons )
     strRet          <- paste( strRet, collapse = "\n")
     return( strRet )

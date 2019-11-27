@@ -8,7 +8,7 @@
 #############################################################################################################################.
 
 
-context("Test - CreateProject.R")
+context("CreateProject.R")
 
 
 test_that("CreateProject - Test 1",
