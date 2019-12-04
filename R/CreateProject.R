@@ -29,8 +29,6 @@
 #' @param dQtyMonthsFU The number of months of follow-up the last patient before running the final analysis (FA). By default, the design created
 #' only includes a final analysis with NO interim analysis.  To use another option please see the TrialDesign.R file in the projected that is created.
 #' @param  bCreateProjectSubdirectory  If TRUE the a subdirectory with the project name will be created, if FALSE then the project is created in strProjectDirectory.
-#' @examples \dontrun{Example 1 - If strProjectDirectory = "" and strProjectName = "" then a folder named NewProject is created in
-#' the working directory.}
 #' @export
 CreateProject <- function( strProjectDirectory = "", strProjectName = "NewProject",
                            strAnalysisName, strSimPatientOutcomeName, strBorrowing = "NoBorrowing",
@@ -213,23 +211,4 @@ MethodExists <- function( strGenericFctnName, strClassName )
     bFound <- !is.null( getS3method(strGenericFctnName, strClassName, optional=TRUE) )
     return( bFound )
 }
-# Test 1 - Should create a directory named NewProject in the current working directory
-# CreateProject()
-# dir.exists( paste( getwd(), "/NewProject", sep=""))
-#
-# #Test 2 - Should create a directory named Test2/NewProject in the current working directory
-# gstrProjectDirectory <- paste( getwd(), "/Test2", sep="")
-# CreateProject( strProjectDirectory =  gstrProjectDirectory )
-# dir.exists( paste( getwd(), "/Test2/NewProject", sep=""))
-
-
-#Test 3 - Should create a directory named Test3/MyNewProject in the current working directory
-# gstrProjectDirectory <- paste( getwd(), "/Test3", sep="")
-# gstrProjectName      <- "MyNewProject"
-# CreateProject( strProjectDirectory =  gstrProjectDirectory, strProjectName =  gstrProjectName,
-#                strAnalysisName = "MyBinaryAnalysis",
-#                strSimPatientOutcomeName = "MyBinarySimulator",
-#                strBorrowing = "AllControls"  )
-#dir.exists( paste( getwd(), "/Test3/MyNewProject", sep=""))
-
 

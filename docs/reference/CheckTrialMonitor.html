@@ -41,27 +41,15 @@
 
 <meta property="og:title" content="Check Trial Monitor — CheckTrialMonitor" />
 
-<meta property="og:description" content="An ISA monitoring plan consists of the specifying a minimum number of patients and follow-up (FU) time.
+<meta property="og:description" content="CheckTrialMonitor An ISA monitoring plan consists of the specifying a minimum number of patients and follow-up (FU) time.
 You must specify the minimum number of patients to perform an analysis and the final analysis FU time.
 This is done by specifying the elements vMinQtyPats and  vMinFUTime  with at least 2 elements.
 The first elements define when to
 start monitoring based on a number of patients enrolled with additional FU (in months) and the last elements in the vectors
-define when to do the final analysis.For example, if the maximum sample size for an ISA  is 200 patients and  we define the
-elements in the following way:vMinQtyPats &amp;lt;- c( 30, 200 )vMinFUTime  &amp;lt;- c( 3,  3)would start monitoring patients 3 months after the 30th patient enrolled and the final analysis (FA) would be done 3 months after the 200th (last patient) enrolled.To increase flexibility there are two options for adding additional IAs.  Which option is used is based on dQtyMonthsBtwIA ==0  or &amp;gt; 0
+define when to do the final analysis.To increase flexibility there are two options for adding additional IAs.  Which option is used is based on dQtyMonthsBtwIA ==0  or &amp;gt; 0
       
-Option 1:  the vMinQtyPats and vMinFUTime are of equal length with length &amp;gt; 2 then the trial would consist of length( vMinQtyPats )-1 IAs and 1 FA
-          Example:    dQtyMonthsBtwIA  &amp;lt;-  0
-                      vMinQtyPats     &amp;lt;- c( 30, 90, 150, 200 )
-                      vMinFUTime      &amp;lt;- c( 3,  3,  0,    3)
-              Would perform  IA 1 at 3 months after the 30th patient enrolled, IA 2 at 3 months after the 90th patient enrolled, IA 3 when the 150th patient enrolled,
-              (not since the 3rd element of vMinFUTime = 0 IA 3 is performed when the 150th patient is enrolled) and the FA is performed 3 months after the 200th patient
-              NOTE: With dQtyMonthsBtwIA &amp;gt; 0 and length( vMinQtyPats ) &amp;gt; 2 --&amp;gt; ERROR and stops running
-Option 2: You MUST have the lengths of vMinQtyPats and vMinFUTime equal to 2.
-          Example:    dQtyMonthsBtwIA &amp;lt;-  2
-                      vMinQtyPats     &amp;lt;- c( 30, 200 )
-                      vMinFUTime      &amp;lt;- c( 3,   3)
-                      This option will run the first IA 3 months after the 30th patient.  After that, the ISA is monitored every 2 months (vQtyMonthsBtwIA[1])
-                      and the FA is 3 months after the 200th patient
+Option 1:  vMinQtyPats and vMinFUTime are of equal length with length &amp;gt; 2 then the trial would consist of length( vMinQtyPats )-1 IAs and 1 FA.  See Example 1.
+Option 2: You MUST have the lengths of vMinQtyPats and vMinFUTime equal to 2.  See Example 3
 " />
 
 <meta property="og:image" content="/logo.png" />
@@ -176,27 +164,15 @@ Option 2: You MUST have the lengths of vMinQtyPats and vMinFUTime equal to 2.
 
     <div class="ref-description">
     
-    <p>An ISA monitoring plan consists of the specifying a minimum number of patients and follow-up (FU) time.
+    <p>CheckTrialMonitor An ISA monitoring plan consists of the specifying a minimum number of patients and follow-up (FU) time.
 You must specify the minimum number of patients to perform an analysis and the final analysis FU time.
 This is done by specifying the elements vMinQtyPats and  vMinFUTime  with at least 2 elements.
 The first elements define when to
 start monitoring based on a number of patients enrolled with additional FU (in months) and the last elements in the vectors
-define when to do the final analysis.For example, if the maximum sample size for an ISA  is 200 patients and  we define the
-elements in the following way:vMinQtyPats &lt;- c( 30, 200 )vMinFUTime  &lt;- c( 3,  3)would start monitoring patients 3 months after the 30th patient enrolled and the final analysis (FA) would be done 3 months after the 200th (last patient) enrolled.To increase flexibility there are two options for adding additional IAs.  Which option is used is based on dQtyMonthsBtwIA ==0  or &gt; 0
+define when to do the final analysis.To increase flexibility there are two options for adding additional IAs.  Which option is used is based on dQtyMonthsBtwIA ==0  or &gt; 0
       <ol>
-<li><p><strong>Option 1</strong>:  the vMinQtyPats and vMinFUTime are of equal length with length &gt; 2 then the trial would consist of length( vMinQtyPats )-1 IAs and 1 FA
-          Example:    dQtyMonthsBtwIA  &lt;-  0
-                      vMinQtyPats     &lt;- c( 30, 90, 150, 200 )
-                      vMinFUTime      &lt;- c( 3,  3,  0,    3)
-              Would perform  IA 1 at 3 months after the 30th patient enrolled, IA 2 at 3 months after the 90th patient enrolled, IA 3 when the 150th patient enrolled,
-              (not since the 3rd element of vMinFUTime = 0 IA 3 is performed when the 150th patient is enrolled) and the FA is performed 3 months after the 200th patient
-              NOTE: With dQtyMonthsBtwIA &gt; 0 and length( vMinQtyPats ) &gt; 2 --&gt; ERROR and stops running</p></li>
-<li><p><strong>Option 2</strong>: You MUST have the lengths of vMinQtyPats and vMinFUTime equal to 2.
-          Example:    dQtyMonthsBtwIA &lt;-  2
-                      vMinQtyPats     &lt;- c( 30, 200 )
-                      vMinFUTime      &lt;- c( 3,   3)
-                      This option will run the first IA 3 months after the 30th patient.  After that, the ISA is monitored every 2 months (vQtyMonthsBtwIA[1])
-                      and the FA is 3 months after the 200th patient</p></li>
+<li><p><strong>Option 1</strong>:  vMinQtyPats and vMinFUTime are of equal length with length &gt; 2 then the trial would consist of length( vMinQtyPats )-1 IAs and 1 FA.  See Example 1.</p></li>
+<li><p><strong>Option 2</strong>: You MUST have the lengths of vMinQtyPats and vMinFUTime equal to 2.  See Example 3</p></li>
 </ol></p>
     
     </div>
@@ -214,7 +190,14 @@ elements in the following way:vMinQtyPats &lt;- c( 30, 200 )vMinFUTime  &lt;- c(
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='co'>#Example 1 - 1 Interim analysis (IA) at 30 patients with 3 months of FU</span>
+<span class='co'># Example 1 :   Perform  IA 1 at 3 months after the 30th patient enrolled, IA 2 at 3 months after the 90th patient enrolled, IA 3 when the 150th patient enrolled,</span>
+<span class='co'>#               (not since the 3rd element of vMinFUTime = 0 IA 3 is performed when the 150th patient is enrolled) and the FA is performed 3 months after the 200th patient.</span>
+
+     <span class='no'>dQtyMonthsBtwIA</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+     <span class='no'>vMinQtyPats</span>     <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>30</span>, <span class='fl'>90</span>, <span class='fl'>150</span>, <span class='fl'>200</span> )
+     <span class='no'>vMinFUTime</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>3</span>,  <span class='fl'>3</span>,  <span class='fl'>0</span>,    <span class='fl'>3</span>)
+
+<span class='co'>#Example 2 - 1 Interim analysis (IA) at 30 patients with 3 months of FU</span>
 <span class='co'>#            No additional IA</span>
 <span class='co'>#            Final Analysis (FA) at 200 patients with 3 months FU</span>
 
@@ -222,13 +205,19 @@ elements in the following way:vMinQtyPats &lt;- c( 30, 200 )vMinFUTime  &lt;- c(
      <span class='no'>vMinQtyPats</span>     <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>30</span>, <span class='fl'>200</span> )
      <span class='no'>vMinFUTime</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>3</span>,   <span class='fl'>3</span>)
 
-<span class='co'>#Example 2 - Start the IA 30 patients with 3 months of FU, continue</span>
+<span class='co'>#Example 3 - Start the IA 30 patients with 3 months of FU, continue</span>
 <span class='co'>#            Perform additional analysis every 2 months after the first IA</span>
 <span class='co'>#            Final Analysis (FA) at 200 patients with 3 months FU</span>
 
      <span class='no'>dQtyMonthsBtwIA</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
      <span class='no'>vMinQtyPats</span>     <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>30</span>, <span class='fl'>200</span> )
      <span class='no'>vMinFUTime</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>3</span>,   <span class='fl'>3</span>)
+
+<span class='co'>#Example 4 - No IA becasue the IA is done at the same time as the FA</span>
+     <span class='no'>dQtyMonthsBtwIA</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+     <span class='no'>vMinQtyPats</span>     <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>200</span>, <span class='fl'>200</span> )
+     <span class='no'>vMinFUTime</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>3</span>,   <span class='fl'>3</span>)
+
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -246,7 +235,7 @@ elements in the following way:vMinQtyPats &lt;- c( 30, 200 )vMinFUTime  &lt;- c(
 
       <footer>
       <div class="copyright">
-  <p>Developed by J. Kyle wathen.</p>
+  <p>Developed by J. Kyle Wathen.</p>
 </div>
 
 <div class="pkgdown">
