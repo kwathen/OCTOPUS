@@ -62,3 +62,5 @@ In the instillation folder there is an Examples directory that contains full exa
 # To Do List
 
 - [ ] In the R Shiny App to compare recruitment (R/RecruitmentComparitor.R)  the function ComputeMonthlyAccrual improves the AccrualMethods class by allowing the ramp up to be on a per site basis.  Move this functionality to the general class so it can be used in simulation.
+
+- [ ] Make a checklist of steps that need to be followed for a basic platform trial with multiple ISAs to be successfully simulated.
