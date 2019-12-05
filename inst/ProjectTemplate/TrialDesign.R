@@ -14,7 +14,9 @@
 #
 #############################################################################################################################.
 
-SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, dQtyMonthsFU )
+SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, dQtyMonthsFU,
+                              mMinQtyPats = NULL, vMinFUTime = NULL, dQtyMonthsBtwIA = 0,
+                              vPUpper = NULL, vPLower = NULL, dFinalPUpper = 1.0, dFinalPLower = 0.0 )
 {
     dConvWeeksToMonths <- 12/52
 
@@ -24,26 +26,51 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
     bIncreaseParam    <- TRUE
     dMAV              <- 0.1
 
-    # By default this functions sets up a trial with only a Final Analysis FA.
-    # However, in the OCTOPUS package interim analysis (IAs) are specefied by
-    # 1. Number of patients with given followup (any number of IAs can be set this way)
+    # By default this functions sets up a trial with only a Final Analysis(FA).
+    # However, in the OCTOPUS package interim analysis (IAs) are specified in one of two ways:
+    # 1. Number of patients with given follow-up (any number of IAs can be set this way)
     # 2. The first IA is conducted when a specified number of patients have a specified follow-up with
-    #    additional IAs conducted based on a time frequencey, eg every 2 months.
+    #    additional IAs conducted based on a time frequency, eg every 2 months.
     # see help for CheckTrialMonitor for more detail
 
-    vMinQtyPats       <- apply( mPatientsPerArm, 1, sum )
-    vMinFUTime        <- rep( dQtyMonthsFU, nrow( mPatientsPerArm))
-    dQtyMonthsBtwIA   <- 0
+    #Default - Only a FA is utilized NO Interim Analysis (IAs) are utilized
+    if( is.null( mMinQtyPats ) | is.null( vMinFUTime ) )
+    {
+        mMinQtyPats       <- apply( mPatientsPerArm, 1, sum )
+        vMinFUTime        <- c( dQtyMonthsFU )
+        dQtyMonthsBtwIA   <- 0
+        #The boundaries of the decision - If a vector is provided for vUpper and vLower it must be either length 1 with No IAs,
+        # 2 if you have 2 IAs or you use the option to specify the IAs as a specified time period or equal to the length of vMintQtyPats
+        vPUpper           <- c( 1.0 )
+        vPLower           <- c( 0.0 )
+        dFinalPUpper      <- 0.8
+        dFinalPLower      <- 0.1
+    }
 
-    #The boundaries of the decision - If a vector is provided for vUpper and vLower it must be either length 1 with No IAs,
-    # 2 if you have 2 IAs or you use the optin to specify the IAs as a specified time period or equal to the length of vMintQtyPats
-    vPUpper           <- c( 1.0 )
-    vPLower           <- c( 0.0 )
-    dFinalPUpper      <- 0.8
-    dFinalPLower      <- 0.1
+    #Interim Analysis - Example 1 - To include an IA the following code could be utilized where the first IA is conducted when half the patients of an ISA are enrolled with
+    # dQtyMonthsFU months of follow-up,  To add additional
+    # mMinQtyPats      <- cbind( floor(apply( mQtyPats , 1, sum )/2),  apply( mQtyPats , 1, sum ) )
+    # vMinFUTime       <- rep( dQtyMonthsFU, ncol( mMinQtyPats) )
+    # dQtyMonthsBtwIA  <- 0
+
+    # vPUpper           <- c( 0.99,0.99 )
+    # vPLower           <- c( 0.01, 0.01 )
+    # dFinalPUpper      <- 0.8
+    # dFinalPLower      <- 0.1
+
+    #Interim Analysis - Example 2 - The following code could be utilized to have the first IA is conducted when half the patients of an ISA are enrolled with
+    # dQtyMonthsFU months of follow-up, then perform an IA every month thereafter
+    # mMinQtyPats       <- cbind( floor(apply( mQtyPats , 1, sum )/2),  apply( mQtyPats , 1, sum ) )
+    # vMinFUTime        <- rep( dQtyMonthsFU, 2)
+    # dQtyMonthsBtwIA   <- 1
+
+    # vPUpper           <- c( 0.99,0.99 )
+    # vPLower           <- c( 0.01, 0.01 )
+    # dFinalPUpper      <- 0.8
+    # dFinalPLower      <- 0.1
 
 
-    # It is often necessary to include when patients will have outcomes oberved, especially in cases like a repeated measure.
+    # It is often necessary to include when patients will have outcomes observed, especially in cases like a repeated measure.
     # This next variable is included as an example but is not required for an analysis.
     vObsTimeInMonths  <- c( 6 )  # patients have outcome observed at 6 months, change as needed to match the project.
 
@@ -64,7 +91,20 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
 
     for( iISA in 1:nQtyISAs)
     {
-        #TODO(Kyle) - Generalzie to use the number of columns in the matrix
+
+        #Depending on the options for IA need to set vMinQtyPats differently
+        if( is.matrix( mMinQtyPats ) )
+        {
+            #Case when IAs are included
+            vMinQtyPats <- mMinQtyPats[ iISA, ]
+        }
+        else
+        {
+            vMinQtyPats <- mMinQtyPats[ iISA ]
+        }
+
+        #TODO(Kyle) - Generalize vTrtLab to use the number of columns in the matrix in-case the user has more than treatment and control in trial
+
         vTrtLab  <- c( 1,  nCurrentTrtID )
         cISAInfo <- CreateISA(  vQtyPats         = mPatientsPerArm[ iISA, ],
                                 vTrtLab          = vTrtLab,
@@ -77,8 +117,8 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
                                 bIncreaseParam   = bIncreaseParam,
                                 strBorrow        = strBorrow,
                                 strModel         = strModel,
-                                vMinQtyPats      = vMinQtyPats[ iISA ],
-                                vMinFUTime       = vMinFUTime[ iISA ],
+                                vMinQtyPats      = vMinQtyPats,
+                                vMinFUTime       = vMinFUTime,
                                 dQtyMonthsBtwIA  = dQtyMonthsBtwIA,
                                 vPriorA          = vPriorA,
                                 vPriorB          = vPriorB )
@@ -99,5 +139,4 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
 
 
     return( cTrialDesign )
-
 }

@@ -46,7 +46,8 @@ RunSimulation.default <- function( lSimulation )
         nQtySave    <- max( floor( nQtyScen/4 ), 1)  #Save output every 25%, taking the max incase < 4 scenarios
         for( iScen in 1:nQtyScen )
         {
-            #print( paste( "Simulating Design ", iDes, " of ", nQtyDesigns, " Designs,  Scenario ", iScen, " of ", nQtyScen, " scenarios ..."))
+           if(  gnPrintDetail >= 1 )
+                print( paste( "Simulating Design ", iDes, " of ", nQtyDesigns, " Designs,  Scenario ", iScen, " of ", nQtyScen, " scenarios ..."))
 
             if( is.null( cSimulation$lScenarios[[ iScen ]]$nPrintDetail ) == TRUE )  #If it was not supplied, default to 0
             {

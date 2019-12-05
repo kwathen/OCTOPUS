@@ -11,8 +11,9 @@
 #' @name CreateProject
 #' @title  CreateProject
 #' @description Created an R Studio project with example files to simulate a platform trial utilizing the OCTOPUS package.
-#' @param strProjectDirectory The complete path to where the project is create
-#' @param strProjectName The name of the project.   A directory with the name strProjectName is created in strProjectDirectory
+#' @param strProjectDirectory The complete path to where the project is created.  If a complete path
+#' is not provided then the directory is relative to the working directory.  If this is left blank, the current working directory is used.
+#' @param strProjectName The name of the project.   A directory with the name strProjectName is created in strProjectDirectory if bCreateProjectSubdirectory = TRUE
 #' @param strAnalysisName The name of the analysis that should be done. If the analysis is part of OCTOPUS, then no new
 #' files are created.  If the analysis is new, a file named RunAnalysis.strAnalysisName.R is created.
 #' @param strSimPatientOutcomeName The name of the patient simulator that should be utilized. If the patient simulator
@@ -30,18 +31,22 @@
 #' only includes a final analysis with NO interim analysis.  To use another option please see the TrialDesign.R file in the projected that is created.
 #' @param  bCreateProjectSubdirectory  If TRUE the a subdirectory with the project name will be created, if FALSE then the project is created in strProjectDirectory.
 #' @export
-CreateProject <- function( strProjectDirectory = "", strProjectName = "NewProject",
-                           strAnalysisName, strSimPatientOutcomeName, strBorrowing = "NoBorrowing",
-                           nQtyReps = 10,
-                           mQtyPatientsPerArm = NULL,
-                           dQtyMonthsFU = 1.0,
-                           vISAStartTimes = NULL,
+CreateProject <- function( strProjectDirectory        = "",
+                           strProjectName             = "NewProject",
+                           strAnalysisName            = "NewAnalysisName",
+                           strSimPatientOutcomeName   = "NewSimOutcomeName",
+                           strBorrowing               = "NoBorrowing",
+                           nQtyReps                   = 10,
+                           mQtyPatientsPerArm         = NULL,
+                           dQtyMonthsFU               = 1.0,
+                           vISAStartTimes             = NULL,
                            bCreateProjectSubdirectory = TRUE)
 {
     strRet <- ""
 
-    if( strProjectDirectory == "" )  # Use the current working directory and create a folder named strProjectName
+    if( strProjectDirectory == "" | is.na( strProjectDirectory )  | is.null( strProjectDirectory ))
     {
+        # Use the current working directory and create a folder named strProjectName
         strProjectDirectory  <- getwd()
     }
 
@@ -61,17 +66,16 @@ CreateProject <- function( strProjectDirectory = "", strProjectName = "NewProjec
     strPackage  <- "OCTOPUS"
     #strTemplateDirectory <- paste( getwd(), "/inst/ProjectTemplate", sep="")
 
-     #Once installed
+    #Get the directory where OCTOPUS is installed
     strTemplateDirectory <- system.file("ProjectTemplate", package = strPackage)
-    vFileToCopy <- list.files()
 
-    vFilesToCopy <- list.files( strTemplateDirectory)
-    vResults     <- file.copy( file.path(strTemplateDirectory, vFilesToCopy ), strNewProjectDirectory )
+    vFilesToCopy         <- list.files( strTemplateDirectory)
+    vResults             <- file.copy( file.path(strTemplateDirectory, vFilesToCopy ), strNewProjectDirectory )
 
-    nCopySuccess <- sum( vResults )
-    nCopyFail    <- length( vResults ) - nCopySuccess
+    nCopySuccess         <- sum( vResults )
+    nCopyFail            <- length( vResults ) - nCopySuccess
 
-    strRProjName <- paste( strNewProjectDirectory, "/", "ProjectTemplate.Rproj", sep = "" )
+    strRProjName         <- paste( strNewProjectDirectory, "/", "ProjectTemplate.Rproj", sep = "" )
     if( file.exists( strRProjName ) )
     {
         strNewRProjName <- paste( strNewProjectDirectory, "/", strProjectName, ".Rproj", sep = "" )
@@ -147,7 +151,11 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
         {
             #The analysis method exists, need to delete the file name and remove the source command for it from the BuildMe
 
-            strRet <- paste( "The analysis you requested", strAnalysisName, "is part of the OCTOPUS package.  A new analysis function was NOT created.")
+             strRet <- paste( "The analysis you requested, RunAnalysis.", strAnalysisName, " is part of the OCTOPUS package OR", sep="" )
+            strRet <- paste( strRet, " a function called RunAnalysis.", strAnalysisName, " exists in the current environement. ", sep="" )
+            strRet <- paste( strRet, " A new RunAnalysis function was NOT created.")
+
+
             file.remove(  paste( strProjectDirectory, "/RunAnalysis.TEMP_ANALYSIS_MODEL.R", sep="") )
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMe.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
@@ -190,7 +198,9 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
         else
         {
 
-            strRet <- paste( "The patient simulator, SimPatientOutcomes.", strSimPatientOutcomeName, "is part of the OCTOPUS package.  A new SimPatientOutcomes function was NOT created.")
+            strRet <- paste( "The patient simulator, SimPatientOutcomes.", strSimPatientOutcomeName, "is part of the OCTOPUS package OR" )
+            strRet <- paste( strRet, " a function called SimPatientOutcomes.", strSimPatientOutcomeName, " exists in the current environement. ", sep="" )
+            strRet <- paste( strRet, " A new SimPatientOutcomes function was NOT created.")
 
             #The analysis method exists, need to delete the file name and remove the source command for it from the BuildMe
             file.remove(  paste( strProjectDirectory, "/SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R", sep="") )

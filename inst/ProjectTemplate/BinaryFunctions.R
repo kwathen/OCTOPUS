@@ -1,7 +1,7 @@
 #   This file contains the functions needed by the Binary GoNG versions.
 #   All of these functions start with a . so they are not exported when the packages is created
 
-# Generic fuctions to calculate the posterior probabilities of interest
+# Generic functions to calculate the posterior probabilities of interest
 ProbX1GrX2PlusDelta <- function(dA1,dB1,dA2,dB2, dDelta)
 {
     ## The function calculates Pr( X1 > X2 + dDelta)
@@ -15,7 +15,7 @@ ProbX1GrX2PlusDelta <- function(dA1,dB1,dA2,dB2, dDelta)
 #Helper functions
 fBetaIneqCalc <- function(x, dA1, dB1, dA2, dB2, dDelta ){dbeta( x, dA1, dB1 )* (pbeta(x-dDelta,dA2,dB2)) }
 
-#This function calcualte Pr( x2 > x1 + delta1) and Pr( x2 > x1 + delta2)
+#This function calculate Pr( x2 > x1 + delta1) and Pr( x2 > x1 + delta2)
 CalcPosteriorProbsBinom <- function( a1, b1, a2, b2, delta1, delta2)
 {
     # Calculate Pr( p_E - p_S > dDelta1| data) = Pr( p_E > p_S+ dDelta1 )
@@ -27,7 +27,7 @@ CalcPosteriorProbsBinom <- function( a1, b1, a2, b2, delta1, delta2)
     return( list( dPPGrtDelta1=dPostProb1, dPPGrtDelta2 = dPostProb2) )
 }
 
-# Calculate the posterior crediable interval for p2 - p1 from dLB, dUB
+# Calculate the posterior credible interval for p2 - p1 from dLB, dUB
 #dA1, dB1, dA2, dB2, dDelta1, dDelta2, dLB, dUB
 CalcPosteriorCIBinom <- function( cCalc )
 {

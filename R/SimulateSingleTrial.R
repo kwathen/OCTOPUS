@@ -297,7 +297,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         }
         if( all( vISAStatus >= 2)) # All ISAs have opened and closed, trial is done
         {
-            if( cScen$nPrintDetail >= 1 | gnPrintDetail >= 1 )
+            if( cScen$nPrintDetail >= 2 | gnPrintDetail >= 2 )
                 print( "All ISA Status are closed, ending main loop")
             break
         }

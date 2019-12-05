@@ -73,8 +73,8 @@ CreateScenarioTables <- function( )
 
 #####################################################################################################################.
 #   Read in the data from the simulation.
-#   This funciton will load Design.RData, from BuildMe.R and simsCombined.RData, created after
-#   the simualtions complete by calling BuildSimulationResultsDataSet()
+#   This function will load Design.RData, from BuildMe.R and simsCombined.RData, created after
+#   the simulations complete by calling BuildSimulationResultsDataSet()
 #####################################################################################################################.
 ProcessSimulationResults <- function( )
 {
@@ -160,6 +160,74 @@ PlotResults <- function( dfResults, file="",
     }
 
 }
+
+
+PlotResultsWithIAInfo <- function( dfResults, file="",
+                                   colorPalette = c("#000000", "#E69F00", "#56B4E9", "#009E73",
+                                                    "#F0E442", "#0072B2", "#D55E00", "#CC79A7")  )
+{
+
+    dfResultsAll       <- dfResults
+    #dfResultsAll$SSLab <- ifelse( dfResultsAll$design==3, "100:100 NB", "50:100")
+    vScen              <- sort( unique( dfResults$scenario) )
+    vDesigns           <- unique( dfResults$design )
+
+    for( nScen in vScen )
+    {
+
+        dfResults       <- dfResultsAll[ dfResultsAll$scenario == nScen,]
+        dfProbs         <- subset( dfResults, what=="Pr(No Go @ FA)" | what == "Pr(No Go @ IA)" | what =="Pr(Pause)" | what == "Pr(Go @ IA)" | what == "Pr(Go @ FA)" )
+
+
+
+
+        dfProbs$what    <- factor( dfProbs$what, levels = c("Pr(No Go @ FA)" ,"Pr(No Go @ IA)", "Pr(Pause)", "Pr(Go @ IA)", "Pr(Go @ FA)") )
+
+        if( length( vDesigns ) == 1)
+        {
+            ocPlot <- ggplot(data=dfProbs, aes(y=value, x=factor(isa, level=unique(isa)), label=GetLabel(value),fill = what)) +
+                geom_bar( stat="identity", position='stack') +
+                xlab("ISA") +
+                ylab("Probability") +
+                ggtitle( paste( "Platform Trial Simulations - Scenario ", nScen) )+
+                scale_fill_manual(values=c( colorPalette[2],colorPalette[7], colorPalette[5],colorPalette[3],colorPalette[4])) +
+                scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
+                geom_text(size = 5,position = position_stack(vjust = 0.5), col=rep(c("black","black","black","white","white"),nrow(dfProbs)/5))
+        }
+        else
+        {
+
+
+
+            ocPlot <- ggplot(data=dfProbs, aes(y=value, x=factor(design , level=unique(design )), label=GetLabel(value), fill = what)) +
+                geom_bar( stat="identity", position='stack') +
+                facet_grid( .~isa) +
+                xlab("Design") +
+                ylab("Probability") +
+                ggtitle( paste( "Platform Trial Simulations - Scenario ", nScen) )+
+                scale_fill_manual(values=c( colorPalette[2],colorPalette[7], colorPalette[5],colorPalette[3],colorPalette[4])) +
+                scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
+                geom_text(size = 5, position = position_stack(vjust = 0.5), col=rep(c("black","black","black","white","white"),nrow(dfProbs)/5))
+            # geom_text( aes(y = GetY( value ), x = factor(design, level=unique(design)), label= GetLabel(value)), size=5, col=rep(c("black","black","white"),nrow(dfProbs)/3))
+
+
+        }
+        if( file != "" )
+            png( paste( file ), width=1000,height=600)
+        print( ocPlot )
+        if( file != "" )
+            dev.off()
+
+    }
+
+}
+
 
 PlotSubgroupResults <- function( dfResults, file="",
                                  colorPalette = c("#000000", "#E69F00", "#56B4E9", "#009E73",
@@ -260,8 +328,8 @@ PostProcessSimulationSubgroupResults  <- function( mSims, nDes, nScen, vQtyTrt, 
 
 #####################################################################################################################.
 #   For a given ISA, process the results and add to the lISAReults object.
-#   By calling this funciton for each ISA the lISAReults will contain a dataframe structured for ggplot.
-#   If dPUFinal = NA, the default, this funciton uses whatever was simulated.  If another value of dPUFinal
+#   By calling this function for each ISA the lISAReults will contain a dataframe structured for ggplot.
+#   If dPUFinal = NA, the default, this function uses whatever was simulated.  If another value of dPUFinal
 #   is supplied then it will compute new values for the OCs.
 #####################################################################################################################.
 ProcessISAResults <- function( mSims, nISANumber, nTreatmentStartNumber, nQtyTrtInISA, lISAResults, dPUFinal = NA )
@@ -298,9 +366,9 @@ ProcessISAResults <- function( mSims, nISANumber, nTreatmentStartNumber, nQtyTrt
     }
     else
     {
-        #For the simulted trials that were decided at the end (eg vISAStatus = 5,6,7)
+        #For the simulated trials that were decided at the end (eg vISAStatus = 5,6,7)
         # We can find the final PU to make it such that the Pr( Go ) == dTargetGoProb
-        #nQtyTrtInISA-1 because we dont need placebo
+        #nQtyTrtInISA-1 because we don't need placebo
         vTableStatus <- ComputeNewStatusTableProbs( mSims, nISANumber, nQtyTrtInISA-1, dPUFinal )
     }
 
@@ -357,7 +425,7 @@ ProcessISASubgroupResults <- function( mSims, nISANumber,  lISASubsetResults )
     }
 
 #####################################################################################################################.
-#   Compute the new table of OCs given a dPUFinal this different than was used in the simulaiton step
+#   Compute the new table of OCs given a dPUFinal this different than was used in the simulation step
 #####################################################################################################################.
 
 ComputeNewStatusTableProbs <- function( mSims, nISANumber, nQtyTrtInISA, dPUFinal )

@@ -1,11 +1,11 @@
 Requirements:
-    OCTOPUS V 1.3.0.4
+    OCTOPUS - Most recent version - https://kwathen.github.io/OCTOPUS/
     If you are on a Grid the OCTOPUS package could be installed in a subdirectory, such as RLibrary if needed and then just reference the
     correct package.  The same approach could be taken if you are not running on a grid.
 
     Example:
-    Install
-    install.packages("OCTOPUS_1.3.0.4.tar.gz", repos = NULL, type = "source", lib="RLibrary")
+    Install Using Remotes Package
+    remotes::install_github( "kwathen/OCTOPUS")
 
     Reference
     library( "OCTOPUS", lib.loc = "RLibrary" )
@@ -16,6 +16,6 @@ Requirements:
 Description
 This example template project is intended to give the user a starting point.
 Start by reading the BuildMe.R file.
-The trial design object is created usng the function in TrialDesign.R
+The trial design object is created using the function in TrialDesign.R
 The simulation design is created by the function in the SimualtionDesign.R
 

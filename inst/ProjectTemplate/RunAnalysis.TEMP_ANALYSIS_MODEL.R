@@ -2,11 +2,11 @@
 #   This file is to create the new RunAanlysis that calculates based on a beta-binomial
 #   Inputs:
 #     cAnalysis - The class( cAnalysis ) determines the specific version of RunAnalysis that is called. It contains
-#                 the details about the analysis such as the priors, MAV, TV, decsiion cutoff boundaries.
+#                 the details about the analysis such as the priors, MAV, TV, decision cut-off boundaries.
 #     lDataAna  - The data that is used int he analysis.  Typically contains vISA (the ISA for the patient),
 #                 vTrt (treatment for each patient), vOut (the outcome for each patient)
 #     nISAAnalysisIndx - index of the analysis used for changing boundaries)
-#     bIsFinaISAAnalysis - TRUE or FALSE, often we change the value of the cutoff at the final analysis for an ISA
+#     bIsFinaISAAnalysis - TRUE or FALSE, often we change the value of the cut-off at the final analysis for an ISA
 #     cRandomizer - The randomizer, mainly used for cases with covariates
 #
 #############################################################################################################################.
@@ -30,19 +30,19 @@ RunAnalysis.TEMP_ANALYSIS_MODEL <- function( cAnalysis, lDataAna,  nISAAnalysisI
     dPostATrt  <- cAnalysis$vPriorA[ 2 ]
     dPostBTrt  <- cAnalysis$vPriorB[ 2 ]
 
-    #Compute Posterior Paramters - Control treatment
+    #Compute Posterior Parameters - Control treatment
     nNCtrl       <- length( vTrt[ vTrt == 1 ] )           # Number of patient on Control
-    nQtyRespCtrl <- sum( vOut[ vTrt == 1] )               # Number of Reponsers (vOut == 1)
+    nQtyRespCtrl <- sum( vOut[ vTrt == 1] )               # Number of Responses (vOut == 1)
     dPostACtrl   <- dPostACtrl + nQtyRespCtrl             # Posterior A = Prior A + Number of responders
     dPostBCtrl   <- dPostBCtrl + nNCtrl - nQtyRespCtrl    # Posterior B = Prior B + Number of non-responders = Prior B + Number of Patients - # of Responders
 
-    #Compute Posterior Paramters - Treatment
+    #Compute Posterior Parameters - Treatment
     nNTrt        <- length( vTrt[ vTrt != 1 ] )
     nQtyRespTrt  <- sum( vOut[ vTrt != 1] )
     dPostATrt    <- dPostATrt + nQtyRespTrt
     dPostBTrt    <- dPostBTrt + nNTrt - nQtyRespTrt
 
-    # Want to calcuate Pr( Q_T > Q_C + MAV | Data ) - need to compute posterior parameters
+    # Want to calculate Pr( Q_T > Q_C + MAV | Data ) - need to compute posterior parameters
     # ProbX1GrX2PlusDelta
     if( is.na( dPostACtrl) | is.na( dPostBCtrl ) | is.na( dPostATrt ) | is.na( dPostBTrt ) )
     {
@@ -50,10 +50,6 @@ RunAnalysis.TEMP_ANALYSIS_MODEL <- function( cAnalysis, lDataAna,  nISAAnalysisI
       browser()
     }
     print( paste( "Number of patients: ", length( vTrt )," Q_C ~ Beta( ",dPostACtrl, dPostBCtrl , "), Q_T ~ Beta( ", dPostATrt, ", ", dPostBTrt, ")"))
-
-    #dPrGrtMAV  <- ProbX1GrX2PlusDelta( dPostATrt,  dPostBTrt,
-    #                                   dPostACtrl, dPostACtrl,
-    #                                  cAnalysis$dMAV )
 
     dPrGrtMAV  <- ProbX1GrX2PlusDelta( dPostATrt,  dPostBTrt,
                                        dPostACtrl, dPostBCtrl,
@@ -68,7 +64,7 @@ RunAnalysis.TEMP_ANALYSIS_MODEL <- function( cAnalysis, lDataAna,  nISAAnalysisI
 
     lRet       <- MakeDecisionBasedOnPostProb(cAnalysis, lCalcs )
 
-    lRet$cRandomizer <- cRandomizer  # Needed because the main code will pull the randomzier off just incase this function were to close a covariate group
+    lRet$cRandomizer <- cRandomizer  # Needed because the main code will pull the randomizer off just in-case this function were to close a covariate group
     return( lRet )
 
 
