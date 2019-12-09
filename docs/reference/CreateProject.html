@@ -160,7 +160,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>CreateProject</span>(<span class='kw'>strProjectDirectory</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>strProjectName</span> <span class='kw'>=</span> <span class='st'>"NewProject"</span>,
-  <span class='no'>strAnalysisName</span>, <span class='no'>strSimPatientOutcomeName</span>,
+  <span class='kw'>strAnalysisName</span> <span class='kw'>=</span> <span class='st'>"NewAnalysisName"</span>,
+  <span class='kw'>strSimPatientOutcomeName</span> <span class='kw'>=</span> <span class='st'>"NewSimOutcomeName"</span>,
   <span class='kw'>strBorrowing</span> <span class='kw'>=</span> <span class='st'>"NoBorrowing"</span>, <span class='kw'>nQtyReps</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>mQtyPatientsPerArm</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dQtyMonthsFU</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>vISAStartTimes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>bCreateProjectSubdirectory</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -170,11 +171,12 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>strProjectDirectory</th>
-      <td><p>The complete path to where the project is create</p></td>
+      <td><p>The complete path to where the project is created.  If a complete path
+is not provided then the directory is relative to the working directory.  If this is left blank, the current working directory is used.</p></td>
     </tr>
     <tr>
       <th>strProjectName</th>
-      <td><p>The name of the project.   A directory with the name strProjectName is created in strProjectDirectory</p></td>
+      <td><p>The name of the project.   A directory with the name strProjectName is created in strProjectDirectory if bCreateProjectSubdirectory = TRUE</p></td>
     </tr>
     <tr>
       <th>strAnalysisName</th>

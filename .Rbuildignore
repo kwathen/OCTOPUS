@@ -2,7 +2,6 @@
 ^\.travis\.yml$
 ^codecov\.yml$
 ^.*\Sandbox$
-^.*\.Rproj$
 ^doc$
 ^Meta$
 ^.*\MiscFiles$

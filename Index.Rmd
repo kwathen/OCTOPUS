@@ -26,7 +26,7 @@ This package is under development. It is functional and has already been used to
 Using your GitHub account, you may want to "Watch" this project for updates.   Alternatively, please contact the author to be added to the distribution list.    
 
 ## Installation 
-Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is [Version 1.3.0.3](https://github.com/kwathen/OCTOPUS/blob/master/MiscFiles/OCTOPUS1.3.0.3.tar.gz).   
+Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is [Version 1.3.0.5](https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.5).   
 
 ### Installation Option 1 - From GitHub
 Utilizing the [remotes package](https://remotes.r-lib.org/)
@@ -41,7 +41,7 @@ Download the tar.gz file for the version you want at the [Versions link](https:/
 In R with the tar.gz file in your  current working directory the following command will install the package.
 
 ```{r, eval = FALSE}
-install.packages("OCTOPUS_1.3.0.3.tar.gz", repos=NULL)
+install.packages("OCTOPUS_1.3.0.5.tar.gz", repos=NULL)
 ```
 
 ## Usage 
