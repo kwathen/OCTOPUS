@@ -202,7 +202,7 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
             strRet <- paste( strRet, " a function called SimPatientOutcomes.", strSimPatientOutcomeName, " exists in the current environement. ", sep="" )
             strRet <- paste( strRet, " A new SimPatientOutcomes function was NOT created.")
 
-            #The analysis method exists, need to delete the file name and remove the source command for it from the BuildMe
+            #The SimPatientOutcome method exists, need to delete the file name and remove the source command for it from the BuildMe
             file.remove(  paste( strProjectDirectory, "/SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R", sep="") )
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMe.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )

@@ -159,7 +159,7 @@ gnPrintDetail <- 1       # Higher number cause more printing to be done during t
 # Files specific for this project that were added and are not available in OCTOPUS.
 # These files create new generic functions that are utilized during the simulation.
 source( 'RunAnalysis.TEMP_ANALYSIS_MODEL.R' )
-source( "SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R")  # This will add the new outcome
+source( 'SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R' )  # This will add the new outcome
 source( "BinaryFunctions.R" )
 
 # The next line will execute the simulaitons
