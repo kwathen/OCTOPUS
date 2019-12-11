@@ -31,7 +31,8 @@
 #   To add Interim Analysis - see Examples in TrialDesign.R
 ################################################################################################### #
 
-remove( list=ls() )
+# In the best
+# remove( list=ls() )
 
 # ReadMe - If needed, install the latest copy of OCTOPUS using the remotes package
 #remotes::install_github( "kwathen/OCTOPUS")
@@ -82,8 +83,8 @@ save( cTrialDesign, file="cTrialDesign.RData" )
 # Example 1 (Design Option 2): Additional Sample Size (more designs )
 # Try another sample size double the original - To show the value of a larger sample size.
 
-cTrialDesign2 <- SetupTrialDesign( strAnalysisModel   = "BetaBinom",
-                                   strBorrowing       = "AllControls",
+cTrialDesign2 <- SetupTrialDesign( strAnalysisModel   = "TEMP_ANALYSIS_MODEL",
+                                   strBorrowing       = "TEMP_BORROWING",
                                    mPatientsPerArm    = 2*mQtyPatientsPerArm,
                                    dQtyMonthsFU       = dQtyMonthsFU )
 
@@ -114,8 +115,8 @@ vPLower           <- c( 0.01, 0.01 )
 dFinalPUpper      <- 0.8
 dFinalPLower      <- 0.1
 
-cTrialDesign3 <- SetupTrialDesign( strAnalysisModel   = "BetaBinom",
-                                   strBorrowing       = "AllControls",
+cTrialDesign3 <- SetupTrialDesign( strAnalysisModel   = "TEMP_ANALYSIS_MODEL",
+                                   strBorrowing       = "TEMP_BORROWING",
                                    mPatientsPerArm    = mQtyPatientsPerArm,
                                    mMinQtyPat         = mMinQtyPats,
                                    vMinFUTime         = vMinFUTime,
@@ -128,8 +129,8 @@ cTrialDesign3 <- SetupTrialDesign( strAnalysisModel   = "BetaBinom",
 )
 
 cSimulation3 <- SetupSimulations( cTrialDesign3,
-                                  nQtyReps                  = 100,
-                                  strSimPatientOutcomeClass = "Binary",
+                                  nQtyReps                  = TEMP_QTY_REPS,
+                                  strSimPatientOutcomeClass = "TEMP_SIM_PATIENT_OUTCOME",
                                   vISAStartTimes            = vISAStartTimes,
                                   nDesign                   = 3 )
 
