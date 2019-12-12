@@ -112,6 +112,7 @@ SetupSimulations <- function( cTrialDesign, nQtyReps,
         cScen          <- cScen1
 
         #In the next loop we are changing the % responders for the treatment arm in all ISAs
+        # For the example SimPatientOutcomes.XXX there the vector
         for( iISA in 1:nQtyISAs )
         {
             cScen$cISADesigns[[ paste( "cISA", iISA, sep="") ]]$cSimOutcomes$vProbResponse <- c( 0.2, vTrueRespRateTrt[ iScen ] )

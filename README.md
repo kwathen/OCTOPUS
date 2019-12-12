@@ -66,3 +66,7 @@ In the instillation folder there is an Examples directory that contains full exa
 - [ ] Make a checklist of steps that need to be followed for a basic platform trial with multiple ISAs to be successfully simulated.
 
 - [ ] Document how the CheckTrialMonitor and bondaries work together. 
+
+
+- [ ] For each for each help topic add a link to the R souce file on GitHub.  See for example see help ?AddControlData.ProcessReptMeasChngBaseline.  Before each function a link in in the file like 
+@seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/AddControlData.ProcessReptMeas.R}{View Code on Github} }
