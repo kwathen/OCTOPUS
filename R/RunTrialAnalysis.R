@@ -51,6 +51,7 @@
 #' @title RunTrialAnalysis
 #' @description { RunTrialAnalysis is a generic method to execute the trial level analysis, eg execute all ISA analysis.
 #' Any implementation of RunTrialAnalysis must increment vISAAnalysisIndx if an analysis is run for an ISA   }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunTrialAnalysis.R}{View Code on GitHub} }
 #' @export
 RunTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
 {
@@ -102,6 +103,7 @@ RunTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentT
 #'   a new version could be adapted.
 #'   Because the decision is tied to the analysis, each ISA analysis should contain the elementsnGo, nNoGo, nPause as part ot the list retured.
 #'  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunTrialAnalysis.R}{View Code on GitHub} }
 #' @export
 RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentTime,  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer  )
 {

@@ -9,3 +9,6 @@
 \description{
 This version should not be implemented
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
+}

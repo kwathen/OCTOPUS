@@ -14,6 +14,7 @@
 #' @title RunISAAnalysis
 #' @description {Generic method called to run the ISA analysis.
 #' Because the decision is tied to the analysis, each RunISAAnalysis should contain the elements nGo, nNoGo, nPause as part ot the list retured.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunISAAnalysis.R}{View Code on GitHub} }
 #' @export
 RunISAAnalysis <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
@@ -26,6 +27,7 @@ RunISAAnalysis <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalIS
 #' @name RunISAAnalysis.default
 #' @title RunISAAnalysis.default
 #' @description  The cISAAnalysis object has a list of Analysis
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunISAAnalysis.R}{View Code on GitHub} }
 #' @export
 RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {
@@ -75,6 +77,7 @@ RunISAAnalysis.default <- function( cISAAnalysis, lDataAna,  nISAAnalysisIndx, b
 #' @name RunISAAnalysis.DoseRanging
 #' @title RunISAAnalysis.DoseRanging
 #' @description {Generic method called to run the ISA analysis.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunISAAnalysis.R}{View Code on GitHub} }
 #' @export
 RunISAAnalysis.DoseRanging <- function( cISAAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {

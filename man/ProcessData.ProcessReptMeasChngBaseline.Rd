@@ -15,3 +15,6 @@ and set outcomes to NA that have not been observed
 Will return the change from baseline
 dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ProcessData.R}{View Code on GitHub} }
+}

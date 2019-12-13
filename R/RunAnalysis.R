@@ -49,6 +49,7 @@
 #' The list is a list of indicator that only one of which = 1, the others are 0
 #' For example, if you did a Go/NoGo with a CI see the results of MakeDecisionBasedOnCI()
 #' If the analysis return more info that is fine.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.R}{View Code on GitHub} }
 #' @export
 RunAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
@@ -60,6 +61,7 @@ RunAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnal
 #' @title RunAnalysis.default
 #' @description {This is the method used for running the analysis as a default.  This method is not defined and is
 #' in place in-case someone provides an invalid class type for RunAnalysis.  This version will stop execution.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.default <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {

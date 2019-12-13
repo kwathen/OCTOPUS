@@ -11,6 +11,7 @@
 #' @title SimulatePatientCovariates
 #' @description SimulatePatientCovariates {This function is used to simulate the patient covariate values.
 #' This function is intended to do one covariate for all patients.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulatePatientCovariates.R}{View Code on GitHub} }
 #' @export
 SimulatePatientCovariates <- function(  cSimCovariate,  nQtyOfPatients   )
 {
@@ -23,6 +24,7 @@ SimulatePatientCovariates <- function(  cSimCovariate,  nQtyOfPatients   )
 #' This function is intended to do one covariate, for all patients.
 #' Because several options are provided and there in no well defined default
 #' an stop error occurs if you call the default method. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulatePatientCovariates.R}{View Code on GitHub} }
 #' @export
 SimulatePatientCovariates.default <- function(  cSimCovariate,  nQtyOfPatients )
 {

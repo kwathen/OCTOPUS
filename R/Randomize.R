@@ -30,6 +30,7 @@
 #'       2.  Randomize within the ISA.
 #'               To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomizer is called.
 #'   }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Randomize.R}{View Code on GitHub} }
 #' @export
 Randomize <- function( cRandomizer, vISAStatus, dCurrentTime, dfCov, nPrintDetail )
 {
@@ -43,6 +44,7 @@ Randomize <- function( cRandomizer, vISAStatus, dCurrentTime, dfCov, nPrintDetai
 #  $cRandomzier - the randomizer with any necessary updates to inform the caller about
 #  $nISA - the index of the ISA the patient was assigned to
 #  #nTrt - the treatment the patient was assigned to
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Randomize.R}{View Code on GitHub} }
 #' @export
 Randomize.default   <- function( cRandomizer, vISAStatus, dCurrentTime, dfCov = NULL, nPrintDetail = 0 )
 {

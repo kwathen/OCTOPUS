@@ -15,12 +15,14 @@
 #' for the TrialRandomizer is just to initialize each ISA randomizer.}
 #' @param cTrialDesign Trial design opbject giving specifics about the trial design.
 #' @param vISAStartTime A vector of times that each ISA opens/starts in the trial.  A vector of c(0,...) would indicate all ISAs start at the start of the trial.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeTrialRandomizer.R}{View Code on GitHub} }
 #' @export
 InitializeTrialRandomizer  <- function( cTrialDesign, vISAStartTimes )
 {
     UseMethod( "InitializeTrialRandomizer", cTrialDesign )
 }
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeTrialRandomizer.R}{View Code on GitHub} }
 #' @export
 InitializeTrialRandomizer.default  <- function( cTrialDesign, vISAStartTimes )
 {

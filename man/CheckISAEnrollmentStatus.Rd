@@ -9,3 +9,6 @@ CheckISAEnrollmentStatus(cRandomizer, vISAStatus, dfCov)
 \description{
 CheckISAEnrollmentStatus{ }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CheckISAEnrollmentStatus.R}{View Code on GitHub} }
+}

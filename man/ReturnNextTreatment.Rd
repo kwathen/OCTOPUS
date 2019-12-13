@@ -10,3 +10,6 @@ ReturnNextTreatment(cISARand)
 { This function uses the first element of cISARand and the first item in the vector
 and as the assigned treatment.  The cISARand in the return will have this element removed. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeWithinISA.R}{View Code on GitHub} }
+}

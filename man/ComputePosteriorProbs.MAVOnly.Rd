@@ -29,3 +29,6 @@ List with three values dPrGrtMAV,  dMAVCutoff and dTVCutoff
 the decisions are based one posterior probabilities Pr( \eqn{\theta_P} - \eqn{\theta_T} > MAV |data ).
 This function returns a list with dPrGrtMAV, dMAVCutoff and dTVCutoff.  0 <= dMAVCutoff and dTVCutoff <= 1}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ComputePosteriorProbs.R}{View Code on GitHub} }
+}

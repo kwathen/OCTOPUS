@@ -10,3 +10,6 @@ RandomizeBetweenISA(cRandomizer, vISAStatus, dCurrentTime)
 { Generic method to randomize between ISAs.   Any version of
 RandomizeBetweenISA should just return the index of the ISA the patient is assigned to.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeBetweenISA.R}{View Code on GitHub} }
+}

@@ -11,3 +11,6 @@
 \description{
 In this SimPatientOutcomes
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.MVNWithCovariates.R}{View Code on GitHub} }
+}

@@ -13,6 +13,7 @@
 #' @description {This function is used to read the files in the out and ISAOut1, ISAOut2,..., directories and combine everything into one simulation dataset
 #' that can be used for creating simulation results.  You should set the R working directory that contains the main, ISAOut1, ISOut2,...., directories.
 #' This function is intended to streamline and replace the BuildResultsDataSet funciton.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/BuildSimulationResultsDataSet.R}{View Code on GitHub} }
 #' @export
 BuildSimulationResultsDataSet <- function( )
 {

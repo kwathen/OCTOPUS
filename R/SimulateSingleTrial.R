@@ -8,6 +8,7 @@
 #############################################################################################################################.
 
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateSingleTrial.R}{View Code on GitHub} }
 #' @export
 SimulateSingleTrial <- function( cScen, cTrialDesign )
 {
@@ -20,6 +21,7 @@ SimulateSingleTrial <- function( cScen, cTrialDesign )
 #' @title SimulateSingleTrial
 #' @description {This function simulates 1 virtual trial based on cScen and cTrialDesign.  This is the main function for running
 #' the simulation.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateSingleTrial.R}{View Code on GitHub} }
 #' @export
 SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 {    #TODO: In validating the  cTrialDesign$cISADesigns need to make sure the ProcessDataXXX class type is the same in all ISAs

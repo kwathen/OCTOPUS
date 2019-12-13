@@ -10,3 +10,6 @@ CheckNextTrialAnalysisTime(cISADesigns, lEnrolledPats, vISAStatus,
 \description{
 {This function will Check the monitoring rule and return the time of next Analysis for the trial}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CheckNextTrialAnalysisTime.R}{View Code on GitHub} }
+}

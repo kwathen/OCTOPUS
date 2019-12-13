@@ -10,6 +10,7 @@
 
 #Analysis model for MCPMod
 # cAnalysis must have cAnalysis$vDose for class of type MCPMod
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.MCPModAnalysis.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.MCPModAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {

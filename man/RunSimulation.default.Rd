@@ -9,3 +9,6 @@
 \description{
 {Generic function to execute the simulation of a list of scenarios contained in lScenarios.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunSimulation.R}{View Code on GitHub} }
+}

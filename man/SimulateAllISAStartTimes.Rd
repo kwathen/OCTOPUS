@@ -14,3 +14,8 @@ Simulate ISA Start Times for all ISAs
 
 Simulate ISA Start Times for all ISAs
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
+}

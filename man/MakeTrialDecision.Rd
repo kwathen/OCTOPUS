@@ -26,3 +26,6 @@ The Status options of 3 or 4 indicate the ISA was closed early, before the FA, e
 all were closed at the FA.
 }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeTrialDecision.R}{View Code on GitHub} }
+}

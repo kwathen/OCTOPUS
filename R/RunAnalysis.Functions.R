@@ -16,6 +16,7 @@
 #' @param nTrt:   Integer value for the Treatment to compare to 0 (placebo)
 #' @param nTime:  Integer value for the time variable that should be use.  For example 24, for 24
 #               months even if additional time points have been observed by some patient.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.Functions.R}{View Code on GitHub} }
 #' @export
 GetLSDiffGLS <-  function( glsFit, nTrt, nTime, dMAV, dTV, dLowerCI, dUpperCI, bPlacMinusTrt )
 {

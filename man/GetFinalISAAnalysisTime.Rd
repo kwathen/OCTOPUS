@@ -9,3 +9,6 @@ GetFinalISAAnalysisTime(cISADesigns, nISA, lEnrolledPats)
 \description{
 { Compute the final analysis time for a given ISA based on the current data}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetFinalISAAnalysisTime.R}{View Code on GitHub} }
+}

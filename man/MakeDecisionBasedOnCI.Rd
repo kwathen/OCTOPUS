@@ -19,3 +19,6 @@ Return a list of ( nSucces, nNoGo, nPause )
 \description{
 {This function  will make the Go/NoGo decision for an outcome given the CI and the MAV, TV }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionBasedOnCI.R}{View Code on GitHub} }
+}

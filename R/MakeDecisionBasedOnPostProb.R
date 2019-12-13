@@ -10,6 +10,7 @@
 #' @name MakeDecisionBasedOnPostProb
 #' @title MakeDecisionBasedOnPostProbb
 #' @description {This function makes a Go/No Go decision based on posterior probabilities.   }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionBasedOnPostProb.R}{View Code on GitHub} }
 #' @export
 MakeDecisionBasedOnPostProb <- function( cAnalysis, lCalcs )
 {
@@ -34,6 +35,7 @@ MakeDecisionBasedOnPostProb <- function( cAnalysis, lCalcs )
 #' @param  lCalcs a list with dPrGrtTV, dPrGrtMAV, dMAVCutoff, dTVCutoff
 #' @return
 #' Return List of ( nGo, nNoGo, nPause ).  Only one of the elements should be 1 to reflect the decision.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionBasedOnPostProb.R}{View Code on GitHub} }
 #' @export
 MakeDecisionBasedOnPostProb.default <- function( cAnalysis, lCalcs )
 {
@@ -95,6 +97,7 @@ MakeDecisionBasedOnPostProbMAVCommon <- function(  cAnalysis, lCalcs)
 #' @param  lCalcs a list with  dPrGrtMAV, dPUpperCutoff, dLowerCutoff
 #' @return
 #' Return List of ( nGo, nNoGo, nPause ).  Only one of the elements should be 1 to reflect the decision.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionBasedOnPostProb.R}{View Code on GitHub} }
 #' @export
 MakeDecisionBasedOnPostProb.MAVOnly <- function( cAnalysis, lCalcs )
 {
@@ -120,6 +123,7 @@ MakeDecisionBasedOnPostProb.MAVOnly <- function( cAnalysis, lCalcs )
 #' @param  lCalcs a list with  dPrGrtMAV, dPUpperCutoff, dLowerCutoff
 #' @return
 #' Return List of ( nGo, nNoGo, nPause ).  Only one of the elements should be 1 to reflect the decision.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionBasedOnPostProb.R}{View Code on GitHub} }
 #' @export
 MakeDecisionBasedOnPostProb.MAVTarget <- function( cAnalysis, lCalcs )
 {

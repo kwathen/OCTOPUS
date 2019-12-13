@@ -9,3 +9,6 @@
 \description{
 This version assumes the cParams has a dParam1 and dParam2 and simulates a unif( dParam1, dParam2 ) as the ISA start time
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
+}

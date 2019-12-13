@@ -11,6 +11,7 @@
 #' @title RunAnalysis.AOV
 #' @description {This is the method used for running the Analysis of Variance (AOV) .
 #' Specifically, lm( vOut ~ vBaseline + vTrt,na.action = na.omit)"  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.AOV.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.AOV <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {

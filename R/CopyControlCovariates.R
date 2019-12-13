@@ -10,6 +10,7 @@
 #' @name CopyControlCovariates
 #' @title  CopyControlCovariates
 #' @description {Used to include control data with covaraites}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CopyControlCovariates.R}{View Code on GitHub} }
 #' @export
 CopyControlCovariates <- function( cDestData, cSourceData,  vSubsetCtrl )
 {

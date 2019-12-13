@@ -10,6 +10,7 @@
 #' @name MakeDecisionDoses
 #' @title MakeDecisionDoses
 #' @description {This function provides options for making decisons when doses are included in an ISA. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
 #' @export
 MakeDecisionDoses<- function( lDoseDec )
 {
@@ -21,6 +22,7 @@ MakeDecisionDoses<- function( lDoseDec )
 #' @title MakeDecisionDoses.default
 #' @description {Generic function to make decisions when doses are present in an ISA.
 #' No default defined so the simulations stop if a specific approach is not defined.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
 #' @export
 MakeDecisionDoses.default <- function( lDoseDec )
 {
@@ -32,6 +34,7 @@ MakeDecisionDoses.default <- function( lDoseDec )
 #' @name MakeDecisionDoses.HighDoseOnly
 #' @title MakeDecisionDoses.HighDoseOnly
 #' @description {"This option allows for multiple doses but only uses the high dose for decision making "  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
 #' @export
 MakeDecisionDoses.HighDoseOnly <- function( lDoseDec )
 {
@@ -47,6 +50,7 @@ MakeDecisionDoses.HighDoseOnly <- function( lDoseDec )
 #' @title MakeDecisionDoses.AtLeastOne
 #' @description {This option allows for mulitiple doses and if all doses reach a No Go decision
 #' then the combined decision is a No Go.  If ANY dose is a Go then a Go decision is made.     }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
 #' @export
 MakeDecisionDoses.AtLeastOne <- function( lDoseDec )
 {
@@ -82,6 +86,7 @@ MakeDecisionDoses.AtLeastOne <- function( lDoseDec )
 
 #' @name MakeDecisionDoses.MakeDecisionMCPMod
 #' @title MakeDecisionDoses.MakeDecisionMCPMod
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
 #' @export
 MakeDecisionDoses.MakeDecisionMCPMod <- function( lDoseDec )
 {

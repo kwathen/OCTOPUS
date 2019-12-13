@@ -10,6 +10,7 @@
 #' @name SimulateAllPatientOutcomes
 #' @title SimulateAllPatientOutcomes
 #' @description SimulateAllPatientOutcomes {This function is used to simulate all patient outcomes in the platform.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientOutcomes.R}{View Code on GitHub} }
 #' @export
 SimulateAllPatientOutcomes <- function( cScen,  cTrialDesign, dfPatCov  )
 {
@@ -22,6 +23,7 @@ SimulateAllPatientOutcomes <- function( cScen,  cTrialDesign, dfPatCov  )
 #' This function is generic in case there is a need to override but
 #' is implemented such that it should be suitable for most cases.  Specifically,
 #' this function calls SimPatientOutcomes for each ISA. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientOutcomes.R}{View Code on GitHub} }
 #' @export
 SimulateAllPatientOutcomes.default <- function( cScen,  cTrialDesign, dfPatCov )
 {

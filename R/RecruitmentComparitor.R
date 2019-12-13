@@ -15,6 +15,7 @@
 #' @title PlotPlatformRecruitment
 #' @description {This function creates a plot of recruitment comparing a platform with 2 ISAs and 2 consecutive POC studies.
 #' Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ). }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RecruitmentComparitor.R}{View Code on GitHub} }
 #' @export
 PlotPlatformRecruitment <- function( nQtyReps, nMaxQtyPats, vPatsPerMonthPerSite1,
                                      dDelayToStartPOC, dDelayBetweenTrialsPOC,vQtySitesPOC,
@@ -49,6 +50,7 @@ PlotPlatformRecruitment <- function( nQtyReps, nMaxQtyPats, vPatsPerMonthPerSite
 #' @title PlotPlatformRecruitment
 #' @description {This function creates a plot of recruitment comparing a platform with 2 ISAs and 2 consecutive POC studies.
 #' Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ).  This version returns a ggplot2 object. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RecruitmentComparitor.R}{View Code on GitHub} }
 #' @export
 ggPlotPlatformRecruitment <- function( nQtyReps, nMaxQtyPats, vPatsPerMonthPerSite1,
                                      dDelayToStartPOC, dDelayBetweenTrialsPOC,vQtySitesPOC,
@@ -120,6 +122,7 @@ ComputeMonthlyAccrual <- function( vPatsPerMonthPerSite, vQtyOfSites )
 #' @name SimulateAccrual
 #' @title SimulateAccrual
 #' @description {This function simulates the accural for 2 ISAs.  Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ). }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RecruitmentComparitor.R}{View Code on GitHub} }
 #' @export
 SimulateAccrual <- function( nQtyReps,  nMaxQtyPats, dDelayBetweenTrials, vPatsPerMonthPerSite1,
                              vQtyOfSites1, vPatsPerMonthPerSite2, vQtyOfSites2, dDelayToStart)

@@ -11,3 +11,6 @@
 \description{
 EstimateNumberOfPatientToSimulate.NULL {This opion is used when no covariates are in a design. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/EstimateNumberOfPatientsToSimulate.R}{View Code on Gitub} }
+}

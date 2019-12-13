@@ -10,3 +10,6 @@ EstimateNumberOfPatientsToSimulate(cSimCovariates, nMaxQtyPats)
 \description{
 EstimateNumberOfPatientToSimulate {}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/EstimateNumberOfPatientsToSimulate.R}{View Code on Gitub} }
+}

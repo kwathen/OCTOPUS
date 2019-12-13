@@ -10,3 +10,6 @@
 {This function is used to initialize the randomzier for an ISA. No default option
 is specified to make sure the user selects a valid randomizer. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
+}

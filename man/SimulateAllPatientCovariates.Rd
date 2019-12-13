@@ -21,3 +21,8 @@ This function is generic in case there is a need to override but
 is implemented such that it should be suitable for most cases.  Specifically,
 this function calls SimulatePatientCovariates for each ISA. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientCovariates.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientCovariates.R}{View Code on GitHub} }
+}

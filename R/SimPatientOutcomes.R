@@ -34,6 +34,7 @@
 #' @name SimPatientOutcomes
 #' @title SimPatientOutcomes
 #' @description SimPatientOutcomes {This function is intended to simulate the outcomes for a given ISA.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.R}{View Code on GitHub} }
 #' @export
 SimPatientOutcomes <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 {
@@ -44,6 +45,7 @@ SimPatientOutcomes <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 #' @describeIn SimPatientOutcomes { This function is intended to simulate the outcomes for a given ISA.
 #' Because several options are provided and there in no well defined default
 #' an stop error occurs if you call the default method. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.R}{View Code on GitHub} }
 #' @export
 SimPatientOutcomes.default <- function( cSimOutcomes,  cISADesign, dfPatCovISA )
 {
@@ -55,6 +57,7 @@ SimPatientOutcomes.default <- function( cSimOutcomes,  cISADesign, dfPatCovISA )
 #' @title SimPatientOutcomes.Independent
 #' @describeIn SimPatientOutcomes { The cSimOutcomes object has a list of sim outcomes and this version will go through and call the
 #' SimPatientOutcomes for each type.  Each outcome is simulated independently. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.R}{View Code on GitHub} }
 #' @export
 SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 {
@@ -108,6 +111,7 @@ SimPatientOutcomes.Independent <- function( cSimOutcomes, cISADesign, dfPatCovIS
 #' @describeIn SimPatientOutcomes { The cSimOutcomes object has a list of sim outcomes and this version will utilize the
 #' first outcome to simulate all outcomes correlated.  Each simoutcome must have an attribute vColIndex that
 #' specifies which columns out of the matrix will be used for that outcome. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.R}{View Code on GitHub} }
 #' @export
 SimPatientOutcomes.Correlated <- function( cSimOutcomes, cISADesign, dfPatCovISA )
 {

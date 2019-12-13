@@ -11,3 +11,6 @@ SimulateAccrual(nQtyReps, nMaxQtyPats, dDelayBetweenTrials,
 \description{
 {This function simulates the accural for 2 ISAs.  Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ). }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RecruitmentComparitor.R}{View Code on GitHub} }
+}

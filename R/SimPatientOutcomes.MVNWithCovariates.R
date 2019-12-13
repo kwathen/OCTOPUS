@@ -12,6 +12,7 @@
 #' @aliases{SimPatientOutcomes.MVNWithCovariates}
 #' @title SimPatientOutcomes.MVNWithCovariates
 #' @description  In this SimPatientOutcomes
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.MVNWithCovariates.R}{View Code on GitHub} }
 #' @export
 SimPatientOutcomes.MVNWithCovariates <- function( cSimOutcomes,  cISADesign,  dfPatCovISA )
 {

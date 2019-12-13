@@ -9,3 +9,6 @@ RunRealTrialAnalysis(cTrialDesign, strInputFile, strOutputFile, nSeed)
 \description{
 {Generic function that could be used to run an analysis on trial data.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunRealTrialAnalysis.R}{View Code on GitHub} }
+}

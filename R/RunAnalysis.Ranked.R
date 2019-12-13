@@ -11,6 +11,7 @@
 #' @name RunAnalysis.Ranked
 #' @title RunAnalysis.Ranked
 #' @description {This is the method used for running the Ranked analysis. Specifically, wilcox.test with exact = TRUE"  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.Ranked.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.Ranked <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {

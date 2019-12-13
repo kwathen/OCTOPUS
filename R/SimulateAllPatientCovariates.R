@@ -10,6 +10,7 @@
 #' @name SimulateAllPatientCovariates
 #' @title SimulateAllPatientCovariates
 #' @description SimulateAllPatientCovariates {This function is used to simulate all patient covariates in the platform.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientCovariates.R}{View Code on GitHub} }
 #' @export
 SimulateAllPatientCovariates <- function( cSimCovariates,  cTrialDesign   )
 {
@@ -23,6 +24,7 @@ SimulateAllPatientCovariates <- function( cSimCovariates,  cTrialDesign   )
 #' is implemented such that it should be suitable for most cases.  Specifically,
 #' this function calls SimulatePatientCovariates for each ISA. }
 #' @return A list with length equal to the number of ISAs in the trial.   Each element represents the simulated covariates for each ISA.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientCovariates.R}{View Code on GitHub} }
 #' @export
 SimulateAllPatientCovariates.default <- function( cSimCovariates,  cTrialDesign   )
 {

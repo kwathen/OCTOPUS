@@ -18,3 +18,8 @@ The scenario will be simulated cScen$nQtyReps times.  }
 \item \code{default}: Default method that is suitable for most cases.
 }}
 
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateScenario.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateScenario.R}{View Code on GitHub} }
+}

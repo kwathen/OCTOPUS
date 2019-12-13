@@ -11,3 +11,6 @@
 {This function simulates 1 virtual trial based on cScen and cTrialDesign.  This is the main function for running
 the simulation.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateSingleTrial.R}{View Code on GitHub} }
+}

@@ -34,3 +34,12 @@ first outcome to simulate all outcomes correlated.  Each simoutcome must have an
 specifies which columns out of the matrix will be used for that outcome. }
 }}
 
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.R}{View Code on GitHub} }
+}

@@ -11,6 +11,7 @@
 #' @title SimulatePatientCovariates.Categorical
 #' @describeIn SimulatePatientCovariates  { This function is used to simulate the patient covariate values.
 #' This function is intended to do one covariate, for all patients.  The sampled covaraites values will be 1,2,..., length( cSimCovariate$vProbs ).}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulatePatientCovariates.Categorical.R}{View Code on GitHub} }
 #' @export
 SimulatePatientCovariates.Categorical <- function(  cSimCovariate,  nQtyOfPatients )
 {

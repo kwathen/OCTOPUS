@@ -12,3 +12,6 @@ This function is used to process the data before the RunAnalysis function is cal
 be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
 example, the patient data over time is simulated but the data is analysed as change from baseline. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ProcessData.R}{View Code on GitHub} }
+}

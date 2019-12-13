@@ -10,6 +10,7 @@
 #' @name AddControlData.ProcessReptMeasChngBaseline
 #' @title AddControlData.ProcessReptMeasChngBaseline
 #' @description{ Control data when processed as a Repeated measure change from outcome.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/AddControlData.ProcessReptMeasChngBaseline.R}{View Code on GitHub} }
 #' @export
 AddControlData.ProcessReptMeasChngBaseline <- function( cISAData, cSourceData, nISA )
 {

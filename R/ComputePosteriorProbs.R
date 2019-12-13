@@ -11,6 +11,7 @@
 
 #' @name ComputePosteriorProbs
 #' @title ComputePosteriorProbs
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ComputePosteriorProbs.R}{View Code on GitHub} }
 #' @export
 ComputePosteriorProbs <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis, lSamples )
 {
@@ -34,6 +35,7 @@ ComputePosteriorProbs <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnal
 #' @param lSamples List with two vectors, vPostSampPlac and vPostSampTrt, that are samples of the posterior of
 #' \eqn{\theta} for the placebo and treatment, respectively.
 #' @return List with four values dPrGrtMAV, dPrGrtTV, dMAVCutoff and dTVCutoff
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ComputePosteriorProbs.R}{View Code on GitHub} }
 #' @export
 ComputePosteriorProbs.default <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis, lSamples )
 {
@@ -91,6 +93,7 @@ ComputePosteriorProbs.default <- function( cAnalysis,  nISAAnalysisIndx, bIsFina
 #' @param lSamples List with two vectors, vPostSampPlac and vPostSampTrt, that are samples of the posterior of
 #' \eqn{\theta} for the placebo and treatment, respectively.
 #' @return List with three values dPrGrtMAV,  dMAVCutoff and dTVCutoff
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ComputePosteriorProbs.R}{View Code on GitHub} }
 #' @export
 ComputePosteriorProbs.MAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis, lSamples )
 {
@@ -140,6 +143,7 @@ ComputePosteriorProbs.MAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFina
 #' @param lSamples List with vPostSamp that are samples of the posterior of
 #' \eqn{\theta} the parameter of interest.
 #' @return List with three values dPrGrtMAV,  dMAVCutoff and dTVCutoff
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ComputePosteriorProbs.R}{View Code on GitHub} }
 #' @export
 ComputePosteriorProbs.MAVTarget <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis, lSamples )
 {

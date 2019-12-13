@@ -13,6 +13,7 @@
 #' @description {This is the method used for running the Repeated Measure Analysis .
 #' Specifically,
 #' t.test(lDataAna$vOut ~ as.factor(lDataAna$vTrt), alternative = c("two.sided"),mu = 0, exact = NULL, correct = TRUE,  conf.int = TRUE, conf.level = dCILevel)"  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.TTest.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.TTest <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {

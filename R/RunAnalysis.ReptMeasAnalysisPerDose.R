@@ -7,6 +7,7 @@
 #
 #############################################################################################################################.
 # cAnalysis must have cAnalysis$vDose for class of type MCPMod
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.ReptMeasAnalysisPerDose.R}{View Code on GitHub} }
 #' @export
 #'
 RunAnalysis.ReptMeasAnalysisPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )

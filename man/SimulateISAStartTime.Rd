@@ -9,3 +9,6 @@ SimulateISAStartTime(cParams)
 \description{
 Simulate ISA Start Time
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
+}

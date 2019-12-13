@@ -11,3 +11,6 @@
 {RandomizeBetweenISA.default is not implemented to avoid potential use when the user
 misspells the desired ISA randomizer.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeBetweenISA.R}{View Code on GitHub} }
+}

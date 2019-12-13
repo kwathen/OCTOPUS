@@ -11,3 +11,6 @@ BuildSimulationResultsDataSet()
 that can be used for creating simulation results.  You should set the R working directory that contains the main, ISAOut1, ISOut2,...., directories.
 This function is intended to streamline and replace the BuildResultsDataSet funciton.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/BuildSimulationResultsDataSet.R}{View Code on GitHub} }
+}

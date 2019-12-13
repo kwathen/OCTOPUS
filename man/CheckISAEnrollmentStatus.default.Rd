@@ -13,3 +13,6 @@ Two cases
  If Covariates - dfCov != NULL then vEnrollmentStatus = vISAStatus but if an ISA does not enroll for dfCov the value will be 0, indicating it is not open.
  Essentially, if an ISA is open for dfCov the value in vRetISAStatus = 1, if not it will be a value != 1}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CheckISAEnrollmentStatus.R}{View Code on GitHub} }
+}

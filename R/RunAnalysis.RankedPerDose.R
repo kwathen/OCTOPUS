@@ -7,6 +7,7 @@
 #
 #############################################################################################################################.
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.RankedPerDose.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.RankedPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {

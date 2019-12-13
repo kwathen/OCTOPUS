@@ -13,3 +13,6 @@ and Pr( \eqn{\theta} > TV | data ) > vTVCutoff.
 This function returns a list with dMAVCutoff and dTVCutoff.  0 <= dMAVCutoff and dTVCutoff <= 1.
 Typically, this function is not called directly but as part of the ComputePosteriorProb function.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetBayesianCutoffs.R}{View Code on GitHub} }
+}

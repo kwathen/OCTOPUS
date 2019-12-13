@@ -10,3 +10,6 @@
 {Generic function to make decisions when doses are present in an ISA.
 No default defined so the simulations stop if a specific approach is not defined.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
+}

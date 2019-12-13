@@ -9,3 +9,6 @@ InitializeISARandomizer(cISARandomizer, dISAStartTime)
 \description{
 {This function is used to initialize the randomzier for an ISA. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
+}

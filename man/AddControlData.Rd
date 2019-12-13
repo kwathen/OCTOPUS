@@ -21,3 +21,6 @@ the following elements:
 \description{
 {Used to include control data.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/AddControlData.R}{View Code on GitHub} }
+}

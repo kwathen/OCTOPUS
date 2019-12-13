@@ -13,6 +13,7 @@
 #' Specifically, gls(vOut ~ vBaseline + vTrt + vTime + vTrt:vTime,
 #' weights = varIdent(form = ~1|vTime),
 #' correlation = corSymm(form=~1|vIND), na.action = na.omit )"  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.ReptMeasAnalysis.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.ReptMeasAnalysis <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer)
 {

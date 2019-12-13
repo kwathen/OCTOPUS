@@ -21,6 +21,7 @@
 #' @param  dUpper = upper limit of CI
 #' @param lAnaysis must have lAnalysis$dTV, and lAnalysis$dMAV
 #' @return  Return a list of ( nSucces, nNoGo, nPause )
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionBasedOnCI.R}{View Code on GitHub} }
 #' @export
 MakeDecisionBasedOnCI <- function( dLowerCI, dUpperCI, lAnalysis )
 {

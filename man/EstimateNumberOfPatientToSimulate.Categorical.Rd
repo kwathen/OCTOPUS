@@ -11,3 +11,6 @@
 \description{
 EstimateNumberOfPatientToSimulate.Categorical {returns nMaxQtyPats/min(vProbs)}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/EstimateNumberOfPatientsToSimulate.R}{View Code on Gitub} }
+}

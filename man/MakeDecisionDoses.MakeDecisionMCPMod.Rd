@@ -9,3 +9,6 @@
 \description{
 MakeDecisionDoses.MakeDecisionMCPMod
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
+}

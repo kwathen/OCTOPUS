@@ -9,3 +9,6 @@ GetCILimits(lAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis)
 \description{
 { This function used to obtain the CI limits based on the analysis index and/or if it is the final analysis for an ISA. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetCILimits.R}{View Code on GitHub} }
+}

@@ -14,3 +14,6 @@ SelectList(lData, lValue)
 \description{
 {Determine if the elements of lData have the values of lValue, this is like SQL select statement with AND for all values}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Functions.R}{View Code on GitHub} }
+}

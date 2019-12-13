@@ -10,6 +10,7 @@
 #' @name CreateDataSetForAnalysis
 #' @title CreateDataSetForAnalysis
 #' @description {This function is used to created the dataset for analysis.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateDataSetForAnalysis.R}{View Code on GitHub} }
 #' @export
 CreateDataSetForAnalysis <- function( cPats,  dCurrentTime, vISAStatus  )
 {
@@ -33,6 +34,7 @@ CreateDataSetForAnalysis <- function( cPats,  dCurrentTime, vISAStatus  )
 #' @return {An object with class = "TrialData" that has a list with an element for each ISA data.
 #' Before creating the dataset the ProcessData to create the version of the data needed, eg change from baseline,
 #' and also coppies covariates that are present.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateDataSetForAnalysis.R}{View Code on GitHub} }
 #' @export
 CreateDataSetForAnalysis.default   <- function( cPats,  dCurrentTime, vISAStatus   )  #IndependentISA <- function( cPats,  dCurrentTime   )
 {

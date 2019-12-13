@@ -44,7 +44,7 @@ UpdateRandomizer.default <- function( lDecision, lResAnalysis, cRandomzier  )
 
             for( i in 2:nQtyAnalysis )
             {
-                dfSubGroupEnrollmentStatus <- lResAnalysis[[ paste("lAnalysis", iAna, sep="")]]$dfSubGroupEnrollmentStatus
+                dfSubGroupEnrollmentStatus <- lResAnalysis[[ paste("lAnalysis", i, sep="")]]$cRandomizer$dfSubGroupEnrollmentStatus
                 vUpdatedSatus <- (vUpdatedSatus | dfSubGroupEnrollmentStatus[, nStatusCol ])
                 #TODO(Covs) - Finish this
 

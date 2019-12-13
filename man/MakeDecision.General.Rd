@@ -15,3 +15,6 @@ The options for strApproachFA and strApproachIA are any of the MakeDecision opti
 MakeDecision.TwoOutcomeOptions2.
 }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
+}

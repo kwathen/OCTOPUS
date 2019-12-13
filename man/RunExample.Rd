@@ -17,3 +17,6 @@ RunExample(example)
 \dontrun{{OCTOPUS::RunExample( "CompareRecruitment" )
 }}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunExample.R}{View Code on GitHub} }
+}

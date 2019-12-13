@@ -9,3 +9,6 @@
 \description{
 This version assumes the cParams has a dParam1 which specifies the start time for the ISA, eg it is fixed when the ISA starts
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
+}

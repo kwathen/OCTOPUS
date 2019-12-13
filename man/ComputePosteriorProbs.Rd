@@ -10,3 +10,6 @@ ComputePosteriorProbs(cAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis,
 \description{
 ComputePosteriorProbs
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ComputePosteriorProbs.R}{View Code on GitHub} }
+}

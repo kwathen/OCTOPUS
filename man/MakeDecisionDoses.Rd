@@ -9,3 +9,6 @@ MakeDecisionDoses(lDoseDec)
 \description{
 {This function provides options for making decisons when doses are included in an ISA. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
+}

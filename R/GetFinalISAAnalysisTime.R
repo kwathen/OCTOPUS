@@ -10,6 +10,7 @@
 #' @name GetFinalISAAnalysisTime
 #' @title GetFinalISAAnalysisTime
 #' @description{ Compute the final analysis time for a given ISA based on the current data}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetFinalISAAnalysisTime.R}{View Code on GitHub} }
 #' @export
 GetFinalISAAnalysisTime <- function( cISADesigns, nISA, lEnrolledPats )
 {
@@ -24,6 +25,7 @@ GetFinalISAAnalysisTime <- function( cISADesigns, nISA, lEnrolledPats )
 #'     stop( paste("ERROR: The GetFinalISAAnalysisTime.default is not defined class( GetFinalISAAnalysisTime )=", class(cISADesigns) ) )
 #' }
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetFinalISAAnalysisTime.R}{View Code on GitHub} }
 #' @export
 GetFinalISAAnalysisTime.default <- function(cISADesigns, nISA, lEnrolledPats)
 {

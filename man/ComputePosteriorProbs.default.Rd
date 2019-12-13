@@ -31,3 +31,6 @@ the decisions are based two posterior probabilities Pr( \eqn{\theta} > MAV |data
 and Pr( \eqn{\theta} > TV | data ) > vTVCutoff.
 This function returns a list with dMAVCutoff and dTVCutoff.  0 <= dMAVCutoff and dTVCutoff <= 1}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ComputePosteriorProbs.R}{View Code on GitHub} }
+}

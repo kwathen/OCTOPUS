@@ -11,6 +11,7 @@
 
 #' @name  SimulateAllISAStartTimes
 #' @title  Simulate ISA Start Times for all ISAs
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
 #' @export
 SimulateAllISAStartTimes <- function( cISASimDesigns )
 {
@@ -20,6 +21,7 @@ SimulateAllISAStartTimes <- function( cISASimDesigns )
 
 #' @name  SimulateAllISAStartTimes
 #' @title  Simulate ISA Start Times for all ISAs
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
 #' @export
 SimulateAllISAStartTimes.default <- function( cISASimDesigns)
 {
@@ -36,6 +38,7 @@ SimulateAllISAStartTimes.default <- function( cISASimDesigns)
 
 #' @name  SimulateISAStartTime
 #' @title  Simulate ISA Start Time
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
 #' @export
 SimulateISAStartTime <- function( cParams )
 {
@@ -46,6 +49,7 @@ SimulateISAStartTime <- function( cParams )
 #' @name  SimulateISAStartTime.default
 #' @title  Simulate ISA Start Time
 #' @description This version should not be implemented
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
 #' @export
 SimulateISAStartTime.default <- function( cParams )
 {
@@ -56,6 +60,7 @@ SimulateISAStartTime.default <- function( cParams )
 #' @name  SimulateISAStartTime.SetTime
 #' @title  SimulateISAStartTime SetTime
 #' @description This version assumes the cParams has a dParam1 which specifies the start time for the ISA, eg it is fixed when the ISA starts
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
 #' @export
 SimulateISAStartTime.SetTime <- function( cParams )
 {
@@ -69,6 +74,7 @@ SimulateISAStartTime.SetTime <- function( cParams )
 #' @name  SimulateISAStartTime.Uniform
 #' @title  Simulate ISA Start Time from a uniform distribution
 #' @description This version assumes the cParams has a dParam1 and dParam2 and simulates a unif( dParam1, dParam2 ) as the ISA start time
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateISAStartTime.R}{View Code on GitHub} }
 #' @export
 SimulateISAStartTime.Uniform <- function( cParams )
 {

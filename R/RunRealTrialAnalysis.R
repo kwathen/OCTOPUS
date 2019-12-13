@@ -13,6 +13,7 @@
 #' @name RunRealTrialAnalysis
 #' @title RunRealTrialAnalysis
 #' @description {Generic function that could be used to run an analysis on trial data.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunRealTrialAnalysis.R}{View Code on GitHub} }
 #' @export
 RunRealTrialAnalysis  <- function( cTrialDesign, strInputFile, strOutputFile, nSeed )
 {
@@ -22,6 +23,7 @@ RunRealTrialAnalysis  <- function( cTrialDesign, strInputFile, strOutputFile, nS
 #' @name RunRealTrialAnalysis.default
 #' @title RunRealTrialAnalysis.default
 #' @description {RunRealTrialAnalysis.default provides the default implmentation as it is not anticipated to be utilized very often.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunRealTrialAnalysis.R}{View Code on GitHub} }
 #' @export
 RunRealTrialAnalysis.default <- function( cTrialDesign, strInputFile, strOutputFile, nSeed )
 {

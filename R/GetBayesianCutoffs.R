@@ -14,6 +14,7 @@
 #' and Pr( \eqn{\theta} > TV | data ) > vTVCutoff.
 #' This function returns a list with dMAVCutoff and dTVCutoff.  0 <= dMAVCutoff and dTVCutoff <= 1.
 #' Typically, this function is not called directly but as part of the ComputePosteriorProb function.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetBayesianCutoffs.R}{View Code on GitHub} }
 #' @export
 GetBayesianCutoffs <- function(  cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis )
 {
@@ -36,6 +37,7 @@ GetBayesianCutoffs <- function(  cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalys
 #' @param bIsFinalISAAnalysis TRUE or FALSE to indicate if this is the final analysis. Typically, used
 #' in a Bayesian design such that the final analysis can have different cutoff values.
 #' @return List with two values dMAVCutoff and dTVCutoff.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetBayesianCutoffs.R}{View Code on GitHub} }
 #' @export
 GetBayesianCutoffs.default <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
 {
@@ -98,6 +100,7 @@ GetBayesianCutoffsMAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISA
 #' 0 <= dPLowerCutoff <= dPUpperCutoff <=  1
 #' @param  cAnalysis$dFinalPLower Value of lower cutoff used at the FINAL analysis, typically used in the context of failure if a posterior probability < dFinalPLower,
 #' 0 <= dPLowerCutoff <= dPUpperCutoff <=  1
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetBayesianCutoffs.R}{View Code on GitHub} }
 #' @export
 GetBayesianCutoffs.MAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
 {
@@ -117,6 +120,7 @@ GetBayesianCutoffs.MAVOnly <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalIS
 #' 0 <= dPLowerCutoff <= dPUpperCutoff <=  1
 #' @param  cAnalysis$dFinalPLower Value of lower cutoff used at the FINAL analysis, typically used in the context of failure if a posterior probability < dFinalPLower,
 #' 0 <= dPLowerCutoff <= dPUpperCutoff <=  1
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetBayesianCutoffs.R}{View Code on GitHub} }
 #' @export
 GetBayesianCutoffs.MAVTarget <- function( cAnalysis,  nISAAnalysisIndx, bIsFinalISAAnalysis  )
 {

@@ -11,6 +11,7 @@
 #' @title RandomizeBetweenISA
 #' @description { Generic method to randomize between ISAs.   Any version of
 #' RandomizeBetweenISA should just return the index of the ISA the patient is assigned to.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeBetweenISA.R}{View Code on GitHub} }
 #' @export
 RandomizeBetweenISA <- function( cRandomizer, vISAStatus, dCurrentTime )
 {
@@ -22,6 +23,7 @@ RandomizeBetweenISA <- function( cRandomizer, vISAStatus, dCurrentTime )
 #' @title RandomizeBetweenISA.default
 #' @description {RandomizeBetweenISA.default is not implemented to avoid potential use when the user
 #' misspells the desired ISA randomizer.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeBetweenISA.R}{View Code on GitHub} }
 #' @export
 RandomizeBetweenISA.default <- function( cRandomizer, vISAStatus, dCurrentTime )
 {

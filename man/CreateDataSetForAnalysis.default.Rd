@@ -26,3 +26,6 @@ and returns an object with class = "TrialData" that has a list with an element f
 Before creating the dataset the ProcessData to create the version of the data needed, eg change from baseline,
 and also coppies covariates that are present.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateDataSetForAnalysis.R}{View Code on GitHub} }
+}

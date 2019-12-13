@@ -13,3 +13,6 @@ PlotPlatformRecruitment(nQtyReps, nMaxQtyPats, vPatsPerMonthPerSite1,
 {This function creates a plot of recruitment comparing a platform with 2 ISAs and 2 consecutive POC studies.
 Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ). }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RecruitmentComparitor.R}{View Code on GitHub} }
+}

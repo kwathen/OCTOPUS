@@ -18,3 +18,6 @@ covariate signature.}
 {This function is used to initialize the EqualRandomzier for an ISA. It uses the vTrtLab and vQtyPats
 to sample the desired number of each treatment in the ISA. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
+}

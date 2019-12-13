@@ -20,3 +20,8 @@ is implemented such that it should be suitable for most cases.  Specifically,
 this function calls SimPatientOutcomes for each ISA. }
 }}
 
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientOutcomes.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientOutcomes.R}{View Code on GitHub} }
+}

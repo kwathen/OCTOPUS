@@ -11,6 +11,7 @@
 #' @title SimulateScenario
 #' @description { SimulateScenario This function is the main funciton in simulating a scenario.
 #' The scenario will be simulated cScen$nQtyReps times.  }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateScenario.R}{View Code on GitHub} }
 #' @export
 SimulateScenario <- function( cScen, cTrialDesign  )
 {
@@ -20,6 +21,7 @@ SimulateScenario <- function( cScen, cTrialDesign  )
 
 #' @title SimulateScenario.default
 #' @describeIn SimulateScenario  Default method that is suitable for most cases.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateScenario.R}{View Code on GitHub} }
 #' @export
 SimulateScenario.default <- function( cScen, cTrialDesign  )
 {

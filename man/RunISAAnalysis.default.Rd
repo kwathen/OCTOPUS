@@ -10,3 +10,6 @@
 \description{
 The cISAAnalysis object has a list of Analysis
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunISAAnalysis.R}{View Code on GitHub} }
+}

@@ -22,3 +22,6 @@ combined the following tabled describes how decisions will be made.
 }
 }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
+}

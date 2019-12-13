@@ -23,3 +23,6 @@ the treatment is open once the ISA is added to the trial.}
 {This version will randomize the first patients to a select set of arms or doses in the ISA (eg a POC phase)
  The remaining arms or doses are opened based on the provided times to open.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
+}

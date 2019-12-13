@@ -10,3 +10,6 @@
 {This option allows for mulitiple doses and if all doses reach a No Go decision
 then the combined decision is a No Go.  If ANY dose is a Go then a Go decision is made.     }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
+}

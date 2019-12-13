@@ -7,6 +7,7 @@
 #
 #############################################################################################################################.
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeTrialDecision.R}{View Code on GitHub} }
 #' @export
 MakeTrialDecision <- function( cISADesigns, lResAnalysis,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer )
 {
@@ -41,6 +42,7 @@ MakeTrialDecision <- function( cISADesigns, lResAnalysis,  vISAStatus,  vIsFinal
 #   5 = closed - Go at the FA
 #   6 = Closed - No Go at the FA
 #   7 = Closed - Pause at the FA
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeTrialDecision.R}{View Code on GitHub} }
 #' @export
 MakeTrialDecision.default <- function( cISADesigns, lResAnalysis,  vISAStatus,  vIsFinalISAAnalysis, cRandomizer  )
 {

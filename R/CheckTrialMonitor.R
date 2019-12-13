@@ -65,6 +65,7 @@
 #'      vMinFUTime      <- c( 3,   3)
 #'
 #' }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CheckTrialMonitor.R}{View Code on GitHub} }
 #' @export
 CheckTrialMonitor <- function(  cISADesigns, lEnrolledPats,  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime )
 {
@@ -129,6 +130,7 @@ CheckTrialMonitor <- function(  cISADesigns, lEnrolledPats,  vISAStatus, dCurren
 #'      vMinFUTime      <- c( 3,   3)
 #'
 #' }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CheckTrialMonitor.R}{View Code on GitHub} }
 #' @export
 CheckTrialMonitor.default <- function(  cISADesigns, lEnrolledPats,  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime  )
 {

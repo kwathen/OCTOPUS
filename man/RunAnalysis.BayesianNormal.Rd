@@ -10,3 +10,6 @@
 \description{
 {This is the method used for running the analysis of a BayesianNormal normal model.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.BayesianNormal.R}{View Code on GitHub} }
+}

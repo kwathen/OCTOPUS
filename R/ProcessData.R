@@ -13,6 +13,7 @@
 #' @description{ This function is used to process the data before the RunAnalysis function is called.  This can
 #' be useful for cases where the data is simulated/collected in one form, but another form is needed for analysis.  For
 #' example, the patient data over time is simulated but the data is analysed as change from baseline. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ProcessData.R}{View Code on GitHub} }
 #' @export
 ProcessData <- function( cDS, dCurrentTime)
 {
@@ -25,6 +26,7 @@ ProcessData <- function( cDS, dCurrentTime)
 #' This function is used to process the data before the RunAnalysis function is called.  This can
 #' be useful for cases where the data is simulated/collected in one for but another form is needed for analysis.  For
 #' example, the patient data over time is simulated but the data is analysed as change from baseline. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ProcessData.R}{View Code on GitHub} }
 #' @export
 ProcessData.default <- function( cDS, dCurrentTime )
 {
@@ -46,6 +48,7 @@ ProcessData.default <- function( cDS, dCurrentTime )
 #' and set outcomes to NA that have not been observed
 #' Will return the change from baseline
 #' dCurrentTime, vTrt, mPatOut, lSimOut, vStartTimes }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ProcessData.R}{View Code on GitHub} }
 #' @export
 ProcessData.ProcessReptMeasChngBaseline <- function(  cDS, dCurrentTime  )
 {
@@ -115,6 +118,7 @@ ProcessData.ProcessReptMeasChngBaseline <- function(  cDS, dCurrentTime  )
 
 #' @name ProcessData.ProcessReptMeas
 #' @title ProcessData.ProcessReptMeas
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ProcessData.R}{View Code on GitHub} }
 #' @export
 ProcessData.ProcessReptMeas <- function(  cDS, dCurrentTime  )
 {
@@ -175,6 +179,7 @@ ProcessData.ProcessReptMeas <- function(  cDS, dCurrentTime  )
 
 #' @name ProcessData.ProcessSingleTimeOutcome
 #' @title ProcessData.ProcessSingleTimeOutcome
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/ProcessData.R}{View Code on GitHub} }
 #' @export
 ProcessData.ProcessSingleTimeOutcome <- function(  cDS, dCurrentTime  )
 {

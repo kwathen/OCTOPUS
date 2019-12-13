@@ -29,3 +29,10 @@ Because several options are provided and there in no well defined default
 an stop error occurs if you call the default method. }
 }}
 
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulatePatientCovariates.Categorical.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulatePatientCovariates.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulatePatientCovariates.R}{View Code on GitHub} }
+}

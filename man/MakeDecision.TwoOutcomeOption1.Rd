@@ -23,3 +23,6 @@ the decision is a NG.  If both are a P then the decision is a P.
 }
 }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
+}

@@ -12,6 +12,7 @@
 #' @name AddPatient
 #' @title AddPatient
 #' @description {This function uses the lPatOut as a database of patients, it pulls 1 patient out and adds it to lEnrolledPats}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Functions.R}{View Code on GitHub} }
 #' @export
 AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  dfCov, cEnrolledPats, nPrintDetail = 0 )
 {
@@ -118,6 +119,7 @@ AddPatient <- function( lPatOut, dCurrentTime, nISA, nTrt,  dfCov, cEnrolledPats
 #' @param lList1 - The first elment list where lList2 is appended to.
 #' @param lList2 - The second list
 #' @param vNamesToExclude a vector of the names to include in the appending.  Names not included are coppied from lList1 with nothing appended.
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Functions.R}{View Code on GitHub} }
 #' @export
 AppendPatientLists <- function( lList1, lList2, vNamesToExclude = NULL )
 {
@@ -163,6 +165,7 @@ AppendPatientLists <- function( lList1, lList2, vNamesToExclude = NULL )
 #' @description {Determine if the elements of lData have the values of lValue, this is like SQL select statement with AND for all values}
 #' @param lData - The dataset (as a list) that you want to select from
 #' @param lValue - A list with the desired values for each column in lData
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Functions.R}{View Code on GitHub} }
 #' @export
 SelectList <- function( lData, lValue )
 {
@@ -188,6 +191,7 @@ SelectList <- function( lData, lValue )
 #' should be restricted to the variables that are used throughout the code and only in VERY limited use.}
 #' @param lData - The dataset (as a list) that you want to select from
 #' @param lValue - A list with the desired values for each column in lData
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Functions.R}{View Code on GitHub} }
 #' @export
 CheckGlobalVariables <- function()
 {

@@ -11,3 +11,6 @@
 {This is the method used for running the analysis as a default.  This method is not defined and is
 in place in-case someone provides an invalid class type for RunAnalysis.  This version will stop execution.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.R}{View Code on GitHub} }
+}

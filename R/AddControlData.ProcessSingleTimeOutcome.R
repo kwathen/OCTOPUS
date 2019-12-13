@@ -10,6 +10,7 @@
 #' @name AddControlData.ProcessSingleTimeOutcome
 #' @title AddControlData.ProcessSingleTimeOutcome
 #' @description{ Control data when processed as a single time point.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/AddControlData.ProcessSingleTimeOutcome.R}{View Code on GitHub} }
 #' @export
 AddControlData.ProcessSingleTimeOutcome <- function( cISAData, cSourceData, nISA )
 {

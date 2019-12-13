@@ -63,3 +63,6 @@ lSimArm2   <- list( vMean1     = vMeanR2,
  cSimOutcomes <- structure( list(lSimArm1 = lSimArm1, lSimArm2 = lSimArm2), class =  "MVNByGroup" )
 }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.MVNByGroup.R}{View Code on GitHub} }
+}

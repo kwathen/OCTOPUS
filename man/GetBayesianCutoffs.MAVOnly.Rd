@@ -27,3 +27,6 @@ being greater than an upper cutoff or below a lower cutoff.  In particular, you 
 define vPUpper, vPLower, dFinalPUpper, dFinalPLower as part of your cAnalysis object.
 This function returns a list with dPUpperCutoff and dPLowerCutoff.  0 <= dPUpperCutoff <= dPLowerCutoff <= 1}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetBayesianCutoffs.R}{View Code on GitHub} }
+}

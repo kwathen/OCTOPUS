@@ -12,3 +12,6 @@ A list like the following:  list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ) wi
 \description{
 {This function is a generic function. Several options are available. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
+}

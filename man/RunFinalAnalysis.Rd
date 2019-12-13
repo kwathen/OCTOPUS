@@ -11,3 +11,6 @@ RunFinalTrialAnalysis(cISADesigns, cEnrolledPats, vISAStatus,
 \description{
 { Need description }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunFinalTrialAnalysis.R}{View Code on GitHub} }
+}

@@ -11,3 +11,6 @@ RunISAAnalysis(cISAAnalysis, lDataAna, nISAAnalysisIndx,
 {Generic method called to run the ISA analysis.
 Because the decision is tied to the analysis, each RunISAAnalysis should contain the elements nGo, nNoGo, nPause as part ot the list retured.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunISAAnalysis.R}{View Code on GitHub} }
+}

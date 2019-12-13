@@ -11,6 +11,7 @@
 #' @name InitializeISARandomizer
 #' @title InitializeISARandomizer
 #' @description {This function is used to initialize the randomzier for an ISA. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
 #' @export
 InitializeISARandomizer <- function( cISARandomizer, dISAStartTime  )
 {
@@ -22,6 +23,7 @@ InitializeISARandomizer <- function( cISARandomizer, dISAStartTime  )
 #' @title InitializeISARandomizer.default
 #' @description {This function is used to initialize the randomzier for an ISA. No default option
 #' is specified to make sure the user selects a valid randomizer. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
 #' @export
 InitializeISARandomizer.default <- function( cISARandomizer, dISAStartTime )
 {
@@ -37,6 +39,7 @@ InitializeISARandomizer.default <- function( cISARandomizer, dISAStartTime )
 #' be equal. If cISARandomizer contains a definition of cISARandomizer$dfSubgroupEnrollmentStatus it is used as the enrollment to a specific
 #' covariate signature.
 #' @param dISAStartTime Parameter is not utilized for EqualRandomizer
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
 #' @export
 InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer, dISAStartTime )
 {
@@ -64,6 +67,7 @@ InitializeISARandomizer.EqualRandomizer <- function( cISARandomizer, dISAStartTi
 #' @param  cISARandomizer The cISARandomizer$vQtyPatsInit identifies the initial patients to randomize first, the vQtyPatsInit is part of the vQtyPats for that ISA
 #'   and is not required by other randomizer so this function will stop if it is not defined
 #' @param dISAStartTime Parameter is not utilized for POCRandomizer
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
 #' @export
 InitializeISARandomizer.POCRandomizer <- function(  cISARandomizer, dISAStartTime )
 {
@@ -106,6 +110,7 @@ InitializeISARandomizer.POCRandomizer <- function(  cISARandomizer, dISAStartTim
 #'  cISARandomizer$mTreatmentStartTimes  is to specify the time >= 0 that a treatment in the ISA is opened.  A value of 0 in column 1 and 2 indicates
 #'  the treatment is open once the ISA is added to the trial.
 #' @param dISAStartTime The time the ISA is added to the platform.  All arms are opened at time >= dISAStartTime
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }
 #' @export
 InitializeISARandomizer.DelayedStartRandomizer <- function(  cISARandomizer, dISAStartTime )
 {

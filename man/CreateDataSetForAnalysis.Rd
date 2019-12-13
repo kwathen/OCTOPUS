@@ -9,3 +9,6 @@ CreateDataSetForAnalysis(cPats, dCurrentTime, vISAStatus)
 \description{
 {This function is used to created the dataset for analysis.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateDataSetForAnalysis.R}{View Code on GitHub} }
+}

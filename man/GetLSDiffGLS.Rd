@@ -19,3 +19,6 @@ GetLSDiffGLS(glsFit, nTrt, nTime, dMAV, dTV, dLowerCI, dUpperCI,
   The Z values will match to SAS, which is what is used in decision making.
   This version requires glsFit requires glsFit to be a fit for gls}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.Functions.R}{View Code on GitHub} }
+}

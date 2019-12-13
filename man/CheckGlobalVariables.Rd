@@ -15,3 +15,6 @@ CheckGlobalVariables()
 {Determine if the global variables that are needed have been defined and if not define them. Use of global variables
 should be restricted to the variables that are used throughout the code and only in VERY limited use.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Functions.R}{View Code on GitHub} }
+}

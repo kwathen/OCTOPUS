@@ -9,3 +9,6 @@ MakeDecisionBasedOnPostProb(cAnalysis, lCalcs)
 \description{
 {This function makes a Go/No Go decision based on posterior probabilities.   }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionBasedOnPostProb.R}{View Code on GitHub} }
+}

@@ -41,9 +41,19 @@ The remaining arms or doses are opened based on the provided times to open. }
 }}
 
 \seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeWithinISA.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeWithinISA.R}{View Code on GitHub} }
+
 InitializeISARandomizer.EqualRandomizer
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeWithinISA.R}{View Code on GitHub} }
 
 InitializeISARandomizer.POCRandomizer
 
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeWithinISA.R}{View Code on GitHub} }
+
 InitializeISARandomizer.DelayedStartRandomizer
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeWithinISA.R}{View Code on GitHub} }
 }

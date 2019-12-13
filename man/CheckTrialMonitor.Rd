@@ -65,3 +65,6 @@ To increase flexibility there are two options for adding additional IAs.  Which 
 
 }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CheckTrialMonitor.R}{View Code on GitHub} }
+}

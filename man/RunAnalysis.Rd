@@ -42,3 +42,6 @@ Return:   Each Analysis must return a list with at least the following
 For example, if you did a Go/NoGo with a CI see the results of MakeDecisionBasedOnCI()
 If the analysis return more info that is fine.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.R}{View Code on GitHub} }
+}

@@ -20,3 +20,6 @@ Randomize(cRandomizer, vISAStatus, dCurrentTime, dfCov, nPrintDetail)
               To do this RandomizeWithinISA will be called and the class( cRandomzier[[ nISA ]] ) which specific randomizer is called.
   }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Randomize.R}{View Code on GitHub} }
+}

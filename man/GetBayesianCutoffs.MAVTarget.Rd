@@ -23,3 +23,6 @@
 \description{
 {This function is the same as GetBayesianCutoffs.MAVOnly as MAVTarget inheirts from MAVOnly }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetBayesianCutoffs.R}{View Code on GitHub} }
+}

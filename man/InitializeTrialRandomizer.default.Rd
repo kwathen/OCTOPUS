@@ -17,3 +17,6 @@ InitializeTrialRandomizer(cTrialDesign, vISAStartTimes)
 ISA and calls the InitializeISARandomizer.  Since each ISA can have a specific randomizer  the default
 for the TrialRandomizer is just to initialize each ISA randomizer.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeTrialRandomizer.R}{View Code on GitHub} }
+}

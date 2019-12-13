@@ -18,3 +18,6 @@ AppendPatientLists(lList1, lList2, vNamesToExclude = NULL)
 the same as the source lists.  For elements that are a matrix it will utilize rbind, for vectors c() is used.
 The main purpose of this function is during simulaitons if the original SimulateAllPatients did not generate enought patients}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/Functions.R}{View Code on GitHub} }
+}

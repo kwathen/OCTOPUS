@@ -17,3 +17,6 @@ GetFinalISAAnalysisTime.default <- function( cISADesigns, nISA, lEnrolledPats )
     stop( paste("ERROR: The GetFinalISAAnalysisTime.default is not defined class( GetFinalISAAnalysisTime )=", class(cISADesigns) ) )
 }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GetFinalISAAnalysisTime.R}{View Code on GitHub} }
+}

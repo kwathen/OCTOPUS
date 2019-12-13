@@ -9,3 +9,6 @@
 \description{
 {"This option allows for multiple doses but only uses the high dose for decision making "  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecisionDoses.R}{View Code on GitHub} }
+}

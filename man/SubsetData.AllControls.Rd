@@ -9,3 +9,6 @@
 \description{
 { Include all control data}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SubsetData.R}{View Code on GitHub} }
+}

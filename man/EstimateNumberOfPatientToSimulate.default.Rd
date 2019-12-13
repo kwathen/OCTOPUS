@@ -11,3 +11,6 @@
 \description{
 EstimateNumberOfPatientsToSimulate.default{ Call the EstimateNumberOfPatientsToSimulate for each covaiate and returns the maximum of the results.}
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/EstimateNumberOfPatientsToSimulate.R}{View Code on Gitub} }
+}

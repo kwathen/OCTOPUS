@@ -25,3 +25,8 @@ Trial level analysis - will go through and conduct the analysis for each ISA.
   Because the decision is tied to the analysis, each ISA analysis should contain the elementsnGo, nNoGo, nPause as part ot the list retured.
  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunTrialAnalysis.R}{View Code on GitHub} }
+
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunTrialAnalysis.R}{View Code on GitHub} }
+}

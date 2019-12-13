@@ -31,3 +31,6 @@ The list will contain the following elements:
 
 The returned list will not have any patients in it but will be initialized. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializePatientList.R}{View Code on GitHub} }
+}

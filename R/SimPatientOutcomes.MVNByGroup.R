@@ -65,6 +65,7 @@
 #'
 #'  cSimOutcomes <- structure( list(lSimArm1 = lSimArm1, lSimArm2 = lSimArm2), class =  "MVNByGroup" )
 #' }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.MVNByGroup.R}{View Code on GitHub} }
 #' @export
 SimPatientOutcomes.MVNByGroup <- function( cSimOutcomes,  cISADesign , dfPatCovISA )
 {

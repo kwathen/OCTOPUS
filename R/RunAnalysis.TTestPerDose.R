@@ -7,6 +7,7 @@
 #
 #############################################################################################################################.
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.TTestPerDose.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.TTestPerDose <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {

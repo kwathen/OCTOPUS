@@ -10,3 +10,6 @@
 \description{
 {RunRealTrialAnalysis.default provides the default implmentation as it is not anticipated to be utilized very often.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunRealTrialAnalysis.R}{View Code on GitHub} }
+}

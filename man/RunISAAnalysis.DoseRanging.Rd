@@ -10,3 +10,6 @@
 \description{
 {Generic method called to run the ISA analysis.  }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunISAAnalysis.R}{View Code on GitHub} }
+}

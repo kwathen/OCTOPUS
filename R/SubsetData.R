@@ -11,6 +11,7 @@
 #' @name SubsetData
 #' @title SubsetData
 #' @description {This function is used to subset data.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SubsetData.R}{View Code on GitHub} }
 #' @export
 SubsetData <- function( cSimDataAna, nISA )
 {
@@ -20,6 +21,7 @@ SubsetData <- function( cSimDataAna, nISA )
 #cSimDataAna <- lDataAna, nISA
 #This version will go through all the outcomes in lSimDataAna (eg trial data) and subset
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SubsetData.R}{View Code on GitHub} }
 #' @export
 SubsetData.TrialData <- function( cSimDataAna, nISA )
 {
@@ -41,6 +43,7 @@ SubsetData.TrialData <- function( cSimDataAna, nISA )
 
 #This version will go through all the outcomes in lSimDataAna (eg trial data) and subset
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SubsetData.R}{View Code on GitHub} }
 #' @export
 SubsetData.NoBorrowing <- function( cSimDataAna, nISA )
 {
@@ -65,6 +68,7 @@ SubsetData.NoBorrowing <- function( cSimDataAna, nISA )
 #' @name SubsetData.AllControls
 #' @title SubsetData.AllControls
 #' @description{ Include all control data}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SubsetData.R}{View Code on GitHub} }
 #' @export
 SubsetData.AllControls <- function( cSimDataAna, nISA )
 {

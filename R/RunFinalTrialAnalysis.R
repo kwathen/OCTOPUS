@@ -13,6 +13,7 @@
 #' @name RunFinalAnalysis
 #' @title RunFinalAnalysis
 #' @description{ Need description }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunFinalTrialAnalysis.R}{View Code on GitHub} }
 #' @export
 RunFinalTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus,  vISAAnalysisIndx  )
 {
@@ -20,6 +21,7 @@ RunFinalTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus,  vIS
 }
 
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunFinalTrialAnalysis.R}{View Code on GitHub} }
 #' @export
 RunFinalTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus,  vISAAnalysisIndx )
 {

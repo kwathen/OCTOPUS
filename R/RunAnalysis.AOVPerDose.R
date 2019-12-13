@@ -7,6 +7,7 @@
 #
 #############################################################################################################################.
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunAnalysis.AOVPerDose.R}{View Code on GitHub} }
 #' @export
 RunAnalysis.AOVPerDose <- function( cAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer  )
 {

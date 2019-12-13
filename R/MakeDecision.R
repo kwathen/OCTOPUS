@@ -35,6 +35,7 @@
 #' @description {This function is a generic function. Several options are available. }
 #' @return A list like the following:  list( nGo = nGo, nNoGo = nNoGo, nPause = nPause ) with only one of the element = 1.
 #'
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -42,6 +43,7 @@ MakeDecision<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 }
 
 
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -67,6 +69,7 @@ MakeDecision.default<- function( lDecision, lResAnalysis, bFinalAnalysis, cRando
 #' The options for strApproachFA and strApproachIA are any of the MakeDecision options like MakeDecision.TwoOutcomesOption1 or
 #' MakeDecision.TwoOutcomeOptions2.
 #' }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.General <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -141,6 +144,7 @@ MakeDecision.GeneralDoses <- function( lDecision, lResAnalysis, bFinalAnalysis, 
 #'             \tab      \tab     \tab Outcome 1 \tab \cr
 #' }
 #' }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.Outcome1Only <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer)
 {
@@ -163,6 +167,7 @@ MakeDecision.Outcome1Only <- function( lDecision, lResAnalysis, bFinalAnalysis, 
 #'             \tab      \tab     \tab Outcome 1 \tab \cr
 #' }
 #' }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.Outcome2Only<- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -199,6 +204,7 @@ MakeDecision.Outcome2Only<- function( lDecision, lResAnalysis, bFinalAnalysis, c
 #                   ---------     .
 #                   NG  P   G
 #                    Outcome 1
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.TwoOutcomeOption1 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -249,6 +255,7 @@ MakeDecision.TwoOutcomeOption1 <- function( lDecision, lResAnalysis, bFinalAnaly
 #                   ---------  .
 #                   NG  P   G
 #                    Outcome 1
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.TwoOutcomeOption2 <- function(  lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -299,6 +306,7 @@ MakeDecision.TwoOutcomeOption2 <- function(  lDecision, lResAnalysis, bFinalAnal
 #                   ---------  .
 #                   NG  P   G
 #                    Outcome 1
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.TwoOutcomeOption3 <- function( lDecision,lResAnalysis, bFinalAnalysis, cRandomizer  )
 {
@@ -344,6 +352,7 @@ MakeDecision.TwoOutcomeOption3 <- function( lDecision,lResAnalysis, bFinalAnalys
 #                   ---------  .
 #                   NG  P   G
 #                    Outcome 1
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.TwoOutcomeOption4 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -388,6 +397,7 @@ MakeDecision.TwoOutcomeOption4 <- function( lDecision, lResAnalysis, bFinalAnaly
 #                   ---------  .
 #                   NG  P   G
 #                    Outcome 1
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.TwoOutcomeOption5 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -428,6 +438,7 @@ MakeDecision.TwoOutcomeOption5 <- function( lDecision, lResAnalysis, bFinalAnaly
 #'             \tab      \tab     \tab Outcome 1 \tab \cr
 #' }
 #' }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.TwoOutcomeOption7 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {
@@ -477,6 +488,7 @@ MakeDecision.TwoOutcomeOption7 <- function( lDecision, lResAnalysis, bFinalAnaly
 #                   ---------  .
 #                   NG  P   G
 #                    Outcome 1
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/MakeDecision.R}{View Code on GitHub} }
 #' @export
 MakeDecision.TwoOutcomeOption11 <- function( lDecision, lResAnalysis, bFinalAnalysis, cRandomizer )
 {

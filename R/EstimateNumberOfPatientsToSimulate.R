@@ -10,6 +10,7 @@
 #' @name EstimateNumberOfPatientToSimulate
 #' @title  EstimateNumberOfPatientToSimulate
 #' @description EstimateNumberOfPatientToSimulate {}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/EstimateNumberOfPatientsToSimulate.R}{View Code on Gitub} }
 #' @export
 EstimateNumberOfPatientsToSimulate <- function( cSimCovariates, nMaxQtyPats )
 {
@@ -19,6 +20,7 @@ EstimateNumberOfPatientsToSimulate <- function( cSimCovariates, nMaxQtyPats )
 #' @name EstimateNumberOfPatientToSimulate.default
 #' @title EstimateNumberOfPatientToSimulate.default
 #' @description EstimateNumberOfPatientsToSimulate.default{ Call the EstimateNumberOfPatientsToSimulate for each covaiate and returns the maximum of the results.}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/EstimateNumberOfPatientsToSimulate.R}{View Code on Gitub} }
 #' @export
 EstimateNumberOfPatientsToSimulate.default <- function( cSimCovariates, nMaxQtyPats  )
 {
@@ -39,6 +41,7 @@ EstimateNumberOfPatientsToSimulate.default <- function( cSimCovariates, nMaxQtyP
 #' @name EstimateNumberOfPatientToSimulate.NULL
 #' @title EstimateNumberOfPatientToSimulate.NULL
 #' @description EstimateNumberOfPatientToSimulate.NULL {This opion is used when no covariates are in a design. }
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/EstimateNumberOfPatientsToSimulate.R}{View Code on Gitub} }
 #' @export
 EstimateNumberOfPatientsToSimulate.NULL <- function( cSimCovariates,  nMaxQtyPats   )
 {
@@ -49,6 +52,7 @@ EstimateNumberOfPatientsToSimulate.NULL <- function( cSimCovariates,  nMaxQtyPat
 #' @name EstimateNumberOfPatientToSimulate.Categorical
 #' @title EstimateNumberOfPatientToSimulate.Categorical
 #' @description EstimateNumberOfPatientToSimulate.Categorical {returns nMaxQtyPats/min(vProbs)}
+#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/EstimateNumberOfPatientsToSimulate.R}{View Code on Gitub} }
 #' @export
 EstimateNumberOfPatientsToSimulate.Categorical <- function( cSimCovariates, nMaxQtyPats  )
 {

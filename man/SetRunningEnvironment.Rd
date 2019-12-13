@@ -9,3 +9,6 @@ SetRunningEnvironment(job.id, cmdArgs)
 \description{
 {This function is used for setting the running environment and output file names accordingly. }
 }
+\seealso{
+{ \href{https://github.com/kwathen/OCTOPUS/blob/master/R/GridFunctions.R}{View Code on GitHub} }
+}
