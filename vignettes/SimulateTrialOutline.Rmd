@@ -1,0 +1,32 @@
+---
+title: "SimulateTrialOutline"
+author: "J. Kyle Wathen"
+date: "12/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## OCTOPUS - RunSimulation
+This document is intended to give an outline of the steps involved in running a simulation to help users determine where and what would need to be modified.  
+
+* RunSimulaiton (located in RunSimulation.R) 
+ In this function loops are created to loop over all the designs and simulation scenarios for each design.  
+ Within the loop the SimulateScenario function is called.
+
+    + SimulateScenario (located in SimulateScenario.R )  In this function a scenario is simulated by simulate multiple replications of a single trial.  A call to SimulateSingleTrial is called in a loop
+
+       + SimulateSingleTrial (located in SimulateSingleTrial.R ) This function will simulate one virtual trial for a given scenario.   The function begins by simulating patient data by calling… 
+
+          + ... Need to fill in detail
+ 
+          + If it is time to run an analysis 
+     
+              + RunTrialAnalysis - (located in RunTrialAnalysis.R) - This generic function has a default implementation that creates a dataset for the entire platform, loops over each ISA and calls RunISAAnalysis with only the data relevant to the ISA analysis.  
+                + CreateDataSetForAnalsis is called (located in CreateDataSetForAnalysis.R) This function has a default implementation that will create a dataset for the entire platform
+                   + ProcessData is called - This function takes the simulated data and processes it, eg gets it ready for analysis.  For example, if you simulate a repeated measure over time and want to analyze change from baseline the ProcessData function can compute the change from baseline so that the analysis function does not need to pre-process the data.  
+              
+                + RunISAAnalysis - Located in RunISAAnalysis.R - This generic function has a default implementation that will loop over the Analysis list (eg multiple outcomes) and call RunAnalysis for each Analysis
+
