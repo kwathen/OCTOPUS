@@ -17,5 +17,5 @@ StripTrailingWhitespace: Yes
 
 BuildType: Package
 PackageUseDevtools: Yes
-PackageInstallArgs: --no-multiarch --with-keep.source --library="C:/R/R-3.6.1/library"
+PackageInstallArgs: --no-multiarch --with-keep.source --library="C:\\R\\R-3.6.2\\library"
 PackageRoxygenize: rd,collate,namespace,vignette

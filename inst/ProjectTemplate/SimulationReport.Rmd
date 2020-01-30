@@ -1,0 +1,113 @@
+---
+title: "Platform Trial Simulations "
+date: '`r format(Sys.time(), "%B %d, %Y at %l:%M %p", usetz=TRUE)`'
+output:
+  html_document:
+    df_print: paged
+    latex_engine: pdflatex
+  pdf_document:
+    fig_caption: yes
+    latex_engine: pdflatex
+header-includes:
+- \usepackage{pdflscape}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library( kableExtra)
+options(tinytex.verbose = TRUE)
+```
+
+```{r configGeneral,echo=FALSE,message=FALSE,warning=FALSE}
+#library(tidyverse)
+#library(ggplot2)
+#library( PlatformTrialSimulator)
+
+source("PostProcess.R")  # This file contains the functionality to process the simulation results and plot
+
+```
+
+# Designs
+
+The first three designs have 200 patients per ISA, but the allocation and borrowing is different and design 4 fixes the number of patients on treatment but ISA 2 and 3 reduces the number of patients on control.   The designs are as follows:
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+load( "cTrialDesign.RData")
+load( "lTrialDesigns.RData") 
+
+nQtyDesigns <- length( lTrialDesigns )
+nQtyISAs    <- lTrialDesigns[[1]]$nQtyISAs
+iDesign     <- 1
+iISA        <- 1
+
+strDesignDesc <- ""
+for( iDesign in 1:nQtyDesigns )
+{
+    strDesignDesc <- paste( strDesignDesc,  "- **Design", iDesign," **\n" )
+    for( iISA in 1:lTrialDesigns[[1]]$nQtyISAs )
+    {
+       
+        strBorrow <- class( lTrialDesigns[[ iDesign ]]$cISADesigns[[ iISA ]]$cISAAnalysis )
+        if( strBorrow == "NoBorrowing")
+            strBorrow <- "No Borrowing"
+        else
+            strBorrow <- "Share Controls"
+        vQtyPats  <- lTrialDesigns[[ iDesign ]]$cISADesigns[[ iISA ]]$vQtyPats
+        
+        strDesignDesc <- paste(strDesignDesc,    paste( "\t- *ISA", iISA, "*- Borrowing: ", strBorrow, ", # Patients on Control:", vQtyPats[1], ", # Patients on Treatment:", vQtyPats[2], "\n", sep="" ))
+        
+    }
+    strDesignDesc <- paste( strDesignDesc, "\n \n \n")
+}
+
+```
+
+`r strDesignDesc `
+
+# Decision Criteria 
+
+During the trial, when the first ISA reaches 40 patients with 12 weeks of follow-up the trial analysis will begin.  After the initial analysis an analysis will be performed every month.  An ISA is included in the analysis if it has accured 40 patients with 12 weeks of follow-up.  
+
+At the analysis, For each subdomain, we compute the probability that the difference between the 12 week change from baseline for control and treatment is greater than the MAV.  Specifically, for treatment T and control C we compute $p_{MAV} =Pr( \delta_T - \delta_C > MAV | data )$.  The MAV was set for each subdomain based on the number of items in the subdomain with a target effect size of 0.25.  Utilizing the variances listed for scenarios 7-12 the MAVs are 2.0 (Reexperiencing), 0.8 (Avoidance), 2.8 (Negative alterations) and 2.4 (Hyperousal).
+
+During the trial if $p_{MAV} >$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPUpper[1] ` for any subdomain the a Go is declared and the ISA is stopped early. If, for all sub-domains, $p_{MAV} <$  `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPLower[1] ` then a No Go is declared an the ISA stopped early.
+
+At the end of an ISA the final analysis is performed and if $p_{MAV} >$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPUpper ` for any subdomain the a Go is declared. If, for all sub-domains, $p_{MAV} <$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPLower ` then a No Go is declared for the ISA.  Otherwise, the decision is indeterminate.  
+
+
+
+
+# Simulation Scenarios
+
+Describe scenarios... Possibly like the following
+
+Scenario 1 - Null case
+
+Scenario 2 - Difference in ...
+
+# Simulation Results
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+
+# Now create the graphs based on the results####
+lResults <- ProcessSimulationResults( )
+#
+# Get a subset of the results - We will use this for splitting scenarios into meaningful graphs
+dfResSub <- lResults$mResults#[ lResults$mResults$scenario <=7, ]
+vScenarioLabel <-c()
+vScenarioLabel <- vScenarioLabel
+
+PlotResultsWithIAInfo( dfResSub, vScenarioLabel = vScenarioLabel)
+
+#PlotSubgroupResults( lResults$mSubgroupRes )
+
+
+```
+
+
+
+
+
+
