@@ -7,8 +7,7 @@
 \alias{SimulatePatientCovariates.default}
 \title{SimulatePatientCovariates.Categorical}
 \usage{
-\method{SimulatePatientCovariates}{Categorical}(cSimCovariate,
-  nQtyOfPatients)
+\method{SimulatePatientCovariates}{Categorical}(cSimCovariate, nQtyOfPatients)
 
 SimulatePatientCovariates(cSimCovariate, nQtyOfPatients)
 

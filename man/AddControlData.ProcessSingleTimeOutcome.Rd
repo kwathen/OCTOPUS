@@ -4,8 +4,7 @@
 \alias{AddControlData.ProcessSingleTimeOutcome}
 \title{AddControlData.ProcessSingleTimeOutcome}
 \usage{
-\method{AddControlData}{ProcessSingleTimeOutcome}(cISAData, cSourceData,
-  nISA)
+\method{AddControlData}{ProcessSingleTimeOutcome}(cISAData, cSourceData, nISA)
 }
 \description{
 { Control data when processed as a single time point.}

@@ -4,8 +4,7 @@
 \alias{MakeDecision.TwoOutcomeOption5}
 \title{MakeDecision.TwoOutcomeOption5}
 \usage{
-\method{MakeDecision}{TwoOutcomeOption5}(lDecision, lResAnalysis,
-  bFinalAnalysis, cRandomizer)
+\method{MakeDecision}{TwoOutcomeOption5}(lDecision, lResAnalysis, bFinalAnalysis, cRandomizer)
 }
 \description{
 {This option is as follows.

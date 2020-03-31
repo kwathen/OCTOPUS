@@ -5,8 +5,7 @@
 \alias{EstimateNumberOfPatientsToSimulate.NULL}
 \title{EstimateNumberOfPatientToSimulate.NULL}
 \usage{
-\method{EstimateNumberOfPatientsToSimulate}{NULL}(cSimCovariates,
-  nMaxQtyPats)
+\method{EstimateNumberOfPatientsToSimulate}{`NULL`}(cSimCovariates, nMaxQtyPats)
 }
 \description{
 EstimateNumberOfPatientToSimulate.NULL {This opion is used when no covariates are in a design. }

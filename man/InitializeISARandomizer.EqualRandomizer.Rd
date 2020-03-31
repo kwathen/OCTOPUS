@@ -4,8 +4,7 @@
 \alias{InitializeISARandomizer.EqualRandomizer}
 \title{InitializeISARandomizer.EqualRandomizer}
 \usage{
-\method{InitializeISARandomizer}{EqualRandomizer}(cISARandomizer,
-  dISAStartTime)
+\method{InitializeISARandomizer}{EqualRandomizer}(cISARandomizer, dISAStartTime)
 }
 \arguments{
 \item{cISARandomizer}{Must contain elements cISARandomizer$vTrtLab and cISARandomizer$vQtyPats and the lengths must

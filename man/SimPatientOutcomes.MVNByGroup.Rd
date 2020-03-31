@@ -5,8 +5,7 @@
 \alias{{SimPatientOutcomes.MVNByGroup}}
 \title{SimPatientOutcomes.MVNByGroup}
 \usage{
-\method{SimPatientOutcomes}{MVNByGroup}(cSimOutcomes, cISADesign,
-  dfPatCovISA)
+\method{SimPatientOutcomes}{MVNByGroup}(cSimOutcomes, cISADesign, dfPatCovISA)
 }
 \description{
 In this SimPatientOutcomes function we simulate patients from a MVN where there is a group covariate.

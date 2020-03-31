@@ -4,8 +4,14 @@
 \alias{CheckNextTrialAnalysisTime.default}
 \title{CheckNextTrialAnalysisTime.default}
 \usage{
-\method{CheckNextTrialAnalysisTime}{default}(cISADesigns, lEnrolledPats,
-  vISAStatus, dCurrentTime, vISAAnalysisIndx, vPreviousIATime)
+\method{CheckNextTrialAnalysisTime}{default}(
+  cISADesigns,
+  lEnrolledPats,
+  vISAStatus,
+  dCurrentTime,
+  vISAAnalysisIndx,
+  vPreviousIATime
+)
 }
 \description{
 {This function will Check the monitoring rule and return the time of next Analysis for the trial}

@@ -4,8 +4,7 @@
 \alias{GetBayesianCutoffs.MAVTarget}
 \title{GetBayesianCutoffs.MAVTarget}
 \usage{
-\method{GetBayesianCutoffs}{MAVTarget}(cAnalysis, nISAAnalysisIndx,
-  bIsFinalISAAnalysis)
+\method{GetBayesianCutoffs}{MAVTarget}(cAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis)
 }
 \arguments{
 \item{cAnalysis$vPUpper}{Vector of upper cutoffs, typically used in the context of success if a posterior probability > vPUpper,

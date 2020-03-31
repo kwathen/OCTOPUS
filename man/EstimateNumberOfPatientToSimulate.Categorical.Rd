@@ -5,8 +5,7 @@
 \alias{EstimateNumberOfPatientsToSimulate.Categorical}
 \title{EstimateNumberOfPatientToSimulate.Categorical}
 \usage{
-\method{EstimateNumberOfPatientsToSimulate}{Categorical}(cSimCovariates,
-  nMaxQtyPats)
+\method{EstimateNumberOfPatientsToSimulate}{Categorical}(cSimCovariates, nMaxQtyPats)
 }
 \description{
 EstimateNumberOfPatientToSimulate.Categorical {returns nMaxQtyPats/min(vProbs)}

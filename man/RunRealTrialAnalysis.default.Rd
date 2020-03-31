@@ -4,8 +4,7 @@
 \alias{RunRealTrialAnalysis.default}
 \title{RunRealTrialAnalysis.default}
 \usage{
-\method{RunRealTrialAnalysis}{default}(cTrialDesign, strInputFile,
-  strOutputFile, nSeed)
+\method{RunRealTrialAnalysis}{default}(cTrialDesign, strInputFile, strOutputFile, nSeed)
 }
 \description{
 {RunRealTrialAnalysis.default provides the default implmentation as it is not anticipated to be utilized very often.  }

@@ -4,8 +4,13 @@
 \alias{RunISAAnalysis}
 \title{RunISAAnalysis}
 \usage{
-RunISAAnalysis(cISAAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis, cRandomizer)
+RunISAAnalysis(
+  cISAAnalysis,
+  lDataAna,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  cRandomizer
+)
 }
 \description{
 {Generic method called to run the ISA analysis.

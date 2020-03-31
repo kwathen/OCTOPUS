@@ -5,8 +5,7 @@
 \alias{EstimateNumberOfPatientsToSimulate.default}
 \title{EstimateNumberOfPatientToSimulate.default}
 \usage{
-\method{EstimateNumberOfPatientsToSimulate}{default}(cSimCovariates,
-  nMaxQtyPats)
+\method{EstimateNumberOfPatientsToSimulate}{default}(cSimCovariates, nMaxQtyPats)
 }
 \description{
 EstimateNumberOfPatientsToSimulate.default{ Call the EstimateNumberOfPatientsToSimulate for each covaiate and returns the maximum of the results.}

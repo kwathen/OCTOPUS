@@ -4,8 +4,7 @@
 \alias{GetBayesianCutoffs.default}
 \title{GetBayesianCutoffs.default}
 \usage{
-\method{GetBayesianCutoffs}{default}(cAnalysis, nISAAnalysisIndx,
-  bIsFinalISAAnalysis)
+\method{GetBayesianCutoffs}{default}(cAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis)
 }
 \arguments{
 \item{nISAAnalysisIndx}{An integer with the index of the analysis}

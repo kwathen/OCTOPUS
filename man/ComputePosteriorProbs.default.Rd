@@ -4,8 +4,12 @@
 \alias{ComputePosteriorProbs.default}
 \title{ComputePosteriorProbs.default}
 \usage{
-\method{ComputePosteriorProbs}{default}(cAnalysis, nISAAnalysisIndx,
-  bIsFinalISAAnalysis, lSamples)
+\method{ComputePosteriorProbs}{default}(
+  cAnalysis,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  lSamples
+)
 }
 \arguments{
 \item{nISAAnalysisIndx}{A the index of the analysis}

@@ -4,8 +4,12 @@
 \alias{ComputePosteriorProbs}
 \title{ComputePosteriorProbs}
 \usage{
-ComputePosteriorProbs(cAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis,
-  lSamples)
+ComputePosteriorProbs(
+  cAnalysis,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  lSamples
+)
 }
 \description{
 ComputePosteriorProbs

@@ -4,8 +4,13 @@
 \alias{RunAnalysis}
 \title{RunAnalysis}
 \usage{
-RunAnalysis(cAnalysis, lDataAna, nISAAnalysisIndx, bIsFinalISAAnalysis,
-  cRandomizer)
+RunAnalysis(
+  cAnalysis,
+  lDataAna,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  cRandomizer
+)
 }
 \arguments{
 \item{cAnalysis}{The class( cAnalysis ) determines the specific version of RunAnalysis that is called. It contains

@@ -4,8 +4,13 @@
 \alias{RunAnalysis.AOV}
 \title{RunAnalysis.AOV}
 \usage{
-\method{RunAnalysis}{AOV}(cAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis, cRandomizer)
+\method{RunAnalysis}{AOV}(
+  cAnalysis,
+  lDataAna,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  cRandomizer
+)
 }
 \description{
 {This is the method used for running the Analysis of Variance (AOV) .

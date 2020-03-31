@@ -4,8 +4,7 @@
 \alias{GetBayesianCutoffs.MAVOnly}
 \title{GetBayesianCutoffs.MAVOnly}
 \usage{
-\method{GetBayesianCutoffs}{MAVOnly}(cAnalysis, nISAAnalysisIndx,
-  bIsFinalISAAnalysis)
+\method{GetBayesianCutoffs}{MAVOnly}(cAnalysis, nISAAnalysisIndx, bIsFinalISAAnalysis)
 }
 \arguments{
 \item{cAnalysis$vPUpper}{Vector of upper cutoffs, typically used in the context of success if a posterior probability > vPUpper,

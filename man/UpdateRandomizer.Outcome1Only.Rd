@@ -5,11 +5,9 @@
 \alias{UpdateRandomizer.Outcome2Only}
 \title{UpdateRandomizer.Outcome1Only}
 \usage{
-\method{UpdateRandomizer}{Outcome1Only}(lDecision, lResAnalysis,
-  cRandomzier)
+\method{UpdateRandomizer}{Outcome1Only}(lDecision, lResAnalysis, cRandomzier)
 
-\method{UpdateRandomizer}{Outcome2Only}(lDecision, lResAnalysis,
-  cRandomzier)
+\method{UpdateRandomizer}{Outcome2Only}(lDecision, lResAnalysis, cRandomzier)
 }
 \description{
 UpdateRandomizer.Outcome1Only { }

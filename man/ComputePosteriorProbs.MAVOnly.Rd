@@ -4,8 +4,12 @@
 \alias{ComputePosteriorProbs.MAVOnly}
 \title{ComputePosteriorProbs.MAVOnly}
 \usage{
-\method{ComputePosteriorProbs}{MAVOnly}(cAnalysis, nISAAnalysisIndx,
-  bIsFinalISAAnalysis, lSamples)
+\method{ComputePosteriorProbs}{MAVOnly}(
+  cAnalysis,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  lSamples
+)
 }
 \arguments{
 \item{nISAAnalysisIndx}{A the index of the analysis}

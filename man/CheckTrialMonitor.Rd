@@ -4,8 +4,14 @@
 \alias{CheckTrialMonitor}
 \title{Check Trial Monitor}
 \usage{
-CheckTrialMonitor(cISADesigns, lEnrolledPats, vISAStatus, dCurrentTime,
-  vISAAnalysisIndx, vPreviousIATime)
+CheckTrialMonitor(
+  cISADesigns,
+  lEnrolledPats,
+  vISAStatus,
+  dCurrentTime,
+  vISAAnalysisIndx,
+  vPreviousIATime
+)
 }
 \value{
 {Return: list( vRunISAAnalysis, vPreviousIATime )

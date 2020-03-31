@@ -4,8 +4,13 @@
 \alias{RunAnalysis.RankedExact}
 \title{RunAnalysis.RankedExact}
 \usage{
-\method{RunAnalysis}{RankedExact}(cAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis, cRandomizer)
+\method{RunAnalysis}{RankedExact}(
+  cAnalysis,
+  lDataAna,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  cRandomizer
+)
 }
 \description{
 {This is the method used for running the Ranked analysis using wilcox_test from the coin package.

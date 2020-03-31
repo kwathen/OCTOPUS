@@ -4,8 +4,12 @@
 \alias{ComputePosteriorProbs.MAVTarget}
 \title{ComputePosteriorProbs.MAVTarget}
 \usage{
-\method{ComputePosteriorProbs}{MAVTarget}(cAnalysis, nISAAnalysisIndx,
-  bIsFinalISAAnalysis, lSamples)
+\method{ComputePosteriorProbs}{MAVTarget}(
+  cAnalysis,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  lSamples
+)
 }
 \arguments{
 \item{nISAAnalysisIndx}{A the index of the analysis}

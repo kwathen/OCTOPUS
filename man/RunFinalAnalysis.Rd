@@ -5,8 +5,7 @@
 \alias{RunFinalTrialAnalysis}
 \title{RunFinalAnalysis}
 \usage{
-RunFinalTrialAnalysis(cISADesigns, cEnrolledPats, vISAStatus,
-  vISAAnalysisIndx)
+RunFinalTrialAnalysis(cISADesigns, cEnrolledPats, vISAStatus, vISAAnalysisIndx)
 }
 \description{
 { Need description }

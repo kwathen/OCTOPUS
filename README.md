@@ -38,7 +38,7 @@ The simulation design object contains two pieces, the first is the trial design,
 
 
 ## Installation 
-Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is listed under the [Versions link](https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.5) by selected the zip or tar.gz   
+Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is listed under the [Versions link](https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.6) by selected the zip or tar.gz   
 
 ### Installation Option 1 - From GitHub
 Utilizing the [remotes package](https://remotes.r-lib.org/)
@@ -49,11 +49,11 @@ Utilizing the [remotes package](https://remotes.r-lib.org/)
 
 ### Installation Option 2 - Using a tar.gz File
 
-Download the tar.gz file [Version 1.3.0.5](https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.5).
+Download the tar.gz file [Version 1.3.0.6](https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.6).
 In R with the tar.gz file in your  current working directory the following command will install the package.
 
 ```
-install.packages("OCTOPUS_1.3.0.5.tar.gz", repos=NULL)
+install.packages("OCTOPUS_1.3.0.6.tar.gz", repos=NULL)
 ```
 
 ## Usage 

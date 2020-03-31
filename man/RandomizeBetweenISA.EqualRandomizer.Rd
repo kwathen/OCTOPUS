@@ -4,8 +4,7 @@
 \alias{RandomizeBetweenISA.EqualRandomizer}
 \title{RandomizeBetweenISA.EqualRandomizer}
 \usage{
-\method{RandomizeBetweenISA}{EqualRandomizer}(cRandomizer, vISAStatus,
-  dCurrentTime)
+\method{RandomizeBetweenISA}{EqualRandomizer}(cRandomizer, vISAStatus, dCurrentTime)
 }
 \description{
 {For all ISAs with vISAStus = 1, select an ISA index with equal probability.  }

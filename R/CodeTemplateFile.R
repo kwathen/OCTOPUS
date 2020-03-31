@@ -26,9 +26,3 @@
 
 ##### Document a function #####
 
-#' @name BuildResultsDataSet
-#' @title BuildResultsDataSet
-#' @description {This function is used to read in the input files and created a combined output file.    }
-#' @param paramname description variables names
-#' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CodeTemplateFile.R}{View Code on GitHub} }
-#' @export

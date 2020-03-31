@@ -4,10 +4,18 @@
 \alias{PlotPlatformRecruitment}
 \title{PlotPlatformRecruitment}
 \usage{
-PlotPlatformRecruitment(nQtyReps, nMaxQtyPats, vPatsPerMonthPerSite1,
-  dDelayToStartPOC, dDelayBetweenTrialsPOC, vQtySitesPOC,
-  dDelayToStartPlat, dDelayBetweenTrialsPlat, vQtyOfSitesPlat1,
-  vQtyOfSitesPlat2)
+PlotPlatformRecruitment(
+  nQtyReps,
+  nMaxQtyPats,
+  vPatsPerMonthPerSite1,
+  dDelayToStartPOC,
+  dDelayBetweenTrialsPOC,
+  vQtySitesPOC,
+  dDelayToStartPlat,
+  dDelayBetweenTrialsPlat,
+  vQtyOfSitesPlat1,
+  vQtyOfSitesPlat2
+)
 }
 \description{
 {This function creates a plot of recruitment comparing a platform with 2 ISAs and 2 consecutive POC studies.

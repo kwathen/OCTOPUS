@@ -4,8 +4,7 @@
 \alias{AddControlData.ProcessReptMeasChngBaseline}
 \title{AddControlData.ProcessReptMeasChngBaseline}
 \usage{
-\method{AddControlData}{ProcessReptMeasChngBaseline}(cISAData, cSourceData,
-  nISA)
+\method{AddControlData}{ProcessReptMeasChngBaseline}(cISAData, cSourceData, nISA)
 }
 \description{
 { Control data when processed as a Repeated measure change from outcome.}

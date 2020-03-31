@@ -4,8 +4,13 @@
 \alias{RunISAAnalysis.DoseRanging}
 \title{RunISAAnalysis.DoseRanging}
 \usage{
-\method{RunISAAnalysis}{DoseRanging}(cISAAnalysis, lDataAna,
-  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer)
+\method{RunISAAnalysis}{DoseRanging}(
+  cISAAnalysis,
+  lDataAna,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  cRandomizer
+)
 }
 \description{
 {Generic method called to run the ISA analysis.  }

@@ -4,8 +4,7 @@
 \alias{InitializeISARandomizer.DelayedStartRandomizer}
 \title{InitializeISARandomizer.DelayedStartRandomizer}
 \usage{
-\method{InitializeISARandomizer}{DelayedStartRandomizer}(cISARandomizer,
-  dISAStartTime)
+\method{InitializeISARandomizer}{DelayedStartRandomizer}(cISARandomizer, dISAStartTime)
 }
 \arguments{
 \item{cISARandomizer}{cISARandomizer$mTreatmentStartTimes identifies how to simulate/assign the start time of each of the treatments (doses) in the ISA.

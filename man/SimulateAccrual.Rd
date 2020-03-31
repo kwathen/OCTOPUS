@@ -4,9 +4,16 @@
 \alias{SimulateAccrual}
 \title{SimulateAccrual}
 \usage{
-SimulateAccrual(nQtyReps, nMaxQtyPats, dDelayBetweenTrials,
-  vPatsPerMonthPerSite1, vQtyOfSites1, vPatsPerMonthPerSite2, vQtyOfSites2,
-  dDelayToStart)
+SimulateAccrual(
+  nQtyReps,
+  nMaxQtyPats,
+  dDelayBetweenTrials,
+  vPatsPerMonthPerSite1,
+  vQtyOfSites1,
+  vPatsPerMonthPerSite2,
+  vQtyOfSites2,
+  dDelayToStart
+)
 }
 \description{
 {This function simulates the accural for 2 ISAs.  Mainly used by the Shiny app execute by calling RunExample( "CompareRecruitment" ). }

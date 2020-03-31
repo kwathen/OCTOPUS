@@ -5,12 +5,27 @@
 \alias{RunTrialAnalysis.default}
 \title{RunTrialAnalysis}
 \usage{
-RunTrialAnalysis(cISADesigns, cEnrolledPats, vISAStatus, dCurrentTime,
-  vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis, cRandomizer)
+RunTrialAnalysis(
+  cISADesigns,
+  cEnrolledPats,
+  vISAStatus,
+  dCurrentTime,
+  vRunISAAnalysis,
+  vISAAnalysisIndx,
+  vIsFinalISAAnalysis,
+  cRandomizer
+)
 
-\method{RunTrialAnalysis}{default}(cISADesigns, cEnrolledPats, vISAStatus,
-  dCurrentTime, vRunISAAnalysis, vISAAnalysisIndx, vIsFinalISAAnalysis,
-  cRandomizer)
+\method{RunTrialAnalysis}{default}(
+  cISADesigns,
+  cEnrolledPats,
+  vISAStatus,
+  dCurrentTime,
+  vRunISAAnalysis,
+  vISAAnalysisIndx,
+  vIsFinalISAAnalysis,
+  cRandomizer
+)
 }
 \description{
 { RunTrialAnalysis is a generic method to execute the trial level analysis, eg execute all ISA analysis.

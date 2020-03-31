@@ -4,8 +4,13 @@
 \alias{RunAnalysis.Ranked}
 \title{RunAnalysis.Ranked}
 \usage{
-\method{RunAnalysis}{Ranked}(cAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis, cRandomizer)
+\method{RunAnalysis}{Ranked}(
+  cAnalysis,
+  lDataAna,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  cRandomizer
+)
 }
 \description{
 {This is the method used for running the Ranked analysis. Specifically, wilcox.test with exact = TRUE"  }

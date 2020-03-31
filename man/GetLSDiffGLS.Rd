@@ -4,8 +4,7 @@
 \alias{GetLSDiffGLS}
 \title{GetLSDiffGLS}
 \usage{
-GetLSDiffGLS(glsFit, nTrt, nTime, dMAV, dTV, dLowerCI, dUpperCI,
-  bPlacMinusTrt)
+GetLSDiffGLS(glsFit, nTrt, nTime, dMAV, dTV, dLowerCI, dUpperCI, bPlacMinusTrt)
 }
 \arguments{
 \item{glsFit:}{The results of the lme() model fit, required to have the variable TRT and Time}

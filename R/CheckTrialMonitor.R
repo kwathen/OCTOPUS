@@ -74,7 +74,7 @@ CheckTrialMonitor <- function(  cISADesigns, lEnrolledPats,  vISAStatus, dCurren
 }
 
 #' @title Check Trial Monitor
-#' @name CheckTrialMonitor.defaults
+#' @name CheckTrialMonitor.default
 #' @description  {CheckTrialMonitor An ISA monitoring plan consists of the specifying a minimum number of patients and follow-up (FU) time.
 #' You must specify the minimum number of patients to perform an analysis and the final analysis FU time.
 #' This is done by specifying the elements vMinQtyPats and  vMinFUTime  with at least 2 elements.

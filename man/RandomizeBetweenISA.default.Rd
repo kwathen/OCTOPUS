@@ -4,8 +4,7 @@
 \alias{RandomizeBetweenISA.default}
 \title{RandomizeBetweenISA.default}
 \usage{
-\method{RandomizeBetweenISA}{default}(cRandomizer, vISAStatus,
-  dCurrentTime)
+\method{RandomizeBetweenISA}{default}(cRandomizer, vISAStatus, dCurrentTime)
 }
 \description{
 {RandomizeBetweenISA.default is not implemented to avoid potential use when the user

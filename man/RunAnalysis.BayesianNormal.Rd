@@ -4,8 +4,13 @@
 \alias{RunAnalysis.BayesianNormal}
 \title{RunAnalysis.BayesianNormal}
 \usage{
-\method{RunAnalysis}{BayesianNormal}(cAnalysis, lDataAna, nISAAnalysisIndx,
-  bIsFinalISAAnalysis, cRandomizer)
+\method{RunAnalysis}{BayesianNormal}(
+  cAnalysis,
+  lDataAna,
+  nISAAnalysisIndx,
+  bIsFinalISAAnalysis,
+  cRandomizer
+)
 }
 \description{
 {This is the method used for running the analysis of a BayesianNormal normal model.}

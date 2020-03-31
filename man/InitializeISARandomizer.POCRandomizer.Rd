@@ -4,8 +4,7 @@
 \alias{InitializeISARandomizer.POCRandomizer}
 \title{InitializeISARandomizer.POCRandomizer}
 \usage{
-\method{InitializeISARandomizer}{POCRandomizer}(cISARandomizer,
-  dISAStartTime)
+\method{InitializeISARandomizer}{POCRandomizer}(cISARandomizer, dISAStartTime)
 }
 \arguments{
 \item{cISARandomizer}{The cISARandomizer$vQtyPatsInit identifies the initial patients to randomize first, the vQtyPatsInit is part of the vQtyPats for that ISA
