@@ -2,7 +2,7 @@
 
 #Note this version of BayesianNormalAR1 was modified to allow for multiple doses, see the for loop
 
-RunAnalysis.BayesianNormalAR1 <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis )
+RunAnalysis.BayesianNormalAR1 <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
     print( paste( "RunAnalysis.BayesianNormalAR1 "))
 
@@ -91,6 +91,8 @@ RunAnalysis.BayesianNormalAR1 <- function( cAnalysis, lDataAna,  nISAAnalysisInd
     }
 
 
+
+    lRetAll$cRandomizer <- cRandomizer  # Needed because the main code will pull the randomizer off just in-case this function were to close a covariate group
 
     return( lRetAll )
 

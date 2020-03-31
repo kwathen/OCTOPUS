@@ -64,7 +64,7 @@
 #                     vObsTime   = c( 0, 2, 4 ))
 #
 #  cSimOutcomes <- structure( list(lSimArm1 = lSimArm1, lSimArm2 = lSimArm2), class =  "MVNWithCovariateCS3" )
-SimPatientOutcomes.MVNWithCovariateCS3 <- function( cSimOutcomes,  cISADesign )
+SimPatientOutcomes.MVNWithCovariateCS3 <- function( cSimOutcomes,  cISADesign, dfPatCovISA )
 {
     print("SimPatientOutcomes.MVNWithCovariateCS3" )
 

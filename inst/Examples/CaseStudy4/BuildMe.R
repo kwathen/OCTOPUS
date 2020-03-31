@@ -6,6 +6,8 @@
 # LICENSE and GPL.
 #
 #############################################################################################################################.
+# This example uses JAGS as such you must have JAGS and the libraries R2jags, rjags installed which can be installed with install.packages.
+# To obtain then installer for JAGS goto http://www.sourceforge.net/projects/mcmc-jags/files
 
 
 remove( list=ls() )
@@ -34,6 +36,7 @@ gDebug <- FALSE
 
 #Files specific for specific example
 source( "AnalysisModelBayesianAR1.R")
+
 
 # In this case study we utilize the MVNWithCovarite patient simulator from the base package
 

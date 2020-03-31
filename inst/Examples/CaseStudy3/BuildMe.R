@@ -6,6 +6,8 @@
 # LICENSE and GPL.
 #
 #############################################################################################################################.
+# This example uses JAGS as such you must have JAGS and the libraries R2jags, rjags installed which can be installed with install.packages.
+# To obtain then installer for JAGS goto http://www.sourceforge.net/projects/mcmc-jags/files
 
 
 remove( list=ls() )

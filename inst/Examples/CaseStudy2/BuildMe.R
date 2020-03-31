@@ -8,11 +8,13 @@
 #############################################################################################################################.
 
 #Note - If you want to run locally you can execute this file.
+# This example uses JAGS as such you must have JAGS and the libraries R2jags, rjags installed which can be installed with install.packages.
+# To obtain then installer for JAGS goto http://www.sourceforge.net/projects/mcmc-jags/files
 
 remove( list=ls() )
 
 library( OCTOPUS )
-library( rjags )
+library( R2jags )
 ####################################################################################################.
 #   Source the setup files
 ####################################################################################################.

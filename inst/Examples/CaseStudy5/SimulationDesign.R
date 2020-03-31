@@ -69,7 +69,7 @@ SetupSimulations <- function( cTrialDesign, nQtyReps  )
 
 
     cSimOutcome1 <- structure(list( lSimArm1 = lSimArm1,
-                                    lSimArm2 = lSimArm2), class=c("MVNWithCovariate"))
+                                    lSimArm2 = lSimArm2), class=c("MVNByGroup"))
 
 
     cISA1Info <- structure( list(cSimOutcomes = cSimOutcome1,
@@ -122,7 +122,7 @@ SetupSimulations <- function( cTrialDesign, nQtyReps  )
 
     cSimOutcome1 <- structure(list( lSimArm1 = lSimArm1,
                                     lSimArm2 = lSimArm2,
-                                    lSimArm3 = lSimArm3), class=c("MVNWithCovariate"))
+                                    lSimArm3 = lSimArm3), class=c("MVNByGroup"))
 
 
     cISA2Info <- structure( list(cSimOutcomes = cSimOutcome1,
