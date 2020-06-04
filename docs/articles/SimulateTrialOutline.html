@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OCTOPUS • OCTOPUS</title>
+<title>Simulate Trial Outline • OCTOPUS</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="OCTOPUS">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Simulate Trial Outline">
 <meta property="og:description" content="OCTOPUS">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -113,39 +113,56 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>OCTOPUS</h1>
+      <h1 data-toc-skip>Simulate Trial Outline</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2020-06-04</h4>
+            <h4 class="date">12/12/2019</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/OCTOPUS.Rmd"><code>vignettes/OCTOPUS.Rmd</code></a></small>
-      <div class="hidden name"><code>OCTOPUS.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/SimulateTrialOutline.Rmd"><code>vignettes/SimulateTrialOutline.Rmd</code></a></small>
+      <div class="hidden name"><code>SimulateTrialOutline.Rmd</code></div>
 
     </div>
 
     
     
-<div id="octopus" class="section level1">
-<h1 class="hasAnchor">
-<a href="#octopus" class="anchor"></a>OCTOPUS</h1>
-<p>This project is designed to help clinical trial designers simulate a platform trial. This project is intended for simulation purposes only. For the purposes of this project and R code base a platform trial is a clinical trial designed to accommodate multiple treatments or interventions added to the trial either at the beginning of the trial or any time thereafter. Each intervention is added through an Intervention Specific Appendix (ISA). Each ISA typically randomizes between placebo or control and one or more intervention doses (or combinations). If trials for multiple interventions in the same disease area are considered, then a platform trial provides a unified framework for designing and running a single, multiple ISA, platform trial. Potential benefits of a platform trial are shorter more efficient trials due to a single framework for multiple interventions and borrowing of placebo or control patients across ISAs thus reducing the overall number of patients treated with placebo/control.</p>
-<p>In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform. Each of the structures will be details in the sections below.</p>
-<p>To help increase flexibility and allow for new additions to be added by the users, S3 class and generic methods are implemented. Many aspects can be extended such as new types of analysis, simulation of outcomes and randomization schemes. For users not familiar with S3 or generic functions, please refer to the example document <a href="https://github.com/kwathen/OCTOPUS/blob/master/ExampleS3Class.R">Example S3 Generic Methods</a>.</p>
-<p>This package is under development and is working and has been used to simulate several trials. As case studies are created they will be added to the Examples directory of the package to help users create the necessary structures. The tar.gz files in this repository are included as testing versions for beta testers as new updates are added.</p>
-<p>Please follow this project to be notified of updates.</p>
-</div>
-<div id="trial-design-structure" class="section level1">
-<h1 class="hasAnchor">
-<a href="#trial-design-structure" class="anchor"></a>Trial Design Structure</h1>
-<p>A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo. The first step is considered the trial randomiser and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.</p>
-<p>The trial design object is a structure with a class name equal to the desired trial randomizer. For example,</p>
-<p>cTrialDesign &lt;- structure( list( ), class=‘EqualRandomizer’)</p>
-<p>would create the trial design object where patients are equally randomized between ISAs. The list( ) in the structure would contain information about the platform, such as the number of ISAs, number of patients on each ISA, ect. Within the list is also a collection of ISA elements to define the specifics of each ISA. More details of this object are presented in the documentation and examples. In general, the ISAs may differ as much as needed, however, if ISAs differ too much the advantages of a platform are minimized.</p>
-</div>
-<div id="simulation-design-structure" class="section level1">
-<h1 class="hasAnchor">
-<a href="#simulation-design-structure" class="anchor"></a>Simulation Design Structure</h1>
-<p>The simulation design object contains two pieces, the first is the trial design, described in the previous section, and the simulation object. The simulation object contains a list of scenarios, such as the null and alternative, to simulate.</p>
+<div id="octopus---runsimulation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#octopus---runsimulation" class="anchor"></a>OCTOPUS - RunSimulation</h2>
+<p>This document is intended to give an outline of the steps involved in running a simulation to help users determine where and what would need to be modified.</p>
+<ul>
+<li>
+<p>RunSimulaiton (located in RunSimulation.R) In this function loops are created to loop over all the designs and simulation scenarios for each design.<br>
+Within the loop the SimulateScenario function is called.</p>
+<ul>
+<li>
+<p>SimulateScenario (located in SimulateScenario.R ) In this function a scenario is simulated by simulate multiple replications of a single trial. A call to SimulateSingleTrial is called in a loop</p>
+<ul>
+<li>
+<p>SimulateSingleTrial (located in SimulateSingleTrial.R ) This function will simulate one virtual trial for a given scenario. The function begins by simulating patient data by calling…</p>
+<ul>
+<li><p>… Need to fill in detail</p></li>
+<li>
+<p>If it is time to run an analysis</p>
+<ul>
+<li>RunTrialAnalysis - (located in RunTrialAnalysis.R) - This generic function has a default implementation that creates a dataset for the entire platform, loops over each ISA and calls RunISAAnalysis with only the data relevant to the ISA analysis.
+<ul>
+<li>CreateDataSetForAnalsis is called (located in CreateDataSetForAnalysis.R) This function has a default implementation that will create a dataset for the entire platform
+<ul>
+<li>ProcessData is called - This function takes the simulated data and processes it, eg gets it ready for analysis. For example, if you simulate a repeated measure over time and want to analyze change from baseline the ProcessData function can compute the change from baseline so that the analysis function does not need to pre-process the data.</li>
+</ul>
+</li>
+<li>RunISAAnalysis - Located in RunISAAnalysis.R - This generic function has a default implementation that will loop over the Analysis list (eg multiple outcomes) and call RunAnalysis for each Analysis</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
   </div>
 

@@ -116,7 +116,7 @@
       <h1 data-toc-skip>Case Study 6</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2020-03-31</h4>
+            <h4 class="date">2020-06-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/CaseStudy6.Rmd"><code>vignettes/CaseStudy6.Rmd</code></a></small>
       <div class="hidden name"><code>CaseStudy6.Rmd</code></div>
@@ -240,33 +240,33 @@
 <a href="#r-code" class="anchor"></a>R Code</h2>
 <p>For this case study, the new additions are located in the TrialDesign.R file. Below is an example of how to specify each option above.</p>
 <p>Previous code example with NO interim Analysis.</p>
-<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><a class="sourceLine" id="numCode-1" title="1"></a>
-<a class="sourceLine" id="numCode-2" title="2">    vQtyPats         &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></a>
-<a class="sourceLine" id="numCode-3" title="3">    vMinQtyPats      &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">90</span> )</a>
-<a class="sourceLine" id="numCode-4" title="4">    vMinFUTime       &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</a>
-<a class="sourceLine" id="numCode-5" title="5">    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></a>
-<a class="sourceLine" id="numCode-6" title="6">    </a></code></pre></div>
+<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><span id="numCode-1"><a href="#numCode-1"></a></span>
+<span id="numCode-2"><a href="#numCode-2"></a>    vQtyPats         &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></span>
+<span id="numCode-3"><a href="#numCode-3"></a>    vMinQtyPats      &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">90</span> )</span>
+<span id="numCode-4"><a href="#numCode-4"></a>    vMinFUTime       &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</span>
+<span id="numCode-5"><a href="#numCode-5"></a>    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></span>
+<span id="numCode-6"><a href="#numCode-6"></a>    </span></code></pre></div>
 <p><strong>Interim Analysis Option 1</strong> - Example code start the interim analysis when the minimum of 30 patients have been enrolled and followed for 24 week. The vectors vMinQtyPats and vMinFUTime have corresponding element to define when the IAs occur. The example below ill have one IA when 30 patients have 24 weeks of FU and the FA when 90 patients have 24 weeks of FU.</p>
-<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><a class="sourceLine" id="numCode-1" title="1"></a>
-<a class="sourceLine" id="numCode-2" title="2">    vQtyPats         &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></a>
-<a class="sourceLine" id="numCode-3" title="3">    vMinQtyPats      &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">90</span> )</a>
-<a class="sourceLine" id="numCode-4" title="4">    vMinFUTime       &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</a>
-<a class="sourceLine" id="numCode-5" title="5">    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></a>
-<a class="sourceLine" id="numCode-6" title="6">    </a></code></pre></div>
+<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><span id="numCode-1"><a href="#numCode-1"></a></span>
+<span id="numCode-2"><a href="#numCode-2"></a>    vQtyPats         &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></span>
+<span id="numCode-3"><a href="#numCode-3"></a>    vMinQtyPats      &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">90</span> )</span>
+<span id="numCode-4"><a href="#numCode-4"></a>    vMinFUTime       &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</span>
+<span id="numCode-5"><a href="#numCode-5"></a>    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></span>
+<span id="numCode-6"><a href="#numCode-6"></a>    </span></code></pre></div>
 <p><strong>Interim Analysis Option 1</strong> - Additional IAs added. This option would have 3 IAs and 1 FU. The IAs would be when 30 patients have enrolled with 12 weeks of FU, 45 patients with 24 weeks FU, 75 patients with 24 weeks and the FA when 90 patients with 24 weeks FU.</p>
-<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><a class="sourceLine" id="numCode-1" title="1"></a>
-<a class="sourceLine" id="numCode-2" title="2">    vQtyPats         &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></a>
-<a class="sourceLine" id="numCode-3" title="3">    vMinQtyPats      &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">45</span>, <span class="dv">75</span>, <span class="dv">90</span> )</a>
-<a class="sourceLine" id="numCode-4" title="4">    vMinFUTime       &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">12</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</a>
-<a class="sourceLine" id="numCode-5" title="5">    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></a>
-<a class="sourceLine" id="numCode-6" title="6">    </a></code></pre></div>
+<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><span id="numCode-1"><a href="#numCode-1"></a></span>
+<span id="numCode-2"><a href="#numCode-2"></a>    vQtyPats         &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></span>
+<span id="numCode-3"><a href="#numCode-3"></a>    vMinQtyPats      &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">45</span>, <span class="dv">75</span>, <span class="dv">90</span> )</span>
+<span id="numCode-4"><a href="#numCode-4"></a>    vMinFUTime       &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">12</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</span>
+<span id="numCode-5"><a href="#numCode-5"></a>    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></span>
+<span id="numCode-6"><a href="#numCode-6"></a>    </span></code></pre></div>
 <p><strong>Interim Analysis Option 2</strong> - This option allows you to set when the IAs start a frequency (in months) and when the FA occurs. In this example the first IA is conducted when 30 patients have 12 weeks of FU, after the first IA additional IAs are conducted every 2 months. The time between when the IAs start and the next one is conducted is determined by the variable dQtyMonthsBtwIA. The FA is conducted when 90 patients had 24 weeks of FU.</p>
-<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><a class="sourceLine" id="numCode-1" title="1"></a>
-<a class="sourceLine" id="numCode-2" title="2">    vQtyPats         &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></a>
-<a class="sourceLine" id="numCode-3" title="3">    vMinQtyPats      &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">90</span> )</a>
-<a class="sourceLine" id="numCode-4" title="4">    vMinFUTime       &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">12</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</a>
-<a class="sourceLine" id="numCode-5" title="5">    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">2.0</span></a>
-<a class="sourceLine" id="numCode-6" title="6">    </a></code></pre></div>
+<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><span id="numCode-1"><a href="#numCode-1"></a></span>
+<span id="numCode-2"><a href="#numCode-2"></a>    vQtyPats         &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></span>
+<span id="numCode-3"><a href="#numCode-3"></a>    vMinQtyPats      &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">90</span> )</span>
+<span id="numCode-4"><a href="#numCode-4"></a>    vMinFUTime       &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">12</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</span>
+<span id="numCode-5"><a href="#numCode-5"></a>    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">2.0</span></span>
+<span id="numCode-6"><a href="#numCode-6"></a>    </span></code></pre></div>
 </div>
 <div id="borrowing-control-patients" class="section level2">
 <h2 class="hasAnchor">
@@ -290,7 +290,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

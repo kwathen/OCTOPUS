@@ -116,7 +116,7 @@
       <h1 data-toc-skip>Case Study 1</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2020-03-31</h4>
+            <h4 class="date">2020-06-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/CaseStudy1.Rmd"><code>vignettes/CaseStudy1.Rmd</code></a></small>
       <div class="hidden name"><code>CaseStudy1.Rmd</code></div>
@@ -171,11 +171,11 @@
 <h2 class="hasAnchor">
 <a href="#r-source" class="anchor"></a>R Source</h2>
 <p>This case study is easily done using the R Shiny App included in the package. To launch the R Shiny App the following code can be used.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r">library( OCTOPUS )
-OCTOPUS::RunExample( "CompareRecruitment" )</pre></body></html></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>( <span class="no">OCTOPUS</span> )
+<span class="kw pkg">OCTOPUS</span><span class="kw ns">::</span><span class="fu"><a href="../reference/RunExample.html">RunExample</a></span>( <span class="st">"CompareRecruitment"</span> )</pre></body></html></div>
 <p>After launching the app the following screen Shiny app is started with defaults set for Case Study 1.</p>
 <div class="figure">
-<img src="ExampleShiny1.png" alt="Figure 1: Shiny App For Recruitment"><p class="caption">Figure 1: Shiny App For Recruitment</p>
+<img src="ExampleShiny1.png" alt=""><p class="caption">Figure 1: Shiny App For Recruitment</p>
 </div>
 <p>The are four inputs that require a comma separated string, see for example “Enter the number of patients enrolled per month per site”. When the “Generate Plot” is pressed virtual trials are simulated and a plot is displayed.</p>
 </div>
@@ -184,7 +184,7 @@ OCTOPUS::RunExample( "CompareRecruitment" )</pre></body></html></div>
 <a href="#results" class="anchor"></a>Results</h2>
 <p>In the Shiny App after clicking the “Generate Plot” button, the Recruitment Plots will automatically be displayed. The three main components that factor into the result are: 1) the delay in starting the platform, 2) the shorter duration to start the second ISA when compare to starting the second POC and 3) the increased number of sites in the platform. In Figure 2 below, these items can be seen in and the effect marked with the corresponding number. Item 1, results in the platform recruitment initially being slower and lower than the first POC. Item 2 is observed by the small flat section for the platform when compared to the POC option. Finally, Item 3 is best observed in the second POC/ISA because the slope is easily identified as steeper (faster recruitment) for the platform compared to the POC version.</p>
 <div class="figure">
-<img src="ExampleShiny2.png" alt="Figure 2: Shiny App For Recruitment"><p class="caption">Figure 2: Shiny App For Recruitment</p>
+<img src="ExampleShiny2.png" alt=""><p class="caption">Figure 2: Shiny App For Recruitment</p>
 </div>
 </div>
   </div>
@@ -204,7 +204,7 @@ OCTOPUS::RunExample( "CompareRecruitment" )</pre></body></html></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
