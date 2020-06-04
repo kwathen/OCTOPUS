@@ -4,7 +4,5 @@
 ^.*\Sandbox$
 ^doc$
 ^Meta$
-^.*\MiscFiles$
 ^.*\Design.Logo.ViPER$
 pkgdown/
-

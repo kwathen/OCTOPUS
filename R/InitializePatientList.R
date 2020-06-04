@@ -93,3 +93,55 @@ InitializePatientList.default   <- function( cTrialDesign )
 
     return( cEnrolledPats   )
 }
+
+InitializePatientList.SingleISA   <- function( cTrialDesign )
+{
+    #print( paste( "Init list for Single ISA"))
+    vTrtLab               <- cTrialDesign$vTrtLab
+    vISALab               <- cTrialDesign$vISALab
+    nQtyISA               <- 1
+    vCurrentQtyPatsISA    <- c(0)
+
+    cEnrolledPats         <- list( lPatOut            = NULL,
+                                   vTrtLab            = vTrtLab,
+                                   vISALab            = vISALab,
+                                   vCurrentQtyPatsISA = vCurrentQtyPatsISA,
+                                   vQtyPatsArmISA     = rep(0, length( cTrialDesign$vTrtLab) ) )
+
+    lPatOut <- list()
+    iISA <-1
+
+    #for( iISA in 1:nQtyISA )
+    #{
+        lPats <-list()
+
+        vISAAnalysis <- cTrialDesign$cISADesigns[[1]]$cISAAnalysis$vAnalysis
+
+        for(i in 1:length( vISAAnalysis ) )
+        {
+            lPats[[paste("mOut", i, sep="")]] <- structure( list())
+            class( lPats [[paste("mOut", i, sep="")]] ) <- class( vISAAnalysis[[i]] )
+
+
+            strObsTime <- paste( "vObsTime", i, sep="")
+            lPats[[strObsTime]] <- vISAAnalysis[[i]]$vObsTime
+            #print( paste("Obs time", paste(  vISAAnalysis[[i]]$vObsTime, collapse =", ")  ))
+
+        }
+        lPats$nQtyOut      <- length( vISAAnalysis )
+        lPats$vStartTimes  <- vector()
+        lPats$vTrt         <- vector()
+
+        strISA <- "lISA1"
+        lPatOut[[ strISA ]] <- lPats
+    #}
+
+
+    cEnrolledPats$lPatOut <- lPatOut
+
+    class( cEnrolledPats ) <- class( cTrialDesign$cISADesigns)
+
+
+
+    return( cEnrolledPats   )
+}

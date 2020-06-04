@@ -35,7 +35,12 @@ SimulateScenario.default <- function( cScen, cTrialDesign  )
     repeat
     {
         #print( paste( "Rep ", i))
+        dStartTime <-Sys.time()
         rRes <- SimulateSingleTrial( cScen, cTrialDesign  )
+        dEndTime <- Sys.time()
+        vgRepTimep[ igTrial ] <<- dEndTime-dStartTime
+        igTrial <<- igTrial+1
+
 
         vRes <- rbind( vRes,c( unlist( rRes ) ))
         if( i == nQtyReps)
