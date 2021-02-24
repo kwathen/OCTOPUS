@@ -165,7 +165,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S4 method for AccrualMethods</span>
-<span class='fu'>SimulateAdditionalArrivalTimes</span>(<span class='no'>cAP</span>, <span class='no'>nQtyPats</span>, <span class='no'>vCurrentStartTimes</span>)</pre>
+<span class='fu'>SimulateAdditionalArrivalTimes</span><span class='op'>(</span><span class='va'>cAP</span>, <span class='va'>nQtyPats</span>, <span class='va'>vCurrentStartTimes</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,10 +188,12 @@
     <div class='dont-index'><p><code><a href='NewAccrualProcess.html'>NewAccrualProcess</a></code> for creating the object.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='no'>vPatsPerMonth</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>, <span class='fl'>30</span>, <span class='fl'>40</span>, <span class='fl'>50</span>) <span class='co'># The ramp up in expected Pat/month</span>
-  <span class='no'>nMaxQtyPats</span>    <span class='kw'>&lt;-</span> <span class='fl'>100</span>  <span class='co'># Maximum of 100 patients</span>
-  <span class='no'>ap</span>             <span class='kw'>&lt;-</span> <span class='fu'><a href='NewAccrualProcess.html'>NewAccrualProcess</a></span>( <span class='kw'>vQtyPatsPerMonth</span> <span class='kw'>=</span> <span class='no'>vPatsPerMonth</span>, <span class='kw'>nMaxQtyPatients</span> <span class='kw'>=</span> <span class='no'>nMaxQtyPats</span> )
-  <span class='no'>vAccTimes</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='SimulateArrivalTimes.html'>SimulateArrivalTimes</a></span>( <span class='no'>ap</span> )</div></pre>
+    <pre class="examples"><div class='input'>  <span class='va'>vPatsPerMonth</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>, <span class='fl'>30</span>, <span class='fl'>40</span>, <span class='fl'>50</span><span class='op'>)</span> <span class='co'># The ramp up in expected Pat/month</span>
+  <span class='va'>nMaxQtyPats</span>    <span class='op'>&lt;-</span> <span class='fl'>100</span>  <span class='co'># Maximum of 100 patients</span>
+  <span class='va'>ap</span>             <span class='op'>&lt;-</span> <span class='fu'><a href='NewAccrualProcess.html'>NewAccrualProcess</a></span><span class='op'>(</span> vQtyPatsPerMonth <span class='op'>=</span> <span class='va'>vPatsPerMonth</span>, nMaxQtyPatients <span class='op'>=</span> <span class='va'>nMaxQtyPats</span> <span class='op'>)</span>
+  <span class='va'>vAccTimes</span>      <span class='op'>&lt;-</span> <span class='fu'><a href='SimulateArrivalTimes.html'>SimulateArrivalTimes</a></span><span class='op'>(</span> <span class='va'>ap</span> <span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -207,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

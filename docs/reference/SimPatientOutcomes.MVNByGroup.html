@@ -189,7 +189,7 @@ Optional Argument to constrain the simulated results if needed:
     </div>
 
     <pre class="usage"><span class='co'># S3 method for MVNByGroup</span>
-<span class='fu'><a href='SimPatientOutcomes.html'>SimPatientOutcomes</a></span>(<span class='no'>cSimOutcomes</span>, <span class='no'>cISADesign</span>, <span class='no'>dfPatCovISA</span>)</pre>
+<span class='fu'><a href='SimPatientOutcomes.Correlated.html'>SimPatientOutcomes</a></span><span class='op'>(</span><span class='va'>cSimOutcomes</span>, <span class='va'>cISADesign</span>, <span class='va'>dfPatCovISA</span><span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -197,7 +197,7 @@ Optional Argument to constrain the simulated results if needed:
     <div class='dont-index'><p><a href='https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.MVNByGroup.R'>View Code on GitHub</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>{ <span class='co'>## This example contains 2 arms and each arm will simulate from 2 populaitons.</span>
+    <pre class="examples"><div class='input'><span class='op'>{</span> <span class='co'>## This example contains 2 arms and each arm will simulate from 2 populaitons.</span>
 <span class='co'>## Assuming vMeanR1, vMeanNR2 are mean vector for arm 1 defined elsewhere in the code and have length = 3</span>
 <span class='co'>## Assuming mVarCovR1, mVarCovNR1 are var-cov for arm 1 defined elsewhere in the code and are a 3x3 matrix</span>
 <span class='co'>## Assuming vMeanR2, vMeanNR2 are mean vector for arm 2 defined elsewhere in the code and have length = 3</span>
@@ -206,32 +206,33 @@ Optional Argument to constrain the simulated results if needed:
 <span class='co'>## The following example would simulate patient with 3 measurements.  For arm 1, on average, 20% would</span>
 <span class='co'>## be from group 1 and 80% from group 2 with the respective mean and var-cov.  Patients in arm 2 would be simulated</span>
 <span class='co'>## with 30%, on average, from group 1 and 70%, on average, from group 2 with the respective mean and var cov.</span>
-<span class='no'>vMeanR1</span>    <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>10</span>, <span class='fl'>15</span> )
-<span class='no'>mVarCovR1</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>1</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>vMeanNR1</span>   <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>5</span>, <span class='fl'>8</span> )
-<span class='no'>mVarCovNR1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>( <span class='fl'>1</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>lSimArm1</span>   <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>( <span class='kw'>vMean1</span>     <span class='kw'>=</span> <span class='no'>vMeanR1</span>,
-                    <span class='kw'>mVarCov1</span>   <span class='kw'>=</span> <span class='no'>mVarCovR1</span>,
-                    <span class='kw'>vMean2</span>     <span class='kw'>=</span> <span class='no'>vMeanNR1</span>,
-                    <span class='kw'>mVarCov2</span>   <span class='kw'>=</span> <span class='no'>mVarCovNR1</span>,
-                    <span class='kw'>vProbGroup</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>0.2</span>, <span class='fl'>.8</span> ),
-                    <span class='kw'>dMinimum</span>   <span class='kw'>=</span> <span class='fl'>0</span>,
-                    <span class='kw'>vObsTime</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>4</span> ))
+<span class='va'>vMeanR1</span>    <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>10</span>, <span class='fl'>15</span> <span class='op'>)</span>
+<span class='va'>mVarCovR1</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>1</span>, nrow<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>vMeanNR1</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>5</span>, <span class='fl'>8</span> <span class='op'>)</span>
+<span class='va'>mVarCovNR1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span> <span class='fl'>1</span>, nrow<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>lSimArm1</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span> vMean1     <span class='op'>=</span> <span class='va'>vMeanR1</span>,
+                    mVarCov1   <span class='op'>=</span> <span class='va'>mVarCovR1</span>,
+                    vMean2     <span class='op'>=</span> <span class='va'>vMeanNR1</span>,
+                    mVarCov2   <span class='op'>=</span> <span class='va'>mVarCovNR1</span>,
+                    vProbGroup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>0.2</span>, <span class='fl'>.8</span> <span class='op'>)</span>,
+                    dMinimum   <span class='op'>=</span> <span class='fl'>0</span>,
+                    vObsTime   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>4</span> <span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>vMeanR2</span>    <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>10</span>, <span class='fl'>15</span> )
-<span class='no'>mVarCovR2</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>1</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>vMeanNR2</span>   <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>5</span>, <span class='fl'>8</span> )
-<span class='no'>mVarCovNR2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>( <span class='fl'>1</span>, <span class='kw'>nrow</span><span class='kw'>=</span><span class='fl'>2</span>)
-<span class='no'>lSimArm2</span>   <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>( <span class='kw'>vMean1</span>     <span class='kw'>=</span> <span class='no'>vMeanR2</span>,
-                    <span class='kw'>mVarCov1</span>   <span class='kw'>=</span> <span class='no'>mVarCovR2</span>,
-                    <span class='kw'>vMean2</span>     <span class='kw'>=</span> <span class='no'>vMeanNR2</span>,
-                    <span class='kw'>mVarCov2</span>   <span class='kw'>=</span> <span class='no'>mVarCovNR2</span>,
-                    <span class='kw'>vProbGroup</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>0.3</span>, <span class='fl'>.7</span> ),
-                    <span class='kw'>dMinimum</span>   <span class='kw'>=</span> <span class='fl'>0</span>,
-                    <span class='kw'>vObsTime</span>   <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>4</span> ))
+<span class='va'>vMeanR2</span>    <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>10</span>, <span class='fl'>15</span> <span class='op'>)</span>
+<span class='va'>mVarCovR2</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>1</span>, nrow<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>vMeanNR2</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>5</span>, <span class='fl'>8</span> <span class='op'>)</span>
+<span class='va'>mVarCovNR2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span> <span class='fl'>1</span>, nrow<span class='op'>=</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>lSimArm2</span>   <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span> vMean1     <span class='op'>=</span> <span class='va'>vMeanR2</span>,
+                    mVarCov1   <span class='op'>=</span> <span class='va'>mVarCovR2</span>,
+                    vMean2     <span class='op'>=</span> <span class='va'>vMeanNR2</span>,
+                    mVarCov2   <span class='op'>=</span> <span class='va'>mVarCovNR2</span>,
+                    vProbGroup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>0.3</span>, <span class='fl'>.7</span> <span class='op'>)</span>,
+                    dMinimum   <span class='op'>=</span> <span class='fl'>0</span>,
+                    vObsTime   <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>0</span>, <span class='fl'>2</span>, <span class='fl'>4</span> <span class='op'>)</span><span class='op'>)</span>
 
- <span class='no'>cSimOutcomes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>lSimArm1</span> <span class='kw'>=</span> <span class='no'>lSimArm1</span>, <span class='kw'>lSimArm2</span> <span class='kw'>=</span> <span class='no'>lSimArm2</span>), <span class='kw'>class</span> <span class='kw'>=</span>  <span class='st'>"MVNByGroup"</span> )
-}</div></pre>
+ <span class='va'>cSimOutcomes</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>lSimArm1 <span class='op'>=</span> <span class='va'>lSimArm1</span>, lSimArm2 <span class='op'>=</span> <span class='va'>lSimArm2</span><span class='op'>)</span>, class <span class='op'>=</span>  <span class='st'>"MVNByGroup"</span> <span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -247,7 +248,7 @@ Optional Argument to constrain the simulated results if needed:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
