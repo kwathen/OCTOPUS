@@ -1,4 +1,4 @@
-# OCTOPUS - Optimize Clinical Trials On Platforms Using Simulation  <img src="logo.png" align="right" alt="" width="120" />
+# OCTOPUS - Optimize Clinical Trials On Platforms Using Simulation Update  <img src="logo.png" align="right" alt="" width="120" />
 
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/kwathen/OCTOPUS/master.svg)](https://codecov.io/github/kwathen/OCTOPUS?branch=master)

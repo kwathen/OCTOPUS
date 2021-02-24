@@ -180,7 +180,7 @@ The class assumes
   which ever comes first</p>
     </div>
 
-    <pre class="usage"><span class='fu'>NewAccrualProcess</span>(<span class='no'>vQtyPatsPerMonth</span>, <span class='no'>nMaxQtyPatients</span>, <span class='no'>nMaxMonthsOfAccrual</span>)</pre>
+    <pre class="usage"><span class='fu'>NewAccrualProcess</span><span class='op'>(</span><span class='va'>vQtyPatsPerMonth</span>, <span class='va'>nMaxQtyPatients</span>, <span class='va'>nMaxMonthsOfAccrual</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,10 +209,11 @@ length of the returned vector could be less than nMaxQtyPatient.</p>
     <div class='dont-index'><p><code><a href='SimulateArrivalTimes.html'>SimulateArrivalTimes</a></code> for simulating the arrival times once you have created the object..</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>  <span class='no'>vPatsPerMonth</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>, <span class='fl'>30</span>, <span class='fl'>40</span>, <span class='fl'>50</span>) <span class='co'># The ramp up in expected Pat/month</span>
-  <span class='no'>nMaxQtyPats</span>    <span class='kw'>&lt;-</span> <span class='fl'>100</span>  <span class='co'># Maximum of 100 patients</span>
-  <span class='no'>ap</span>             <span class='kw'>&lt;-</span> <span class='fu'>NewAccrualProcess</span>( <span class='kw'>vQtyPatsPerMonth</span> <span class='kw'>=</span> <span class='no'>vPatsPerMonth</span>, <span class='kw'>nMaxQtyPatients</span> <span class='kw'>=</span> <span class='no'>nMaxQtyPats</span> )
-  <span class='no'>vAccTimes</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='SimulateArrivalTimes.html'>SimulateArrivalTimes</a></span>( <span class='no'>ap</span> )</div></pre>
+    <pre class="examples"><div class='input'>  <span class='va'>vPatsPerMonth</span>  <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>, <span class='fl'>20</span>, <span class='fl'>30</span>, <span class='fl'>40</span>, <span class='fl'>50</span><span class='op'>)</span> <span class='co'># The ramp up in expected Pat/month</span>
+  <span class='va'>nMaxQtyPats</span>    <span class='op'>&lt;-</span> <span class='fl'>100</span>  <span class='co'># Maximum of 100 patients</span>
+  <span class='va'>ap</span>             <span class='op'>&lt;-</span> <span class='fu'>NewAccrualProcess</span><span class='op'>(</span> vQtyPatsPerMonth <span class='op'>=</span> <span class='va'>vPatsPerMonth</span>, nMaxQtyPatients <span class='op'>=</span> <span class='va'>nMaxQtyPats</span> <span class='op'>)</span>
+  <span class='va'>vAccTimes</span>      <span class='op'>&lt;-</span> <span class='fu'><a href='SimulateArrivalTimes.html'>SimulateArrivalTimes</a></span><span class='op'>(</span> <span class='va'>ap</span> <span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,7 +229,7 @@ length of the returned vector could be less than nMaxQtyPatient.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

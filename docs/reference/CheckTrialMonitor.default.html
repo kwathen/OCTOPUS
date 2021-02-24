@@ -183,14 +183,14 @@ define when to do the final analysis.To increase flexibility there are two optio
     </div>
 
     <pre class="usage"><span class='co'># S3 method for default</span>
-<span class='fu'><a href='CheckTrialMonitor.html'>CheckTrialMonitor</a></span>(
-  <span class='no'>cISADesigns</span>,
-  <span class='no'>lEnrolledPats</span>,
-  <span class='no'>vISAStatus</span>,
-  <span class='no'>dCurrentTime</span>,
-  <span class='no'>vISAAnalysisIndx</span>,
-  <span class='no'>vPreviousIATime</span>
-)</pre>
+<span class='fu'><a href='CheckTrialMonitor.html'>CheckTrialMonitor</a></span><span class='op'>(</span>
+  <span class='va'>cISADesigns</span>,
+  <span class='va'>lEnrolledPats</span>,
+  <span class='va'>vISAStatus</span>,
+  <span class='va'>dCurrentTime</span>,
+  <span class='va'>vISAAnalysisIndx</span>,
+  <span class='va'>vPreviousIATime</span>
+<span class='op'>)</span></pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -204,36 +204,37 @@ define when to do the final analysis.To increase flexibility there are two optio
     <div class='dont-index'><p><a href='https://github.com/kwathen/OCTOPUS/blob/master/R/CheckTrialMonitor.R'>View Code on GitHub</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Example 1 :   Perform  IA 1 at 3 months after the 30th patient enrolled, IA 2 at 3 months after the 90th patient enrolled, IA 3 when the 150th patient enrolled,</span>
 <span class='co'>#               (not since the 3rd element of vMinFUTime = 0 IA 3 is performed when the 150th patient is enrolled) and the FA is performed 3 months after the 200th patient.</span>
 
-     <span class='no'>dQtyMonthsBtwIA</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
-     <span class='no'>vMinQtyPats</span>     <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>30</span>, <span class='fl'>90</span>, <span class='fl'>150</span>, <span class='fl'>200</span> )
-     <span class='no'>vMinFUTime</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>3</span>,  <span class='fl'>3</span>,  <span class='fl'>0</span>,    <span class='fl'>3</span>)
+     <span class='va'>dQtyMonthsBtwIA</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+     <span class='va'>vMinQtyPats</span>     <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>30</span>, <span class='fl'>90</span>, <span class='fl'>150</span>, <span class='fl'>200</span> <span class='op'>)</span>
+     <span class='va'>vMinFUTime</span>      <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>3</span>,  <span class='fl'>3</span>,  <span class='fl'>0</span>,    <span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'>#Example 2 - 1 Interim analysis (IA) at 30 patients with 3 months of FU</span>
 <span class='co'>#            No additional IA</span>
 <span class='co'>#            Final Analysis (FA) at 200 patients with 3 months FU</span>
 
-     <span class='no'>dQtyMonthsBtwIA</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
-     <span class='no'>vMinQtyPats</span>     <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>30</span>, <span class='fl'>200</span> )
-     <span class='no'>vMinFUTime</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>3</span>,   <span class='fl'>3</span>)
+     <span class='va'>dQtyMonthsBtwIA</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+     <span class='va'>vMinQtyPats</span>     <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>30</span>, <span class='fl'>200</span> <span class='op'>)</span>
+     <span class='va'>vMinFUTime</span>      <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>3</span>,   <span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'>#Example 3 - Start the IA 30 patients with 3 months of FU, continue</span>
 <span class='co'>#            Perform additional analysis every 2 months after the first IA</span>
 <span class='co'>#            Final Analysis (FA) at 200 patients with 3 months FU</span>
 
-     <span class='no'>dQtyMonthsBtwIA</span> <span class='kw'>&lt;-</span> <span class='fl'>2</span>
-     <span class='no'>vMinQtyPats</span>     <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>30</span>, <span class='fl'>200</span> )
-     <span class='no'>vMinFUTime</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>3</span>,   <span class='fl'>3</span>)
+     <span class='va'>dQtyMonthsBtwIA</span> <span class='op'>&lt;-</span> <span class='fl'>2</span>
+     <span class='va'>vMinQtyPats</span>     <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>30</span>, <span class='fl'>200</span> <span class='op'>)</span>
+     <span class='va'>vMinFUTime</span>      <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>3</span>,   <span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'>#Example 4 - No IA becasue the IA is done at the same time as the FA</span>
-     <span class='no'>dQtyMonthsBtwIA</span> <span class='kw'>&lt;-</span> <span class='fl'>0</span>
-     <span class='no'>vMinQtyPats</span>     <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>200</span>, <span class='fl'>200</span> )
-     <span class='no'>vMinFUTime</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>( <span class='fl'>3</span>,   <span class='fl'>3</span>)
+     <span class='va'>dQtyMonthsBtwIA</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+     <span class='va'>vMinQtyPats</span>     <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>200</span>, <span class='fl'>200</span> <span class='op'>)</span>
+     <span class='va'>vMinFUTime</span>      <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span> <span class='fl'>3</span>,   <span class='fl'>3</span><span class='op'>)</span>
 
-}</div></pre>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -249,7 +250,7 @@ define when to do the final analysis.To increase flexibility there are two optio
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
