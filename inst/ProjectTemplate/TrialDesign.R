@@ -74,6 +74,11 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
     # This next variable is included as an example but is not required for an analysis.
     vObsTimeInMonths  <- c( 6 )  # patients have outcome observed at 6 months, change as needed to match the project.
 
+    # Important Note ####
+    #   The vObsTimeInMonths is used to describe when outcomes are observed, however, if dQtyMonthsFU < vObsTimeInMonths
+    #   then you will have the last patients enrolled followed less than the time required to observe the outcome
+    #   so they would could be contributing nothing to the analysis.
+    #
 
     ########################################################################.
     #  ISA 1 Information                                                ####

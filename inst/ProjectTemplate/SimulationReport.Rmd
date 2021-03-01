@@ -1,5 +1,5 @@
 ---
-title: "Platform Trial Simulations "
+title: "Simulation Results for Platform Tiral "
 date: '`r format(Sys.time(), "%B %d, %Y at %l:%M %p", usetz=TRUE)`'
 output:
   html_document:
@@ -23,15 +23,16 @@ options(tinytex.verbose = TRUE)
 ```{r configGeneral,echo=FALSE,message=FALSE,warning=FALSE}
 #library(tidyverse)
 #library(ggplot2)
-#library( PlatformTrialSimulator)
+#library( OCTOPUS )
 
 source("PostProcess.R")  # This file contains the functionality to process the simulation results and plot
 
 ```
 
-# Designs
+# Trial Designs
+In this simulation we consider a platform trial with 2 Intervention Specific Appendix (ISAs).  There are 3 designs simulated.  Designs 1 and 2 do not include an interim analysis where as Design 3 has 1 interim analysis for each ISA when half the patients enrolled and followed for the desired time.
 
-The first three designs have 200 patients per ISA, but the allocation and borrowing is different and design 4 fixes the number of patients on treatment but ISA 2 and 3 reduces the number of patients on control.   The designs are as follows:
+The sample sizes and borrowing for the designs are as follows:
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 load( "cTrialDesign.RData")
@@ -68,20 +69,20 @@ for( iDesign in 1:nQtyDesigns )
 
 # Decision Criteria 
 
-During the trial, when the first ISA reaches 40 patients with 12 weeks of follow-up the trial analysis will begin.  After the initial analysis an analysis will be performed every month.  An ISA is included in the analysis if it has accured 40 patients with 12 weeks of follow-up.  
+All analysis and decisions are the same for the interim analysis, if included, and the final analysis.  
 
-At the analysis, For each subdomain, we compute the probability that the difference between the 12 week change from baseline for control and treatment is greater than the MAV.  Specifically, for treatment T and control C we compute $p_{MAV} =Pr( \delta_T - \delta_C > MAV | data )$.  The MAV was set for each subdomain based on the number of items in the subdomain with a target effect size of 0.25.  Utilizing the variances listed for scenarios 7-12 the MAVs are 2.0 (Reexperiencing), 0.8 (Avoidance), 2.8 (Negative alterations) and 2.4 (Hyperousal).
+The default analysis included with this example computes probabilities that the difference between treatment (T) and control (C) is greater than the Minimum Acceptable Value (MAV), specifically,  $p_{MAV} =Pr( \pi_T - \pi_C > MAV | data )$ .
 
-During the trial if $p_{MAV} >$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPUpper[1] ` for any subdomain the a Go is declared and the ISA is stopped early. If, for all sub-domains, $p_{MAV} <$  `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPLower[1] ` then a No Go is declared an the ISA stopped early.
+At an interim analysis, the default decisions from OCTOPUS are utilized see help with with ?MakeDecisionBasedOnPostProb.MAVOnly.  In particular, if $p_{MAV} >$ `r lTrialDesigns[[3]]$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPUpper[1] ` the a Go is declared and the ISA is stopped early;  If $p_{MAV} <$  `r lTrialDesigns[[3]]$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPLower[1] ` then a No Go is declared an the ISA stopped early; otherwise an indeterminate decision is made and the trial continues.  
 
-At the end of an ISA the final analysis is performed and if $p_{MAV} >$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPUpper ` for any subdomain the a Go is declared. If, for all sub-domains, $p_{MAV} <$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPLower ` then a No Go is declared for the ISA.  Otherwise, the decision is indeterminate.  
+At the end of an ISA the final analysis is performed and if $p_{MAV} >$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPUpper ` the a Go is declared; if $p_{MAV} <$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPLower ` then a No Go is declared for the ISA; Otherwise, the decision is indeterminate.  
 
 
 
 
 # Simulation Scenarios
 
-Describe scenarios... Possibly like the following
+Describe scenarios... Possibly like the following, but typically best to read of the simulation design elements just in case the scenarios change. 
 
 Scenario 1 - Null case
 

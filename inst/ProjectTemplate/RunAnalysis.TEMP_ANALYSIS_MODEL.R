@@ -12,7 +12,7 @@
 #############################################################################################################################.
 RunAnalysis.TEMP_ANALYSIS_MODEL <- function( cAnalysis, lDataAna,  nISAAnalysisIndx, bIsFinalISAAnalysis, cRandomizer )
 {
-    print( paste( "RunAnalysis.TEMP_ANALYSIS_MODEL"))
+    #print( paste( "RunAnalysis.TEMP_ANALYSIS_MODEL"))
 
    # Prior are in cAnalysis$vPriorA and cAnalysis$vPriorB
 
@@ -47,9 +47,9 @@ RunAnalysis.TEMP_ANALYSIS_MODEL <- function( cAnalysis, lDataAna,  nISAAnalysisI
     if( is.na( dPostACtrl) | is.na( dPostBCtrl ) | is.na( dPostATrt ) | is.na( dPostBTrt ) )
     {
       # This is for debugging and should not be hit
-      browser()
+      #browser()
     }
-    print( paste( "Number of patients: ", length( vTrt )," Q_C ~ Beta( ",dPostACtrl, dPostBCtrl , "), Q_T ~ Beta( ", dPostATrt, ", ", dPostBTrt, ")"))
+    #print( paste( "Number of patients: ", length( vTrt )," Q_C ~ Beta( ",dPostACtrl, dPostBCtrl , "), Q_T ~ Beta( ", dPostATrt, ", ", dPostBTrt, ")"))
 
     dPrGrtMAV  <- ProbX1GrX2PlusDelta( dPostATrt,  dPostBTrt,
                                        dPostACtrl, dPostBCtrl,
