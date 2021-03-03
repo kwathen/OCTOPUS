@@ -171,6 +171,11 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
         strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
         writeLines( strTemplate, con = strBuildMeFile )
 
+        strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
+        strTemplate    <- readLines( strBuildMeFile )
+        strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
+        writeLines( strTemplate, con = strBuildMeFile )
+
         if( !MethodExists( "RunAnalysis", strAnalysisName ) )
         {
             #This analysis is not part of OCTOPUS, need to create the new file and change the template to match
@@ -183,6 +188,12 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
             strTemplate    <- readLines( strAnalysisFileName )
             strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
             writeLines( strTemplate, con = strAnalysisFileName )
+
+            strParallelSimulationsFileName <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="")
+
+            strTemplate    <- readLines( strParallelSimulationsFileName )
+            strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
+            writeLines( strTemplate, con = strParallelSimulationsFileName )
         }
         else
         {
@@ -206,6 +217,12 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
             strSouceCmd    <- paste( "source\\( 'RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)
             writeLines( strTemplate, con = strBuildMeFile )
+
+            strParallelSimulationsFileName <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="")
+            strSouceCmd    <-  paste( "source\\( 'RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
+            strTemplate    <- readLines( strParallelSimulationsFileName )
+            strTemplate    <- gsub( strSouceCmd, "", strTemplate)
+            writeLines( strTemplate, con = strParallelSimulationsFileName )
         }
 
     }
@@ -227,6 +244,12 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
         writeLines( strTemplate, con = strBuildMeFile )
 
         strBuildMeFile <- paste( strProjectDirectory, "/BuildMeRunMultiCore.R", sep="" )
+        strTemplate    <- readLines( strBuildMeFile )
+        strTemplate    <- gsub( "TEMP_SIM_PATIENT_OUTCOME", paste( strSimPatientOutcomeName,  sep=""), strTemplate)
+        writeLines( strTemplate, con = strBuildMeFile )
+
+
+        strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
         strTemplate    <- readLines( strBuildMeFile )
         strTemplate    <- gsub( "TEMP_SIM_PATIENT_OUTCOME", paste( strSimPatientOutcomeName,  sep=""), strTemplate)
         writeLines( strTemplate, con = strBuildMeFile )
@@ -261,6 +284,12 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
             writeLines( strTemplate, con = strBuildMeFile )
 
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMeRunMultiCore.R", sep="" )
+            strTemplate    <- readLines( strBuildMeFile )
+            strSouceCmd    <- paste( "source\\( 'SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
+            strTemplate    <- gsub( strSouceCmd, "", strTemplate)
+            writeLines( strTemplate, con = strBuildMeFile )
+
+            strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
             strSouceCmd    <- paste( "source\\( 'SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)

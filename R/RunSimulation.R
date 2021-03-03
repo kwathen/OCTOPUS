@@ -40,12 +40,16 @@ RunSimulation.default <- function( lSimulation )
     nTrialID <- 1
     nQtyDesigns     <- length( lSimulation$SimDesigns )
 
+    lISAAnaRes      <- list()
     for( iDes in 1:nQtyDesigns )
     {
 
         cSimulation <- lSimulation$SimDesigns[[ iDes ]]
         nQtyScen    <- length( cSimulation$lScenarios )
         nQtySave    <- max( floor( nQtyScen/4 ), 1)  #Save output every 25%, taking the max incase < 4 scenarios
+
+
+
         for( iScen in 1:nQtyScen )
         {
            if(  gnPrintDetail >= 1 )
@@ -56,16 +60,35 @@ RunSimulation.default <- function( lSimulation )
                 cSimulation$lScenarios[[ iScen ]]$nPrintDetail <- 0
             }
             mResScen <- SimulateScenario( cSimulation$lScenarios[[ iScen ]], cSimulation$cTrialDesign )
-            mResScen <- cbind( cSimulation$lScenarios[[ iScen ]]$nDesign, iScen, mResScen )
+            lISAAna <- mResScen$lISAAnaRes
+
+            mResScen <- cbind( cSimulation$lScenarios[[ iScen ]]$nDesign, iScen, mResScen$vRes )
             mResAll <- rbind( mResAll, mResScen )
+
+
+            nQtyISA <- length( lISAAna )
+            for( iISA in 1:nQtyISA )
+            {
+                if( iScen == 1 && iDes == 1)
+                {
+                    lISAAnaRes[[ iISA ]] <- lISAAna[[ iISA]]
+                }
+                else
+                {
+                    lISAAnaRes[[ iISA ]] <- rbind( lISAAnaRes[[ iISA ]], lISAAna[[ iISA]])
+                }
+
+            }
+
+
             if( iScen %% nQtySave  == 0 )
             {
                 colnames( mResAll)[c(1)]<-c( "Design")
                 if( nGridIndex == 1){
-                    write.table( mResAll, strOutFile, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
+                    #write.table( mResAll, strOutFile, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
                 }
                 else{
-                    write.table( mResAll, strOutFile, sep=", ", append=FALSE, col.name=FALSE, row.names=FALSE)
+                    #write.table( mResAll, strOutFile, sep=", ", append=FALSE, col.name=FALSE, row.names=FALSE)
                 }
 
             }
@@ -78,6 +101,25 @@ RunSimulation.default <- function( lSimulation )
     }else{
         write.table( mResAll, strOutFile, sep=", ", append=FALSE, col.name=FALSE, row.names=FALSE)
     }
+
+    nQtyISA <- length( lISAAna )
+    for( iISA in 1:nQtyISA )
+    {
+
+        if( nGridIndex == 1 )
+        {
+            strFileName <- paste( "ISAOut", iISA, "/1isaout", nGridIndex, ".csv", sep="" )
+            write.table( lISAAnaRes[[ iISA ]], strFileName, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
+
+        }
+        else
+        {
+            strFileName <- paste( "ISAOut", iISA, "/isaout", nGridIndex, ".csv", sep="" )
+            write.table( lISAAnaRes[[ iISA ]], strFileName, sep=", ", append=TRUE, col.name=FALSE, row.names=FALSE)
+        }
+
+    }
+
 }
 
 SetupSimulation <- function( lSimulation )

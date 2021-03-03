@@ -31,8 +31,8 @@ RunParallelSimulations <- function( nStartIndex = 1, nEndIndex, nQtyCores, cSimu
             # These files create new generic functions that are utilized during the simulation.
             # These files and OCTOPUS are loaded here because it needs to be done for each core.
             library( OCTOPUS )
-            source( 'RunAnalysis.CategoricalAnalysis.R' )
-            source( 'SimPatientOutcomes.Categorical.R' )  # This will add the new outcome
+            source( 'RunAnalysis.TEMP_ANALYSIS_MODEL.R' )
+            source( 'SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R' ) # This will add the new outcome
             source( "BinaryFunctions.R" )
             RunSimulation( cSimulation )
 
@@ -103,8 +103,8 @@ RunParallelSimulationsWithUpdate <- function( nStartIndex = 1, nEndIndex, nQtyCo
                 # These files create new generic functions that are utilized during the simulation.
                 # These files and OCTOPUS are loaded here because it needs to be done for each core.
                 library( OCTOPUS )
-                source( 'RunAnalysis.CategoricalAnalysis.R' )
-                source( 'SimPatientOutcomes.Categorical.R' )  # This will add the new outcome
+                source( 'RunAnalysis.TEMP_ANALYSIS_MODEL.R' )
+                source( 'SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R' ) # This will add the new outcome
                 source( "BinaryFunctions.R" )
 
                 Sys.setenv(SGE_TASK_ID= nTrialID )

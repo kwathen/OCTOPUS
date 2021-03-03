@@ -40,7 +40,9 @@
 #   your use case.
 ################################################################################################### #
 
-# In the best
+# It is a good practice to clear your environment before building your simulation/design object then
+# then clean it again before you run simulations with only the minimum variables need to avoid potential
+# misuse of variables
 remove( list=ls() )
 
 # ReadMe - If needed, install the latest copy of OCTOPUS using the remotes package
@@ -69,7 +71,8 @@ vISAStartTimes     <- TEMP_ISA_START_TIME
 
 # Because this simulation option uses multiple cores we need to set the quantity of reps = 1 for each simulation object
 # See section below, Setup of parallel processing,  to set the total quantity of reps that will be simulated, do not adjust the next line
-nQtyReps           <- 1
+library( "parallel" )
+nQtyReps           <- ceiling(TEMP_QTY_REPS/(max( parallel::detectCores() - 1, 1) ))
 
 
 cTrialDesign <- SetupTrialDesign( strAnalysisModel   = "TEMP_ANALYSIS_MODEL",
@@ -193,11 +196,11 @@ nQtyCores  <- max( detectCores() - 1, 1 )
 
 # The nStartIndex and nEndIndex are used to index the simulations and hence the output files see the RunParallelSimulations.R file
 # for more details
-RunParallelSimulations( nStartIndex = 1, nEndIndex = TEMP_QTY_REPS,  nQtyCores, cSimulation )
+RunParallelSimulations( nStartIndex = 1, nEndIndex = nQtyCores,  nQtyCores, cSimulation )
 
 # The next option will run the parallel simulations but with a visual update on the % complete
 
-RunParallelSimulationsWithUpdate( nStartIndex = 1, nEndIndex = TEMP_QTY_REPS,  nQtyCores, cSimulation )
+RunParallelSimulationsWithUpdate( nStartIndex = 1, nEndIndex = nQtyCores,  nQtyCores, cSimulation )
 
 
 # Post Process ####
