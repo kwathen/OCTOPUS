@@ -475,6 +475,8 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     names( vISAPauseEnroll )     <-  paste( "ISAPause",1:length(vISAStartTimes), sep="")
 
     nQtyAnaRes <- length( lResAnaFinal )
+    lRetISAAna <- list()
+
     for( nISA in 1:nQtyAnaRes )
     {
         strFileName                 <- paste( "ISAOut", nISA, "/isaout", cScen$nGridIndex, ".csv", sep="" )
@@ -484,12 +486,13 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         vISAResult                  <- rbind( c(cScen$nGridIndex, cScen$nTrialID, nISA, vAnaResults[ vNonRandomizerElements ] ))
         colnames( vISAResult )[1:3] <- c( "GridIndex", "TrialID", "ISA")
 
+        lRetISAAna[[ nISA ]] <- vISAResult
         if(  cScen$nGridIndex == 1 && cScen$nTrialID == 1 ){
             strFileName <- paste( "ISAOut", nISA, "/1isaout", cScen$nGridIndex, ".csv", sep="" )
-            write.table( vISAResult, strFileName, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
+            #write.table( vISAResult, strFileName, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
         }
         else{
-            write.table( vISAResult, strFileName, sep=", ", append=TRUE, col.name=FALSE, row.names=FALSE)
+            #write.table( vISAResult, strFileName, sep=", ", append=TRUE, col.name=FALSE, row.names=FALSE)
         }
 
     }
@@ -499,7 +502,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     lRet <- c(  cScen$nGridIndex, cScen$nTrialID, vISAStatus, CurrentTime = dCurrentTime, vQtyPatPerISAPerArm, vISAStartTimes, vISAPauseEnroll,
                 vTimeFinalEnrollment, vTimeStartAnalysis, vTimeFinalAnalysis)
     names( lRet)[c(1,2)]<-c( "GridIndex", "TrialID")
-    return( lRet )
+    return( list( lRet =lRet, lRetISAAna = lRetISAAna ) )
 
 }
 

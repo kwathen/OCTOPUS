@@ -90,7 +90,45 @@ CreateProject <- function( strProjectDirectory        = "",
     strSimOutRet   <- ReplaceSimPatientOutcomeInfo( strNewProjectDirectory, strSimPatientOutcomeName )
 
     #Replace options in the BuildMe.R file ####
-    strBuildMeFile <- paste( strNewProjectDirectory, "/BuildMe.R", sep="" )
+    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMe.R", mQtyPatientsPerArm, vISAStartTimes)
+    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMeRunMultiCore.R", mQtyPatientsPerArm, vISAStartTimes)
+    # strBuildMeFile <- paste( strNewProjectDirectory, "/BuildMe.R", sep="" )
+    # strTemplate    <- readLines( strBuildMeFile )
+    # strTemplate    <- gsub( "TEMP_BORROWING", strBorrowing, strTemplate)
+    # strTemplate    <- gsub( "TEMP_QTY_REPS", nQtyReps, strTemplate )
+    # strTemplate    <- gsub( "TMP_QTY_MONTHS_FU", dQtyMonthsFU, strTemplate )
+    #
+    # if( is.null( mQtyPatientsPerArm ) == FALSE )
+    # {
+    #
+    #     strTemplate    <- gsub( "TMP_MATRIX_DATA", paste( mQtyPatientsPerArm, collapse =","), strTemplate )
+    #     strTemplate    <- gsub( "TMP_NROW", nrow( mQtyPatientsPerArm ), strTemplate )
+    #     strTemplate    <- gsub( "TMP_NCOL", ncol( mQtyPatientsPerArm ), strTemplate )
+    # }
+    # if( is.null( vISAStartTimes ) == FALSE )
+    # {
+    #      strTemplate    <- gsub( "TEMP_ISA_START_TIME", paste( "c( ", paste( vISAStartTimes, collapse =","), ")" ), strTemplate )
+    # }
+    # else
+    # {
+    #     strTemplate    <- gsub( "TEMP_ISA_START_TIME", paste( "NULL" ), strTemplate )
+    # }
+    #
+    #
+    # #Save the updates to the file
+    # writeLines( strTemplate, con = strBuildMeFile )
+
+    strRet          <- paste( nCopySuccess, "file(s) were successfully coppied and ", nCopyFail, " file(s) were not coppied correctly.")
+    strInstrucitons <- paste( "Use R Studio to open the", strRProjName, "project file and begin by reading the BuildMe.R file.")
+    strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strInstrucitons )
+    strRet          <- paste( strRet, collapse = "\n")
+    return( strRet )
+}
+
+ReplaceBuildMeInfo  <- function( strNewProjectDirectory, strFileName, mQtyPatientsPerArm, vISAStartTimes )
+{
+    #Replace options in the BuildMe.R file ####
+    strBuildMeFile <- paste( strNewProjectDirectory, "/", strFileName, sep="" )
     strTemplate    <- readLines( strBuildMeFile )
     strTemplate    <- gsub( "TEMP_BORROWING", strBorrowing, strTemplate)
     strTemplate    <- gsub( "TEMP_QTY_REPS", nQtyReps, strTemplate )
@@ -105,7 +143,7 @@ CreateProject <- function( strProjectDirectory        = "",
     }
     if( is.null( vISAStartTimes ) == FALSE )
     {
-         strTemplate    <- gsub( "TEMP_ISA_START_TIME", paste( "c( ", paste( vISAStartTimes, collapse =","), ")" ), strTemplate )
+        strTemplate    <- gsub( "TEMP_ISA_START_TIME", paste( "c( ", paste( vISAStartTimes, collapse =","), ")" ), strTemplate )
     }
     else
     {
@@ -115,14 +153,7 @@ CreateProject <- function( strProjectDirectory        = "",
 
     #Save the updates to the file
     writeLines( strTemplate, con = strBuildMeFile )
-
-    strRet          <- paste( nCopySuccess, "file(s) were successfully coppied and ", nCopyFail, " file(s) were not coppied correctly.")
-    strInstrucitons <- paste( "Use R Studio to open the", strRProjName, "project file and begin by reading the BuildMe.R file.")
-    strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strInstrucitons )
-    strRet          <- paste( strRet, collapse = "\n")
-    return( strRet )
 }
-
 ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
 {
     strRet <- ""
@@ -131,6 +162,16 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
 
 
         strBuildMeFile <- paste( strProjectDirectory, "/BuildMe.R", sep="" )
+        strTemplate    <- readLines( strBuildMeFile )
+        strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
+        writeLines( strTemplate, con = strBuildMeFile )
+
+        strBuildMeFile <- paste( strProjectDirectory, "/BuildMeRunMultiCore.R", sep="" )
+        strTemplate    <- readLines( strBuildMeFile )
+        strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
+        writeLines( strTemplate, con = strBuildMeFile )
+
+        strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
         strTemplate    <- readLines( strBuildMeFile )
         strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
         writeLines( strTemplate, con = strBuildMeFile )
@@ -147,6 +188,12 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
             strTemplate    <- readLines( strAnalysisFileName )
             strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
             writeLines( strTemplate, con = strAnalysisFileName )
+
+            strParallelSimulationsFileName <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="")
+
+            strTemplate    <- readLines( strParallelSimulationsFileName )
+            strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
+            writeLines( strTemplate, con = strParallelSimulationsFileName )
         }
         else
         {
@@ -158,11 +205,24 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
 
 
             file.remove(  paste( strProjectDirectory, "/RunAnalysis.TEMP_ANALYSIS_MODEL.R", sep="") )
+
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMe.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
             strSouceCmd    <- paste( "source\\( 'RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)
             writeLines( strTemplate, con = strBuildMeFile )
+
+            strBuildMeFile <- paste( strProjectDirectory, "/BuildMeRunMultiCore.R", sep="" )
+            strTemplate    <- readLines( strBuildMeFile )
+            strSouceCmd    <- paste( "source\\( 'RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
+            strTemplate    <- gsub( strSouceCmd, "", strTemplate)
+            writeLines( strTemplate, con = strBuildMeFile )
+
+            strParallelSimulationsFileName <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="")
+            strSouceCmd    <-  paste( "source\\( 'RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
+            strTemplate    <- readLines( strParallelSimulationsFileName )
+            strTemplate    <- gsub( strSouceCmd, "", strTemplate)
+            writeLines( strTemplate, con = strParallelSimulationsFileName )
         }
 
     }
@@ -179,6 +239,17 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
 
 
         strBuildMeFile <- paste( strProjectDirectory, "/BuildMe.R", sep="" )
+        strTemplate    <- readLines( strBuildMeFile )
+        strTemplate    <- gsub( "TEMP_SIM_PATIENT_OUTCOME", paste( strSimPatientOutcomeName,  sep=""), strTemplate)
+        writeLines( strTemplate, con = strBuildMeFile )
+
+        strBuildMeFile <- paste( strProjectDirectory, "/BuildMeRunMultiCore.R", sep="" )
+        strTemplate    <- readLines( strBuildMeFile )
+        strTemplate    <- gsub( "TEMP_SIM_PATIENT_OUTCOME", paste( strSimPatientOutcomeName,  sep=""), strTemplate)
+        writeLines( strTemplate, con = strBuildMeFile )
+
+
+        strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
         strTemplate    <- readLines( strBuildMeFile )
         strTemplate    <- gsub( "TEMP_SIM_PATIENT_OUTCOME", paste( strSimPatientOutcomeName,  sep=""), strTemplate)
         writeLines( strTemplate, con = strBuildMeFile )
@@ -205,7 +276,20 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
 
             #The SimPatientOutcome method exists, need to delete the file name and remove the source command for it from the BuildMe
             file.remove(  paste( strProjectDirectory, "/SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R", sep="") )
+
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMe.R", sep="" )
+            strTemplate    <- readLines( strBuildMeFile )
+            strSouceCmd    <- paste( "source\\( 'SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
+            strTemplate    <- gsub( strSouceCmd, "", strTemplate)
+            writeLines( strTemplate, con = strBuildMeFile )
+
+            strBuildMeFile <- paste( strProjectDirectory, "/BuildMeRunMultiCore.R", sep="" )
+            strTemplate    <- readLines( strBuildMeFile )
+            strSouceCmd    <- paste( "source\\( 'SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
+            strTemplate    <- gsub( strSouceCmd, "", strTemplate)
+            writeLines( strTemplate, con = strBuildMeFile )
+
+            strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
             strSouceCmd    <- paste( "source\\( 'SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)

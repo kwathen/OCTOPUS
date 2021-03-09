@@ -1,7 +1,7 @@
 Package: OCTOPUS
 Type: Package
 Title: OCTOPUS
-Version: 1.3.0.6
+Version: 1.3.0.7
 Author: J. Kyle Wathen
 Maintainer: The package maintainer J. Kyle Wathen, PhD <kylewathen@gmail.com>
 Authors@R: person("J. Kyle", "Wathen", email = "KyleWathen@gmail.com",
@@ -14,9 +14,9 @@ Imports:
     shiny,
        nlme,
        MASS,
-       DoseFinding
-Depends: R (>= 3.6.0),
+       DoseFinding,
        coin
+Depends: R (>= 3.6.0)
 Suggests: testthat,
           knitr,
           rmarkdown,

@@ -27,7 +27,7 @@ SimulateScenario.default <- function( cScen, cTrialDesign  )
 {
 
     vRes            <- vector() #vector( length=(20 + length(vPatsPerMonthPerSite1 )))
-
+    lISAAnaRes      <- list()
     i               <- 1
     nQtyReps        <- cScen$nQtyReps
 
@@ -37,12 +37,29 @@ SimulateScenario.default <- function( cScen, cTrialDesign  )
         #print( paste( "Rep ", i))
         rRes <- SimulateSingleTrial( cScen, cTrialDesign  )
 
-        vRes <- rbind( vRes,c( unlist( rRes ) ))
+        vRes <- rbind( vRes,c( unlist( rRes$lRet ) ))
+
+
+        lISAAna <- rRes$lRetISAAna
+        nQtyISA <- length( lISAAna )
+        for( iISA in 1:nQtyISA )
+        {
+            if( i == 1 )
+            {
+                lISAAnaRes[[ iISA ]] <- lISAAna[[ iISA]]
+            }
+            else
+            {
+                lISAAnaRes[[ iISA ]] <- rbind( lISAAnaRes[[ iISA ]], lISAAna[[ iISA]])
+            }
+
+        }
+
         if( i == nQtyReps)
             break
         i <- i + 1
         cScen$nTrialID <- cScen$nTrialID + 1
     }
-    return( vRes )
+    return( list( vRes=vRes, lISAAnaRes = lISAAnaRes)  )
 
 }
