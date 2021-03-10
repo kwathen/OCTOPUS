@@ -9,8 +9,6 @@ Authors@R: person("J. Kyle", "Wathen", email = "KyleWathen@gmail.com",
 Description: This package is used to simulate platform clinical trials. 
     For more about platform trials a reference list is provided
 Imports:
-    coda,
-    rjags,
     shiny,
        nlme,
        MASS,
@@ -20,7 +18,9 @@ Depends: R (>= 3.6.0)
 Suggests: testthat,
           knitr,
           rmarkdown,
-          covr
+          covr,
+          coda,
+          rjags
 VignetteBuilder: knitr
 URL: https://github.com/kwathen/OCTOPUS
 License: file LICENSE
