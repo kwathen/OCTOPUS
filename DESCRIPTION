@@ -13,14 +13,14 @@ Imports:
        nlme,
        MASS,
        DoseFinding,
-       coin
+       coin,
+       coda,
+       rjags
 Depends: R (>= 3.6.0)
 Suggests: testthat,
           knitr,
           rmarkdown,
           covr,
-          coda,
-          rjags
 VignetteBuilder: knitr
 URL: https://github.com/kwathen/OCTOPUS
 License: file LICENSE

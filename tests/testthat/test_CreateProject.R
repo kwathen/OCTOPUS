@@ -13,6 +13,7 @@ context("CreateProject.R")
 
 test_that("CreateProject - Test 1",
 {
+
     gstrProjectDirectory <- paste( getwd(), "/Test1", sep="")
     gstrProjectName      <- "MyNewProject"
     strRes <- CreateProject( strProjectDirectory =  gstrProjectDirectory, strProjectName =  gstrProjectName,
