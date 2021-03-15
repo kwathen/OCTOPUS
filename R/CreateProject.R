@@ -90,8 +90,8 @@ CreateProject <- function( strProjectDirectory        = "",
     strSimOutRet   <- ReplaceSimPatientOutcomeInfo( strNewProjectDirectory, strSimPatientOutcomeName )
 
     #Replace options in the BuildMe.R file ####
-    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMe.R", mQtyPatientsPerArm, vISAStartTimes)
-    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMeRunMultiCore.R", mQtyPatientsPerArm, vISAStartTimes)
+    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMe.R", mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU )
+    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMeRunMultiCore.R", mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU )
     # strBuildMeFile <- paste( strNewProjectDirectory, "/BuildMe.R", sep="" )
     # strTemplate    <- readLines( strBuildMeFile )
     # strTemplate    <- gsub( "TEMP_BORROWING", strBorrowing, strTemplate)
@@ -125,7 +125,7 @@ CreateProject <- function( strProjectDirectory        = "",
     return( strRet )
 }
 
-ReplaceBuildMeInfo  <- function( strNewProjectDirectory, strFileName, mQtyPatientsPerArm, vISAStartTimes )
+ReplaceBuildMeInfo  <- function( strNewProjectDirectory, strFileName, mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU )
 {
     #Replace options in the BuildMe.R file ####
     strBuildMeFile <- paste( strNewProjectDirectory, "/", strFileName, sep="" )

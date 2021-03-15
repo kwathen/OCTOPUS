@@ -12,6 +12,7 @@ context("Test SimulateSingleTrial.R")
 source("TestHelperFunctions.R")
 require( "OCTOPUS" )
 require("nlme")
+require( "coin" )
 
 #Each test will created an lExp that gives the expected outcome of each test.
 
