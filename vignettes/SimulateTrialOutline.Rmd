@@ -1,8 +1,12 @@
 ---
 title: "Simulate Trial Outline"
 author: "J. Kyle Wathen"
-date: "12/12/2019"
-output: html_document
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Simulate Trial Outline}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -10,23 +14,53 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## OCTOPUS - RunSimulation
-This document is intended to give an outline of the steps involved in running a simulation to help users determine where and what would need to be modified.  
+This document is intended to give an outline of the steps involved in running a simulation to help users determine where and what would need to be modified.   This package uses s3 class/functions a fair amount so that the user can extend the functionality as needed.   If a function is an s3 function it will be noted by (s3) after the name.   Most functions do NOT require the use to change them and thus the default versions in OCTOPUS are sufficient.   However, there are key function that do get extended for things such as analysis and patient simulations.  If a function is likely to be updated then a note is added below. 
 
-* RunSimulaiton (located in RunSimulation.R) 
- In this function loops are created to loop over all the designs and simulation scenarios for each design.  
- Within the loop the SimulateScenario function is called.
+* [RunSimulaiton](https://kwathen.github.io/OCTOPUS/reference/RunSimulation.html) (s3)- In this function loops are created to loop over all the designs and simulation scenarios for each design.  Most of the time the user of OCTOPUS will NOT need to modify this function. 
+Each iteration of the loop in RunSimulation will call the SimulateScenario function.
 
-    + SimulateScenario (located in SimulateScenario.R )  In this function a scenario is simulated by simulate multiple replications of a single trial.  A call to SimulateSingleTrial is called in a loop
+    + [SimulateScenario](https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateScenario.R) (s3) -  this function simulates a scenario. A scenario is simulated by simulating multiple replications of a single trial.  A call to SimulateSingleTrial is called in a loop
 
-       + SimulateSingleTrial (located in SimulateSingleTrial.R ) This function will simulate one virtual trial for a given scenario.   The function begins by simulating patient data by calling… 
+        + [SimulateSingleTrial](https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateSingleTrial.R ) (s3) - This function will simulate one virtual trial for a given scenario.  This function is an s3 class so it could be extended by any function with a function signature like ``` SimulateSingleTrial.CLASSNAME <- function( cScen, cTrialDesign  )   ```.  However, development of a new function for this should be considered an "advanced" topic as this is one of the main function for simulation that has been used on many platforms as is.
+       
+          Within SimulateSingleTrial the following steps are performed to simulate a one virtual trial. 
+       
+          **Step 1**
+            
+          Initialize variables and simulate a population of patients that will be used in step 2. The variables that are created are:
 
-          + ... Need to fill in detail
- 
-          + If it is time to run an analysis 
-     
-              + RunTrialAnalysis - (located in RunTrialAnalysis.R) - This generic function has a default implementation that creates a dataset for the entire platform, loops over each ISA and calls RunISAAnalysis with only the data relevant to the ISA analysis.  
-                + CreateDataSetForAnalsis is called (located in CreateDataSetForAnalysis.R) This function has a default implementation that will create a dataset for the entire platform
-                   + ProcessData is called - This function takes the simulated data and processes it, eg gets it ready for analysis.  For example, if you simulate a repeated measure over time and want to analyze change from baseline the ProcessData function can compute the change from baseline so that the analysis function does not need to pre-process the data.  
+          ***cEnrolledPats*** -By calling [InitializePatientList](https://kwathen.github.io/OCTOPUS/reference/InitializePatientList.html) (s3) to setup the structure for the patient population.  In general, the default version is sufficient.
+      
+          ***vISAStartTimes*** By calling [SimulateAllISAStartTimes](https://kwathen.github.io/OCTOPUS/reference/SimulateAllISAStartTimes.html) (s3) Vector of the time (in months) than an ISA enters the platform and patients can be enerolled.   
+        
+          ***vStartTimes*** By calling [SimulateArrivalTimes](https://kwathen.github.io/OCTOPUS/reference/SimulateArrivalTimes.html) the vector is filled with enrollment times, in months, that is used in step 2 for the start time of a patient.  The patient recruitment is simulated as a Poission process according to the montly rates provided.   
+          
+          ***lPatOut*** By calling [SimulateAllPatientOutcomes](https://kwathen.github.io/OCTOPUS/reference/SimulateAllPatientOutcomes.html) a list of patients (the patient population) is created by looping over each ISA and calling [SimPatientOutcomes](cSimOutcomes, cISADesign, dfPatCovISA) (**s3 function that is frequently extended to create new patient simulators***) - The class( cSimOutcomes) determines which function implementation is executed. 
+          
+          **Step 2**
+
+          In a loop, enroll patients into the virutal trial.  Virtual patients (simulated patients from step 1) contained in lPatOut are enrolled in the virtual trial.   The steps to do this as follows, for patient 
+          
+          1.Check which ISAs are open for enrollment at the time patient i enrolls.  Some ISAs may not have entered the platform, others may have been closed for futility or success.
+      
+          2.[Randomize](https://kwathen.github.io/OCTOPUS/reference/Randomize.html) patient i.  This is a two-step process.  Patients are randomzied as part of a two-step process:
+          
+          a)Randomzie between ISAs [RandomizeBetweenISA](https://kwathen.github.io/OCTOPUS/reference/RandomizeBetweenISA.default.html)
+
+          b)Randomize within an ISA
+      
+          3.Check trial monitor - [CheckTrialMonitor](https://kwathen.github.io/OCTOPUS/reference/CheckTrialMonitor.default.html) - The trial monitor determins if an analysis should be done for each ISA.  
+
+          4.If it is time to run an analysis 
+            
+             + Run trial analysis [RunTrialAnalysis](https://github.com/kwathen/OCTOPUS/blob/master/R/RunTrialAnalysis.R) - This generic function has a default implementation that creates a dataset for the entire platform, loops over each ISA and calls RunISAAnalysis with only the data relevant to the ISA analysis.  The specific steps are:
+             
+                + [CreateDataSetForAnalsis](https://github.com/kwathen/OCTOPUS/blob/master/R/CreateDataSetForAnalysis.R) This function has a default implementation that will create a dataset for the entire platform
+                   + [ProcessData](https://kwathen.github.io/OCTOPUS/reference/ProcessData.html) (**s3 - if a new patient simulator is created you may need to add an implementation of this function **) is called - This function takes the simulated data and processes it, eg gets it ready for analysis.  For example, if you simulate a repeated measure over time and want to analyze change from baseline the ProcessData function can compute the change from baseline so that the analysis function does not need to pre-process the data.  
               
-                + RunISAAnalysis - Located in RunISAAnalysis.R - This generic function has a default implementation that will loop over the Analysis list (eg multiple outcomes) and call RunAnalysis for each Analysis
+                + [RunISAAnalysis](https://kwathen.github.io/OCTOPUS/reference/RunISAAnalysis.html) - This generic function has a default implementation that will loop over the Analysis list (eg multiple outcomes) for an ISA and call RunAnalysis for each Analysis. 
+                   
+                    + [RunAnalysis](https://kwathen.github.io/OCTOPUS/reference/RunAnalysis.html) (s3 - **s3 function that is frequently extended to add new analysis). 
+                   
+             + Make Decisions [MakeDecision](https://kwathen.github.io/OCTOPUS/reference/MakeDecision.html) (s3) - In this function ISAs can be closed if decision criteria are met.  There are several options available in OCTOPUS.  
 

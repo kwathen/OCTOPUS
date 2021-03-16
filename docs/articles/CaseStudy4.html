@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">OCTOPUS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.7</span>
       </span>
     </div>
 
@@ -84,10 +84,10 @@
     <li>
       <a href="../articles/CaseStudy6.html">Case Study 6</a>
     </li>
-    <li>
-      <a href="../articles/SimulateTrialOutline.html">Simulate Trial Outline</a>
-    </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/SimulateTrialOutline.html">Simulation Overview</a>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -110,14 +110,14 @@
 
       
 
-      </header><script src="CaseStudy4_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="CaseStudy4_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+      </header><script src="CaseStudy4_files/header-attrs-2.5/header-attrs.js"></script><link href="CaseStudy4_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="CaseStudy4_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Case Study 4</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2021-02-24</h4>
+            <h4 class="date">2021-03-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/CaseStudy4.Rmd"><code>vignettes/CaseStudy4.Rmd</code></a></small>
       <div class="hidden name"><code>CaseStudy4.Rmd</code></div>
@@ -231,33 +231,33 @@ The file TrialDesign.R contains the function necessary to set-up the design obje
 <a href="#borrowing-control-patients" class="anchor"></a>Borrowing Control Patients</h2>
 <p>In this case study a second ISA is included for the first time. Since borrowing is at the ISA level, each ISA can have a different borrowing approach, eg ISA 1 could perform no borrowing and ISA 2 could utilize patients from ISA 1. There are two parts to determining how data is borrowed across ISAs. The first part is determined by how the dataset is created for analysis (includes control patients for all ISAs or just the specific ISA) and the second part is determined by the analysis method.</p>
 <p>In order to share information between ISAs, when a virtual trial is simulated and the dataset created for analysis, the dataset can include data from other ISAs. The code snip below was taken from the <a href="https://github.com/kwathen/OCTOPUS/blob/master/inst/Examples/CaseStudy4/TrialDesign.R">TrialDesign.R</a> and creates the object for ISA 1 is created.</p>
-<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><span id="numCode-1"><a href="#numCode-1"></a>    strBorrow &lt;-<span class="st"> "AllControls"</span></span>
-<span id="numCode-2"><a href="#numCode-2"></a>    strModel  &lt;-<span class="st"> "BayesianNormalAR1"</span></span>
-<span id="numCode-3"><a href="#numCode-3"></a>    vPUpper   &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="fl">1.0</span>, <span class="fl">1.0</span> )</span>
-<span id="numCode-4"><a href="#numCode-4"></a>    vPLower   &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="fl">0.0</span>, <span class="fl">0.0</span> )</span>
-<span id="numCode-5"><a href="#numCode-5"></a>    dFinalPUpper &lt;-<span class="st"> </span><span class="fl">0.45</span></span>
-<span id="numCode-6"><a href="#numCode-6"></a>    dFinalPLower &lt;-<span class="st"> </span><span class="fl">0.05</span></span>
+<div class="sourceCode" id="numCode"><pre class="sourceCode numberSource R numberLines"><code class="sourceCode r"><span id="numCode-1"><a href="#numCode-1"></a>    strBorrow <span class="ot">&lt;-</span> <span class="st">"AllControls"</span></span>
+<span id="numCode-2"><a href="#numCode-2"></a>    strModel  <span class="ot">&lt;-</span> <span class="st">"BayesianNormalAR1"</span></span>
+<span id="numCode-3"><a href="#numCode-3"></a>    vPUpper   <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="fl">1.0</span>, <span class="fl">1.0</span> )</span>
+<span id="numCode-4"><a href="#numCode-4"></a>    vPLower   <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="fl">0.0</span>, <span class="fl">0.0</span> )</span>
+<span id="numCode-5"><a href="#numCode-5"></a>    dFinalPUpper <span class="ot">&lt;-</span> <span class="fl">0.45</span></span>
+<span id="numCode-6"><a href="#numCode-6"></a>    dFinalPLower <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
 <span id="numCode-7"><a href="#numCode-7"></a></span>
-<span id="numCode-8"><a href="#numCode-8"></a>    vQtyPats     &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></span>
-<span id="numCode-9"><a href="#numCode-9"></a>    vMinQtyPats  &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">90</span>, <span class="dv">90</span> )</span>
-<span id="numCode-10"><a href="#numCode-10"></a>    vMinFUTime   &lt;-<span class="st"> </span><span class="kw">c</span>( <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths, <span class="dv">24</span><span class="op">*</span><span class="st"> </span>dConvWeeksToMonths)</span>
-<span id="numCode-11"><a href="#numCode-11"></a>    dQtyMonthsBtwIA  &lt;-<span class="st"> </span><span class="fl">0.0</span></span>
+<span id="numCode-8"><a href="#numCode-8"></a>    vQtyPats     <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">30</span>, <span class="dv">60</span> )  <span class="co"># Control, Treatment</span></span>
+<span id="numCode-9"><a href="#numCode-9"></a>    vMinQtyPats  <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">90</span>, <span class="dv">90</span> )</span>
+<span id="numCode-10"><a href="#numCode-10"></a>    vMinFUTime   <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="dv">24</span><span class="sc">*</span> dConvWeeksToMonths, <span class="dv">24</span><span class="sc">*</span> dConvWeeksToMonths)</span>
+<span id="numCode-11"><a href="#numCode-11"></a>    dQtyMonthsBtwIA  <span class="ot">&lt;-</span> <span class="fl">0.0</span></span>
 <span id="numCode-12"><a href="#numCode-12"></a></span>
-<span id="numCode-13"><a href="#numCode-13"></a>    <span class="co">########################################################################.</span></span>
+<span id="numCode-13"><a href="#numCode-13"></a>    <span class="do">########################################################################.</span></span>
 <span id="numCode-14"><a href="#numCode-14"></a>    <span class="co">#  ISA 1 Information                                                ####</span></span>
-<span id="numCode-15"><a href="#numCode-15"></a>    <span class="co">########################################################################.</span></span>
+<span id="numCode-15"><a href="#numCode-15"></a>    <span class="do">########################################################################.</span></span>
 <span id="numCode-16"><a href="#numCode-16"></a></span>
-<span id="numCode-17"><a href="#numCode-17"></a>    cISA1Info &lt;-<span class="st"> </span><span class="kw">Create1DosePh2AISA</span>( <span class="dt">vQtyPats     =</span> vQtyPats,</span>
-<span id="numCode-18"><a href="#numCode-18"></a>                                     <span class="dt">vTrtLab      =</span> <span class="kw">c</span>( <span class="dv">1</span>, <span class="dv">2</span> ),</span>
-<span id="numCode-19"><a href="#numCode-19"></a>                                     <span class="dt">vPUpper      =</span> vPUpper,</span>
-<span id="numCode-20"><a href="#numCode-20"></a>                                     <span class="dt">vPLower      =</span> vPLower,</span>
-<span id="numCode-21"><a href="#numCode-21"></a>                                     <span class="dt">dFinalPUpper =</span> dFinalPUpper,</span>
-<span id="numCode-22"><a href="#numCode-22"></a>                                     <span class="dt">dFinalPLower =</span> dFinalPLower,</span>
-<span id="numCode-23"><a href="#numCode-23"></a>                                     <span class="dt">strBorrow    =</span> strBorrow,</span>
-<span id="numCode-24"><a href="#numCode-24"></a>                                     <span class="dt">strModel     =</span> strModel,</span>
-<span id="numCode-25"><a href="#numCode-25"></a>                                     <span class="dt">vMinQtyPats  =</span> vMinQtyPats,</span>
-<span id="numCode-26"><a href="#numCode-26"></a>                                     <span class="dt">vMinFUTime   =</span> vMinFUTime,</span>
-<span id="numCode-27"><a href="#numCode-27"></a>                                     <span class="dt">dQtyMonthsBtwIA =</span> dQtyMonthsBtwIA )</span></code></pre></div>
+<span id="numCode-17"><a href="#numCode-17"></a>    cISA1Info <span class="ot">&lt;-</span> <span class="fu">Create1DosePh2AISA</span>( <span class="at">vQtyPats     =</span> vQtyPats,</span>
+<span id="numCode-18"><a href="#numCode-18"></a>                                     <span class="at">vTrtLab      =</span> <span class="fu">c</span>( <span class="dv">1</span>, <span class="dv">2</span> ),</span>
+<span id="numCode-19"><a href="#numCode-19"></a>                                     <span class="at">vPUpper      =</span> vPUpper,</span>
+<span id="numCode-20"><a href="#numCode-20"></a>                                     <span class="at">vPLower      =</span> vPLower,</span>
+<span id="numCode-21"><a href="#numCode-21"></a>                                     <span class="at">dFinalPUpper =</span> dFinalPUpper,</span>
+<span id="numCode-22"><a href="#numCode-22"></a>                                     <span class="at">dFinalPLower =</span> dFinalPLower,</span>
+<span id="numCode-23"><a href="#numCode-23"></a>                                     <span class="at">strBorrow    =</span> strBorrow,</span>
+<span id="numCode-24"><a href="#numCode-24"></a>                                     <span class="at">strModel     =</span> strModel,</span>
+<span id="numCode-25"><a href="#numCode-25"></a>                                     <span class="at">vMinQtyPats  =</span> vMinQtyPats,</span>
+<span id="numCode-26"><a href="#numCode-26"></a>                                     <span class="at">vMinFUTime   =</span> vMinFUTime,</span>
+<span id="numCode-27"><a href="#numCode-27"></a>                                     <span class="at">dQtyMonthsBtwIA =</span> dQtyMonthsBtwIA )</span></code></pre></div>
 <p>On line 1 in the code block above, the strBorrow is set to “AllControl” and sent as an argument in Create1DosePh2AISA which is included into the design element for ISA 1. A view of the cISA1Info object is provided below, note the red box to highlight the S3 class of AllControls. This class determines how the dataset is created before the analysis is performed. This option will result in the dataset including all control patient data.</p>
 <div class="figure">
 <img src="TrialDesignObject.png" alt=""><p class="caption">Trial Design Object - Red square to highlight the S3 class type of AllControls</p>
