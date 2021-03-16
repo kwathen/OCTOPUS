@@ -28,7 +28,10 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     if( cScen$nPrintDetail >= 100 | gnPrintDetail >= 100 )
         print( paste( "SimulateSingleTrial.default - Updated "))
 
-    #Initialize Variables
+    #################################################################################################### .
+    # Initialize Variables ####
+    #################################################################################################### .
+
     if( gDebug == TRUE   )
         browser()
     nQtyISA             <- cTrialDesign$nQtyISAs
@@ -61,7 +64,20 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
     vstrStatus <- c("ISA not added to trial", "ISA Open", "Met Max Enrollment",
                     "Closed - Early Go", "Closed - Early No Go", "Closed - Go at FA", "Closed - No Go at FA", "Closed - Pause at FA")
 
-    cEnrolledPats   <- InitializePatientList( cTrialDesign )                    #This will keep track of the current patients enrolled in the trial
+    #################################################################################################### .
+    #  Setup variables that are needed during the simulation ####
+    #       The general concept is to simulate a population of patient and then in the for loop below we will "enroll"
+    #       patients into the trial and move the patient from the population of patients to the trial list.  This was
+    #       done because simulating patient data can often be more efficient to simulate a set of patients
+    #       at the same time rather than one patient at a time.  For example, if simulating an outcome from a MVN it is much
+    #       more efficient to simulate 100 patients all at once rather than one patient at a time.  This is because the
+    #       in order so simulate from a MVN you must invert a matrix fist.
+    #  Below is a description of the various variables in the function.
+    #  cEnrolledPats - This will keep track of the current patients enrolled in the trial
+    #  lPatOut - database or population of virtual patients that will be enrolled in the trial at some point
+    #################################################################################################### .
+
+    cEnrolledPats   <- InitializePatientList( cTrialDesign )                    #
     vISAStartTimes  <- SimulateAllISAStartTimes( cScen$cISADesigns )            # Simulate the times the ISAs start
 
     vStartTimes     <- SimulateArrivalTimes( cScen$cAcc )
@@ -460,7 +476,7 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
         strStatus <- paste( "Final ISA Status ", paste( vstrStatus[ vISAStatus+1 ], collapse=", "), collapse = " " )
         print( paste( strStatus) )
     }
-    ######
+
 
     for( i in 1:nQtyISA )
     {

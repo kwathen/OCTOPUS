@@ -5,6 +5,7 @@ navbar:
     - intro
     - reference
     - examples
+    - simulation
     - news
     right: github
   components:
@@ -23,6 +24,9 @@ navbar:
     tutorials: ~
     articles: ~
 
+    simulation:
+        text: Simulation Overview
+        href: articles/SimulateTrialOutline.html
     examples:
         text: Examples
         menu:
@@ -40,8 +44,6 @@ navbar:
           href: articles/CaseStudy5.html
         - text: "Case Study 6"
           href: articles/CaseStudy6.html
-        - text: "Simulate Trial Outline"
-          href: articles/SimulateTrialOutline.html
     github:
           icon: fa-github fa-lg
           href: https://github.com/kwathen/OCTOPUS
