@@ -97,11 +97,15 @@ RunTrialAnalysis <- function( cISADesigns, cEnrolledPats,  vISAStatus, dCurrentT
 #' @title RunTrialAnalysis
 #' @description { RunTrialAnalysis is a generic method to execute the trial analysis.
 #' Any implementation of RunTrialAnalysis must increment vISAAnalysisIndx if an analysis is run for an ISA.
-#' Trial level analysis - will go through and conduct the analysis for each ISA.
-#'  This version is sent all the available data in lDataAna then for each ISA gets the subset
-#'   that is specific to that ISA.  If we want to do a version that borrows control info
-#'   a new version could be adapted.
-#'   Because the decision is tied to the analysis, each ISA analysis should contain the elementsnGo, nNoGo, nPause as part ot the list retured.
+#' Trial level analysis go through the following steps:
+#'     1. CreateDataSetForAnalysis - creates the data set for analysis for all ISAs will go through and call ProcessData
+#'        based on  the specific class of the outcome
+#'     2. Loop through each ISA and build the dataset for analysis for the specific ISA if it is borrowing.  The
+#'        borrowing is done via the SubsetData call and it will depend on the specific class of cISADesigns[[i]]$cISAAnalysis. The
+#'        available options are AllControls or NoBorrowing but since SubsetData is an S3 generic new functions can be added.
+#'     3. Runs the analysis for each ISA via a call to  RunISAAnalysis
+#'
+#'   Because the decision is tied to the analysis, each ISA analysis should contain the elements nGo, nNoGo, nPause as part of the list returned.
 #'  }
 #' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RunTrialAnalysis.R}{View Code on GitHub} }
 #' @export
@@ -120,9 +124,7 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
     }
     lDataAna <-  CreateDataSetForAnalysis( cEnrolledPats, dCurrentTime, vISAStatus )
 
-    #vMinMet     <- ifelse( dCurrentTime >= vStartISAAnalysis & vStartISAAnalysis >0, TRUE, FALSE )
 
-    #print("RunTrialAnalysis.IndependentISA")
 
     lResISA <- list()
     nISA <- 1

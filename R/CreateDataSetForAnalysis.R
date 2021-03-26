@@ -33,7 +33,7 @@ CreateDataSetForAnalysis <- function( cPats,  dCurrentTime, vISAStatus  )
 #' is created, if the status = 0 for an ISA the dataset will not be created.
 #' @return {An object with class = "TrialData" that has a list with an element for each ISA data.
 #' Before creating the dataset the ProcessData to create the version of the data needed, eg change from baseline,
-#' and also coppies covariates that are present.}
+#' and also copies covariates that are present.}
 #' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateDataSetForAnalysis.R}{View Code on GitHub} }
 #' @export
 CreateDataSetForAnalysis.default   <- function( cPats,  dCurrentTime, vISAStatus   )  #IndependentISA <- function( cPats,  dCurrentTime   )
