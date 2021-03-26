@@ -275,9 +275,27 @@ setMethod(  f = "SimulateArrivalTimes",
                     }
                     else
                     {
-                        vRetAccTimes <- cumsum(rexp( qpois(0.9999,vPatsPerMonth[ 1 ])+10,vPatsPerMonth[ 1 ]))
-                        vRetAccTimes <- vRetAccTimes[ vRetAccTimes < nMaxMonths  ]
+                        # No maximum number of patients supplied so need to estimate the max we need
+                        # This is done by getting the “max” in a month * nMaxMonths *1.2 where the 1.2 is to add extra patients to make sure enough are generate
+                        nQtyTimesToGenerate <- qpois(0.9999, vPatsPerMonth[ 1 ] * nMaxMonths) * 1.2
+                        vExpTimes    <- rexp( nQtyTimesToGenerate,vPatsPerMonth[ 1 ])
+                        vRetAccTimes <- cumsum( vExpTimes )
+                        # At this point we should have the last time enrolled after the nMaxMonths
+                        # if not, then we needed to have generated more so we will do more
+                        nQtyRetry <- 0
+                        if( vRetAccTimes[ length(vRetAccTimes) ] < nMaxMonths )
+                        {
+                            nQtyRetry <- nQtyRetry + 1
+                            # Simulate more times and append vExpTimes since accrual was on the low end
+                            # we don't want to "throw" then out
+                            vExpTimes    <- c( vExpTimes, rexp( nQtyTimesToGenerate,vPatsPerMonth[ 1 ]) )
+                            vRetAccTimes <- cumsum( vExpTimes )
+                            if( nQtyRetry > 3 )
+                                stop( "Error in AccrualMethods SimulateArrivalTimes - Simulate for max time failed.")
 
+                        }
+
+                        vRetAccTimes <- vRetAccTimes[ vRetAccTimes < nMaxMonths  ]
                     }
                 }
                 else #We have a monthly accrual rate
