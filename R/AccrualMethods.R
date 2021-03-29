@@ -266,7 +266,7 @@ setMethod(  f = "SimulateArrivalTimes",
 
                 if( length(vPatsPerMonth) == 1 )  #Using a constant hazard
                 {
-                    #Now either we are going to enrol for a maximum number of months, patients or whichever comes first
+                    #Now either we are going to enroll for a maximum number of months, patients or whichever comes first
 
                     if( nMaxQtyPats > 0 )
                     {
@@ -305,7 +305,7 @@ setMethod(  f = "SimulateArrivalTimes",
                     if( nMaxQtyPats > 0 )
                     {
                         #In previous versions this created a stop, however, this suggested to just send a very long vector
-                        # of month recruitments just to make sure this does not happen.  However, this could be VERY slow due to
+                        # of month recruitment just to make sure this does not happen.  However, this could be VERY slow due to
                         # an excessive length of the vector.  So this was changed to just use the last moth rate for the remainder of the time
                         nQtyTimesSimulated <- length( vRetAccTimes )
                         if( nQtyTimesSimulated < nMaxQtyPats )# & nMaxMonths <= 0 )  #Not enough monthly rates were provided, thus stop because this could indicate an error

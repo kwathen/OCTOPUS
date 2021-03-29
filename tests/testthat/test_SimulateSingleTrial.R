@@ -9,18 +9,9 @@
 
 
 context("Test SimulateSingleTrial.R")
-source("TestHelperFunctions.R")
-require( "OCTOPUS" )
-require("nlme")
-require( "coin" )
 
-#Each test will created an lExp that gives the expected outcome of each test.
 
-Sys.setenv( SGE_TASK_ID = 1)
 
-cTrialDesign <- SetupTrialDesign2ISASimple( )
-nQtyRep      <- 1
-cSimulation  <- SetupSimulations( cTrialDesign, nQtyRep )
 
 #---------------------------------------------------------------------------------------------- -
 #
@@ -31,6 +22,18 @@ cSimulation  <- SetupSimulations( cTrialDesign, nQtyRep )
 
 test_that("RunSimulation - Outputfiles",
     {
+        #Each test will created an lExp that gives the expected outcome of each test.
+        source("TestHelperFunctions.R")
+        library( "OCTOPUS" )
+        library("nlme")
+        library( "coin" )
+
+        Sys.setenv( SGE_TASK_ID = 1)
+
+        cTrialDesign <- SetupTrialDesign2ISASimple( )
+        nQtyRep      <- 1
+        cSimulation  <- SetupSimulations( cTrialDesign, nQtyRep )
+
 
         #Now perform a few random tests to make sure the randomization to the ISAs are equal
         CleanSimulationDirectories( )
