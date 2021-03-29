@@ -14,7 +14,7 @@ and is not required by other randomizer so this function will stop if it is not 
 }
 \description{
 { InitializeISARandomizer.POCRandomizer will randomize the first patients to a select set of
-arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of intitial patients.}
+arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of initial patients.}
 }
 \seealso{
 { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/InitializeISARandomizer.R}{View Code on GitHub} }

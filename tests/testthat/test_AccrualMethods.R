@@ -179,7 +179,7 @@ test_that( "SimulateArrivalTimes (max number of months): ",
         ap                      <- NewAccrualProcess( vQtyPatsPerMonth = vTestPatsPerMonth, nMaxQtyPatients = nTestMaxQtyPats, nMaxMonthsOfAccrual = nTestMaxQtyMonths )
 
         #With the current monthly accrual rates we should get the max number of patients before the max accrual time
-        nQtyTest        <- 100
+        nQtyTest        <- 500
         nQtyTestsPassed <- 0
         for( i in 1:nQtyTest )
         {
@@ -196,6 +196,35 @@ test_that( "SimulateArrivalTimes (max number of months): ",
         expect_equal( nQtyTestsPassed, nQtyTest, label= "SimulateArrivalTimes (Max time and quantity of patients)")
     })
 
+test_that( "SimulateArrivalTimes (max number of months, single, constant rate): ",
+{
+    strTestDesc <- "Accrual will continue until  the max qty of months  of accrual is reached.  Using a FIXED accrual rate"
+
+    nTestMaxQtyMonths       <- 24
+    vTestPatsPerMonth       <- c(4)
+    strTestDesc             <- "Accrual will continue until max months of accrual is reached.  Using a fixed rate"
+
+    ap                      <- NewAccrualProcess( vQtyPatsPerMonth = vTestPatsPerMonth, nMaxMonthsOfAccrual = nTestMaxQtyMonths )
+
+    #With the current monthly accrual rates we should get the max number of patients before the max accrual time
+    nQtyTest        <- 100
+    nQtyTestsPassed <- 0
+
+    for( i in 1:nQtyTest )
+    {
+        vTestAccTimes <- SimulateArrivalTimes( ap )
+
+        nQtyPatsMin   <- qpois( 0.001, vTestPatsPerMonth*nTestMaxQtyMonths )
+        #With the current monthly accrual rates we should get the max number of patients before the max accrual time
+        #so the next if statement has been updated to ==
+        if( length( vTestAccTimes ) > nQtyPatsMin &
+            vTestAccTimes[ length(vTestAccTimes )] <= nTestMaxQtyMonths  )
+        {
+            nQtyTestsPassed <- nQtyTestsPassed + 1
+        }
+    }
+    expect_equal( nQtyTestsPassed, nQtyTest, label= "SimulateArrivalTimes (Max time )")
+})
 test_that( "SimulateArrivalTimes (max number of months): ",
     {
         strTestDesc <- "Accrual will continue until either the max qty of patients or max months  of accrual is reached, whichever comes first.  Using a variable accrual rate"
