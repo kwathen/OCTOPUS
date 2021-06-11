@@ -137,6 +137,7 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
 
         if( vRunISAAnalysis[ nISA ] == 1 &&  vISAStatus[ nISA ] <=2 )   #If the minimum is met and the ISA is open then do the analysis
         {
+
             # print( paste( ".....Case 1 - Running analysis for ISA ", nISA, " ISAStatus ", vISAStatus[ nISA ]))
             cISAAnalysis <- cISADesigns[[ nISA ]]$cISAAnalysis
             #print( paste( "Data for trial "))
@@ -155,8 +156,9 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
             vISAAnalysisIndx[ nISA ] <- vISAAnalysisIndx[ nISA ] + 1
 
         }
-        else if(  vISAStatus[ nISA ] <= 1  )
+        else #if(  vISAStatus[ nISA ] <= 1  )
         {
+
             #print( ".....Case 2 - Analysis not being run for ISA ", nISA )
 
             cISAAnalysis <- cISADesigns[[ nISA ]]$cISAAnalysis
@@ -174,12 +176,12 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
             }
 
         }
-        else
-        {
-
-            #print( "Case 3")
-        }
-        lISARes$bISAAnalysisRun <- (vRunISAAnalysis[ nISA ] == 1)
+        # else
+        # {
+        #
+        #     #print( "Case 3")
+        # }
+        lISARes$bISAAnalysisRun <-  (vRunISAAnalysis[ nISA ] == 1)
         lResISA[[paste("lResISA", nISA, sep="")]] <- lISARes #[ names( lISARes ) != "cRandomizer" ]
 
 
