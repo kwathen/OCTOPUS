@@ -266,7 +266,7 @@ setMethod(  f = "SimulateArrivalTimes",
 
                 if( length(vPatsPerMonth) == 1 )  #Using a constant hazard
                 {
-                    #Now either we are going to enrol for a maximum number of months, patients or whichever comes first
+                    #Now either we are going to enroll for a maximum number of months, patients or whichever comes first
 
                     if( nMaxQtyPats > 0 )
                     {
@@ -275,9 +275,27 @@ setMethod(  f = "SimulateArrivalTimes",
                     }
                     else
                     {
-                        vRetAccTimes <- cumsum(rexp( qpois(0.9999,vPatsPerMonth[ 1 ])+10,vPatsPerMonth[ 1 ]))
-                        vRetAccTimes <- vRetAccTimes[ vRetAccTimes < nMaxMonths  ]
+                        # No maximum number of patients supplied so need to estimate the max we need
+                        # This is done by getting the “max” in a month * nMaxMonths *1.2 where the 1.2 is to add extra patients to make sure enough are generate
+                        nQtyTimesToGenerate <- qpois(0.9999, vPatsPerMonth[ 1 ] * nMaxMonths) * 1.2
+                        vExpTimes    <- rexp( nQtyTimesToGenerate,vPatsPerMonth[ 1 ])
+                        vRetAccTimes <- cumsum( vExpTimes )
+                        # At this point we should have the last time enrolled after the nMaxMonths
+                        # if not, then we needed to have generated more so we will do more
+                        nQtyRetry <- 0
+                        if( vRetAccTimes[ length(vRetAccTimes) ] < nMaxMonths )
+                        {
+                            nQtyRetry <- nQtyRetry + 1
+                            # Simulate more times and append vExpTimes since accrual was on the low end
+                            # we don't want to "throw" then out
+                            vExpTimes    <- c( vExpTimes, rexp( nQtyTimesToGenerate,vPatsPerMonth[ 1 ]) )
+                            vRetAccTimes <- cumsum( vExpTimes )
+                            if( nQtyRetry > 3 )
+                                stop( "Error in AccrualMethods SimulateArrivalTimes - Simulate for max time failed.")
 
+                        }
+
+                        vRetAccTimes <- vRetAccTimes[ vRetAccTimes < nMaxMonths  ]
                     }
                 }
                 else #We have a monthly accrual rate
@@ -287,7 +305,7 @@ setMethod(  f = "SimulateArrivalTimes",
                     if( nMaxQtyPats > 0 )
                     {
                         #In previous versions this created a stop, however, this suggested to just send a very long vector
-                        # of month recruitments just to make sure this does not happen.  However, this could be VERY slow due to
+                        # of month recruitment just to make sure this does not happen.  However, this could be VERY slow due to
                         # an excessive length of the vector.  So this was changed to just use the last moth rate for the remainder of the time
                         nQtyTimesSimulated <- length( vRetAccTimes )
                         if( nQtyTimesSimulated < nMaxQtyPats )# & nMaxMonths <= 0 )  #Not enough monthly rates were provided, thus stop because this could indicate an error

@@ -18,7 +18,7 @@ is created, if the status = 0 for an ISA the dataset will not be created.}
 \value{
 {An object with class = "TrialData" that has a list with an element for each ISA data.
 Before creating the dataset the ProcessData to create the version of the data needed, eg change from baseline,
-and also coppies covariates that are present.}
+and also copies covariates that are present.}
 }
 \description{
 {This function creates a dataset for analysis based on the current time (dCurrentTime)

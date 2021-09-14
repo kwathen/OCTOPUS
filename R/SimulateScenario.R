@@ -35,6 +35,8 @@ SimulateScenario.default <- function( cScen, cTrialDesign  )
     repeat
     {
         #print( paste( "Rep ", i))
+        # if( cScen$nTrialID == 23 & i == 3 )
+        #     browser()
         rRes <- SimulateSingleTrial( cScen, cTrialDesign  )
 
         vRes <- rbind( vRes,c( unlist( rRes$lRet ) ))
@@ -50,6 +52,8 @@ SimulateScenario.default <- function( cScen, cTrialDesign  )
             }
             else
             {
+                # if( ncol( lISAAnaRes[[ iISA ]]) != ncol(  lISAAna[[ iISA]]))
+                #     browser()
                 lISAAnaRes[[ iISA ]] <- rbind( lISAAnaRes[[ iISA ]], lISAAna[[ iISA]])
             }
 
