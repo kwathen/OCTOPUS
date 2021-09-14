@@ -176,8 +176,44 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
             }
 
         }
-        else
+        else if( vISAStatus[ nISA ] > 2 )
         {
+            #   3 = Closed with a Go before FA,
+            #   4 = Closed - No Go before FA
+            #   5 = closed - Go at the FA
+            #   6 = Closed - No Go at the FA
+            #   7 = Closed - Pause at the FA
+
+            nGo <- 0
+            nNoGo <- 0
+            nPause <- 0
+            if( vISAStatus[ nISA ] == 3 | vISAStatus[ nISA ] ==5)
+            {
+                nGo <- 1
+            }
+            else if( vISAStatus[ nISA ] == 4 | vISAStatus[ nISA ] ==6)
+            {
+                nNOGo <- 1
+            }
+            else
+            {
+                nPause <- 1
+            }
+
+
+
+            cISAAnalysis <- cISADesigns[[ nISA ]]$cISAAnalysis
+            nQtyAna <- length( cISAAnalysis$vAnalysis )
+            iAna    <- 1
+            lISARes <- list()
+            repeat
+            {
+                lISARes[[paste("lAnalysis", iAna, sep="")]] <- list( nGo = nGo, nNoGo = nNoGo, nPause = nPause, cRandomizer =  cRandomizer[[ nISA ]])
+
+                if( iAna == nQtyAna )
+                    break
+                iAna <- iAna + 1
+            }
 
             #print( "Case 3")
         }

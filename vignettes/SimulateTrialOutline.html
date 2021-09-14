@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="J. Kyle Wathen" />
+
+<meta name="date" content="2021-06-03" />
+
+<title>Simulate Trial Outline</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Simulate Trial Outline</h1>
+<h4 class="author">J. Kyle Wathen</h4>
+<h4 class="date">2021-06-03</h4>
+
+
+
+<div id="octopus---runsimulation" class="section level2">
+<h2>OCTOPUS - RunSimulation</h2>
+<p>This document is intended to give an outline of the steps involved in running a simulation to help users determine where and what would need to be modified. This package uses s3 class/functions a fair amount so that the user can extend the functionality as needed. If a function is an s3 function it will be noted by (s3) after the name. Most functions do NOT require the use to change them and thus the default versions in OCTOPUS are sufficient. However, there are key function that do get extended for things such as analysis and patient simulations. If a function is likely to be updated then a note is added below.</p>
+<ul>
+<li><p><a href="https://kwathen.github.io/OCTOPUS/reference/RunSimulation.html">RunSimulaiton</a> (s3)- In this function loops are created to loop over all the designs and simulation scenarios for each design. Most of the time the user of OCTOPUS will NOT need to modify this function. Each iteration of the loop in RunSimulation will call the SimulateScenario function.</p>
+<ul>
+<li><p><a href="https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateScenario.R">SimulateScenario</a> (s3) - this function simulates a scenario. A scenario is simulated by simulating multiple replications of a single trial. A call to SimulateSingleTrial is called in a loop</p>
+<ul>
+<li><p><a href="https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateSingleTrial.R">SimulateSingleTrial</a> (s3) - This function will simulate one virtual trial for a given scenario. This function is an s3 class so it could be extended by any function with a function signature like <code>SimulateSingleTrial.CLASSNAME &lt;- function( cScen, cTrialDesign  )</code>. However, development of a new function for this should be considered an “advanced” topic as this is one of the main function for simulation that has been used on many platforms as is.</p>
+<p>Within SimulateSingleTrial the following steps are performed to simulate a one virtual trial.</p>
+<p><strong>Step 1</strong></p>
+<p>Initialize variables and simulate a population of patients that will be used in step 2. The variables that are created are:</p>
+<p><strong><em>cEnrolledPats</em></strong> -By calling <a href="https://kwathen.github.io/OCTOPUS/reference/InitializePatientList.html">InitializePatientList</a> (s3) to setup the structure for the patient population. In general, the default version is sufficient.</p>
+<p><strong><em>vISAStartTimes</em></strong> By calling <a href="https://kwathen.github.io/OCTOPUS/reference/SimulateAllISAStartTimes.html">SimulateAllISAStartTimes</a> (s3) Vector of the time (in months) than an ISA enters the platform and patients can be enerolled.</p>
+<p><strong><em>vStartTimes</em></strong> By calling <a href="https://kwathen.github.io/OCTOPUS/reference/SimulateArrivalTimes.html">SimulateArrivalTimes</a> the vector is filled with enrollment times, in months, that is used in step 2 for the start time of a patient. The patient recruitment is simulated as a Poission process according to the montly rates provided.</p>
+<p><strong><em>lPatOut</em></strong> By calling <a href="https://kwathen.github.io/OCTOPUS/reference/SimulateAllPatientOutcomes.html">SimulateAllPatientOutcomes</a> a list of patients (the patient population) is created by looping over each ISA and calling <a href="cSimOutcomes,%20cISADesign,%20dfPatCovISA">SimPatientOutcomes</a> (<strong>s3 function that is frequently extended to create new patient simulators</strong>*) - The class( cSimOutcomes) determines which function implementation is executed.</p>
+<p><strong>Step 2</strong></p>
+<p>In a loop, enroll patients into the virutal trial. Virtual patients (simulated patients from step 1) contained in lPatOut are enrolled in the virtual trial. The steps to do this as follows, for patient</p>
+<p>1.Check which ISAs are open for enrollment at the time patient i enrolls. Some ISAs may not have entered the platform, others may have been closed for futility or success.</p>
+<p>2.<a href="https://kwathen.github.io/OCTOPUS/reference/Randomize.html">Randomize</a> patient i. This is a two-step process. Patients are randomzied as part of a two-step process:</p>
+<p>a)Randomzie between ISAs <a href="https://kwathen.github.io/OCTOPUS/reference/RandomizeBetweenISA.default.html">RandomizeBetweenISA</a></p>
+<p>b)Randomize within an ISA</p>
+<p>3.Check trial monitor - <a href="https://kwathen.github.io/OCTOPUS/reference/CheckTrialMonitor.default.html">CheckTrialMonitor</a> - The trial monitor determins if an analysis should be done for each ISA.</p>
+<p>4.If it is time to run an analysis</p>
+<ul>
+<li><p>Run trial analysis <a href="https://github.com/kwathen/OCTOPUS/blob/master/R/RunTrialAnalysis.R">RunTrialAnalysis</a> - This generic function has a default implementation that creates a dataset for the entire platform, loops over each ISA and calls RunISAAnalysis with only the data relevant to the ISA analysis. The specific steps are:</p>
+<ul>
+<li><p><a href="https://github.com/kwathen/OCTOPUS/blob/master/R/CreateDataSetForAnalysis.R">CreateDataSetForAnalsis</a> This function has a default implementation that will create a dataset for the entire platform</p>
+<ul>
+<li><a href="https://kwathen.github.io/OCTOPUS/reference/ProcessData.html">ProcessData</a> (<strong>s3 - if a new patient simulator is created you may need to add an implementation of this function </strong>) is called - This function takes the simulated data and processes it, eg gets it ready for analysis. For example, if you simulate a repeated measure over time and want to analyze change from baseline the ProcessData function can compute the change from baseline so that the analysis function does not need to pre-process the data.</li>
+</ul></li>
+<li><p><a href="https://kwathen.github.io/OCTOPUS/reference/RunISAAnalysis.html">RunISAAnalysis</a> - This generic function has a default implementation that will loop over the Analysis list (eg multiple outcomes) for an ISA and call RunAnalysis for each Analysis.</p>
+<ul>
+<li><a href="https://kwathen.github.io/OCTOPUS/reference/RunAnalysis.html">RunAnalysis</a> (s3 - **s3 function that is frequently extended to add new analysis).</li>
+</ul></li>
+</ul></li>
+<li><p>Make Decisions <a href="https://kwathen.github.io/OCTOPUS/reference/MakeDecision.html">MakeDecision</a> (s3) - In this function ISAs can be closed if decision criteria are met. There are several options available in OCTOPUS.</p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
