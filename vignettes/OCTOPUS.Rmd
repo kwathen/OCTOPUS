@@ -28,10 +28,30 @@ To help increase flexibility and allow for new additions to be added by the user
 
 This package is under development and is working and has been used to simulate several trials.  As case studies are created they will be added to the Examples directory of the package to help users create the necessary structures.  The tar.gz files in this repository are included as testing versions for beta testers as new updates are added. 
 
-Please follow this project to be notified of updates.   
+Please follow or star this project to be notified of updates.  
+
+# Key Features
+
+The following list of key features is intended to by a high level assessment of what can be done with the OCTOPUS package.  This packages makes extensive use of S3 classes to allow anyone to add new functionality, such as a new way of simulating patient data or the analysis that is conducted, with minimal requirements and work.
+
+* Any number of ISAs with any number of treatments contained in the ISA
+* ISA start times (times ISA enters the platform) may be fixed or random 
+* Borrowing patient information between ISAs is defined for each ISA allowing great flexibility and each ISA can be different
+* Analysis - Each ISA can define a different analysis and new analysis approaches are easily added
+* Trial monitoring, eg when analysis are run, is triggered in a variety of way such as specified as a minimum information within an ISA, predetermined time inervals between analysis or specified times of analysis
+* Patient outcomes: 
+    * Any number of patient outcomes
+    * Outcomes may be different between ISAs
+    * New patient simulators can be added easily 
+    * New analysis can be added easily to accommodate new patient outcomes
+* Randomization - A few default randomizes are available, new ones can be added
+  
+
+It is useful to understand the [flow of a simulation](SimulationTrialOutline.html) as well as the [key simulation objcts](PrimaryObjectsForSimulation.html)
+
 
 # Trial Design Structure
-A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo.  The first step is considered the trial randomiser and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.  
+A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo.  The first step is considered the trial randomizer and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.  
 
 The trial design object is a structure with a class name equal to the desired trial randomizer.   For example,
 

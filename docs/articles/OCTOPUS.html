@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -96,7 +96,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/kwathen/OCTOPUS">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -110,14 +110,13 @@
 
       
 
-      </header><script src="OCTOPUS_files/header-attrs-2.5/header-attrs.js"></script><link href="OCTOPUS_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="OCTOPUS_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="OCTOPUS_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>OCTOPUS</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2021-03-15</h4>
+            <h4 class="date">2021-09-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/OCTOPUS.Rmd"><code>vignettes/OCTOPUS.Rmd</code></a></small>
       <div class="hidden name"><code>OCTOPUS.Rmd</code></div>
@@ -133,12 +132,34 @@
 <p>In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform. Each of the structures will be details in the sections below.</p>
 <p>To help increase flexibility and allow for new additions to be added by the users, S3 class and generic methods are implemented. Many aspects can be extended such as new types of analysis, simulation of outcomes and randomization schemes. For users not familiar with S3 or generic functions, please refer to the example document <a href="https://github.com/kwathen/OCTOPUS/blob/master/ExampleS3Class.R">Example S3 Generic Methods</a>.</p>
 <p>This package is under development and is working and has been used to simulate several trials. As case studies are created they will be added to the Examples directory of the package to help users create the necessary structures. The tar.gz files in this repository are included as testing versions for beta testers as new updates are added.</p>
-<p>Please follow this project to be notified of updates.</p>
+<p>Please follow or star this project to be notified of updates.</p>
+</div>
+<div id="key-features" class="section level1">
+<h1 class="hasAnchor">
+<a href="#key-features" class="anchor"></a>Key Features</h1>
+<p>The following list of key features is intended to by a high level assessment of what can be done with the OCTOPUS package. This packages makes extensive use of S3 classes to allow anyone to add new functionality, such as a new way of simulating patient data or the analysis that is conducted, with minimal requirements and work.</p>
+<ul>
+<li>Any number of ISAs with any number of treatments contained in the ISA</li>
+<li>ISA start times (times ISA enters the platform) may be fixed or random</li>
+<li>Borrowing patient information between ISAs is defined for each ISA allowing great flexibility and each ISA can be different</li>
+<li>Analysis - Each ISA can define a different analysis and new analysis approaches are easily added</li>
+<li>Trial monitoring, eg when analysis are run, is triggered in a variety of way such as specified as a minimum information within an ISA, predetermined time inervals between analysis or specified times of analysis</li>
+<li>Patient outcomes:
+<ul>
+<li>Any number of patient outcomes</li>
+<li>Outcomes may be different between ISAs</li>
+<li>New patient simulators can be added easily</li>
+<li>New analysis can be added easily to accommodate new patient outcomes</li>
+</ul>
+</li>
+<li>Randomization - A few default randomizes are available, new ones can be added</li>
+</ul>
+<p>It is useful to understand the <a href="SimulationTrialOutline.html">flow of a simulation</a> as well as the <a href="PrimaryObjectsForSimulation.html">key simulation objcts</a></p>
 </div>
 <div id="trial-design-structure" class="section level1">
 <h1 class="hasAnchor">
 <a href="#trial-design-structure" class="anchor"></a>Trial Design Structure</h1>
-<p>A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo. The first step is considered the trial randomiser and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.</p>
+<p>A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo. The first step is considered the trial randomizer and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.</p>
 <p>The trial design object is a structure with a class name equal to the desired trial randomizer. For example,</p>
 <p>cTrialDesign &lt;- structure( list( ), class=‘EqualRandomizer’)</p>
 <p>would create the trial design object where patients are equally randomized between ISAs. The list( ) in the structure would contain information about the platform, such as the number of ISAs, number of patients on each ISA, ect. Within the list is also a collection of ISA elements to define the specifics of each ISA. More details of this object are presented in the documentation and examples. In general, the ISAs may differ as much as needed, however, if ISAs differ too much the advantages of a platform are minimized.</p>
