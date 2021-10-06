@@ -200,7 +200,8 @@ RunParallelSimulations( nStartIndex = 1, nEndIndex = nQtyCores,  nQtyCores, cSim
 
 # The next option will run the parallel simulations but with a visual update on the % complete
 
-RunParallelSimulationsWithUpdate( nStartIndex = 1, nEndIndex = nQtyCores,  nQtyCores, cSimulation )
+# Currently the version with the update box does not update very frequently
+#RunParallelSimulationsWithUpdate( nStartIndex = 1, nEndIndex = nQtyCores,  nQtyCores, cSimulation )
 
 
 # Post Process ####
@@ -208,6 +209,6 @@ RunParallelSimulationsWithUpdate( nStartIndex = 1, nEndIndex = nQtyCores,  nQtyC
 # simsCombined.Rdata - This will have the all results about the platform and decisions made for each ISA
 # simsISAX.RData will have additional info about ISA X
 # simsMain.RData contain decisions that are made for the platform/ISA
-dfTmp <- OCTOPUS::BuildSimulationResultsDataSet( )   # Assigning to dfTmp but the important outputs are saved as .RData
+#dfTmp <- OCTOPUS::BuildSimulationResultsDataSet( )   # Assigning to dfTmp but the important outputs are saved as .RData
 
 

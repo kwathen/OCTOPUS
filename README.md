@@ -42,7 +42,7 @@ The following list of key features is intended to by a high level assessment of 
 * Randomization - A few default randomizes are available, new ones can be added
   
 
-It is useful to understand the [flow of a simulation](articles/SimulateTrialOutline.html) as well as the [key simulation objects](docs/PrimaryObjectsForSimulation.html)
+It is useful to understand the [flow of a simulation](articles/SimulateTrialOutline.html) as well as the [key simulation objects](articles/PrimaryObjectsForSimulation.html)
 
 The [OCTOPUS-Examples Repo](https://github.com/kwathen/OCTOPUS-Examples) provides the setup files and folders for several types of examples that many users will find helpful. 
 

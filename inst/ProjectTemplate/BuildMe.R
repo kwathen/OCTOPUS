@@ -202,6 +202,6 @@ RunSimulation( cSimulation )
 # Create .RData sets of the simulation results
 # simsCombined.Rdata - This will have the main results about the platform and decisions made for each ISA
 #
-OCTOPUS::BuildSimulationResultsDataSet( )
+#OCTOPUS::BuildSimulationResultsDataSet( )
 
 
