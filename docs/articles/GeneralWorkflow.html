@@ -69,6 +69,9 @@
     <li>
       <a href="../articles/ExtendingOCTOPUS.html">Extending OCTOPUS</a>
     </li>
+    <li>
+      <a href="../articles/SimulationReport.html">Example Simulation Report</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -148,7 +151,14 @@
 <a href="#octopus-general-workflow" class="anchor"></a>OCTOPUS General Workflow</h1>
 <p>Simulating a platform trial requires many details to be specified. In general, once OCTOPUS is installed the user will create a new project with project specific files that will build the required structures and run the simulations. This section walks through the general steps involved to go from having OCTOPUS installed to running your first simulation.</p>
 <p>To illustrate the typically workflow, an example is walked through in the next steps.</p>
-<p>Example Platform Trial * 3 ISAs, each with experimental treatment and the same control * ISA 1 - 50 patients on control, 100 experimental, ISA 2&amp;3 - 25 patients on control, 125 on experimental treatment * ISA 1 is open at the start of the trial, ISA 2 will open at month 6, ISA 3 will open at month 12 * Primary outcome is binary * Use a Bayesian Beta Binomial model</p>
+<p>Example Platform Trial</p>
+<ul>
+<li>3 ISAs, each with experimental treatment and the same control</li>
+<li>ISA 1 - 50 patients on control, 100 experimental, ISA 2&amp;3 - 25 patients on control, 125 on experimental treatment</li>
+<li>ISA 1 is open at the start of the trial, ISA 2 will open at month 6, ISA 3 will open at month 12</li>
+<li>Primary outcome is binary</li>
+<li>Use a Bayesian Beta Binomial model</li>
+</ul>
 <p>For this example, assume that the analysis and binary outcome is not part of OCTOPUS and are new functions for this hypothetical example.</p>
 <div id="step-1---create-project" class="section level2">
 <h2 class="hasAnchor">
@@ -172,7 +182,7 @@
                                          <span class="fl">25</span>, <span class="fl">125</span><span class="op">)</span>, byrow<span class="op">=</span><span class="cn">TRUE</span>, ncol<span class="op">=</span><span class="fl">2</span> <span class="op">)</span>
 <span class="va">dQtyMonthsFU</span>               <span class="op">&lt;-</span> <span class="fl">6</span>
 <span class="va">bCreateProjectSubdirectory</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span>
-<span class="va">nQtyReps</span>                   <span class="op">&lt;-</span> <span class="fl">250</span>
+<span class="va">nQtyReps</span>                   <span class="op">&lt;-</span> <span class="fl">10</span> <span class="co"># Small number of reps so you can run the default simulation quickly, increase as needed</span>
 <span class="va">vISAStartTimes</span>             <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fl">0</span>, <span class="fl">6</span>, <span class="fl">12</span>  <span class="op">)</span>
 
 <span class="va">strResult</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CreateProject.html">CreateProject</a></span><span class="op">(</span> strProjectDirectory        <span class="op">=</span> <span class="va">strProjDir</span>,
@@ -187,6 +197,34 @@
                             bCreateProjectSubdirectory <span class="op">=</span> <span class="va">bCreateProjectSubdirectory</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span> <span class="va">strResult</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="step-2---open-the-new-project" class="section level2">
+<h2 class="hasAnchor">
+<a href="#step-2---open-the-new-project" class="anchor"></a>Step 2 - Open The New Project</h2>
+<p>Executing the code above will create a folder called ThreeISA in the working directory. In this folder, there will be an R Studio project file named ThreeISA.Rproj. Open the project file. One the project is open, or if you are not using R Studio, begin with the BuilMe.R file. When the project is create, the BuildMe.R is designed so that you can execute an initial simulation with the file as is, eg no changes required. Execute all the code in the file or source the file, source(“BuildMe.R”). It is recommended that you use a small number of replications so the initial simulations will execute quickly. If you make no changes before running the code, you should see something similar to the following.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  1  of  3  Designs,  Scenario  1  of  4  scenarios ..."</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  1  of  3  Designs,  Scenario  2  of  4  scenarios ..."</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  1  of  3  Designs,  Scenario  3  of  4  scenarios ..."</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  1  of  3  Designs,  Scenario  4  of  4  scenarios ..."</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  2  of  3  Designs,  Scenario  1  of  4  scenarios ..."</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  2  of  3  Designs,  Scenario  2  of  4  scenarios ..."</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  2  of  3  Designs,  Scenario  3  of  4  scenarios ..."</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  2  of  3  Designs,  Scenario  4  of  4  scenarios ..."</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  3  of  3  Designs,  Scenario  1  of  4  scenarios ..."</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  3  of  3  Designs,  Scenario  2  of  4  scenarios ..."</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  3  of  3  Designs,  Scenario  3  of  4  scenarios ..."</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>] <span class="st">"Simulating Design  3  of  3  Designs,  Scenario  4  of  4  scenarios ..."</span></span></code></pre></div>
+<p>Once the simulation is complete you will see file(s) in the output (output files about the trial without ISA specific info), ISAOut1, ISAOut2, ISAOut3 where the ISAOutX folder contain the output files with details about each ISA. Thhre is also an enrollment folder which contains information about the enrollment for each simulated trial.</p>
+</div>
+<div id="step-3---post-process-results" class="section level2">
+<h2 class="hasAnchor">
+<a href="#step-3---post-process-results" class="anchor"></a>Step 3 - Post Process Results</h2>
+<p>One of the final steps in running simulations with OCTOPUS is to combine the input and produce a graph or report. In the folder that was created in Step 1 there is a file called SimulationReport.Rmd. This file provides an example of a simulation report but is only included as an example and easy way to post process the simulation results and create a report with simulation results. Open this SimulationReport.Rmd and Knit it.</p>
+</div>
+<div id="step-4---more-efficient-simulations" class="section level2">
+<h2 class="hasAnchor">
+<a href="#step-4---more-efficient-simulations" class="anchor"></a>Step 4 - More Efficient Simulations</h2>
+<p>Simulating a platform trial can be time consuming and as such and example to illustrate using multiple cores on the same system is provided in the BuildMeRunMultiCore.R which will utilize more cores if they are available, allowing the simulation to run faster.</p>
 </div>
 </div>
   </div>

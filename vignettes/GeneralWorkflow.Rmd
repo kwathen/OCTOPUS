@@ -35,7 +35,7 @@ At the start of a project you will typically make a call to [OCTOPUS::CreateProj
 
 Example of a CreateProject.R file.
 
-```{r setp, eval=FALSE}
+```{r, eval=FALSE}
 library( OCTOPUS )
 strProjDir                 <- ""   # Since this is not a complete path, directory is created relative to working directory when this file is executed
 strProjName                <- "ThreeISA"
@@ -74,7 +74,7 @@ cat( strResult)
 
 Executing the code above will create a folder called ThreeISA in the working directory.   In this folder, there will be an R Studio project file named ThreeISA.Rproj.   Open the project file.   One the project is open, or if you are not using R Studio, begin  with the BuilMe.R file.  When the project is create, the BuildMe.R is designed so that you can execute an initial simulation with the file as is, eg no changes required.   Execute all the code in the file or source the file, source("BuildMe.R").   It is recommended that you use a small number of replications so the initial simulations will execute quickly.   If you make no changes before running the code, you should see something similar to the following. 
 
-```{r setp, eval=FALSE}
+```{r , eval=FALSE}
 [1] "Simulating Design  1  of  3  Designs,  Scenario  1  of  4  scenarios ..."
 [1] "Simulating Design  1  of  3  Designs,  Scenario  2  of  4  scenarios ..."
 [1] "Simulating Design  1  of  3  Designs,  Scenario  3  of  4  scenarios ..."

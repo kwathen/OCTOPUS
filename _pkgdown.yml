@@ -29,6 +29,8 @@ navbar:
           href: articles/GeneralWorkflow.html
         - text: Extending OCTOPUS
           href: articles/ExtendingOCTOPUS.html
+        - text: Example Simulation Report
+          href: articles/SimulationReport.html
     tutorials: ~
     articles: ~
 
