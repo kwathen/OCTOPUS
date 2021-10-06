@@ -199,7 +199,7 @@ RunTrialAnalysis.default <- function( cISADesigns, cEnrolledPats,  vISAStatus, d
 
             #print( "Case 3")
         }
-        else(  vISAStatus[ nISA ] <= 1  )
+        else #(  vISAStatus[ nISA ] <= 1  )
         {
 
             #print( ".....Case 2 - Analysis not being run for ISA ", nISA )
