@@ -20,9 +20,19 @@ navbar:
       href: news/index.html
     intro:
       text: Get started
-      href: articles/OCTOPUS.html
+      menu:
+        - text: Overview
+          href: articles/OCTOPUS.html
+        - text: Key Simulation Objects
+          href: articles/PrimaryObjectsForSimulation.html
+        - text: Workflow
+          href: articles/GeneralWorkflow.html
+        - text: Extending OCTOPUS
+          href: articles/ExtendingOCTOPUS.html
     tutorials: ~
     articles: ~
+
+
 
     simulation:
         text: Simulation Overview

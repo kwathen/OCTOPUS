@@ -1,13 +1,17 @@
 ---
 title: "Index"
 author: "J. Kyle Wathen"
-date: "3/31/2020"
-output: html_document
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: rmarkdown::html_vignette
 ---
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+Index.rm is not used can it be removed? See ReadMe.md
 
 # OCTOPUS - Optimize Clinical Trials On Platforms Using Simulation   <img src="logo.png" align="right" alt="" width="120" />
 
@@ -19,11 +23,33 @@ This package is governed by the JRD OCTOPUS License, which is the GNU General Pu
 
 
 ## Introduction
+
 This project is designed to help clinical trial designers simulate a platform trial.   This project is intended for simulation purposes only.  For the purposes of this project, a platform trial is a clinical trial designed to accommodate multiple treatments or interventions added to the trial either at the beginning of the trial or any time thereafter.   Each intervention is added through an Intervention Specific Appendix (ISA).  Each ISA typically randomizes between placebo or control and one or more intervention doses (or combinations).  If trials for multiple interventions in the same disease area are considered, then a platform trial provides a unified framework for designing and running a single, multiple ISA, platform trial.  Potential benefits of a platform trial are shorter, more efficient trials due to a single framework for multiple interventions and borrowing of placebo or control patients across ISAs, thus reducing the overall number of patients treated with placebo/control.  
 
 This package is under development. It is functional and has already been used to simulate several trials.  As case studies are created, they will be added to the Examples directory of the package to help users create the necessary structures.  The tar.gz files in this repository are included as testing versions for beta testers while as new updates and structure are added. 
 
 Using your GitHub account, you may want to "Watch" this project for updates.   Alternatively, please contact the author to be added to the distribution list.    
+
+# Key Features
+
+The following list of key features is intended to by a high level assessment of what can be done with the OCTOPUS package.  This packages makes extensive use of S3 classes to allow anyone to add new functionality, such as a new way of simulating patient data or the analysis that is conducted, with minimal requirements and work.
+
+* Any number of ISAs with any number of treatments contained in the ISA
+* ISA start times (times ISA enters the platform) may be fixed or random 
+* Borrowing patient information between ISAs is defined for each ISA allowing great flexibility and each ISA can be different
+* Analysis - Each ISA can define a different analysis and new analysis approaches are easily added
+* Trial monitoring, eg when analysis are run, is triggered in a variety of way such as specified as a minimum information within an ISA, predetermined time inervals between analysis or specified times of analysis
+* Patient outcomes: 
+    * Any number of patient outcomes
+    * Outcomes may be different between ISAs
+    * New patient simulators can be added easily 
+    * New analysis can be added easily to accommodate new patient outcomes
+* Randomization - A few default randomizes are available, new ones can be added
+  
+
+It is useful to understand the [flow of a simulation](SimulateTrialOutline.html) as well as the [key simulation objects](PrimaryObjectsForSimulation.html)
+
+The [OCTOPUS-Examples Repo](https://github.com/kwathen/OCTOPUS-Examples) provides the setup files and folders for several types of examples that many users will find helpful. 
 
 ## Installation 
 Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is [Version 1.3.0.5](https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.6).   
