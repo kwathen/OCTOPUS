@@ -1,0 +1,68 @@
+---
+title: "Primary Objects for Simulation"
+author: "J. Kyle Wathen"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Primary Objects for Simulation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+In order to simulate a platform trial with OCTOPUS you most define specific objects with details about the trial design and simulation design. The trial design object should contain all the information necessary for running a real trial and does NOT contain any information about simulation.
+
+The simulation object must contain all the details necessary for simulation.  A simulation object must know the details of a trial design in order to make sure the simulation design specifies all necessary information.  For example, if a trial design has 1 ISA with control and treatment then the simulation design object must detail how the patient data will be simulated for both treatments in ISA1.
+
+Exactly how the objects are created is not critical, for example you could create the objects directly in a script or you could write functions to help.  For simple platforms that don't require many options and there is not a desire to compare many options a simple script may be sufficient but as the complexity grows the need for functions that would be more reliable becomes apparent.  All of the examples are presented using functions to create the objects.
+
+To help understand each object needed several examples have been created and located in sub-folders of this repository.  
+
+## Example 1: Single - ISA 
+
+All of the objects are in the [OCTOPUS - Examples - SingleISA](https://github.com/kwathen/OCTOPUS-Examples/tree/master/SingleISA) folder for this example.
+
+### Trial Design Object
+
+Load the cTrialDesign object. 
+
+```{r}
+
+load( file = "cTrialDesign.RData")
+
+```
+
+![Figure 1: Overview of trial design](cTrialDesignView1.png)
+
+The cTrialDesign is a list of the needed information and contains a list of cISADesigns, in this example `cTrialDesign$cISADesings` is a list of length 1, indicating a single ISA platform.  If the platform had more than one ISA, then the length of `cTrialDesign$cISADesings` would be greater than 1 like the following 2 ISA platform
+
+![Figure 2: Overview of 2 ISA trial design](cTwoISADesignExample.png)
+
+
+The elements nQtyISAs, nMaxQtyPats, vMaxQtyPatsInISA, vISALab, vTrtLab cTrialDesign provide information about the enttire platform where the elements of cISADesigns provide details about the specific ISA.   Expanding the cISADesigns gives the following object 
+
+![Figure 3: Expanded ISADesigns](ExpandedcISADesigns.png)
+
+
+The cISAAnalysis list is a collection of details for the analysis for this ISA.  Expanding the cISAAnalysis results in the following:
+
+![Figure 4: Expanded cISAAnalysis](ExpandedcISAAnalysis.png)
+
+cISAAnalysis$vAnalysis is a list of analysis to be conducted for this ISA and the elements provide the details about each analysis specifically.   For example, if an analysis was frequentist and not Bayesian the the vPriorA and vPriorB may not be needed and you could add whatever information is needed.   
+
+### Simulation Design Object
+The simulation design object with one design to be simulated is as follows:
+
+![Figure 5: Expanded cSimulation object](cSimulationDesign.png)
+
+The cSimulation object is a list with one element, SimDesigns.  This is done to allow parameters that pertain to all designs that are simulated to be directly added to cSimulation.   For example, if simulations are run on a grid it can be useful to have add a parameters like `cSimulation$nGridIndex`.  With the structure above, `cSimulation$SimDesigns` contains only a list of elements to be simulated.  This list should have objects that have a lScenario, the list of scenarios to simulate, and cTrialDesign, the first trial design.  
+
+
+![Figure 6: Expanded cSimulation object 3 designs](cSimulationDesign3Designs.png)
+
+In the figure above, the cSimuation$SimDesigns has 3 elements and that each one contains lScenarios and cTrialDesign.  

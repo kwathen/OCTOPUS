@@ -1,0 +1,100 @@
+---
+title: "OCTOPUS General Workflow"
+author: "J. Kyle Wathen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{OCTOPUS General Workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# OCTOPUS General Workflow
+
+Simulating a platform trial requires many details to be specified.   In general, once OCTOPUS is installed the user will create a new project with project specific files that will build the required structures and run the simulations.  This section walks through the general steps involved to go from having OCTOPUS installed to running your first simulation.  
+
+To illustrate the typically workflow, an example is walked through in the next steps.
+
+Example Platform Trial
+
+  * 3 ISAs, each with experimental treatment and the same control
+  * ISA 1 - 50 patients on control, 100 experimental, ISA 2&3 - 25 patients on control, 125 on experimental treatment
+  * ISA 1 is open at the start of the trial, ISA 2 will open at month 6, ISA 3 will open at month 12
+  * Primary outcome is binary
+  * Use a Bayesian Beta Binomial model
+
+For this example, assume that the analysis and binary outcome is not part of OCTOPUS and are new functions for this hypothetical example. 
+
+## Step 1 - Create Project
+
+At the start of a project you will typically make a call to [OCTOPUS::CreateProject](../reference/CreateProject.html) with some initial information about the trial you are trying to simulate.  The CreateProject-XXX files in the [OCTOPUS-Examples Repo](https://github.com/kwathen/OCTOPUS-Examples) are very helpful.    
+
+Example of a CreateProject.R file.
+
+```{r, eval=FALSE}
+library( OCTOPUS )
+strProjDir                 <- ""   # Since this is not a complete path, directory is created relative to working directory when this file is executed
+strProjName                <- "ThreeISA"
+strAnalysis                <- "BetaBinomial"
+strSimPatOutcome           <- "Binary"
+strBorrowing               <- "AllControls"
+
+# The matrix  mQtyPats contains the number of patients in each arm in each ISA.  Each row represents an ISA, each column is
+# a treatment with the first column the number of patients in control.  The first ISA (row 1) has 50 patients on control
+# 100 on treatment 2.  The second ISA (row 2) has 25 patients on control and 125 on treatment 2
+# the third ISA has 25 on control and 125 on treatment.  
+mQtyPats                   <- matrix( c( 50, 100,
+                                         25, 125,
+                                         25, 125), byrow=TRUE, ncol=2 )
+dQtyMonthsFU               <- 6
+bCreateProjectSubdirectory <- TRUE
+nQtyReps                   <- 10 # Small number of reps so you can run the default simulation quickly, increase as needed
+vISAStartTimes             <- c( 0, 6, 12  )
+
+strResult <- CreateProject( strProjectDirectory        = strProjDir,
+                            strProjectName             = strProjName,
+                            strAnalysisName            = strAnalysis,
+                            strSimPatientOutcomeName   = strSimPatOutcome,
+                            strBorrowing               = strBorrowing,
+                            nQtyReps                   = nQtyReps,
+                            mQtyPatientsPerArm         = mQtyPats,
+                            dQtyMonthsFU               = dQtyMonthsFU,
+                            vISAStartTimes             = vISAStartTimes,
+                            bCreateProjectSubdirectory = bCreateProjectSubdirectory)
+
+cat( strResult)
+
+```
+
+## Step 2 - Open The New Project
+
+Executing the code above will create a folder called ThreeISA in the working directory.   In this folder, there will be an R Studio project file named ThreeISA.Rproj.   Open the project file.   One the project is open, or if you are not using R Studio, begin  with the BuilMe.R file.  When the project is create, the BuildMe.R is designed so that you can execute an initial simulation with the file as is, eg no changes required.   Execute all the code in the file or source the file, source("BuildMe.R").   It is recommended that you use a small number of replications so the initial simulations will execute quickly.   If you make no changes before running the code, you should see something similar to the following. 
+
+```{r , eval=FALSE}
+[1] "Simulating Design  1  of  3  Designs,  Scenario  1  of  4  scenarios ..."
+[1] "Simulating Design  1  of  3  Designs,  Scenario  2  of  4  scenarios ..."
+[1] "Simulating Design  1  of  3  Designs,  Scenario  3  of  4  scenarios ..."
+[1] "Simulating Design  1  of  3  Designs,  Scenario  4  of  4  scenarios ..."
+[1] "Simulating Design  2  of  3  Designs,  Scenario  1  of  4  scenarios ..."
+[1] "Simulating Design  2  of  3  Designs,  Scenario  2  of  4  scenarios ..."
+[1] "Simulating Design  2  of  3  Designs,  Scenario  3  of  4  scenarios ..."
+[1] "Simulating Design  2  of  3  Designs,  Scenario  4  of  4  scenarios ..."
+[1] "Simulating Design  3  of  3  Designs,  Scenario  1  of  4  scenarios ..."
+[1] "Simulating Design  3  of  3  Designs,  Scenario  2  of  4  scenarios ..."
+[1] "Simulating Design  3  of  3  Designs,  Scenario  3  of  4  scenarios ..."
+[1] "Simulating Design  3  of  3  Designs,  Scenario  4  of  4  scenarios ..."
+```
+
+
+Once the simulation is complete you will see file(s) in the output (output files about the trial without ISA specific info), ISAOut1, ISAOut2, ISAOut3 where the ISAOutX folder contain the output files with details about each ISA.  Thhre is also an enrollment folder which contains information about the enrollment for each simulated trial. 
+
+## Step 3 - Post Process Results
+
+One of the final steps in running simulations with OCTOPUS is to combine the input and produce a graph or report.  In the folder that was created in Step 1 there is a file called SimulationReport.Rmd.   This file provides an example of a simulation report but is only included as an example and easy way to post process the simulation results and create a report with simulation results.   Open this SimulationReport.Rmd and Knit it.  
+
+## Step 4 - More Efficient Simulations
+Simulating a platform trial can be time consuming and as such and example to illustrate using multiple cores on the same system is provided in the BuildMeRunMultiCore.R which will utilize more cores if they are available, allowing the simulation to run faster.

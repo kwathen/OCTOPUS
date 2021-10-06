@@ -48,7 +48,7 @@
 
 <meta property="og:title" content="InitializeISARandomizer.POCRandomizer — InitializeISARandomizer.POCRandomizer" />
 <meta property="og:description" content="InitializeISARandomizer.POCRandomizer will randomize the first patients to a select set of
-arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of intitial patients." />
+arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of initial patients." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -81,7 +81,7 @@ arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are open
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">OCTOPUS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.8</span>
       </span>
     </div>
 
@@ -93,8 +93,29 @@ arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are open
      
   </a>
 </li>
-<li>
-  <a href="../articles/OCTOPUS.html">Get started</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Get started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/OCTOPUS.html">Overview</a>
+    </li>
+    <li>
+      <a href="../articles/PrimaryObjectsForSimulation.html">Key Simulation Objects</a>
+    </li>
+    <li>
+      <a href="../articles/GeneralWorkflow.html">Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/ExtendingOCTOPUS.html">Extending OCTOPUS</a>
+    </li>
+    <li>
+      <a href="../articles/SimulationReport.html">Example Simulation Report</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -163,7 +184,7 @@ arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are open
 
     <div class="ref-description">
     <p>InitializeISARandomizer.POCRandomizer will randomize the first patients to a select set of
-arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of intitial patients.</p>
+arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of initial patients.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for POCRandomizer</span>

@@ -1,4 +1,4 @@
-pandoc: 2.11.4
+pandoc: 2.11.2
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
@@ -9,7 +9,11 @@ articles:
   CaseStudy5: CaseStudy5.html
   CaseStudy6: CaseStudy6.html
   Examples: Examples.html
+  ExtendingOCTOPUS: ExtendingOCTOPUS.html
+  GeneralWorkflow: GeneralWorkflow.html
   OCTOPUS: OCTOPUS.html
+  PrimaryObjectsForSimulation: PrimaryObjectsForSimulation.html
   SimulateTrialOutline: SimulateTrialOutline.html
-last_built: 2021-03-16T01:14Z
+  SimulationReport: SimulationReport.html
+last_built: 2021-10-06T22:36Z
 

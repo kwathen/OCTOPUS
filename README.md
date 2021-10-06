@@ -16,13 +16,35 @@ This package is under development. It is functional and has already been used to
 
 Using your GitHub account, you may want to "Watch" this project for updates.   Alternatively, please contact the author to be added to the distribution list.    
 
-In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform.  Each of the structures will be details in the sections below. 
+In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform.  Each of the structures is described in the sections below. 
 
 To help increase flexibility and allow for new additions to be added by the users, S3 class and generic methods are implemented.  Many aspects can be extended such as new types of analysis, simulation of outcomes and randomization schemes.  For users not familiar with S3 or generic functions, please refer to the example document [Example S3 Generic Methods](https://github.com/kwathen/OCTOPUS/blob/master/ExampleS3Class.R).
 
 This package is under development and is working and has been used to simulate several trials.  As case studies are created they will be added to the Examples directory of the package to help users create the necessary structures.  The tar.gz files in this repository are included as testing versions for beta testers as new updates are added. 
 
 Please follow this project to be notified of updates.   
+
+
+# Key Features
+
+The following list of key features is intended to by a high level assessment of what can be done with the OCTOPUS package.  This packages makes extensive use of S3 classes to allow anyone to add new functionality, such as a new way of simulating patient data or the analysis that is conducted, with minimal requirements and work.
+
+* Any number of ISAs with any number of treatments contained in the ISA
+* ISA start times (times ISA enters the platform) may be fixed or random 
+* Borrowing patient information between ISAs is defined for each ISA allowing great flexibility and each ISA can be different
+* Analysis - Each ISA can define a different analysis and new analysis approaches are easily added
+* Trial monitoring, eg when analysis are run, is triggered in a variety of way such as specified as a minimum information within an ISA, predetermined time intervals between analysis or specified times of analysis
+* Patient outcomes: 
+    * Any number of patient outcomes
+    * Outcomes may be different between ISAs
+    * New patient simulators can be added easily 
+    * New analysis can be added easily to accommodate new patient outcomes
+* Randomization - A few default randomizes are available, new ones can be added
+  
+
+It is useful to understand the [flow of a simulation](articles/SimulateTrialOutline.html) as well as the [key simulation objects](articles/PrimaryObjectsForSimulation.html)
+
+The [OCTOPUS-Examples Repo](https://github.com/kwathen/OCTOPUS-Examples) provides the setup files and folders for several types of examples that many users will find helpful. 
 
 # Trial Design Structure
 A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo.  The first step is considered the trial randomizer and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.  
@@ -38,7 +60,7 @@ The simulation design object contains two pieces, the first is the trial design,
 
 
 ## Installation 
-Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is listed under the [Versions link](https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.6) by selected the zip or tar.gz   
+Currently installation  this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub.  The most recent version is listed under the [Versions link](https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.6) by selected the zip or tar.gz   
 
 ### Installation Option 1 - From GitHub
 Utilizing the [remotes package](https://remotes.r-lib.org/)
@@ -57,16 +79,8 @@ install.packages("OCTOPUS_1.3.0.6.tar.gz", repos=NULL)
 ```
 
 ## Usage 
-In the instillation folder there is an Examples directory that contains full examples. 
+In the instillation folder there is an Examples directory that contains full examples. In addition, the [OCTOPUS-Examples Repo](https://github.com/kwathen/OCTOPUS-Examples) provides the setup files and folders for several types of examples that many users will find helpful.  These example provide an R file that makes use of the [OCTOPUS::CreateProject](reference/CreateProject.html) which is typically one of the first steps in the [OCTOPUS workflow](articles/GeneralWorkflow.html)
+
 
 # To Do List
-
-- [ ] In the R Shiny App to compare recruitment (R/RecruitmentComparitor.R)  the function ComputeMonthlyAccrual improves the AccrualMethods class by allowing the ramp up to be on a per site basis.  Move this functionality to the general class so it can be used in simulation.
-
-- [ ] Make a checklist of steps that need to be followed for a basic platform trial with multiple ISAs to be successfully simulated.
-
-- [ ] Document how the CheckTrialMonitor and bondaries work together. 
-
-
-- [ ] For each for each help topic add a link to the R souce file on GitHub.  See for example see help ?AddControlData.ProcessReptMeasChngBaseline.  Before each function a link in in the file like 
-@seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/AddControlData.ProcessReptMeas.R}{View Code on Github} }
+Please add items or issues to the [GitHub Issues](https://github.com/kwathen/OCTOPUS/issues) so they may be addressed. 

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">OCTOPUS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.8</span>
       </span>
     </div>
 
@@ -51,8 +51,29 @@
      
   </a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Get started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="articles/OCTOPUS.html">Get started</a>
+      <a href="articles/OCTOPUS.html">Overview</a>
+    </li>
+    <li>
+      <a href="articles/PrimaryObjectsForSimulation.html">Key Simulation Objects</a>
+    </li>
+    <li>
+      <a href="articles/GeneralWorkflow.html">Workflow</a>
+    </li>
+    <li>
+      <a href="articles/ExtendingOCTOPUS.html">Extending OCTOPUS</a>
+    </li>
+    <li>
+      <a href="articles/SimulationReport.html">Example Simulation Report</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -130,11 +151,34 @@
 <p>This project is designed to help clinical trial designers simulate a platform trial. This project is intended for simulation purposes only. For the purposes of this project, a platform trial is a clinical trial designed to accommodate multiple treatments or interventions added to the trial either at the beginning of the trial or any time thereafter. Each intervention is added through an Intervention Specific Appendix (ISA). Each ISA typically randomizes between placebo or control and one or more intervention doses (or combinations). If trials for multiple interventions in the same disease area are considered, then a platform trial provides a unified framework for designing and running a single, multiple ISA, platform trial. Potential benefits of a platform trial are shorter, more efficient trials due to a single framework for multiple interventions and borrowing of placebo or control patients across ISAs, thus reducing the overall number of patients treated with placebo/control.</p>
 <p>This package is under development. It is functional and has already been used to simulate several trials. As case studies are created, they will be added to the Examples directory of the package to help users create the necessary structures. The tar.gz files in this repository are included as testing versions for beta testers while as new updates and structure are added.</p>
 <p>Using your GitHub account, you may want to “Watch” this project for updates. Alternatively, please contact the author to be added to the distribution list.</p>
-<p>In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform. Each of the structures will be details in the sections below.</p>
+<p>In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform. Each of the structures is described in the sections below.</p>
 <p>To help increase flexibility and allow for new additions to be added by the users, S3 class and generic methods are implemented. Many aspects can be extended such as new types of analysis, simulation of outcomes and randomization schemes. For users not familiar with S3 or generic functions, please refer to the example document <a href="https://github.com/kwathen/OCTOPUS/blob/master/ExampleS3Class.R">Example S3 Generic Methods</a>.</p>
 <p>This package is under development and is working and has been used to simulate several trials. As case studies are created they will be added to the Examples directory of the package to help users create the necessary structures. The tar.gz files in this repository are included as testing versions for beta testers as new updates are added.</p>
 <p>Please follow this project to be notified of updates.</p>
 </div>
+</div>
+<div id="key-features" class="section level1">
+<h1 class="hasAnchor">
+<a href="#key-features" class="anchor"></a>Key Features</h1>
+<p>The following list of key features is intended to by a high level assessment of what can be done with the OCTOPUS package. This packages makes extensive use of S3 classes to allow anyone to add new functionality, such as a new way of simulating patient data or the analysis that is conducted, with minimal requirements and work.</p>
+<ul>
+<li>Any number of ISAs with any number of treatments contained in the ISA</li>
+<li>ISA start times (times ISA enters the platform) may be fixed or random</li>
+<li>Borrowing patient information between ISAs is defined for each ISA allowing great flexibility and each ISA can be different</li>
+<li>Analysis - Each ISA can define a different analysis and new analysis approaches are easily added</li>
+<li>Trial monitoring, eg when analysis are run, is triggered in a variety of way such as specified as a minimum information within an ISA, predetermined time intervals between analysis or specified times of analysis</li>
+<li>Patient outcomes:
+<ul>
+<li>Any number of patient outcomes</li>
+<li>Outcomes may be different between ISAs</li>
+<li>New patient simulators can be added easily</li>
+<li>New analysis can be added easily to accommodate new patient outcomes</li>
+</ul>
+</li>
+<li>Randomization - A few default randomizes are available, new ones can be added</li>
+</ul>
+<p>It is useful to understand the <a href="articles/SimulateTrialOutline.html">flow of a simulation</a> as well as the <a href="articles/PrimaryObjectsForSimulation.html">key simulation objects</a></p>
+<p>The <a href="https://github.com/kwathen/OCTOPUS-Examples">OCTOPUS-Examples Repo</a> provides the setup files and folders for several types of examples that many users will find helpful.</p>
 </div>
 <div id="trial-design-structure" class="section level1">
 <h1 class="hasAnchor">
@@ -151,7 +195,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>Currently this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub. The most recent version is listed under the <a href="https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.6">Versions link</a> by selected the zip or tar.gz</p>
+<p>Currently installation this package is not available on CRAN but may be installed directly from 1) GitHub or 2) a tar.gz files located in GitHub. The most recent version is listed under the <a href="https://github.com/kwathen/OCTOPUS/releases/tag/Version1.3.0.6">Versions link</a> by selected the zip or tar.gz</p>
 <div id="installation-option-1---from-github" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation-option-1---from-github" class="anchor"></a>Installation Option 1 - From GitHub</h3>
@@ -168,22 +212,13 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>In the instillation folder there is an Examples directory that contains full examples.</p>
+<p>In the instillation folder there is an Examples directory that contains full examples. In addition, the <a href="https://github.com/kwathen/OCTOPUS-Examples">OCTOPUS-Examples Repo</a> provides the setup files and folders for several types of examples that many users will find helpful. These example provide an R file that makes use of the <a href="reference/CreateProject.html">OCTOPUS::CreateProject</a> which is typically one of the first steps in the <a href="articles/GeneralWorkflow.html">OCTOPUS workflow</a></p>
 </div>
 </div>
 <div id="to-do-list" class="section level1">
 <h1 class="hasAnchor">
 <a href="#to-do-list" class="anchor"></a>To Do List</h1>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled>
-In the R Shiny App to compare recruitment (R/RecruitmentComparitor.R) the function ComputeMonthlyAccrual improves the AccrualMethods class by allowing the ramp up to be on a per site basis. Move this functionality to the general class so it can be used in simulation.</p></li>
-<li><p><input type="checkbox" disabled>
-Make a checklist of steps that need to be followed for a basic platform trial with multiple ISAs to be successfully simulated.</p></li>
-<li><p><input type="checkbox" disabled>
-Document how the CheckTrialMonitor and bondaries work together.</p></li>
-<li><p><input type="checkbox" disabled>
-For each for each help topic add a link to the R souce file on GitHub. See for example see help ?AddControlData.ProcessReptMeasChngBaseline. Before each function a link in in the file like @seealso { \href{<a href="https://github.com/kwathen/OCTOPUS/blob/master/R/AddControlData.ProcessReptMeas.R" class="uri">https://github.com/kwathen/OCTOPUS/blob/master/R/AddControlData.ProcessReptMeas.R</a>}{View Code on Github} }</p></li>
-</ul>
+<p>Please add items or issues to the <a href="https://github.com/kwathen/OCTOPUS/issues">GitHub Issues</a> so they may be addressed.</p>
 </div>
 
   </div>
