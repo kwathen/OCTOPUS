@@ -13,9 +13,7 @@ Imports:
        nlme,
        MASS,
        DoseFinding,
-       coin,
-       coda,
-       rjags
+       coin
 Depends: R (>= 3.6.0)
 Suggests: testthat,
           knitr,
