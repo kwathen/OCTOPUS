@@ -14,12 +14,12 @@ SimulateAllPatientOutcomes {This function is used to simulate all patient outcom
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: { This function is used to simulate all patient outcomes in the platform.
+\item \code{SimulateAllPatientOutcomes(default)}: { This function is used to simulate all patient outcomes in the platform.
 This function is generic in case there is a need to override but
 is implemented such that it should be suitable for most cases.  Specifically,
 this function calls SimPatientOutcomes for each ISA. }
-}}
 
+}}
 \seealso{
 { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulateAllPatientOutcomes.R}{View Code on GitHub} }
 

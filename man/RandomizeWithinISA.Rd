@@ -27,19 +27,19 @@ class is required.  RandomizeWithInISA should return a list with at least the fo
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: { Because several options are provided and there in no well defined default
+\item \code{RandomizeWithinISA(default)}: { Because several options are provided and there in no well defined default
 an stop error occurs if you call the default method. }
 
-\item \code{EqualRandomizer}: { Patients are randomized equally/fairly amount the treatments in
+\item \code{RandomizeWithinISA(EqualRandomizer)}: { Patients are randomized equally/fairly amount the treatments in
 the ISA. }
 
-\item \code{POCRandomizer}: { This randomzier will randomize the first patients to a select
+\item \code{RandomizeWithinISA(POCRandomizer)}: { This randomzier will randomize the first patients to a select
 set of arms or doses in the ISA (eg a POC phase).  The remaining arms or doses are opened based on the number of intitial patients. }
 
-\item \code{DelayedStartRandomizer}: { This version will randomize the first patients to a select set of arms or doses in the ISA (eg a POC phase)
+\item \code{RandomizeWithinISA(DelayedStartRandomizer)}: { This version will randomize the first patients to a select set of arms or doses in the ISA (eg a POC phase)
 The remaining arms or doses are opened based on the provided times to open. }
-}}
 
+}}
 \seealso{
 { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/RandomizeWithinISA.R}{View Code on GitHub} }
 

@@ -19,15 +19,15 @@ This function is intended to do one covariate for all patients.  }
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{Categorical}: { This function is used to simulate the patient covariate values.
+\item \code{SimulatePatientCovariates(Categorical)}: { This function is used to simulate the patient covariate values.
 This function is intended to do one covariate, for all patients.  The sampled covaraites values will be 1,2,..., length( cSimCovariate$vProbs ).}
 
-\item \code{default}: { This function is used to simulate the patient covariate values.
+\item \code{SimulatePatientCovariates(default)}: { This function is used to simulate the patient covariate values.
 This function is intended to do one covariate, for all patients.
 Because several options are provided and there in no well defined default
 an stop error occurs if you call the default method. }
-}}
 
+}}
 \seealso{
 { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimulatePatientCovariates.Categorical.R}{View Code on GitHub} }
 

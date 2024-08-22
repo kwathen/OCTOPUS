@@ -21,18 +21,18 @@ SimPatientOutcomes {This function is intended to simulate the outcomes for a giv
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{Correlated}: { The cSimOutcomes object has a list of sim outcomes and this version will utilize the
+\item \code{SimPatientOutcomes(Correlated)}: { The cSimOutcomes object has a list of sim outcomes and this version will utilize the
 first outcome to simulate all outcomes correlated.  Each simoutcome must have an attribute vColIndex that
 specifies which columns out of the matrix will be used for that outcome. }
 
-\item \code{Independent}: { The cSimOutcomes object has a list of sim outcomes and this version will go through and call the
+\item \code{SimPatientOutcomes(Independent)}: { The cSimOutcomes object has a list of sim outcomes and this version will go through and call the
 SimPatientOutcomes for each type.  Each outcome is simulated independently. }
 
-\item \code{default}: { This function is intended to simulate the outcomes for a given ISA.
+\item \code{SimPatientOutcomes(default)}: { This function is intended to simulate the outcomes for a given ISA.
 Because several options are provided and there in no well defined default
 an stop error occurs if you call the default method. }
-}}
 
+}}
 \seealso{
 { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/SimPatientOutcomes.Correlated.R}{View Code on GitHub} }
 
