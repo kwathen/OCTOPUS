@@ -50,6 +50,7 @@
 #remotes::install_github( "kwathen/OCTOPUS")
 
 library( "OCTOPUS" )
+library( dplyr )
 
 # ReadMe - Useful statements for running on a grid such as linux based grid
 if (interactive() || Sys.getenv("SGE_TASK_ID") == "") {
@@ -57,36 +58,81 @@ if (interactive() || Sys.getenv("SGE_TASK_ID") == "") {
     Sys.setenv(SGE_TASK_ID=1)
 }
 
-source( "Functions.R")           # Contains a function to delete any previous results
+source( "R/Functions.R")           # Contains a function to delete any previous results
 #CleanSimulationDirectories( )   # only call when you want to erase previous results
 
 gdConvWeeksToMonths <- 12/52     # Global variable to convert weeks to months, the g is for global as it may be used
                                  # in functions
 
-
-
-source( "TrialDesign.R")
-source( "SimulationDesign.R")
-source( "TrialDesignFunctions.R")
+# Source any files needed to create the simulation objects ####
+source( "R/TrialDesign.R")
+source( "R/SimulationDesign.R")
+source( "R/TrialDesignFunctions.R")
 
 dQtyMonthsFU       <- TMP_QTY_MONTHS_FU
-mQtyPatientsPerArm <- matrix( c( TMP_MATRIX_DATA ), nrow=TMP_NROW, ncol = TMP_NCOL )
+dTimeOfOutcome     <- 1 # The time at which an outcome is observed, in months.
+
+mQtyPatientsPerArm <- matrix( c( TMP_MATRIX_DATA ), nrow=TMP_NROW, ncol = TMP_NCOL, byrow=TRUE )
 vISAStartTimes     <- TEMP_ISA_START_TIME
 nQtyReps           <- TEMP_QTY_REPS # How many replications to simulate each scenario
 
+dMAV               <- 0
+vPUpper            <- c( 1.0 )
+vPLower            <- c( 0.0 )
+dFinalPUpper       <- 0.99
+dFinalPLower       <- 0.01
+
+# If you need to add additional information into your analysis then you can supply a list for each ISA. lAnalysis is NOT required.
+# Example: In the example analysis code, prior alpha and beta are required for each arm in the analysis.
+# This example adds a vPriorA and a vPriorB to the analysis object for each analysis
+# lAnalysis is a list of list.   lAnalysis must have one element for each ISA.  Each ISA list can contain additional parameters for the analysis
+vPriorA      <- c( 0.2, 0.2 )
+vPriorB      <- c( 0.8, 0.8 )
+lCommonPrior <- list( vPriorA = vPriorA, vPriorB = vPriorB )
+lAnalysis    <- replicate( TMP_NROW, lCommonPrior, simplify = FALSE)
+
+
+#Setup simulation aspects - This is just an example, see how to access these variables in the SimulatePatientOutcomes file in the R directory
+#   dfScenarios - A dataframe with a row for each scenario*ISA. The dataframe must have columns named Scenario and ISA.  Each additional column is added
+#                 to the simulation object.  Each scenario must specify a row for each ISA.
+#                 Example:
+#                   dfScenarios <- data.frame( Scenario = c(1,1,2,2), ISA = c(1,2,1,2), ProbRespCtrl = c(0.2, 0.2, 0.2, 0.2), ProbRespExp =c( 0.2,0.2,0.4,0.4))
+#   Would create 2 scenarios where scenario 1 would have th ProbResCtrl =0.2 ProbRespExp = 0.2 for both ISAs and scenario 2 would have ProbResCtrl =0.2 ProbRespExp = 0.4 for both ISAs
+
+# Setup Simulation Scenarios ####
+dfScenarios <- data.frame( Scenario = integer(), ISA  = integer(), ProbRespCtrl = double(), ProbRespExp = double() )
+dfScenarios <- dfScenarios %>%  dplyr::add_row( Scenario = 1, ISA = 1:TMP_NROW, ProbRespCtrl = 0.2, ProbRespExp = 0.2 ) %>%
+                                dplyr::add_row( Scenario = 2, ISA = 1:TMP_NROW, ProbRespCtrl = 0.2, ProbRespExp = 0.4 )
+vQtyOfPatsPerMonth <-  TEMP_PATIENTS_PER_MONTH
+
+# Design Option 1 ####
 cTrialDesign <- SetupTrialDesign( strAnalysisModel   = "TEMP_ANALYSIS_MODEL",
                                   strBorrowing       = "TEMP_BORROWING",
                                   mPatientsPerArm    = mQtyPatientsPerArm,
-                                  dQtyMonthsFU       = dQtyMonthsFU )
+                                  dQtyMonthsFU       = dQtyMonthsFU,
+                                  dMAV               = dMAV,
+                                  vPUpper            = vPUpper,
+                                  vPLower            = vPLower,
+                                  dFinalPUpper       = dFinalPUpper,
+                                  dFinalPLower       = dFinalPLower,
+                                  dTimeOfOutcome     = dTimeOfOutcome,
+                                  lAnalysis          = lAnalysis )
 
 cSimulation  <- SetupSimulations( cTrialDesign,
                                   nQtyReps                  = nQtyReps,
                                   strSimPatientOutcomeClass = "TEMP_SIM_PATIENT_OUTCOME",
                                   vISAStartTimes            = vISAStartTimes,
-                                  nDesign                   = 1)
+                                  vQtyOfPatsPerMonth        = vQtyOfPatsPerMonth,
+                                  nDesign                   = 1,
+                                  dfScenarios               = dfScenarios )
+
+nQtyDesigns    <- 1  # This is an increment that will be used to keep track of designs as they are added
+
+# Start building a list of trial designs to be saved
+lTrialDesigns <- list( cTrialDesign1 = cTrialDesign )
 
 #Save the design file because we will need it in the RMarkdown file for processing simulation results
-save( cTrialDesign, file="cTrialDesign.RData" )
+saveRDS( cTrialDesign, file="cTrialDesign1.Rds" )
 
 # Additional Designs ####
 
@@ -99,21 +145,37 @@ save( cTrialDesign, file="cTrialDesign.RData" )
 # Example 1 (Design Option 2): Additional Sample Size (more designs )
 # Try another sample size double the original - To show the value of a larger sample size.
 
-cTrialDesign2 <- SetupTrialDesign( strAnalysisModel   = "TEMP_ANALYSIS_MODEL",
-                                   strBorrowing       = "TEMP_BORROWING",
-                                   mPatientsPerArm    = 2*mQtyPatientsPerArm,
-                                   dQtyMonthsFU       = dQtyMonthsFU )
+nQtyDesigns     <- nQtyDesigns + 1
+cTrialDesignTmp <- SetupTrialDesign( strAnalysisModel   = "TEMP_ANALYSIS_MODEL",
+                                     strBorrowing       = "TEMP_BORROWING",
+                                     mPatientsPerArm    = 2*mQtyPatientsPerArm,
+                                     dQtyMonthsFU       = dQtyMonthsFU,
+                                     dMAV               = dMAV,
+                                     vPUpper            = vPUpper,
+                                     vPLower            = vPLower,
+                                     dFinalPUpper       = dFinalPUpper,
+                                     dFinalPLower       = dFinalPLower,
+                                     dTimeOfOutcome     = dTimeOfOutcome,
+                                     lAnalysis          = lAnalysis )
 
 
-cSimulation2 <- SetupSimulations( cTrialDesign2,
-                                  nQtyReps                  = nQtyReps,
-                                  strSimPatientOutcomeClass = "TEMP_SIM_PATIENT_OUTCOME",
-                                  vISAStartTimes            = vISAStartTimes,
-                                  nDesign                   = 2)
+cSimulationTmp <- SetupSimulations( cTrialDesignTmp,
+                                    nQtyReps                  = nQtyReps,
+                                    strSimPatientOutcomeClass = "TEMP_SIM_PATIENT_OUTCOME",
+                                    vISAStartTimes            = vISAStartTimes,
+                                    vQtyOfPatsPerMonth        = vQtyOfPatsPerMonth,
+                                    nDesign                   = nQtyDesigns,
+                                    dfScenarios               = dfScenarios)
 
-cSimulation$SimDesigns[[2]] <- cSimulation2$SimDesigns[[1]]
+cSimulation$SimDesigns[[ nQtyDesigns ]] <- cSimulationTmp$SimDesigns[[1]]
 
-save( cTrialDesign2, file = "cTrialDesign2.RData" )
+# Save Rds for this design
+saveRDS( cTrialDesignTmp, file = paste0( "cTrialDesign", nQtyDesigns, ".Rds" ) )
+
+
+# Add design to the list of designs
+lTrialDesigns[[ paste0( "cTrialDesign", nQtyDesigns )]] <- cTrialDesignTmp
+
 
 # Design Option 3 ####
 
@@ -122,7 +184,7 @@ save( cTrialDesign2, file = "cTrialDesign2.RData" )
 # then a Go decision is reached, if it is less than 0.01 a No Go decision is reached, otherwise the trial continues to the end.
 # At the end of the trial if the posterior probability that the difference between treatment and control is is greater than MAV is greater than 0.8
 # then a Go decision is reached, if it is less than 0.1 a No Go decision
-
+nQtyDesigns       <- nQtyDesigns + 1
 mMinQtyPats       <- cbind( floor(apply( mQtyPatientsPerArm , 1, sum )/2),  apply( mQtyPatientsPerArm , 1, sum ) )
 vMinFUTime        <- rep( dQtyMonthsFU, ncol( mMinQtyPats) )
 dQtyMonthsBtwIA   <- 0
@@ -132,34 +194,40 @@ vPLower           <- c( 0.01, 0.01 )
 dFinalPUpper      <- 0.8
 dFinalPLower      <- 0.1
 
-cTrialDesign3 <- SetupTrialDesign( strAnalysisModel   = "TEMP_ANALYSIS_MODEL",
-                                   strBorrowing       = "TEMP_BORROWING",
-                                   mPatientsPerArm    = mQtyPatientsPerArm,
-                                   mMinQtyPat         = mMinQtyPats,
-                                   vMinFUTime         = vMinFUTime,
-                                   dQtyMonthsBtwIA    = dQtyMonthsBtwIA,
-                                   vPUpper            = vPUpper,
-                                   vPLower            = vPLower,
-                                   dFinalPUpper       = dFinalPUpper,
-                                   dFinalPLower       = dFinalPLower
+cTrialDesignTmp <- SetupTrialDesign( strAnalysisModel   = "TEMP_ANALYSIS_MODEL",
+                                     strBorrowing       = "TEMP_BORROWING",
+                                     mPatientsPerArm    = mQtyPatientsPerArm,
+                                     mMinQtyPat         = mMinQtyPats,
+                                     vMinFUTime         = vMinFUTime,
+                                     dQtyMonthsBtwIA    = dQtyMonthsBtwIA,
+                                     dMAV               = dMAV,
+                                     vPUpper            = vPUpper,
+                                     vPLower            = vPLower,
+                                     dFinalPUpper       = dFinalPUpper,
+                                     dFinalPLower       = dFinalPLower,
+                                     dTimeOfOutcome     = dTimeOfOutcome,
+                                     lAnalysis          = lAnalysis    )
 
-)
+cSimulationTmp <- SetupSimulations( cTrialDesignTmp,
+                                    nQtyReps                  = nQtyReps,
+                                    strSimPatientOutcomeClass = "TEMP_SIM_PATIENT_OUTCOME",
+                                    vISAStartTimes            = vISAStartTimes,
+                                    vQtyOfPatsPerMonth        = vQtyOfPatsPerMonth,
+                                    nDesign                   = nQtyDesigns,
+                                    dfScenarios               = dfScenarios )
 
-cSimulation3 <- SetupSimulations( cTrialDesign3,
-                                  nQtyReps                  = nQtyReps,
-                                  strSimPatientOutcomeClass = "TEMP_SIM_PATIENT_OUTCOME",
-                                  vISAStartTimes            = vISAStartTimes,
-                                  nDesign                   = 3 )
+cSimulation$SimDesigns[[3]] <- cSimulationTmp$SimDesigns[[1]]
 
-cSimulation$SimDesigns[[3]] <- cSimulation3$SimDesigns[[1]]
+# Save Rds for this design
+saveRDS( cTrialDesignTmp, file = paste0( "cTrialDesign", nQtyDesigns, ".Rds" ) )
 
-save( cTrialDesign3, file = "cTrialDesign3.RData" )
+# Add design to the list of designs
+lTrialDesigns[[ paste0( "cTrialDesign", nQtyDesigns )]] <- cTrialDesignTmp
+
 
 
 #Often it is good to keep the design objects for utilizing in a report
-
-lTrialDesigns <- list( cTrialDesign1 = cTrialDesign, cTrialDesign2 = cTrialDesign2, cTrialDesign3 = cTrialDesign3 )
-save( lTrialDesigns, file="lTrialDesigns.RData")
+saveRDS( lTrialDesigns, file="lTrialDesigns.Rds")
 
 # End of multiple design options - stop deleting or commenting out here if not utilizing example for multiple designs.
 
@@ -168,17 +236,18 @@ save( lTrialDesigns, file="lTrialDesigns.RData")
 rm( list=(ls()[ls()!="cSimulation" ]))
 
 
-
+# Run Simulation ####
 # Declare global variable (prefix with g to make it clear)
 gDebug        <- FALSE   # Can be useful to set if( gDebug ) statements when developing new functions
 gnPrintDetail <- 1       # Higher number cause more printing to be done during the simulation.  A value of 0 prints almost nothing and should be used when running
                          # large scale simulations.
 
+# Source files needed for simulation, eg new analysis, patient simulation ect ####
 # Files specific for this project that were added and are not available in OCTOPUS.
 # These files create new generic functions that are utilized during the simulation.
-source( 'RunAnalysis.TEMP_ANALYSIS_MODEL.R' )
-source( 'SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R' )  # This will add the new outcome
-source( "BinaryFunctions.R" )
+source( 'R/RunAnalysis.TEMP_ANALYSIS_MODEL.R' )
+source( 'R/SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R' )  # This will add the new outcome
+source( "R/BinaryFunctions.R" )   # This file provides some addtional functions for binary data
 
 # The next line will execute the simulations
 RunSimulation( cSimulation )
@@ -198,10 +267,6 @@ RunSimulation( cSimulation )
 #     RunSimulation( cSimulation )
 # }
 
-# Post Process ####
-# Create .RData sets of the simulation results
-# simsCombined.Rdata - This will have the main results about the platform and decisions made for each ISA
-#
-OCTOPUS::BuildSimulationResultsDataSet( )
+
 
 

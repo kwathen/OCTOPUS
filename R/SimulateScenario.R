@@ -52,8 +52,8 @@ SimulateScenario.default <- function( cScen, cTrialDesign  )
             }
             else
             {
-                # if( ncol( lISAAnaRes[[ iISA ]]) != ncol(  lISAAna[[ iISA]]))
-                #     browser()
+                 if( ncol( lISAAnaRes[[ iISA ]]) != ncol(  lISAAna[[ iISA]]))
+                     browser()
                 lISAAnaRes[[ iISA ]] <- rbind( lISAAnaRes[[ iISA ]], lISAAna[[ iISA]])
             }
 

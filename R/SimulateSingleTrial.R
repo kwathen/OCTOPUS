@@ -382,13 +382,18 @@ SimulateSingleTrial.default <- function( cScen, cTrialDesign  )
 
     strFileName <- paste( "enrollment/enroll", cScen$nGridIndex, ".csv", sep="" )
 
-
-    if(  cScen$nGridIndex == 1 && cScen$nTrialID == 1 ){
-        strFileName <- paste( "enrollment/1enroll", cScen$nGridIndex, ".csv", sep="" )
-        write.table( mEnrollment, strFileName, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
-    }
-    else{
-        write.table( mEnrollment, strFileName, sep=", ", append=TRUE, col.name=FALSE, row.names=FALSE)
+    if( exists("gPrintEnrollment" ) )
+    {
+        if(   gPrintEnrollment == TRUE)
+        {
+            if(  cScen$nGridIndex == 1 && cScen$nTrialID == 1 ){
+                strFileName <- paste( "enrollment/1enroll", cScen$nGridIndex, ".csv", sep="" )
+                write.table( mEnrollment, strFileName, sep=", ", append=FALSE, col.name=TRUE, row.names = FALSE, quote=FALSE )
+            }
+            else{
+                write.table( mEnrollment, strFileName, sep=", ", append=TRUE, col.name=FALSE, row.names=FALSE)
+            }
+        }
     }
 
      # May need vIsFinalISAAnalysis = TRUE for all ISA

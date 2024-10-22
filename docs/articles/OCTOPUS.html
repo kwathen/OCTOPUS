@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">OCTOPUS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0.8</span>
       </span>
     </div>
 
@@ -50,8 +50,29 @@
      
   </a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Get started
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../articles/OCTOPUS.html">Get started</a>
+      <a href="../articles/OCTOPUS.html">Overview</a>
+    </li>
+    <li>
+      <a href="../articles/PrimaryObjectsForSimulation.html">Key Simulation Objects</a>
+    </li>
+    <li>
+      <a href="../articles/GeneralWorkflow.html">Workflow</a>
+    </li>
+    <li>
+      <a href="../articles/ExtendingOCTOPUS.html">Extending OCTOPUS</a>
+    </li>
+    <li>
+      <a href="../articles/SimulationReport.html">Example Simulation Report</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -110,14 +131,13 @@
 
       
 
-      </header><script src="OCTOPUS_files/header-attrs-2.5/header-attrs.js"></script><link href="OCTOPUS_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="OCTOPUS_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="OCTOPUS_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>OCTOPUS</h1>
                         <h4 class="author">J. Kyle Wathen</h4>
             
-            <h4 class="date">2021-03-15</h4>
+            <h4 class="date">2021-10-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/master/vignettes/OCTOPUS.Rmd"><code>vignettes/OCTOPUS.Rmd</code></a></small>
       <div class="hidden name"><code>OCTOPUS.Rmd</code></div>
@@ -126,19 +146,20 @@
 
     
     
-<div id="octopus" class="section level1">
+<div id="introduction" class="section level1">
 <h1 class="hasAnchor">
-<a href="#octopus" class="anchor"></a>OCTOPUS</h1>
+<a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>This project is designed to help clinical trial designers simulate a platform trial. This project is intended for simulation purposes only. For the purposes of this project and R code base a platform trial is a clinical trial designed to accommodate multiple treatments or interventions added to the trial either at the beginning of the trial or any time thereafter. Each intervention is added through an Intervention Specific Appendix (ISA). Each ISA typically randomizes between placebo or control and one or more intervention doses (or combinations). If trials for multiple interventions in the same disease area are considered, then a platform trial provides a unified framework for designing and running a single, multiple ISA, platform trial. Potential benefits of a platform trial are shorter more efficient trials due to a single framework for multiple interventions and borrowing of placebo or control patients across ISAs thus reducing the overall number of patients treated with placebo/control.</p>
-<p>In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform. Each of the structures will be details in the sections below.</p>
 <p>To help increase flexibility and allow for new additions to be added by the users, S3 class and generic methods are implemented. Many aspects can be extended such as new types of analysis, simulation of outcomes and randomization schemes. For users not familiar with S3 or generic functions, please refer to the example document <a href="https://github.com/kwathen/OCTOPUS/blob/master/ExampleS3Class.R">Example S3 Generic Methods</a>.</p>
-<p>This package is under development and is working and has been used to simulate several trials. As case studies are created they will be added to the Examples directory of the package to help users create the necessary structures. The tar.gz files in this repository are included as testing versions for beta testers as new updates are added.</p>
-<p>Please follow this project to be notified of updates.</p>
+<p>In order to simulate a platform trial using this package you must specify two structures: 1) Trial Design - this structure specifies details such as the number of ISAs, number of patients for each ISA/treatment, analysis method(s) and trial monitoring scheme, 2) Simulation Design - this structure specifies how to simulate all aspects of the trial such as patient outcomes, patient accrual rates and when ISAs enter the platform. Each of the structures is described in the sections below.</p>
+<p>It is useful to understand the <a href="SimulateTrialOutline.html">flow of a simulation</a> from a high level point of view.</p>
+<p>The <a href="https://github.com/kwathen/OCTOPUS-Examples">OCTOPUS-Examples Repo</a> provides the setup files and folders for several types of examples that many users will find helpful.</p>
 </div>
 <div id="trial-design-structure" class="section level1">
 <h1 class="hasAnchor">
 <a href="#trial-design-structure" class="anchor"></a>Trial Design Structure</h1>
-<p>A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo. The first step is considered the trial randomiser and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.</p>
+<p>A platform trial requires 2-step randomization, first the the ISA and then between the treatments within and ISA, including control/placebo. The first step is considered the trial randomizer and the 2nd is considered the ISA randomizer and each ISA may randomize different within an ISAs.</p>
+<p>For examples of the trial design structure see <a href="PrimaryObjectsForSimulation.html">key simulation objects</a>.</p>
 <p>The trial design object is a structure with a class name equal to the desired trial randomizer. For example,</p>
 <p>cTrialDesign &lt;- structure( list( ), class=‘EqualRandomizer’)</p>
 <p>would create the trial design object where patients are equally randomized between ISAs. The list( ) in the structure would contain information about the platform, such as the number of ISAs, number of patients on each ISA, ect. Within the list is also a collection of ISA elements to define the specifics of each ISA. More details of this object are presented in the documentation and examples. In general, the ISAs may differ as much as needed, however, if ISAs differ too much the advantages of a platform are minimized.</p>
@@ -147,6 +168,7 @@
 <h1 class="hasAnchor">
 <a href="#simulation-design-structure" class="anchor"></a>Simulation Design Structure</h1>
 <p>The simulation design object contains two pieces, the first is the trial design, described in the previous section, and the simulation object. The simulation object contains a list of scenarios, such as the null and alternative, to simulate.</p>
+<p>For examples of the simulation design structure see <a href="PrimaryObjectsForSimulation.html">key simulation objects</a>.</p>
 </div>
   </div>
 

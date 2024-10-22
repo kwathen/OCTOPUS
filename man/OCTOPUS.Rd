@@ -2,8 +2,8 @@
 % Please edit documentation in R/OCTOPUS.R
 \docType{package}
 \name{OCTOPUS}
-\alias{OCTOPUS}
 \alias{OCTOPUS-package}
+\alias{OCTOPUS}
 \title{OCTOPUS}
 \description{
 The OCTOPUS package is used to simulate platform clinical trials.  Platform trials are clinical trials that are designed with the flexibility to add

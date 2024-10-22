@@ -16,15 +16,27 @@
 
 SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, dQtyMonthsFU,
                               mMinQtyPats = NULL, vMinFUTime = NULL, dQtyMonthsBtwIA = 0,
-                              vPUpper = NULL, vPLower = NULL, dFinalPUpper = 1.0, dFinalPLower = 0.0 )
+                              dMAV            = NULL,
+                              dTV             = NULL,
+                              vUpperCI        = NULL,
+                              vLowerCI        = NULL,
+                              dFinalLowerCI   = NULL,
+                              dFinalUpperCI   = NULL,
+                              vPUpper         = NULL, 
+                              vPLower         = NULL, 
+                              dFinalPUpper    = NULL,   
+                              dFinalPLower    = NULL,
+                              dTimeOfOutcome  = 6, 
+                              lAnalysis = NULL)
 {
+  
+    
     dConvWeeksToMonths <- 12/52
 
     # Options for borrowing "NoBorrowing" or "AllControls"
     strBorrow         <- strBorrowing
     strModel          <- strAnalysisModel
     bIncreaseParam    <- TRUE
-    dMAV              <- 0.1
 
     # By default this functions sets up a trial with only a Final Analysis(FA).
     # However, in the OCTOPUS package interim analysis (IAs) are specified in one of two ways:
@@ -43,8 +55,8 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
         # 2 if you have 2 IAs or you use the option to specify the IAs as a specified time period or equal to the length of vMintQtyPats
         vPUpper           <- c( 1.0 )
         vPLower           <- c( 0.0 )
-        dFinalPUpper      <- 0.8
-        dFinalPLower      <- 0.1
+        dFinalPUpper      <- dFinalPUpper
+        dFinalPLower      <- dFinalPLower
     }
 
     #Interim Analysis - Example 1 - To include an IA the following code could be utilized where the first IA is conducted when half the patients of an ISA are enrolled with
@@ -72,7 +84,7 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
 
     # It is often necessary to include when patients will have outcomes observed, especially in cases like a repeated measure.
     # This next variable is included as an example but is not required for an analysis.
-    vObsTimeInMonths  <- c( 6 )  # patients have outcome observed at 6 months, change as needed to match the project.
+    vObsTimeInMonths  <- c( dTimeOfOutcome )  # patients have outcome observed at 6 months, change as needed to match the project.
 
     # Important Note ####
     #   The vObsTimeInMonths is used to describe when outcomes are observed, however, if dQtyMonthsFU < vObsTimeInMonths
@@ -86,9 +98,7 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
 
     # Prior parameters for Control, Treatment.  For this example, the priors are added to the analysis object list
     # and is intended to show an example of how additional parameters are included if needed in the analysis function.
-    vPriorA   <- c( 0.2, 0.2 )
-    vPriorB   <- c( 0.8, 0.8 )
-
+  
     # Create ISAs
     nQtyISAs      <- nrow( mPatientsPerArm )
     lISAs         <- list()
@@ -111,10 +121,30 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
         #TODO(Kyle) - Generalize vTrtLab to use the number of columns in the matrix in-case the user has more than treatment and control in trial
 
         vTrtLab  <- c( 1,  nCurrentTrtID )
+        
+        if(length( strBorrowing ) == 1 )
+        {
+            strBorrow         <- strBorrowing
+        }
+        else
+        {
+            
+            strBorrow         <- strBorrowing[ iISA ]
+        }
+        if( !is.null( lAnalysis ) )
+        {
+          
+        
         cISAInfo <- CreateISA(  vQtyPats         = mPatientsPerArm[ iISA, ],
+                                nISA             = iISA,
                                 vTrtLab          = vTrtLab,
                                 vObsTimeInMonths = vObsTimeInMonths,
                                 dMAV             = dMAV,
+                                dTV              = dTV,
+                                vUpperCI         = vUpperCI,
+                                vLowerCI         = vLowerCI,
+                                dFinalLowerCI    = dFinalLowerCI,
+                                dFinalUpperCI    = dFinalUpperCI,
                                 vPUpper          = vPUpper,
                                 vPLower          = vPLower,
                                 dFinalPUpper     = dFinalPUpper,
@@ -124,9 +154,33 @@ SetupTrialDesign <- function( strAnalysisModel, strBorrowing, mPatientsPerArm, d
                                 strModel         = strModel,
                                 vMinQtyPats      = vMinQtyPats,
                                 vMinFUTime       = vMinFUTime,
-                                dQtyMonthsBtwIA  = dQtyMonthsBtwIA,
-                                vPriorA          = vPriorA,
-                                vPriorB          = vPriorB )
+                                dQtyMonthsBtwIA  = dQtyMonthsBtwIA, 
+                                lAnalysis        = lAnalysis[[ iISA ]] )
+        }
+        else
+        {
+            
+            cISAInfo <- CreateISA(  vQtyPats         = mPatientsPerArm[ iISA, ],
+                                    nISA             = iISA,
+                                    vTrtLab          = vTrtLab,
+                                    vObsTimeInMonths = vObsTimeInMonths,
+                                    dMAV             = dMAV,
+                                    dTV              = dTV,
+                                    vUpperCI         = vUpperCI,
+                                    vLowerCI         = vLowerCI,
+                                    dFinalLowerCI    = dFinalLowerCI,
+                                    dFinalUpperCI    = dFinalUpperCI,
+                                    vPUpper          = vPUpper,
+                                    vPLower          = vPLower,
+                                    dFinalPUpper     = dFinalPUpper,
+                                    dFinalPLower     = dFinalPLower,
+                                    bIncreaseParam   = bIncreaseParam,
+                                    strBorrow        = strBorrow,
+                                    strModel         = strModel,
+                                    vMinQtyPats      = vMinQtyPats,
+                                    vMinFUTime       = vMinFUTime,
+                                    dQtyMonthsBtwIA  = dQtyMonthsBtwIA )
+        }
 
         nCurrentTrtID <- nCurrentTrtID + 1
 

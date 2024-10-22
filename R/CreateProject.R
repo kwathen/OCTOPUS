@@ -41,7 +41,8 @@ CreateProject <- function( strProjectDirectory        = "",
                            mQtyPatientsPerArm         = NULL,
                            dQtyMonthsFU               = 1.0,
                            vISAStartTimes             = NULL,
-                           bCreateProjectSubdirectory = TRUE)
+                           bCreateProjectSubdirectory = TRUE,
+                           vPatientPerMonth           = NULL)
 {
     strRet <- ""
 
@@ -70,8 +71,8 @@ CreateProject <- function( strProjectDirectory        = "",
     #Get the directory where OCTOPUS is installed
     strTemplateDirectory <- system.file("ProjectTemplate", package = strPackage)
 
-    vFilesToCopy         <- list.files( strTemplateDirectory)
-    vResults             <- file.copy( file.path(strTemplateDirectory, vFilesToCopy ), strNewProjectDirectory )
+    vFilesToCopy         <- list.files( strTemplateDirectory, recursive = FALSE, include.dirs = TRUE)
+    vResults             <- file.copy( file.path(strTemplateDirectory, vFilesToCopy ), strNewProjectDirectory, recursive = TRUE )
 
     nCopySuccess         <- sum( vResults )
     nCopyFail            <- length( vResults ) - nCopySuccess
@@ -90,8 +91,8 @@ CreateProject <- function( strProjectDirectory        = "",
     strSimOutRet   <- ReplaceSimPatientOutcomeInfo( strNewProjectDirectory, strSimPatientOutcomeName )
 
     #Replace options in the BuildMe.R file ####
-    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMe.R", mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU )
-    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMeRunMultiCore.R", mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU )
+    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMe.R", mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU, vPatientPerMonth )
+    ReplaceBuildMeInfo( strNewProjectDirectory, "BuildMeRunMultiCore.R", mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU, vPatientPerMonth )
     # strBuildMeFile <- paste( strNewProjectDirectory, "/BuildMe.R", sep="" )
     # strTemplate    <- readLines( strBuildMeFile )
     # strTemplate    <- gsub( "TEMP_BORROWING", strBorrowing, strTemplate)
@@ -125,7 +126,7 @@ CreateProject <- function( strProjectDirectory        = "",
     return( strRet )
 }
 
-ReplaceBuildMeInfo  <- function( strNewProjectDirectory, strFileName, mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU )
+ReplaceBuildMeInfo  <- function( strNewProjectDirectory, strFileName, mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU, vPatientPerMonth )
 {
     #Replace options in the BuildMe.R file ####
     strBuildMeFile <- paste( strNewProjectDirectory, "/", strFileName, sep="" )
@@ -134,10 +135,14 @@ ReplaceBuildMeInfo  <- function( strNewProjectDirectory, strFileName, mQtyPatien
     strTemplate    <- gsub( "TEMP_QTY_REPS", nQtyReps, strTemplate )
     strTemplate    <- gsub( "TMP_QTY_MONTHS_FU", dQtyMonthsFU, strTemplate )
 
+    if( !is.null(vPatientPerMonth ))
+        strTemplate    <- gsub( "TEMP_PATIENTS_PER_MONTH", paste0( "c( ", paste( vPatientPerMonth, collapse = ", "), " )" ), strTemplate )
+    else
+        strTemplate    <- gsub( "TEMP_PATIENTS_PER_MONTH", "NULL", strTemplate )
     if( is.null( mQtyPatientsPerArm ) == FALSE )
     {
 
-        strTemplate    <- gsub( "TMP_MATRIX_DATA", paste( mQtyPatientsPerArm, collapse =","), strTemplate )
+        strTemplate    <- gsub( "TMP_MATRIX_DATA", paste( t(mQtyPatientsPerArm), collapse =","), strTemplate )
         strTemplate    <- gsub( "TMP_NROW", nrow( mQtyPatientsPerArm ), strTemplate )
         strTemplate    <- gsub( "TMP_NCOL", ncol( mQtyPatientsPerArm ), strTemplate )
     }
@@ -171,7 +176,7 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
         strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
         writeLines( strTemplate, con = strBuildMeFile )
 
-        strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
+        strBuildMeFile <- paste( strProjectDirectory, "/R/RunParallelSimulations.R", sep="" )
         strTemplate    <- readLines( strBuildMeFile )
         strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
         writeLines( strTemplate, con = strBuildMeFile )
@@ -182,14 +187,14 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
             strRet <- paste( "The analysis you requested", strAnalysisName, "is not part of the OCTOPUS package.  A file named" )
             strRet <- paste( "RunAnalysis.", strAnalysisName, ".R was created and the BuildMe.R set to source the new file.", sep="" )
 
-            strAnalysisFileName <- paste( strProjectDirectory, "/RunAnalysis.", strAnalysisName, ".R", sep="")
-            file.rename( paste( strProjectDirectory, "/RunAnalysis.TEMP_ANALYSIS_MODEL.R", sep=""), strAnalysisFileName )
+            strAnalysisFileName <- paste( strProjectDirectory, "/R/RunAnalysis.", strAnalysisName, ".R", sep="")
+            file.rename( paste( strProjectDirectory, "/R/RunAnalysis.TEMP_ANALYSIS_MODEL.R", sep=""), strAnalysisFileName )
 
             strTemplate    <- readLines( strAnalysisFileName )
             strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
             writeLines( strTemplate, con = strAnalysisFileName )
 
-            strParallelSimulationsFileName <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="")
+            strParallelSimulationsFileName <- paste( strProjectDirectory, "/R/RunParallelSimulations.R", sep="")
 
             strTemplate    <- readLines( strParallelSimulationsFileName )
             strTemplate    <- gsub( "TEMP_ANALYSIS_MODEL", paste( strAnalysisName,  sep=""), strTemplate)
@@ -204,22 +209,22 @@ ReplaceAnalysisInfo <- function( strProjectDirectory, strAnalysisName )
             strRet <- paste( strRet, " A new RunAnalysis function was NOT created.")
 
 
-            file.remove(  paste( strProjectDirectory, "/RunAnalysis.TEMP_ANALYSIS_MODEL.R", sep="") )
+            file.remove(  paste( strProjectDirectory, "/R/RunAnalysis.TEMP_ANALYSIS_MODEL.R", sep="") )
 
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMe.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
-            strSouceCmd    <- paste( "source\\( 'RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
+            strSouceCmd    <- paste( "source\\( 'R/RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)
             writeLines( strTemplate, con = strBuildMeFile )
 
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMeRunMultiCore.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
-            strSouceCmd    <- paste( "source\\( 'RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
+            strSouceCmd    <- paste( "source\\( 'R/RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)
             writeLines( strTemplate, con = strBuildMeFile )
 
-            strParallelSimulationsFileName <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="")
-            strSouceCmd    <-  paste( "source\\( 'RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
+            strParallelSimulationsFileName <- paste( strProjectDirectory, "/R/RunParallelSimulations.R", sep="")
+            strSouceCmd    <-  paste( "source\\( 'R/RunAnalysis.", strAnalysisName, ".R' \\)", sep = "")
             strTemplate    <- readLines( strParallelSimulationsFileName )
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)
             writeLines( strTemplate, con = strParallelSimulationsFileName )
@@ -249,7 +254,7 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
         writeLines( strTemplate, con = strBuildMeFile )
 
 
-        strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
+        strBuildMeFile <- paste( strProjectDirectory, "/R/RunParallelSimulations.R", sep="" )
         strTemplate    <- readLines( strBuildMeFile )
         strTemplate    <- gsub( "TEMP_SIM_PATIENT_OUTCOME", paste( strSimPatientOutcomeName,  sep=""), strTemplate)
         writeLines( strTemplate, con = strBuildMeFile )
@@ -260,8 +265,8 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
             strRet <- paste( "The patient simualator, SimPatientOutcomes", strSimPatientOutcomeName, "is not part of the OCTOPUS package.  A file named" )
             strRet <- paste( "SimPatientOutcomes.", strSimPatientOutcomeName, ".R was created and the BuildMe.R set to source the new file.", sep="" )
 
-            strFileName <- paste( strProjectDirectory, "/SimPatientOutcomes.", strSimPatientOutcomeName, ".R", sep="")
-            file.rename( paste( strProjectDirectory, "/SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R", sep=""), strFileName )
+            strFileName <- paste( strProjectDirectory, "/R/SimPatientOutcomes.", strSimPatientOutcomeName, ".R", sep="")
+            file.rename( paste( strProjectDirectory, "/R/SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R", sep=""), strFileName )
 
             strTemplate    <- readLines( strFileName )
             strTemplate    <- gsub( "TEMP_SIM_PATIENT_OUTCOME", paste( strSimPatientOutcomeName,  sep=""), strTemplate)
@@ -275,23 +280,23 @@ ReplaceSimPatientOutcomeInfo <- function( strProjectDirectory, strSimPatientOutc
             strRet <- paste( strRet, " A new SimPatientOutcomes function was NOT created.")
 
             #The SimPatientOutcome method exists, need to delete the file name and remove the source command for it from the BuildMe
-            file.remove(  paste( strProjectDirectory, "/SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R", sep="") )
+            file.remove(  paste( strProjectDirectory, "/R/SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME.R", sep="") )
 
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMe.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
-            strSouceCmd    <- paste( "source\\( 'SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
+            strSouceCmd    <- paste( "source\\( 'R/SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)
             writeLines( strTemplate, con = strBuildMeFile )
 
             strBuildMeFile <- paste( strProjectDirectory, "/BuildMeRunMultiCore.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
-            strSouceCmd    <- paste( "source\\( 'SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
+            strSouceCmd    <- paste( "source\\( 'R/SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)
             writeLines( strTemplate, con = strBuildMeFile )
 
-            strBuildMeFile <- paste( strProjectDirectory, "/RunParallelSimulations.R", sep="" )
+            strBuildMeFile <- paste( strProjectDirectory, "/R/RunParallelSimulations.R", sep="" )
             strTemplate    <- readLines( strBuildMeFile )
-            strSouceCmd    <- paste( "source\\( 'SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
+            strSouceCmd    <- paste( "source\\( 'R/SimPatientOutcomes.", strSimPatientOutcomeName, ".R' \\)", sep = "")
             strTemplate    <- gsub( strSouceCmd, "", strTemplate)
             writeLines( strTemplate, con = strBuildMeFile )
         }

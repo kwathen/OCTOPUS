@@ -1,5 +1,6 @@
 ##### File Description ######################################################################################################
-#   This file is to create the new RunAanlysis that calculates based on a beta-binomial
+#   This file is to create the new RunAanlysis that calculates based on a beta-binomial as an example
+#   THIS IS MOST LIKELY NOT THE ANALYSIS NEEDED SO THE USER WILL NEED TO UPDATE PER THEIR ANALYSIS PLAN
 #   Inputs:
 #     cAnalysis - The class( cAnalysis ) determines the specific version of RunAnalysis that is called. It contains
 #                 the details about the analysis such as the priors, MAV, TV, decision cut-off boundaries.

@@ -1,0 +1,56 @@
+---
+title: "Extending OCTOPUS"
+author: "J. Kyle Wathen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Extending OCTOPUS}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Extending OCTOPUS
+One of the key requirements for OCTOPUS was the ability to add new components such as simulating patient data (patient simulators), analysis models, decision criteria, randomization schemes, and other aspect.   The feature is accomplished through the use of S3 class and generic methods.  For users not familiar with S3 or generic functions, please refer to the example document [Example S3 Generic Methods](https://github.com/kwathen/OCTOPUS/blob/master/ExampleS3Class.R) and it is recommended to try running the R code to make sure it is clear.   To help make this abstract idea more concrete, the sections below illustrate additions by example.  
+
+# Adding New Patient Simulators
+
+In this example, the platform trial under consideration requires patient outcomes that are categorical.  Since this is type of outcome is not part of OCTOPUS, a new patient simulator should be added.  To add a new patient simulator, a new [SimPatOutcomes](https://github.com/kwathen/OCTOPUS/blob/Dev/R/SimPatientOutcomes.R) should be added to your project directory.  Note, this does NOT involve any development on OCTOPUS just simply creating a function with the correct name and arguments and sourcing it is sufficient.  The typical file naming scheme is to use the file name and function name the same.   For this example, we are adding a categorical outcome and hence an applicable file name and function name are SimPatientOutcomes.Categorical.R and SimPatientOutcomes.Categorical, respectively.  The following function could be created in SimPatientOutcomes.Categorical.R.  The required arguments to the function are cSimOutcomes, cISADesign, dfPatCovISA and the class( cSimOutcomes ) determines which version of SimPatientOutcomes is actually called. 
+
+```{r setp, eval=FALSE}
+SimPatientOutcomes.Categorical <- function(  cSimOutcomes, cISADesign, dfPatCovISA )
+{
+    # Often it is good to print out a message when you first use so it is clear the correct function was called
+    #print( "Executing SimPatientOutcomes.Categorical ...")  
+    if( !is.null(  dfPatCovISA  ) )
+        stop( "SimPatientOutcomes.Categoricaly is not designed to incorporate patient covariates and  dfPatCovISA  is not NULL.")
+
+
+    mOutcome        <- NULL
+
+    vProbResponse   <- cSimOutcomes$vProbResponse
+    vQtyPats        <- cISADesign$vQtyPats
+
+    vPatTrt         <- rep( cISADesign$vTrtLab, vQtyPats )
+    iArm            <- 1
+    for( iArm in 1:length( vQtyPats ) )
+    {
+        # Note: in this example only a binomial outcome is simulated.  This could easily be altered to be multi-nomial or whatever is needed.
+        vPatientOutcomes <- rbinom( vQtyPats[ iArm ], 1, vProbResponse[ iArm ] )
+        mOutcome         <- rbind( mOutcome, matrix( vPatientOutcomes , ncol = 1) )
+    }
+
+
+    lSimDataRet <- structure( list( mSimOut1 = mOutcome, vObsTime1 = cISADesign$cISAAnalysis$vAnalysis[[1]]$vObsTime ), class= class(cSimOutcomes) )
+
+
+    lSimDataRet$nQtyOut  <- 1
+    lSimDataRet$vPatTrt  <- vPatTrt
+
+    return( lSimDataRet )
+
+}
+```
