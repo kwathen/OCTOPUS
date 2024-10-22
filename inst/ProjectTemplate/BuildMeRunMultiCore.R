@@ -217,7 +217,7 @@ cSimulationTmp <- SetupSimulations( cTrialDesignTmp,
                                     nDesign                   = nQtyDesigns,
                                     dfScenarios               = dfScenarios )
 
-cSimulation$SimDesigns[[3]] <- cSimulationTmp$SimDesigns[[1]]
+cSimulation$SimDesigns[[nQtyDesigns]] <- cSimulationTmp$SimDesigns[[1]]
 
 # Save Rds for this design
 saveRDS( cTrialDesignTmp, file = paste0( "cTrialDesign", nQtyDesigns, ".Rds" ) )
