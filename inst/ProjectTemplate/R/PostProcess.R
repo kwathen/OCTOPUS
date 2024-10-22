@@ -78,12 +78,15 @@ CreateScenarioTables <- function( )
 #####################################################################################################################.
 ProcessSimulationResults <- function( )
 {
-    load( "cTrialDesign.RData")   #This should create mDesigns matrix that was saved in the BuildMe.R file
+    #load( "cTrialDesign.RData")   #This should create mDesigns matrix that was saved in the BuildMe.R file
+    cTrialDesign <- readRDS( "cTrialDesign1.Rds")
     # dfDesign <- data.frame( cTrialDesign  )
 
 
-    load( "simsCombined.RData")
-    simsAll     <- simsCombined
+    #load( "simsCombined.RData")
+
+    #simsAll     <- simsCombined
+    simsAll     <- readRDS( "simsCombined.Rds")
     nQtyISA     <- length( cTrialDesign$cISADesigns )
     vQtyTrt     <- rep( 0, nQtyISA )
     for( iISA in 1:nQtyISA )
@@ -125,78 +128,432 @@ ProcessSimulationResults <- function( )
     lResults     <- list( mResults = mRes,  cTrialDesign = cTrialDesign )
     return( lResults )
 }
-PlotResults <- function( dfResults, file="", 
+
+PlotExampleTrial <- function( nQtyPatsCtrl,  nQtyPatsTrt, dRespCtrl, dDelta, nSeed )
+{
+    set.seed( nSeed )
+    dRespTrt  <- dRespCtrl + dDelta
+
+    nQtyRespCtrl <- rbinom( 1, nQtyPatsCtrl, dRespCtrl )
+    nQtyRespTrt  <- rbinom( 1, nQtyPatsTrt, dRespTrt )
+
+    vPiCtrl <<- rbeta( 1000000, 0.5 + nQtyRespCtrl, 0.5 + nQtyPatsCtrl - nQtyRespCtrl  )
+    vPiTrt  <<- rbeta( 1000000, 0.5 + nQtyRespTrt, 0.5 + nQtyPatsTrt -  nQtyRespTrt  )
+    vDelta  <- vPiTrt - vPiCtrl
+
+
+    vDen <- density( vDelta )
+
+    vDesiredCI  <- c( 0.2, 0.8)
+    dC1         <- 0.20
+    dfDen       <- density( vDelta )
+    dProbLess   <- mean( vDelta > dC1 )
+    vCI         <- round( quantile( vDelta, probs= vDesiredCI ), 3)
+    dfDen       <- data.frame( Delta = dfDen$x, Density = dfDen$y )
+
+    dfDen$Grp <- ifelse( dfDen$Delta >= dC1, "1", "2")
+
+    gPlot1 <- ggplot( dfDen, aes( x=Delta, y = Density, group=Grp, fill = Grp) ) +
+                geom_line( size = 0.75) +
+                geom_ribbon( data=subset( dfDen, Grp =1), aes( x=Delta, ymax = Density), ymin= 0, alpha =0.3)+
+                scale_fill_manual(name='', values=c("1" = "green4", "2" = "red"))+
+                theme_bw() +
+                theme( plot.title = element_text(hjust = 0.5), legend.position="none" ) +
+                #ggtitle( paste0("Probability of Delta > ", dC1, " = ", round( 100*dProbLess,1), "%, Est. Delta = ", round( mean( vDelta), 3)) ) +
+                ggtitle( paste0( "Est. Delta = ", round( mean( vDelta), 3),
+                                 "\nProbability of Delta > ", dC1, " = ", round( 100*dProbLess,1),
+                                 "%\n60% CI From (20%, 80%): ( ",vCI[1], ", ", vCI[2], " )" )) +
+                xlab( paste0( "Delta " ) )  +
+                scale_x_continuous(breaks=seq(-0.25,0.5,by=.1), minor_breaks=seq( -0.2,0.5,by=.1),limit=c(-0.25, 0.5) )+
+                annotate( geom= "text", x=-0.25, y = 6.4, vjust=1, hjust=0,  label= "Example Data") +
+                annotate( geom="text", x=-0.25, y =6, vjust=1, hjust=0, label=paste0( "Ctrl: ", nQtyRespCtrl, "/", nQtyPatsCtrl, "\nTrt: ",nQtyRespTrt, "/", nQtyPatsTrt  ))
+
+    vPi <- seq( 0.001, 0.999, 0.001 )
+    #vPiCtrlDen <- dbeta( vPi, 0.138 + nQtyRespCtrl, 0.862 + nQtyPatsCtrl - nQtyRespCtrl)
+    #vPiTrtDen  <- dbeta( vPi, 0.138 + nQtyRespTrt,  0.862 + nQtyPatsTrt -  nQtyRespTrt )
+
+    vPiCtrlDen <- dbeta( vPi, 0.5 + nQtyRespCtrl, 0.5 + nQtyPatsCtrl - nQtyRespCtrl)
+    vPiTrtDen  <- dbeta( vPi, 0.5 + nQtyRespTrt,  0.5 + nQtyPatsTrt -  nQtyRespTrt )
+
+    vCICtrl    <- qbeta( vDesiredCI, 0.5 + nQtyRespCtrl, 0.5 + nQtyPatsCtrl - nQtyRespCtrl )
+    vCITrt     <- qbeta( vDesiredCI, 0.5 + nQtyRespTrt,  0.5 + nQtyPatsTrt -  nQtyRespTrt  )
+
+    dfCtrlPost <- data.frame( Pi = vPi, Den = vPiCtrlDen, Trt = 'Ctrl')
+    dfTrtPost  <- data.frame( Pi = vPi, Den = vPiTrtDen, Trt = 'Trt')
+
+    dfPostDen    <- dfCtrlPost %>% dplyr::add_row( dfTrtPost )
+
+    gPlot2 <- ggplot( dfPostDen, aes( Pi, Den, group = Trt, fill = Trt )) +
+                geom_line( size = 0.75) +
+                geom_ribbon( data=subset( dfPostDen, (Trt =='Ctrl' & Pi > vCICtrl[ 1 ] & Pi < vCICtrl[2] ) |
+                                                     (Trt =='Trt'  & Pi > vCITrt[ 1 ] & Pi < vCITrt[ 2 ]) ) ,
+                             aes( x=Pi, ymax = Den), ymin= 0, alpha =0.3) +
+                scale_fill_manual(name='', values=c("Ctrl" = "#E69F00", "Trt" = "#56B4E9")) +
+                theme_bw() +
+                theme( plot.title = element_text(hjust = 0.5), legend.position="none" ) +
+                ggtitle( paste0( "Posterior Disttribution with 60% CI (20%, 80%)\n Brown (Control), Blue (Treatment)"  )) +
+                xlab( paste0( "Response Rate" ) )  +
+                scale_x_continuous(breaks=seq(0.15,1,by=.1), minor_breaks=seq( 0.2,1,by=.1),limit=c(0.15, 1) )+
+                annotate( geom= "text", x=-0.25, y = 6.7, vjust=1, hjust=0,  label= "Example Data") +
+                annotate( geom="text", x=-0.25, y =6, vjust=1, hjust=0, label=paste0( "Ctrl: ", nQtyRespCtrl, "/", nQtyPatsCtrl, "\nTrt: ",nQtyRespTrt, "/", nQtyPatsTrt  ))
+
+    return( list( DeltaPlot = gPlot1, TreatmentPlot = gPlot2 ) )
+}
+PlotResults <- function( dfResults, file="",
                          colorPalette = c("#000000", "#E69F00", "#56B4E9", "#009E73",
                                           "#F0E442", "#0072B2", "#D55E00", "#CC79A7"),
-                         vScenarioLabel = NULL   )
+                         vScenarioLabel = NULL, nStartFigureNumber = 1   )
 {
-    
+
+
     dfResultsAll       <- dfResults
     #dfResultsAll$SSLab <- ifelse( dfResultsAll$design==3, "100:100 NB", "50:100")
     vScen              <- sort( unique( dfResults$scenario) )
     vDesigns           <- unique( dfResults$design )
-    
+
     for( nScen in vScen )
-    {    
-        
+    {
+
         dfResults       <- dfResultsAll[ dfResultsAll$scenario == nScen,]
         dfProbs         <- subset( dfResults, what=="Pr(Go)" | what == "Pr(No Go)" | what =="Pr(Pause)")
-        
+
         dfProbs$what    <- factor( dfProbs$what, levels = c("Pr(No Go)","Pr(Pause)", "Pr(Go)" ) )
-        
+
+        #dfProbs         <- subset( dfResults, what=="Pr(Go)" | what == "Pr(No Go)" )
+
+        #dfProbs$what    <- factor( dfProbs$what, levels = c("Pr(No Go)", "Pr(Go)" ) )
+
+
+
         if( length(vScenarioLabel ) == length( vScen ) )
         {
-            ggTitle <- ggtitle( paste( "Platform Simulations - Scenario ", nScen) , subtitle = vScenarioLabel[ nScen ])
+            ggTitle <- ggtitle( paste( "Figure", nStartFigureNumber + nScen - 1, " - Scenario ", nScen) , subtitle = vScenarioLabel[ nScen ])
         }
         else
         {
             ggTitle <- ggtitle( paste( "Platform Simulations - Scenario ", nScen) )
         }
+
         if( length( vDesigns ) == 1)
-        {           
+        {
             ocPlot <- ggplot(data=dfProbs, aes(y=value, x=factor(isa, level=unique(isa)), fill = what)) +
                 geom_bar( stat="identity", position='stack') +
-                xlab("ISA") + 
+                xlab("ISA") +
                 ylab("Probability") +
                 ggTitle +
                 scale_fill_manual(values=c(colorPalette[7],colorPalette[5], colorPalette[4])) +
                 scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
-                theme_bw() + 
-                theme(plot.title =element_text(hjust=0.5), 
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
                       plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
                 theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
-                geom_text( aes(y = GetY( value ), x = factor(isa, level=unique(isa)), label= GetLabel(value)), size=5, col=rep(c("black","black","white"),nrow(dfProbs)/3))
+                geom_text( aes(y = GetY( value ), x = factor(isa, level=unique(isa)), label= GetLabel(value)), size=2.5, col=rep(c("black","black","white"),nrow(dfProbs)/3))
         }
         else
         {
-            
-            
-            
+
+
+
             ocPlot <- ggplot(data=dfProbs, aes(y=value, x=factor(design , level=unique(design )), label=GetLabel(value), fill = what)) +
                 geom_bar( stat="identity", position='stack') +
                 facet_grid( .~isa) +
-                xlab("Design") + 
+                xlab("Design") +
                 ylab("Probability") +
                 ggTitle +
                 scale_fill_manual(values=c(colorPalette[7],colorPalette[5], colorPalette[4])) +
+
+                #scale_fill_manual(values=c(colorPalette[7], colorPalette[4])) +
                 scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
-                theme_bw() + 
-                theme(plot.title =element_text(hjust=0.5), 
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
                       plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
                 theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
-                geom_text(size = 5, position = position_stack(vjust = 0.5), col=rep(c("black","black","white"),nrow(dfProbs)/3))
-            # geom_text( aes(y = GetY( value ), x = factor(design, level=unique(design)), label= GetLabel(value)), size=5, col=rep(c("black","black","white"),nrow(dfProbs)/3))
-            
-            
+                #geom_text(size = 5, position = position_stack(vjust = 0.5), col=rep(c("black","white"),nrow(dfProbs)/3))
+                geom_text( aes(y = GetY( value ), x = factor(design, level=unique(design)), label= GetLabel(value)), size=2.5, col=c("black"))
+
+
         }
         if( file != "" )
             png( paste( file ), width=1000,height=600)
         print( ocPlot )
         if( file != "" )
             dev.off()
-        
+
     }
-    
+
+}
+
+
+GetPlotResults <- function( dfResults, file="",
+                         colorPalette = c("#000000", "#E69F00", "#56B4E9", "#009E73",
+                                          "#F0E442", "#0072B2", "#D55E00", "#CC79A7"),
+                         vScenarioLabel = NULL, nStartFigureNumber = 1   )
+{
+
+
+    dfResultsAll       <- dfResults
+    #dfResultsAll$SSLab <- ifelse( dfResultsAll$design==3, "100:100 NB", "50:100")
+    vScen              <- sort( unique( dfResults$scenario) )
+    vDesigns           <- unique( dfResults$design )
+
+    lPlots <- list()
+    for( nScen in vScen )
+    {
+
+        dfResults       <- dfResultsAll[ dfResultsAll$scenario == nScen,]
+        dfProbs         <- subset( dfResults, what=="Pr(Go)" | what == "Pr(No Go)" | what =="Pr(Pause)")
+
+        dfProbs$what    <- factor( dfProbs$what, levels = c("Pr(No Go)","Pr(Pause)", "Pr(Go)" ) )
+
+        dfProbs         <- subset( dfResults, what=="Pr(Go)" | what == "Pr(No Go)" )
+
+        dfProbs$what    <- factor( dfProbs$what, levels = c("Pr(No Go)", "Pr(Go)" ) )
+
+
+
+        if( length(vScenarioLabel ) == length( vScen ) )
+        {
+            ggTitle <- ggtitle( paste( "Figure", nStartFigureNumber + nScen - 1, " - Scenario ", nScen) , subtitle = vScenarioLabel[ nScen ])
+        }
+        else
+        {
+            ggTitle <- ggtitle( paste( "Platform Simulations - Scenario ", nScen) )
+        }
+
+        if( length( vDesigns ) == 1)
+        {
+            ocPlot <- ggplot(data=dfProbs, aes(y=value, x=factor(isa, level=unique(isa)), fill = what)) +
+                geom_bar( stat="identity", position='stack') +
+                xlab("ISA") +
+                ylab("Probability") +
+                ggTitle +
+                scale_fill_manual(values=c(colorPalette[7],colorPalette[5], colorPalette[4])) +
+                scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
+                      plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
+                geom_text( aes(y = GetY( value ), x = factor(isa, level=unique(isa)), label= GetLabel(value)), size=2.5, col=rep(c("black","black","white"),nrow(dfProbs)/3))
+        }
+        else
+        {
+
+
+
+            ocPlot <- ggplot(data=dfProbs, aes(y=value, x=factor(design , level=unique(design )), label=GetLabel(value), fill = what)) +
+                geom_bar( stat="identity", position='stack') +
+                facet_grid( .~isa) +
+                xlab("Design") +
+                ylab("Probability") +
+                ggTitle +
+                #scale_fill_manual(values=c(colorPalette[7],colorPalette[5], colorPalette[4])) +
+
+                scale_fill_manual(values=c(colorPalette[7], colorPalette[4])) +
+                scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
+                      plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
+                #geom_text(size = 5, position = position_stack(vjust = 0.5), col=rep(c("black","white"),nrow(dfProbs)/3))
+                geom_text( aes(y = GetY( value ), x = factor(design, level=unique(design)), label= GetLabel(value)), size=2.5, col=rep(c("black","white"),nrow(dfProbs)/2))
+
+
+        }
+        if( file != "" )
+            png( paste( file ), width=1000,height=600)
+        #print( ocPlot )
+        lPlots[[paste0("scenario", nScen)]] <- ocPlot
+        if( file != "" )
+            dev.off()
+
+    }
+    return( lPlots )
+
+}
+
+PlotCIResults <- function( dfResults, file="",
+                         colorPalette = c("#000000", "#E69F00", "#56B4E9", "#009E73",
+                                          "#F0E442", "#0072B2", "#D55E00", "#CC79A7"),
+                         vScenarioLabel = NULL, nStartFigureNumber = 1   )
+{
+
+
+    dfResultsAll       <- dfResults
+    #dfResultsAll$SSLab <- ifelse( dfResultsAll$design==3, "100:100 NB", "50:100")
+    vScen              <- sort( unique( dfResults$scenario) )
+    vDesigns           <- unique( dfResults$design )
+
+    for( nScen in vScen )
+    {
+
+        dfResults       <- dfResultsAll[ dfResultsAll$scenario == nScen,]
+        dfProbs         <- subset( dfResults, what=="Pr(Go)" | what == "Pr(No Go)" | what =="Pr(Pause)")
+
+        dfProbs$what    <- factor( dfProbs$what, levels = c("Pr(No Go)","Pr(Pause)", "Pr(Go)" ) )
+
+        dfProbs         <- subset( dfResults, what=="Pr(Go)" | what == "Pr(No Go)" )
+
+        dfProbs$what    <- factor( dfProbs$what, levels = c("Pr(No Go)", "Pr(Go)" ) )
+
+
+
+        if( length(vScenarioLabel ) == length( vScen ) )
+        {
+            ggTitle <- ggtitle( paste( "Figure", nStartFigureNumber + nScen - 1, " - Scenario ", nScen) , subtitle = vScenarioLabel[ nScen ])
+        }
+        else
+        {
+            ggTitle <- ggtitle( paste( "Platform Simulations - Scenario ", nScen) )
+        }
+
+        if( length( vDesigns ) == 1)
+        {
+            ocPlot <- ggplot(data=dfProbs, aes(y=value, x=factor(isa, level=unique(isa)), fill = what)) +
+                geom_bar( stat="identity", position='stack') +
+                xlab("ISA") +
+                ylab("Probability") +
+                ggTitle +
+                scale_fill_manual(values=c(colorPalette[7],colorPalette[5], colorPalette[4])) +
+                scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
+                      plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
+                geom_text( aes(y = GetY( value ), x = factor(isa, level=unique(isa)), label= GetLabel(value)), size=2.5, col=rep(c("black","black","white"),nrow(dfProbs)/3))
+        }
+        else
+        {
+
+
+
+            ocPlot <- ggplot(data=dfProbs, aes(y=value, x=factor(design , level=unique(design )), label=GetLabel(value), fill = what)) +
+                geom_bar( stat="identity", position='stack') +
+                facet_grid( .~isa) +
+                xlab("Design") +
+                ylab("Probability") +
+                ggTitle +
+                #scale_fill_manual(values=c(colorPalette[7],colorPalette[5], colorPalette[4])) +
+
+                scale_fill_manual(values=c(colorPalette[7], colorPalette[4])) +
+                scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
+                      plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
+                #geom_text(size = 5, position = position_stack(vjust = 0.5), col=rep(c("black","white"),nrow(dfProbs)/3))
+                geom_text( aes(y = GetY( value ), x = factor(design, level=unique(design)), label= GetLabel(value)), size=2.5, col=rep(c("black","white"),nrow(dfProbs)/2))
+
+
+        }
+        if( file != "" )
+            png( paste( file ), width=1000,height=600)
+        print( ocPlot )
+        if( file != "" )
+            dev.off()
+
+    }
+
+}
+
+
+PlotResultsLineGraph <- function( dfResults,vTrueRates, file="",
+                                  colorPalette = c("#000000", "#E69F00", "#56B4E9", "#009E73",
+                                                   "#F0E442", "#0072B2", "#D55E00", "#CC79A7"),
+
+                                  vScenarioLabel = NULL, nStartFigureNumber = 1)
+{
+
+
+    #vTrueRates <-  0.138 + c( 0, 0.1, 0.125, 0.15, 0.175, 0.2, 0.25, 0.3,0.35,0.4 )
+
+    dfScen <- data.frame( vScenLab = as.character( 1:length( vTrueRates ) ), TrueRates = vTrueRates)
+
+
+    dfResultsAll    <- dfResults
+    vScen           <- sort( unique( dfResults$scenario) )
+    vDesigns        <- unique( dfResults$design )
+    vISA            <- unique( dfResultsAll$isa )
+    nScen <- vScen[1]
+
+    nISA <- vISA[ 1 ]
+
+    vWhat           <- c( "Pr(Go)", "Pr(No Go)" )
+    vLabel          <- c( "Probability of Go", "Probability of No Go")
+    lPlotsByISA     <- list()
+    lPlotsByDesign  <- list()
+    ######################################################################################################################## .
+    # Plot 1 - Pr(Go) line for each design, facet for each ISA ####
+    ######################################################################################################################## .
+
+    i <- 1
+    for( strWhat in vWhat )
+    {
+        dfProbs         <- dfResultsAll #[ dfResultsAll$isa == nISA,]
+
+        dfProbs         <- subset( dfProbs, what==strWhat ) #| what == "Pr(No Go)" | what =="Pr(Pause)")
+
+        dfProbs         <- dplyr::left_join( dfProbs, dfScen, by="vScenLab")
+
+        dfProbs$design    <- factor( dfProbs$design  )
+
+        if( length( vDesigns ) == 1)
+        {
+            lPlotsByISA[[ i ]] <-  ggplot( data = dfProbs, aes( y=value, x = TrueRates)) +
+                geom_line( size = 1.5 )+
+                facet_grid( .~isa) +
+                xlab("True Rate on E") +
+                ylab( vLabel[ i ] ) +
+                ggtitle( paste0( "Platform Simulation Results - ", vLabel[ i ])) +
+                scale_y_continuous(breaks=seq(0,1,by=.1), minor_breaks=seq( 0.05,1, by=0.1),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
+                      plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal" )  #, legend.title  =element_blank() )
+
+
+        }
+        else
+        {
+
+            lPlotsByISA[[ i ]] <-  ggplot( data = dfProbs, aes( y=value, x = TrueRates, colour = design, group=design)) +
+                geom_line( size = 1.5 )+
+                facet_grid( .~isa) +
+                xlab("True Rate on E") +
+                ylab( vLabel[ i ] ) +
+                ggtitle( paste0( "Platform Simulation Results - ", vLabel[ i ])) +
+                scale_y_continuous(breaks=seq(0,1,by=.1), minor_breaks=seq( 0.05,1, by=0.1),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
+                      plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal" ) +
+
+                scale_color_manual(values=colorPalette, name= "Design") #, legend.title  =element_blank() )
+
+            lPlotsByDesign[[ i ]] <-  ggplot( data = dfProbs, aes( y=value, x = TrueRates, colour = isa, group=isa)) +
+                geom_line( size = 1.5 )+
+                facet_grid( .~design) +
+                xlab("True Rate on E") +
+                ylab( vLabel[ i ] ) +
+                ggtitle( paste0( "Platform Simulation Results - ", vLabel[ i ])) +
+                scale_y_continuous(breaks=seq(0,1,by=.1), minor_breaks=seq( 0.05,1, by=0.1),limit=c(0,1) )+
+                theme_bw() +
+                theme(plot.title =element_text(hjust=0.5),
+                      plot.subtitle = element_text(hjust = 0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme( legend.position  ="top", legend.direction="horizontal" ) +
+
+                scale_color_manual(values=colorPalette, name= "ISA")
+        }
+
+        i <- i + 1
+    }
+    # if( file != "" )
+    #     png( paste( file ), width=1000,height=600)
+    # print( ocPlot )
+    # if( file != "" )
+    #     dev.off()
+
+
+    return( list( lPlotsByISA = lPlotsByISA, lPlotsByDesign = lPlotsByDesign ) )
 }
 
 
@@ -211,10 +568,10 @@ PlotResultsWithIAInfo <- function( dfResults, file="",
     vScen              <- sort( unique( dfResults$scenario) )
     vDesigns           <- unique( dfResults$design )
 
-    
+
     for( nScen in vScen )
     {
-        
+
         if( length(vScenarioLabel ) == length( vScen ) )
         {
             ggTitle <- ggtitle( paste( "Platform Simulations - Scenario ", nScen) , subtitle = vScenarioLabel[ nScen ])
@@ -223,7 +580,7 @@ PlotResultsWithIAInfo <- function( dfResults, file="",
         {
             ggTitle <- ggtitle( paste( "Platform Simulations - Scenario ", nScen) )
         }
-        
+
 
         dfResults       <- dfResultsAll[ dfResultsAll$scenario == nScen,]
         dfProbs         <- subset( dfResults, what=="Pr(No Go @ FA)" | what == "Pr(No Go @ IA)" | what =="Pr(Pause)" | what == "Pr(Go @ IA)" | what == "Pr(Go @ FA)" )
@@ -243,9 +600,9 @@ PlotResultsWithIAInfo <- function( dfResults, file="",
                 scale_fill_manual(values=c( colorPalette[2],colorPalette[7], colorPalette[5],colorPalette[3],colorPalette[4])) +
                 scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
                 theme_bw() +
-                theme(plot.title =element_text(hjust=0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme(plot.title =element_text(hjust=0.5), panel.grid.major.y = element_line(size=1.5), plot.subtitle = element_text( hjust=0.5)) +
                 theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
-                geom_text(size = 5,position = position_stack(vjust = 0.5), col=rep(c("black","black","black","white","white"),nrow(dfProbs)/5))
+                geom_text(size = 3,position = position_stack(vjust = 0.5), col=rep(c("black","black","black","white","white"),nrow(dfProbs)/5))
         }
         else
         {
@@ -261,9 +618,9 @@ PlotResultsWithIAInfo <- function( dfResults, file="",
                 scale_fill_manual(values=c( colorPalette[2],colorPalette[7], colorPalette[5],colorPalette[3],colorPalette[4])) +
                 scale_y_continuous(breaks=seq(0,1,by=.2), minor_breaks=seq( 0.05,1, by=0.05),limit=c(0,1) )+
                 theme_bw() +
-                theme(plot.title =element_text(hjust=0.5), panel.grid.major.y = element_line(size=1.5)) +
+                theme(plot.title =element_text(hjust=0.5), panel.grid.major.y = element_line(size=1.5), plot.subtitle = element_text( hjust=0.5)) +
                 theme( legend.position  ="top", legend.direction="horizontal", legend.title  =element_blank() )+
-                geom_text(size = 5, position = position_stack(vjust = 0.5), col=rep(c("black","black","black","white","white"),nrow(dfProbs)/5))
+                geom_text(size = 3, position = position_stack(vjust = 0.5), col=rep(c("black","black","black","white","white"),nrow(dfProbs)/5))
             # geom_text( aes(y = GetY( value ), x = factor(design, level=unique(design)), label= GetLabel(value)), size=5, col=rep(c("black","black","white"),nrow(dfProbs)/3))
 
 
@@ -344,6 +701,9 @@ PostProcessSimulationResults  <- function( mSims, nDes, nScen, vQtyTrt, dPUFinal
 
     }
 
+    lISAResults$vWhat   <- c( lISAResults$vWhat, c("AveTrialLength", "LowerLimitTrialLength", "UpperLimitTrialLength" ) )
+    lISAResults$vISA    <- c( lISAResults$vISA, c( "Trial", "Trial", "Trial"  ) )
+    lISAResults$vValue  <- c( lISAResults$vValue, c( mean( mSimsTmp[, "CurrentTime" ] ), quantile( mSimsTmp[, "CurrentTime" ], probs=c(0.025, 0.975) ) ) )
 
     return( lISAResults )
 
@@ -394,9 +754,22 @@ ProcessISAResults <- function( mSims, nISANumber, nTreatmentStartNumber, nQtyTrt
     #vPats         <- apply( vPats, 1, sum)
     dAveTrtISA    <- mean( vPats  )
 
-    lISAResults$vWhat  <- c( lISAResults$vWhat, c( "Ave N Placebo", "Ave N Treatment", "Ave N ISA"  ))
-    lISAResults$vISA   <- c( lISAResults$vISA,  rep( paste( "ISA", nISANumber),3))
-    lISAResults$vValue <- c( lISAResults$vValue, c( dAvePlacISA, dAveTrtISA, dAvePlacISA + dAveTrtISA  ) )
+
+    mTimeISA           <- mSims[,paste0(c( "ISAStart", "FinalPatientEnrolledTimeISA", "StartIAISA", "FinalAnalysisTimeISA") , nISANumber)]
+    #Add the average time to decision in an ISA
+    mTimeISA           <- cbind( mTimeISA[,1:4], mTimeISA[,paste0( "FinalAnalysisTimeISA" , nISANumber)] - mTimeISA[,paste0( "ISAStart" , nISANumber)]  )
+    colnames( mTimeISA )[5] <- paste0( "TimeToDecision", nISANumber )
+
+    vMeanTime          <- apply( mTimeISA, 2, mean  )
+    vLowerLimit        <- apply( mTimeISA, 2, quantile, probs=c(0.025) )
+    vUpperLimit        <- apply( mTimeISA, 2, quantile, probs=c(0.975) )
+    lISAResults$vWhat  <- c( lISAResults$vWhat, c( "Ave N Placebo", "Ave N Treatment", "Ave N ISA",
+                                                    paste0("Ave",c( "ISAStart", "FinalPatientEnrolledTimeISA", "StartIAISA", "FinalAnalysisTimeISA", "TimeToDecision") ),
+                                                    paste0("LowerLimit",c( "ISAStart", "FinalPatientEnrolledTimeISA", "StartIAISA", "FinalAnalysisTimeISA", "TimeToDecision") ),
+                                                    paste0("UpperLimit",c( "ISAStart", "FinalPatientEnrolledTimeISA", "StartIAISA", "FinalAnalysisTimeISA", "TimeToDecision") ) ) )
+    lISAResults$vISA   <- c( lISAResults$vISA,  rep( paste( "ISA", nISANumber),18))
+    lISAResults$vValue <- c( lISAResults$vValue, c( dAvePlacISA, dAveTrtISA, dAvePlacISA + dAveTrtISA,
+                                                    vMeanTime, vLowerLimit, vUpperLimit ) )
 
     # Compute the decision probabilities.
     #   0 = ISA not open;
@@ -585,18 +958,26 @@ GetLabel <- function( vValue )
 {
 
     vValue <- round( vValue, 2)
-    vRet <- ifelse(  vValue < 0.05, "", vValue)
+    vRet <- ifelse(  vValue < 0.01, "", vValue)
 
     return( vRet )
 
 }
 GetY <- function( vY )
 {
+    # Original code with Pr(Pause)
     mY <- matrix(vY, nrow=3)
     mY[3, ] <- mY[1,] + mY[2, ] + mY[3,]/2
     mY[2, ] <- mY[1,] + mY[2, ]/2
     mY[1, ] <- mY[1,]/2
     vY <- as.vector( mY)
+
+
+    # mY <- matrix(vY, nrow=2)
+    # #mY[3, ] <- mY[1,] + mY[2, ] + mY[3,]/2
+    # mY[2, ] <- mY[1,] + mY[2, ]/2
+    # mY[1, ] <- mY[1,]/2
+    # vY <- as.vector( mY)
     return( vY )
 
 }

@@ -2,19 +2,20 @@
 ################################################################################################### #
 #   Description - This file will add a new patient outcome where patient outcomes are binary
 #
-#   TODO: Test this function.
+#
+#   THIS IS MOST LIKELY NOT THE PATIENT SIMULATION NEEDED SO THE USER WILL NEED TO UPDATE PER THEIR SIMULATION PLAN
 ################################################################################################### #
 
 SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME <- function(  cSimOutcomes, cISADesign, dfPatCovISA )
 {
     #print( "Executing SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOME ...")
     if( !is.null(  dfPatCovISA  ) )
-        stop( "SimPatientOutcomes.Binary is not designed to incorporate patient covariates and  dfPatCovISA  is not NULL.")
+        stop( "SimPatientOutcomes.TEMP_SIM_PATIENT_OUTCOM is not designed to incorporate patient covariates and  dfPatCovISA  is not NULL.")
 
 
     mOutcome        <- NULL
 
-    vProbResponse   <- cSimOutcomes$vProbResponse
+    vProbResponse   <- c( cSimOutcomes$ProbRespCtrl,  cSimOutcomes$ProbRespExp )
     vQtyPats        <- cISADesign$vQtyPats
 
     vPatTrt         <- rep( cISADesign$vTrtLab, vQtyPats )
