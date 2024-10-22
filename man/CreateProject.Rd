@@ -14,7 +14,8 @@ CreateProject(
   mQtyPatientsPerArm = NULL,
   dQtyMonthsFU = 1,
   vISAStartTimes = NULL,
-  bCreateProjectSubdirectory = TRUE
+  bCreateProjectSubdirectory = TRUE,
+  vPatientPerMonth = NULL
 )
 }
 \arguments{

@@ -1,5 +1,6 @@
-#   This file contains the functions needed by the Binary GoNG versions.
-#   All of these functions start with a . so they are not exported when the packages is created
+#   This file contains the functions needed by the Binary Go No Go versions.
+
+#   THIS IS MOST LIKELY NOT THE ANALYSIS FUNCTIONS NEEDED SO THE USER WILL NEED TO UPDATE PER THEIR ANALYSIS PLAN
 
 # Generic functions to calculate the posterior probabilities of interest
 ProbX1GrX2PlusDelta <- function(dA1,dB1,dA2,dB2, dDelta)

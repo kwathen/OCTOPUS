@@ -23,8 +23,9 @@ BuildSimulationResultsDataSet <- function( )
     print( paste( "Combining main output files in the out subdirectory..." ) )
     simsMain   <- CombineOutputFiles( "out" )
 
-    print( paste( ".....Saving combined main output as simsMain.RData"))
-    save( simsMain, file = "simsMain.RData")
+    print( paste( ".....Saving combined main output as simsMain.Rds"))
+    #save( simsMain, file = "simsMain.RData")
+    saveRDS( simsMain, file = "simsMain.Rds")
     simsCombined <- simsMain
     strISA <- "ISAOut1"
     iISA   <- 1
@@ -38,12 +39,12 @@ BuildSimulationResultsDataSet <- function( )
 
         #Save the object
         strObjName  <- paste( "simsISA", iISA, sep="" )
-        strFileName <- paste( strObjName, ".RData", sep="" )
+        strFileName <- paste( strObjName, ".Rds", sep="" )
         print( paste( ".....Saving combined ISA", iISA, "output as", strFileName ) )
 
         assign(  strObjName, simsISA )
-        save( list= strObjName, file= strFileName )
-
+        #save( list= strObjName, file= strFileName )
+        saveRDS( simsISA, file= strFileName)
 
         print( paste( "Merging main results with ISA ", iISA, " results...", sep="" ))
 
@@ -54,7 +55,8 @@ BuildSimulationResultsDataSet <- function( )
     }
     simsCombined <- simsCombined[order( simsCombined$iScen),]
     print( paste( "Saving combined main and ISA output as simsCombined.RData" ) )
-    save( simsCombined, file = "simsCombined.RData" )
+    #save( simsCombined, file = "simsCombined.RData" )
+    saveRDS( simsCombined, file = "simsCombined.Rds" )
     return( simsCombined )
 
 }
