@@ -48,7 +48,7 @@ https://docs.travis-ci.com/user/tutorial/
 To install packages from GitHub
 https://remotes.r-lib.org/
 
-Example: remotes::install_github( "kwathen/OCTOPUS", "Version1.3.0.3" )
+Example: remotes::install_github( "kwathen/OCTOPUS", "1.3.0.3" )
 
 
 === GitHub Website with pkgdown =============

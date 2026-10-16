@@ -75,6 +75,19 @@ news:
 articles:
 - title: All vignettes
   desc: ~
-  contents: '`OCTOPUS`'
+  contents:
+  - OCTOPUS
+  - PrimaryObjectsForSimulation
+  - GeneralWorkflow
+  - ExtendingOCTOPUS
+  - SimulationReport
+  - SimulateTrialOutline
+  - Examples
+  - CaseStudy1
+  - CaseStudy2
+  - CaseStudy3
+  - CaseStudy4
+  - CaseStudy5
+  - CaseStudy6
 
 
