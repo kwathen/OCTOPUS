@@ -1,5 +1,5 @@
 ---
-title: "Simulation Results for Platform Tiral "
+title: "Simulation Results for Platform Trial"
 date: '`r format(Sys.time(), "%B %d, %Y at %l:%M %p", usetz=TRUE)`'
 output:
   html_document:
@@ -25,7 +25,7 @@ options(tinytex.verbose = TRUE)
 #library(ggplot2)
 #library( OCTOPUS )
 
-source("PostProcess.R")  # This file contains the functionality to process the simulation results and plot
+source("R/PostProcess.R")  # This file contains the functionality to process the simulation results and plot
 
 ```
 
@@ -35,8 +35,8 @@ In this simulation we consider a platform trial with 2 Intervention Specific App
 The sample sizes and borrowing for the designs are as follows:
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
-load( "cTrialDesign.RData")
-load( "lTrialDesigns.RData") 
+cTrialDesign <- readRDS( "cTrialDesign1.Rds")
+lTrialDesigns <- readRDS( "lTrialDesigns.Rds")
 
 nQtyDesigns <- length( lTrialDesigns )
 nQtyISAs    <- lTrialDesigns[[1]]$nQtyISAs

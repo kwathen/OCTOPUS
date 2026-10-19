@@ -20,5 +20,5 @@ The trial design object is created using the function in TrialDesign.R
 The simulation design is created by the function in the SimualtionDesign.R
 
 AI Assistance
-Start AI-assisted work by reading AI_CONTEXT.md. The project includes instructions for GitHub Copilot, Claude, Codex, and Cursor, plus read-only OCTOPUS design-review agents for GitHub Copilot and Claude.
+Start AI-assisted work by reading AI_CONTEXT.md. The project includes instructions for GitHub Copilot, Claude, Codex, and Cursor, plus OCTOPUS project-builder and read-only design-review agents for GitHub Copilot and Claude.
 
