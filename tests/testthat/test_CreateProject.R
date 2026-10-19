@@ -22,5 +22,21 @@ test_that("CreateProject - Test 1",
                    strBorrowing             = "AllControls"  )
     bProjectCreated <- dir.exists( paste(gstrProjectDirectory, "/", gstrProjectName, sep=""))
     expect_true( bProjectCreated, label ="Directory created")
+
+    strProjectPath <- file.path( gstrProjectDirectory, gstrProjectName )
+    vAIContextFiles <- c(
+        "AI_CONTEXT.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        ".github/copilot-instructions.md",
+        ".github/agents/octopus-design-reviewer.agent.md",
+        ".claude/agents/octopus-design-reviewer.md",
+        ".cursor/rules/octopus.mdc"
+    )
+    expect_true(
+        all( file.exists( file.path( strProjectPath, vAIContextFiles ) ) ),
+        label = "AI context and agent files created"
+    )
+
     unlink( paste( getwd(),"/Test1", sep=""), recursive = TRUE)
 })

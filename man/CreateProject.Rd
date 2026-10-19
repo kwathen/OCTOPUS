@@ -47,8 +47,15 @@ only includes a final analysis with NO interim analysis.  To use another option 
 
 \item{bCreateProjectSubdirectory}{If TRUE the a subdirectory with the project name will be created, if FALSE then the project is created in strProjectDirectory.}
 }
+\value{
+A character string summarizing the files created and the next steps for opening the project.
+}
 \description{
 Created an R Studio project with example files to simulate a platform trial utilizing the OCTOPUS package.
+}
+\details{
+The generated project includes a shared `AI_CONTEXT.md` file and configuration files for GitHub Copilot, Claude, Codex, and Cursor.
+These files describe the OCTOPUS project workflow, S3 extension conventions, generated outputs, scientific guardrails, and validation steps.
 }
 \seealso{
 { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateProject.R}{View Code on GitHub} }

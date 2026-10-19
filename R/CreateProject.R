@@ -30,6 +30,9 @@
 #' @param dQtyMonthsFU The number of months of follow-up the last patient before running the final analysis (FA). By default, the design created
 #' only includes a final analysis with NO interim analysis.  To use another option please see the TrialDesign.R file in the projected that is created.
 #' @param  bCreateProjectSubdirectory  If TRUE the a subdirectory with the project name will be created, if FALSE then the project is created in strProjectDirectory.
+#' @details The generated project includes a shared `AI_CONTEXT.md` file and configuration files for GitHub Copilot, Claude, Codex, and Cursor.
+#' These files describe the OCTOPUS project workflow, S3 extension conventions, generated outputs, scientific guardrails, and validation steps.
+#' @return A character string summarizing the files created and the next steps for opening the project.
 #' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateProject.R}{View Code on GitHub} }
 #' @export
 CreateProject <- function( strProjectDirectory        = "",
@@ -71,7 +74,7 @@ CreateProject <- function( strProjectDirectory        = "",
     #Get the directory where OCTOPUS is installed
     strTemplateDirectory <- system.file("ProjectTemplate", package = strPackage)
 
-    vFilesToCopy         <- list.files( strTemplateDirectory, recursive = FALSE, include.dirs = TRUE)
+    vFilesToCopy         <- list.files( strTemplateDirectory, recursive = FALSE, include.dirs = TRUE, all.files = TRUE, no.. = TRUE )
     vResults             <- file.copy( file.path(strTemplateDirectory, vFilesToCopy ), strNewProjectDirectory, recursive = TRUE )
 
     nCopySuccess         <- sum( vResults )
@@ -119,9 +122,9 @@ CreateProject <- function( strProjectDirectory        = "",
     # #Save the updates to the file
     # writeLines( strTemplate, con = strBuildMeFile )
 
-    strRet          <- paste( nCopySuccess, "file(s) were successfully coppied and ", nCopyFail, " file(s) were not coppied correctly.")
-    strInstrucitons <- paste( "Use R Studio to open the", strRProjName, "project file and begin by reading the BuildMe.R file.")
-    strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strInstrucitons )
+    strRet          <- paste( nCopySuccess, "file(s) were successfully copied and ", nCopyFail, " file(s) were not copied correctly.")
+    strInstructions <- paste( "Open", strRProjName, "in RStudio or VS Code and begin by reading BuildMe.R and AI_CONTEXT.md.")
+    strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strInstructions )
     strRet          <- paste( strRet, collapse = "\n")
     return( strRet )
 }
