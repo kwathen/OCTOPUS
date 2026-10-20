@@ -19,6 +19,18 @@ Before writing code, read `BuildMe.R` and the relevant files under `R/`, then es
 
 If these are incomplete, identify the missing decisions and propose clearly labeled options. Do not silently choose scientific parameters. Once requirements are clear, make the smallest coherent change and validate it with a low-replication run before scaling up.
 
+## Current Template Limitations: Read Before Running
+
+The generated files are a starting point, not a universally runnable or general trial specification.
+
+- **Unresolved placeholders:** If `CreateProject()` was called without `mQtyPatientsPerArm`, both build scripts contain `TMP_MATRIX_DATA`, `TMP_NROW`, and `TMP_NCOL`. They will not run until sample sizes replace those tokens. Search all project scripts for `TEMP_` and `TMP_` before the first run; only proceed when any remaining tokens are intentional.
+- **Two-arm generated helper:** The current `SetupTrialDesign()` loop assigns one control label and one experimental-treatment label per ISA. The generated binary simulator likewise expects `ProbRespCtrl` and one `ProbRespExp`. More than one experimental arm requires coordinated changes to treatment labels, scenario parameters, outcome generation, analysis, decisions, and reporting. Do not infer multi-arm support from the matrix input alone.
+- **Multicore resources:** `BuildMeRunMultiCore.R` exposes `nQtyCores`, `nStartIndex`, and `nEndIndex`, but its defaults still derive the worker count from available cores. Review and usually reduce these values before running. Ensure index ranges do not overwrite existing output.
+- **Multicore reproducibility:** `RunParallelSimulations()` initializes worker streams with `parallel::clusterSetRNGStream()` and `nParallelSeed`. Reproduction requires the same seed, worker count, task indices, R version, package versions, and simulation code. Do not describe a multicore result as reproducible from `set.seed()` alone.
+- **Example report assumptions:** `SimulationReport.Rmd` dynamically reads the number of designs and ISAs, but its decision narrative still illustrates the generated Bayesian binary analysis for ISA 1 using the last design. Rewrite that section when analyses, outcomes, decision rules, or design-specific assumptions change.
+
+If a limitation conflicts with the requested design, explain the required refactor before editing and validate all affected objects together.
+
 ## Project Map
 
 ### Primary Design Files
@@ -137,8 +149,9 @@ For multiple or longitudinal outcomes, inspect existing OCTOPUS methods and proc
 ### Multicore
 
 1. Confirm every custom method and helper is sourced inside `R/RunParallelSimulations.R` because workers have separate R sessions.
-2. Start with a small worker count and index range in `BuildMeRunMultiCore.R`.
-3. Run `source("BuildMeRunMultiCore.R")` and inspect each worker's indexed output files.
+2. Set `nQtyCores`, `nStartIndex`, `nEndIndex`, and `nParallelSeed` explicitly in `BuildMeRunMultiCore.R`; do not accept detected-core defaults without reviewing resource limits.
+3. Keep the same seed, worker count, indices, software versions, and code when reproducing a run.
+4. Run `source("BuildMeRunMultiCore.R")` and inspect each worker's indexed output files.
 
 ### Combined Results And Report
 
@@ -152,7 +165,7 @@ Both execution modes produce raw CSV files. After simulation:
 ## Validation Checklist
 
 1. Resolve any intended `TEMP_` or `TMP_` placeholders left in generated files.
-2. Parse all project R scripts:
+2. Run a syntax-only parse of all project R scripts. This does not validate placeholders, packages, dimensions, scenarios, worker setup, or runtime behavior:
    `Rscript -e "files <- c('BuildMe.R', 'BuildMeRunMultiCore.R', list.files('R', pattern = '\\.R$', full.names = TRUE)); invisible(lapply(files, parse))"`
 3. Verify every analysis and simulator class has a matching S3 method and that required files are sourced in the selected execution mode.
 4. Inspect `cTrialDesign` and `cSimulation` with `str()`; verify ISA counts, labels, allocations, scenarios, timing, and classes.

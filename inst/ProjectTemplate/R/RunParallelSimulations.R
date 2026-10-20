@@ -8,12 +8,15 @@
 # nQtyCores is the number of cores to use in the simulation.  nQtyCores <= parallel::detectCores() or your will not be able to use your
 # computer and could potentially crash cause issues.
 # cSimulation object - see the respective BuildMeRunMultiCore.R file
-RunParallelSimulations <- function( nStartIndex = 1, nEndIndex, nQtyCores, cSimulation )
+# nSeed initializes reproducible independent random-number streams on the workers. Reproducibility also requires
+# using the same worker count, task indices, R version, package versions, and simulation code.
+RunParallelSimulations <- function( nStartIndex = 1, nEndIndex, nQtyCores, cSimulation, nSeed = 12345 )
 {
     dStartTime <- Sys.time()
     tryCatch(
     {
         myCluster2 <- parallel::makeCluster( nQtyCores )
+        parallel::clusterSetRNGStream( myCluster2, iseed = nSeed )
         registerDoParallel( myCluster2 )
 
         #This chunk of code will be run for each instance of the loop so it identifies stuff you need such as new functions ect

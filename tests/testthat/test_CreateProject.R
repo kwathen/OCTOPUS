@@ -20,6 +20,7 @@ test_that("CreateProject - Test 1",
                    strAnalysisName          = "MyBinaryAnalysis",
                    strSimPatientOutcomeName = "MyBinarySimulator",
                    strBorrowing             = "AllControls"  )
+    expect_match( strRes, "TMP_ sample-size placeholders" )
     bProjectCreated <- dir.exists( paste(gstrProjectDirectory, "/", gstrProjectName, sep=""))
     expect_true( bProjectCreated, label ="Directory created")
 
@@ -43,12 +44,19 @@ test_that("CreateProject - Test 1",
     vAIContext <- readLines( file.path( strProjectPath, "AI_CONTEXT.md" ), warn = FALSE )
     expect_true( any( grepl( "Built-In Analysis Catalog", vAIContext, fixed = TRUE ) ) )
     expect_true( any( grepl( "no native purpose-built non-Bayesian analysis for binary outcomes", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "Current Template Limitations", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "syntax-only parse", vAIContext, fixed = TRUE ) ) )
+
+    vParallelRunner <- readLines( file.path( strProjectPath, "R/RunParallelSimulations.R" ), warn = FALSE )
+    expect_true( any( grepl( "clusterSetRNGStream", vParallelRunner, fixed = TRUE ) ) )
+    expect_true( any( grepl( "nSeed = 12345", vParallelRunner, fixed = TRUE ) ) )
 
     vSimulationReport <- readLines( file.path( strProjectPath, "SimulationReport.Rmd" ), warn = FALSE )
     expect_true( any( grepl( 'source\\("R/PostProcess.R"\\)', vSimulationReport ) ) )
     expect_true( any( grepl( 'readRDS\\( "cTrialDesign1.Rds"\\)', vSimulationReport ) ) )
     expect_true( any( grepl( 'readRDS\\( "lTrialDesigns.Rds"\\)', vSimulationReport ) ) )
     expect_false( any( grepl( "\\.RData", vSimulationReport ) ) )
+    expect_false( any( grepl( "lTrialDesigns[[3]]", vSimulationReport, fixed = TRUE ) ) )
 
     unlink( paste( getwd(),"/Test1", sep=""), recursive = TRUE)
 })

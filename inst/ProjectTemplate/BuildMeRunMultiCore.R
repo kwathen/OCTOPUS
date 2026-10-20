@@ -253,11 +253,19 @@ library( "iterators" )
 # IMPORTANT NOTE: If you add more files that are sourced and needed in the simulation then make to source them in the RunParallelSimulations.R function####
 source( "R/RunParallelSimulations.R" ) # This file has a version of simulations that utilize more cores
 
-# Use 1 less than the number of cores available
-nQtyCores  <- max( detectCores() - 1, 1 )
+# Review these values before running. A large worker count can exhaust memory or make the computer unresponsive.
+nDetectedCores <- parallel::detectCores()
+nQtyCores      <- max( nDetectedCores - 1, 1 )
+nStartIndex    <- 1
+nEndIndex      <- nQtyCores
+nParallelSeed  <- 12345
 
-# The nStartIndex and nEndIndex are used to index the simulations and hence the output files see the RunParallelSimulations.R file
-# for more details
-RunParallelSimulations( nStartIndex = 1, nEndIndex = nQtyCores,  nQtyCores, cSimulation )
+# The start/end indices identify output files and can be extended in later batches without overwriting prior results.
+# Reproducibility requires the same seed, worker count, task indices, R/package versions, and simulation code.
+RunParallelSimulations( nStartIndex = nStartIndex,
+                        nEndIndex   = nEndIndex,
+                        nQtyCores   = nQtyCores,
+                        cSimulation = cSimulation,
+                        nSeed       = nParallelSeed )
 
 

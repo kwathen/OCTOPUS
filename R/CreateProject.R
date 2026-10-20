@@ -124,7 +124,10 @@ CreateProject <- function( strProjectDirectory        = "",
 
     strRet          <- paste( nCopySuccess, "file(s) were successfully copied and ", nCopyFail, " file(s) were not copied correctly.")
     strInstructions <- paste( "Open", strRProjName, "in RStudio or VS Code and begin by reading BuildMe.R and AI_CONTEXT.md.")
-    strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strInstructions )
+    strSetupInstructions <- ""
+    if( is.null( mQtyPatientsPerArm ) )
+        strSetupInstructions <- "BuildMe.R and BuildMeRunMultiCore.R contain TMP_ sample-size placeholders that must be resolved before running."
+    strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strSetupInstructions, strInstructions )
     strRet          <- paste( strRet, collapse = "\n")
     return( strRet )
 }
