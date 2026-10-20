@@ -27,6 +27,7 @@ The generated files are a starting point, not a universally runnable or general 
 - **Two-arm generated helper:** The current `SetupTrialDesign()` loop assigns one control label and one experimental-treatment label per ISA. The generated binary simulator likewise expects `ProbRespCtrl` and one `ProbRespExp`. More than one experimental arm requires coordinated changes to treatment labels, scenario parameters, outcome generation, analysis, decisions, and reporting. Do not infer multi-arm support from the matrix input alone.
 - **Multicore resources:** `BuildMeRunMultiCore.R` exposes `nQtyCores`, `nStartIndex`, and `nEndIndex`, but its defaults still derive the worker count from available cores. Review and usually reduce these values before running. Ensure index ranges do not overwrite existing output.
 - **Multicore reproducibility:** `RunParallelSimulations()` initializes worker streams with `parallel::clusterSetRNGStream()` and `nParallelSeed`. Reproduction requires the same seed, worker count, task indices, R version, package versions, and simulation code. Do not describe a multicore result as reproducible from `set.seed()` alone.
+- **Multicore failure handling:** Worker and setup errors propagate from `RunParallelSimulations()` after the cluster is stopped. Treat any error as a failed batch. Before combining results, verify that every expected task index produced its `out/` and `ISAOut*/` files; old or partial output can otherwise be mistaken for a complete run.
 - **Example report assumptions:** `SimulationReport.Rmd` dynamically reads the number of designs and ISAs, but its decision narrative still illustrates the generated Bayesian binary analysis for ISA 1 using the last design. Rewrite that section when analyses, outcomes, decision rules, or design-specific assumptions change.
 
 If a limitation conflicts with the requested design, explain the required refactor before editing and validate all affected objects together.
@@ -151,7 +152,8 @@ For multiple or longitudinal outcomes, inspect existing OCTOPUS methods and proc
 1. Confirm every custom method and helper is sourced inside `R/RunParallelSimulations.R` because workers have separate R sessions.
 2. Set `nQtyCores`, `nStartIndex`, `nEndIndex`, and `nParallelSeed` explicitly in `BuildMeRunMultiCore.R`; do not accept detected-core defaults without reviewing resource limits.
 3. Keep the same seed, worker count, indices, software versions, and code when reproducing a run.
-4. Run `source("BuildMeRunMultiCore.R")` and inspect each worker's indexed output files.
+4. Run `source("BuildMeRunMultiCore.R")`. If it raises an error, the batch failed even if some workers wrote output.
+5. Before combining results, confirm every index from `nStartIndex` through `nEndIndex` has the expected files under `out/` and each `ISAOut*/` directory.
 
 ### Combined Results And Report
 
@@ -170,7 +172,7 @@ Both execution modes produce raw CSV files. After simulation:
 3. Verify every analysis and simulator class has a matching S3 method and that required files are sourced in the selected execution mode.
 4. Inspect `cTrialDesign` and `cSimulation` with `str()`; verify ISA counts, labels, allocations, scenarios, timing, and classes.
 5. Run a deterministic one-replication smoke simulation before a larger run.
-6. Check raw outputs for the selected mode, combine them, and verify the expected `.Rds` artifacts.
+6. Check that all expected raw outputs exist for the selected mode and index range, then combine them and verify the expected `.Rds` artifacts.
 7. Knit `SimulationReport.Rmd` only after `simsCombined.Rds` exists.
 8. Compare key results against hand calculations or a trusted baseline where practical.
 

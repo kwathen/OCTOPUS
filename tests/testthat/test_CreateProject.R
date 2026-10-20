@@ -50,6 +50,8 @@ test_that("CreateProject - Test 1",
     vParallelRunner <- readLines( file.path( strProjectPath, "R/RunParallelSimulations.R" ), warn = FALSE )
     expect_true( any( grepl( "clusterSetRNGStream", vParallelRunner, fixed = TRUE ) ) )
     expect_true( any( grepl( "nSeed = 12345", vParallelRunner, fixed = TRUE ) ) )
+    expect_true( any( grepl( "on.exit", vParallelRunner, fixed = TRUE ) ) )
+    expect_false( any( grepl( "error = function", vParallelRunner, fixed = TRUE ) ) )
 
     vSimulationReport <- readLines( file.path( strProjectPath, "SimulationReport.Rmd" ), warn = FALSE )
     expect_true( any( grepl( 'source\\("R/PostProcess.R"\\)', vSimulationReport ) ) )
