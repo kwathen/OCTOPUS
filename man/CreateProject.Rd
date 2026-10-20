@@ -7,8 +7,8 @@
 CreateProject(
   strProjectDirectory = "",
   strProjectName = "NewProject",
-  strAnalysisName = "NewAnalysisName",
-  strSimPatientOutcomeName = "NewSimOutcomeName",
+  strAnalysisName = "BayesianBetaBinomial",
+  strSimPatientOutcomeName = "BinaryOutcome",
   strBorrowing = "NoBorrowing",
   nQtyReps = 10,
   mQtyPatientsPerArm = NULL,
@@ -24,12 +24,14 @@ is not provided then the directory is relative to the working directory.  If thi
 
 \item{strProjectName}{The name of the project.   A directory with the name strProjectName is created in strProjectDirectory if bCreateProjectSubdirectory = TRUE}
 
-\item{strAnalysisName}{The name of the analysis that should be done. If the analysis is part of OCTOPUS, then no new
-files are created.  If the analysis is new, a file named RunAnalysis.strAnalysisName.R is created.}
+\item{strAnalysisName}{The descriptive class name of the analysis that should be done. If the analysis is part of OCTOPUS, then no new
+files are created. If the analysis is new, a file named RunAnalysis.strAnalysisName.R is created. The default is "BayesianBetaBinomial",
+which describes the generated binary-analysis example.}
 
 \item{strSimPatientOutcomeName}{The name of the patient simulator that should be utilized. If the patient simulator
 is part of OCTOPUS, then no new
-files are created.  If the patient simulator is new, a file named SimPatientOutocmes.strSimPatientOutcomeName.R is created.}
+files are created. If the patient simulator is new, a file named SimPatientOutcomes.strSimPatientOutcomeName.R is created.
+The default is "BinaryOutcome", which describes the generated binary-outcome example.}
 
 \item{strBorrowing}{Specify the option for sharing control patients across ISAs.  If strBorrowing = "NoBorrowing"
 then patients are not shared between ISAs.  If strBorrowing = "AllControls" then all control patients are included in
@@ -47,8 +49,15 @@ only includes a final analysis with NO interim analysis.  To use another option 
 
 \item{bCreateProjectSubdirectory}{If TRUE the a subdirectory with the project name will be created, if FALSE then the project is created in strProjectDirectory.}
 }
+\value{
+A character string summarizing the files created and the next steps for opening the project.
+}
 \description{
 Created an R Studio project with example files to simulate a platform trial utilizing the OCTOPUS package.
+}
+\details{
+The generated project includes a shared `AI_CONTEXT.md` file and configuration files for GitHub Copilot, Claude, Codex, and Cursor.
+These files describe the OCTOPUS project workflow, S3 extension conventions, generated outputs, scientific guardrails, and validation steps.
 }
 \seealso{
 { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateProject.R}{View Code on GitHub} }

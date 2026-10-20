@@ -1,5 +1,5 @@
 ---
-title: "Simulation Results for Platform Tiral "
+title: "Simulation Results for Platform Trial"
 date: '`r format(Sys.time(), "%B %d, %Y at %l:%M %p", usetz=TRUE)`'
 output:
   html_document:
@@ -25,21 +25,19 @@ options(tinytex.verbose = TRUE)
 #library(ggplot2)
 #library( OCTOPUS )
 
-source("PostProcess.R")  # This file contains the functionality to process the simulation results and plot
+source("R/PostProcess.R")  # This file contains the functionality to process the simulation results and plot
 
 ```
 
 # Trial Designs
-In this simulation we consider a platform trial with 2 Intervention Specific Appendix (ISAs).  There are 3 designs simulated.  Designs 1 and 2 do not include an interim analysis where as Design 3 has 1 interim analysis for each ISA when half the patients enrolled and followed for the desired time.
-
-The sample sizes and borrowing for the designs are as follows:
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
-load( "cTrialDesign.RData")
-load( "lTrialDesigns.RData") 
+cTrialDesign <- readRDS( "cTrialDesign1.Rds")
+lTrialDesigns <- readRDS( "lTrialDesigns.Rds")
 
 nQtyDesigns <- length( lTrialDesigns )
 nQtyISAs    <- lTrialDesigns[[1]]$nQtyISAs
+iDecisionDesign <- nQtyDesigns
 iDesign     <- 1
 iISA        <- 1
 
@@ -47,7 +45,7 @@ strDesignDesc <- ""
 for( iDesign in 1:nQtyDesigns )
 {
     strDesignDesc <- paste( strDesignDesc,  "- **Design", iDesign," **\n" )
-    for( iISA in 1:lTrialDesigns[[1]]$nQtyISAs )
+    for( iISA in 1:lTrialDesigns[[ iDesign ]]$nQtyISAs )
     {
        
         strBorrow <- class( lTrialDesigns[[ iDesign ]]$cISADesigns[[ iISA ]]$cISAAnalysis )
@@ -65,17 +63,21 @@ for( iDesign in 1:nQtyDesigns )
 
 ```
 
+This simulation includes `r nQtyISAs` Intervention Specific Appendices (ISAs) and `r nQtyDesigns` design option(s). Customize the report narrative when the generated example designs are changed.
+
+The sample sizes and borrowing for the designs are as follows:
+
 `r strDesignDesc `
 
 # Decision Criteria 
 
-All analysis and decisions are the same for the interim analysis, if included, and the final analysis.  
+The example criteria below use Design `r iDecisionDesign`, ISA 1. Update this section when designs, outcomes, analyses, or decision rules differ.
 
 The default analysis included with this example computes probabilities that the difference between treatment (T) and control (C) is greater than the Minimum Acceptable Value (MAV), specifically,  $p_{MAV} =Pr( \pi_T - \pi_C > MAV | data )$ .
 
-At an interim analysis, the default decisions from OCTOPUS are utilized see help with with ?MakeDecisionBasedOnPostProb.MAVOnly.  In particular, if $p_{MAV} >$ `r lTrialDesigns[[3]]$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPUpper[1] ` the a Go is declared and the ISA is stopped early;  If $p_{MAV} <$  `r lTrialDesigns[[3]]$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPLower[1] ` then a No Go is declared an the ISA stopped early; otherwise an indeterminate decision is made and the trial continues.  
+At an interim analysis, the default decisions from OCTOPUS are utilized see help with with ?MakeDecisionBasedOnPostProb.MAVOnly.  In particular, if $p_{MAV} >$ `r lTrialDesigns[[iDecisionDesign]]$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPUpper[1] ` the a Go is declared and the ISA is stopped early;  If $p_{MAV} <$  `r lTrialDesigns[[iDecisionDesign]]$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$vPLower[1] ` then a No Go is declared an the ISA stopped early; otherwise an indeterminate decision is made and the trial continues.
 
-At the end of an ISA the final analysis is performed and if $p_{MAV} >$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPUpper ` the a Go is declared; if $p_{MAV} <$ `r cTrialDesign$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPLower ` then a No Go is declared for the ISA; Otherwise, the decision is indeterminate.  
+At the end of an ISA the final analysis is performed and if $p_{MAV} >$ `r lTrialDesigns[[iDecisionDesign]]$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPUpper ` the a Go is declared; if $p_{MAV} <$ `r lTrialDesigns[[iDecisionDesign]]$cISADesigns$cISA1$cISAAnalysis$vAnalysis[[1]]$dFinalPLower ` then a No Go is declared for the ISA; Otherwise, the decision is indeterminate.
 
 
 
