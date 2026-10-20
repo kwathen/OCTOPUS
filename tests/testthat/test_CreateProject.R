@@ -40,6 +40,10 @@ test_that("CreateProject - Test 1",
         label = "AI context and agent files created"
     )
 
+    vAIContext <- readLines( file.path( strProjectPath, "AI_CONTEXT.md" ), warn = FALSE )
+    expect_true( any( grepl( "Built-In Analysis Catalog", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "no native purpose-built non-Bayesian analysis for binary outcomes", vAIContext, fixed = TRUE ) ) )
+
     vSimulationReport <- readLines( file.path( strProjectPath, "SimulationReport.Rmd" ), warn = FALSE )
     expect_true( any( grepl( 'source\\("R/PostProcess.R"\\)', vSimulationReport ) ) )
     expect_true( any( grepl( 'readRDS\\( "cTrialDesign1.Rds"\\)', vSimulationReport ) ) )

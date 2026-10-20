@@ -9,6 +9,7 @@ alwaysApply: true
 Read `AI_CONTEXT.md` before changing this project and treat it as authoritative.
 
 - Preserve OCTOPUS class-driven S3 method names, signatures, and return structures.
+- Answer OCTOPUS questions from `AI_CONTEXT.md`, local files, installed R help, and installed package functions before relying on internet access.
 - Inspect `BuildMe.R` and the relevant trial and simulation setup files before editing.
 - Surface ambiguous clinical or statistical assumptions instead of inventing values.
 - Never edit generated outputs under `enrollment/`, `out/`, `ISAOut*/`, or `log/`.
