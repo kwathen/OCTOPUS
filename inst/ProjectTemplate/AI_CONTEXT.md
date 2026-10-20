@@ -4,6 +4,12 @@ This project uses the OCTOPUS R package to design and simulate platform clinical
 
 Simulation assumptions, outcome models, borrowing rules, monitoring, and decision boundaries are scientifically consequential. Explain assumptions and ask for missing requirements rather than inventing values. A successful software run does not establish clinical or statistical validity.
 
+## Audience And Conversation Style
+
+The expected user is a statistician who knows R but may not be a professional software developer. Use familiar statistical and clinical-trial language. Keep explanations direct, define OCTOPUS-specific terms when they first appear, and avoid unnecessary software-engineering terminology. Show the statistical intent before showing implementation details.
+
+Work collaboratively. Summarize what you understand, identify missing assumptions, and present a proposed simulation plan for review. Do not launch a full-scale simulation unless the user explicitly approves the design options, scenarios, and run size.
+
 ## How To Help A User
 
 Before writing code, read `BuildMe.R` and the relevant files under `R/`, then establish which inputs are known:
@@ -18,6 +24,35 @@ Before writing code, read `BuildMe.R` and the relevant files under `R/`, then es
 - simulation replications, random seeds, outputs, and comparisons of interest.
 
 If these are incomplete, identify the missing decisions and propose clearly labeled options. Do not silently choose scientific parameters. Once requirements are clear, make the smallest coherent change and validate it with a low-replication run before scaling up.
+
+## Plan Design Options Before Editing
+
+OCTOPUS is intended to compare platform-trial design options, not only evaluate one fixed design. The generated `BuildMe.R` and `BuildMeRunMultiCore.R` demonstrate this with three designs: the requested sample size without interim analysis, a larger sample size, and the requested sample size with an interim analysis. These are examples to modify, remove, or extend rather than required choices.
+
+After gathering the user's goals, propose a compact design table before editing code. Useful columns include:
+
+- design name and purpose;
+- patients per arm and ISA;
+- analysis method and estimand;
+- number and timing of interim analyses;
+- efficacy, futility, and final decision boundaries;
+- control borrowing by ISA;
+- ISA start times and recruitment assumptions;
+- follow-up and outcome observation times;
+- scenarios and number of simulation replications.
+
+Suggest comparisons that answer the user's design questions. Common options include different sample sizes, no interim analysis versus one or more interim analyses, different interim timing or boundaries, different analysis methods, borrowing versus no borrowing, recruitment assumptions, and ISA start schedules. Avoid changing many features at once when a simpler comparison would isolate the effect of interest.
+
+Use the same scenarios across designs when the goal is a fair operating-characteristic comparison. Clearly explain any design-specific scenario or endpoint differences.
+
+Once the user approves the proposed table:
+
+1. Update both `BuildMe.R` and `BuildMeRunMultiCore.R` with the same design definitions and scenario assumptions.
+2. Keep `nQtyDesigns`, design identifiers, `cSimulation$SimDesigns`, saved `cTrialDesign*.Rds` files, and `lTrialDesigns` synchronized.
+3. Give each design a plain-language description for the report.
+4. Parse the files and run a deterministic, low-replication smoke test.
+5. Show the user the final design/scenario summary and smoke-test result.
+6. Ask for explicit approval before increasing replications or starting multicore/full-scale simulations.
 
 ## Current Template Limitations: Read Before Running
 
@@ -121,6 +156,24 @@ Use the generated `R/RunAnalysis.<Class>.R` as the starting point and inspect co
 9. Test representative interim and final cases, boundary behavior, missing outcomes, and every treatment arm before running full simulations.
 
 Do not change the generic or its signature to accommodate one analysis. Extend the classed analysis object instead.
+
+## Name And Rename Custom Methods
+
+Use names that describe the statistical method or data-generating model. Do not leave generic names such as `NewAnalysisName`, `NewSimOutcomeName`, `MyAnalysis`, or `MyOutcome` in a working simulation.
+
+Examples of useful analysis class names include `BayesianBetaBinomial`, `FrequentistRiskDifference`, `LogisticRegression`, or `MMRMChangeFromBaseline`. Examples of useful simulator class names include `BinaryOutcome`, `LongitudinalNormal`, or `WeibullTimeToEvent`. Choose a name only after the method or model is defined; do not imply capabilities the implementation does not have.
+
+The class, function, filename, and all references must match. When renaming an existing generated method:
+
+1. Rename `R/RunAnalysis.<Old>.R` to `R/RunAnalysis.<New>.R` and rename the function to `RunAnalysis.<New>`.
+2. Update every `strAnalysisModel` value and the analysis source line in `BuildMe.R` and `R/RunParallelSimulations.R`.
+3. Rename `R/SimPatientOutcomes.<Old>.R` to `R/SimPatientOutcomes.<New>.R` and rename the function to `SimPatientOutcomes.<New>`.
+4. Update every `strSimPatientOutcomeClass` value and the simulator source line in `BuildMe.R` and `R/RunParallelSimulations.R`.
+5. Update `BuildMeRunMultiCore.R` class values because it creates the objects used by workers.
+6. Search the entire project for the old names and resolve every remaining reference.
+7. Parse all changed files and run a one-replication smoke test in the selected execution mode.
+
+The `CreateProject()` defaults are named `BayesianBetaBinomial` and `BinaryOutcome` because those names describe the generated examples. If the user chooses another analysis or outcome model, rename the files, functions, classes, and references before implementing it.
 
 ## Add A Custom Patient-Outcome Simulator
 

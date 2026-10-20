@@ -14,11 +14,13 @@
 #' @param strProjectDirectory The complete path to where the project is created.  If a complete path
 #' is not provided then the directory is relative to the working directory.  If this is left blank, the current working directory is used.
 #' @param strProjectName The name of the project.   A directory with the name strProjectName is created in strProjectDirectory if bCreateProjectSubdirectory = TRUE
-#' @param strAnalysisName The name of the analysis that should be done. If the analysis is part of OCTOPUS, then no new
-#' files are created.  If the analysis is new, a file named RunAnalysis.strAnalysisName.R is created.
+#' @param strAnalysisName The descriptive class name of the analysis that should be done. If the analysis is part of OCTOPUS, then no new
+#' files are created. If the analysis is new, a file named RunAnalysis.strAnalysisName.R is created. The default is "BayesianBetaBinomial",
+#' which describes the generated binary-analysis example.
 #' @param strSimPatientOutcomeName The name of the patient simulator that should be utilized. If the patient simulator
 #' is part of OCTOPUS, then no new
-#' files are created.  If the patient simulator is new, a file named SimPatientOutocmes.strSimPatientOutcomeName.R is created.
+#' files are created. If the patient simulator is new, a file named SimPatientOutcomes.strSimPatientOutcomeName.R is created.
+#' The default is "BinaryOutcome", which describes the generated binary-outcome example.
 #' @param strBorrowing Specify the option for sharing control patients across ISAs.  If strBorrowing = "NoBorrowing"
 #' then patients are not shared between ISAs.  If strBorrowing = "AllControls" then all control patients are included in
 #' the data set that is sent to the RunAnalysis funciton.
@@ -37,8 +39,8 @@
 #' @export
 CreateProject <- function( strProjectDirectory        = "",
                            strProjectName             = "NewProject",
-                           strAnalysisName            = "NewAnalysisName",
-                           strSimPatientOutcomeName   = "NewSimOutcomeName",
+                           strAnalysisName            = "BayesianBetaBinomial",
+                           strSimPatientOutcomeName   = "BinaryOutcome",
                            strBorrowing               = "NoBorrowing",
                            nQtyReps                   = 10,
                            mQtyPatientsPerArm         = NULL,

@@ -46,6 +46,9 @@ test_that("CreateProject - Test 1",
     expect_true( any( grepl( "no native purpose-built non-Bayesian analysis for binary outcomes", vAIContext, fixed = TRUE ) ) )
     expect_true( any( grepl( "Current Template Limitations", vAIContext, fixed = TRUE ) ) )
     expect_true( any( grepl( "syntax-only parse", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "Plan Design Options Before Editing", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "explicit approval before increasing replications", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "Name And Rename Custom Methods", vAIContext, fixed = TRUE ) ) )
 
     vParallelRunner <- readLines( file.path( strProjectPath, "R/RunParallelSimulations.R" ), warn = FALSE )
     expect_true( any( grepl( "clusterSetRNGStream", vParallelRunner, fixed = TRUE ) ) )
@@ -61,4 +64,31 @@ test_that("CreateProject - Test 1",
     expect_false( any( grepl( "lTrialDesigns[[3]]", vSimulationReport, fixed = TRUE ) ) )
 
     unlink( paste( getwd(),"/Test1", sep=""), recursive = TRUE)
+})
+
+test_that("CreateProject uses descriptive names for default extension methods",
+{
+    strProjectDirectory <- file.path( getwd(), "DefaultNames" )
+    strProjectName <- "DescriptiveDefaults"
+
+    CreateProject(
+        strProjectDirectory = strProjectDirectory,
+        strProjectName = strProjectName,
+        mQtyPatientsPerArm = matrix( c( 10, 10 ), nrow = 1 )
+    )
+
+    strProjectPath <- file.path( strProjectDirectory, strProjectName )
+    strAnalysisFile <- file.path( strProjectPath, "R", "RunAnalysis.BayesianBetaBinomial.R" )
+    strOutcomeFile <- file.path( strProjectPath, "R", "SimPatientOutcomes.BinaryOutcome.R" )
+
+    expect_true( file.exists( strAnalysisFile ) )
+    expect_true( file.exists( strOutcomeFile ) )
+    expect_true( any( grepl( "RunAnalysis.BayesianBetaBinomial <-", readLines( strAnalysisFile ), fixed = TRUE ) ) )
+    expect_true( any( grepl( "SimPatientOutcomes.BinaryOutcome <-", readLines( strOutcomeFile ), fixed = TRUE ) ) )
+
+    vGeneratedRFiles <- list.files( file.path( strProjectPath, "R" ), full.names = TRUE )
+    vGeneratedCode <- unlist( lapply( vGeneratedRFiles, readLines, warn = FALSE ) )
+    expect_false( any( grepl( "NewAnalysisName|NewSimOutcomeName", vGeneratedCode ) ) )
+
+    unlink( strProjectDirectory, recursive = TRUE )
 })

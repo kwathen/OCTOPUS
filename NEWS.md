@@ -1,6 +1,7 @@
 # OCTOPUS 1.3.1
 
 * `CreateProject()` now includes shared OCTOPUS AI context and configuration files for GitHub Copilot, Claude, Codex, and Cursor.
+* Generated AI guidance now helps statisticians compare multiple design options, review plans before full simulations, and use descriptive names for custom analysis and outcome methods.
 
 # OCTOPUS 1.3.0.3 - Release date 09/17/2019
 First version released using the name OCTOPUS, formerly know as Platform Trial Simulator. 
