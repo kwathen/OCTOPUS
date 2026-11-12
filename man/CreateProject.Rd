@@ -58,6 +58,7 @@ Created an R Studio project with example files to simulate a platform trial util
 \details{
 The generated project includes a shared `AI_CONTEXT.md` file and configuration files for GitHub Copilot, Claude, Codex, and Cursor.
 These files describe the OCTOPUS project workflow, S3 extension conventions, generated outputs, scientific guardrails, and validation steps.
+For an existing project, use [WriteAIContext()] to add the AI context files without creating the simulation template.
 }
 \seealso{
 { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateProject.R}{View Code on GitHub} }

@@ -67,6 +67,16 @@ The generated files are a starting point, not a universally runnable or general 
 
 If a limitation conflicts with the requested design, explain the required refactor before editing and validate all affected objects together.
 
+## Use OCTOPUS AI Context In An Existing Project
+
+If the user already has a project and OCTOPUS is installed, they can add the package's AI context without creating the example simulation files:
+
+```r
+OCTOPUS::WriteAIContext(path = ".")
+```
+
+The helper copies missing OCTOPUS context and assistant files, preserves existing versions by default, and reports files it skipped. With the user's explicit approval, `OCTOPUS::WriteAIContext(path = ".", overwrite = TRUE)` replaces only the managed OCTOPUS AI files; it does not replace `BuildMe.R` or other simulation files. `CreateProject()` remains the option for creating a complete example project.
+
 ## Project Map
 
 ### Primary Design Files

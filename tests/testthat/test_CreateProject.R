@@ -92,3 +92,33 @@ test_that("CreateProject uses descriptive names for default extension methods",
 
     unlink( strProjectDirectory, recursive = TRUE )
 })
+
+test_that("WriteAIContext adds package context without replacing user files by default",
+{
+    strProjectPath <- tempfile( "WriteAIContext-" )
+    dir.create( strProjectPath )
+    strCustomContext <- "User-maintained AI context"
+    strCustomBuildFile <- "User simulation setup"
+    writeLines( strCustomContext, file.path( strProjectPath, "AI_CONTEXT.md" ) )
+    writeLines( strCustomBuildFile, file.path( strProjectPath, "BuildMe.R" ) )
+
+    strResult <- WriteAIContext( strProjectPath )
+
+    expect_match( strResult, "8 AI context file\\(s\\) copied" )
+    expect_match( strResult, "AI_CONTEXT.md" )
+    expect_identical( readLines( file.path( strProjectPath, "AI_CONTEXT.md" ) ), strCustomContext )
+    expect_identical( readLines( file.path( strProjectPath, "BuildMe.R" ) ), strCustomBuildFile )
+    expect_true( file.exists( file.path( strProjectPath, ".github/agents/octopus-project-builder.agent.md" ) ) )
+
+    strResultOverwrite <- WriteAIContext( strProjectPath, overwrite = TRUE )
+    strTemplateContext <- readLines(
+        system.file( "ProjectTemplate/AI_CONTEXT.md", package = "OCTOPUS" ),
+        warn = FALSE
+    )
+    expect_match( strResultOverwrite, "9 AI context file\\(s\\) copied" )
+    expect_identical( readLines( file.path( strProjectPath, "AI_CONTEXT.md" ), warn = FALSE ), strTemplateContext )
+    expect_identical( readLines( file.path( strProjectPath, "BuildMe.R" ) ), strCustomBuildFile )
+
+    expect_error( WriteAIContext( file.path( strProjectPath, "missing" ) ), "existing project directory" )
+    unlink( strProjectPath, recursive = TRUE )
+})

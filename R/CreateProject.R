@@ -34,6 +34,7 @@
 #' @param  bCreateProjectSubdirectory  If TRUE the a subdirectory with the project name will be created, if FALSE then the project is created in strProjectDirectory.
 #' @details The generated project includes a shared `AI_CONTEXT.md` file and configuration files for GitHub Copilot, Claude, Codex, and Cursor.
 #' These files describe the OCTOPUS project workflow, S3 extension conventions, generated outputs, scientific guardrails, and validation steps.
+#' For an existing project, use [WriteAIContext()] to add the AI context files without creating the simulation template.
 #' @return A character string summarizing the files created and the next steps for opening the project.
 #' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateProject.R}{View Code on GitHub} }
 #' @export
@@ -132,6 +133,74 @@ CreateProject <- function( strProjectDirectory        = "",
     strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strSetupInstructions, strInstructions )
     strRet          <- paste( strRet, collapse = "\n")
     return( strRet )
+}
+
+
+#' Add OCTOPUS AI context to an existing project
+#'
+#' Copies OCTOPUS AI context and tool configuration files from the installed
+#' package into an existing project directory. Existing files are preserved
+#' unless `overwrite = TRUE`.
+#'
+#' @param path Existing project directory. Defaults to the current working
+#'   directory.
+#' @param overwrite If `FALSE`, existing OCTOPUS AI files are left unchanged.
+#'   If `TRUE`, only the known OCTOPUS AI context files are replaced.
+#' @return A character string listing copied and skipped files.
+#' @seealso [CreateProject()]
+#' @export
+WriteAIContext <- function( path = ".", overwrite = FALSE )
+{
+    if( !is.character( path ) || length( path ) != 1 || is.na( path ) || !dir.exists( path ) )
+        stop( "'path' must name an existing project directory.", call. = FALSE )
+
+    if( !is.logical( overwrite ) || length( overwrite ) != 1 || is.na( overwrite ) )
+        stop( "'overwrite' must be TRUE or FALSE.", call. = FALSE )
+
+    strTemplateDirectory <- system.file( "ProjectTemplate", package = "OCTOPUS" )
+    if( !nzchar( strTemplateDirectory ) || !dir.exists( strTemplateDirectory ) )
+        stop( "The OCTOPUS ProjectTemplate files are not available in this installation.", call. = FALSE )
+
+    vAIContextFiles <- c(
+        "AI_CONTEXT.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        ".github/copilot-instructions.md",
+        ".github/agents/octopus-project-builder.agent.md",
+        ".github/agents/octopus-design-reviewer.agent.md",
+        ".claude/agents/octopus-project-builder.md",
+        ".claude/agents/octopus-design-reviewer.md",
+        ".cursor/rules/octopus.mdc"
+    )
+    vSourceFiles <- file.path( strTemplateDirectory, vAIContextFiles )
+    if( any( !file.exists( vSourceFiles ) ) )
+        stop( "The installed OCTOPUS package is missing one or more AI context template files.", call. = FALSE )
+
+    strProjectPath <- normalizePath( path, winslash = "/", mustWork = TRUE )
+    vCopiedFiles <- character()
+    vSkippedFiles <- character()
+
+    for( iFile in seq_along( vAIContextFiles ) )
+    {
+        strDestination <- file.path( strProjectPath, vAIContextFiles[[ iFile ]] )
+        if( file.exists( strDestination ) && !overwrite )
+        {
+            vSkippedFiles <- c( vSkippedFiles, vAIContextFiles[[ iFile ]] )
+            next
+        }
+
+        dir.create( dirname( strDestination ), recursive = TRUE, showWarnings = FALSE )
+        if( !file.copy( vSourceFiles[[ iFile ]], strDestination, overwrite = overwrite ) )
+            stop( paste( "Could not copy AI context file:", vAIContextFiles[[ iFile ]] ), call. = FALSE )
+
+        vCopiedFiles <- c( vCopiedFiles, vAIContextFiles[[ iFile ]] )
+    }
+
+    strSummary <- paste0( length( vCopiedFiles ), " AI context file(s) copied." )
+    if( length( vSkippedFiles ) > 0 )
+        strSummary <- paste0( strSummary, " Existing file(s) preserved: ", paste( vSkippedFiles, collapse = ", "), "." )
+
+    return( strSummary )
 }
 
 ReplaceBuildMeInfo  <- function( strNewProjectDirectory, strFileName, mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU, vPatientPerMonth )
