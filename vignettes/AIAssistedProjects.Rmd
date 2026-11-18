@@ -1,0 +1,93 @@
+---
+title: "AI-Assisted OCTOPUS Projects"
+author: "J. Kyle Wathen"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{AI-Assisted OCTOPUS Projects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# AI-Assisted OCTOPUS Projects
+
+OCTOPUS includes optional, project-specific context for AI assistants. The context explains OCTOPUS trial and simulation objects, analysis and outcome extensions, generated files, and safeguards for planning simulations. It is intended to help statisticians work with AI without requiring a local clone of the OCTOPUS source repository.
+
+AI assistance is optional. OCTOPUS does not call an AI service, send project data to an AI service, or install assistant software. Users must install and configure their chosen assistant separately. Each assistant's ability to discover project instructions depends on its product, settings, and how the project is opened.
+
+## Start A New Simulation Project
+
+Use `CreateProject()` when you want the complete OCTOPUS example project, including the design scripts and AI context. Supply the trial information you already know; unresolved inputs can otherwise remain as placeholders that need attention before running.
+
+```{r create-project, eval=FALSE}
+library(OCTOPUS)
+
+result <- CreateProject(
+  strProjectDirectory = "C:/Projects",
+  strProjectName = "TwoISAPlatform",
+  mQtyPatientsPerArm = matrix(
+    c(50, 100,
+      25, 125),
+    nrow = 2,
+    byrow = TRUE
+  ),
+  vISAStartTimes = c(0, 6),
+  nQtyReps = 10
+)
+
+cat(result)
+```
+
+Open the created project folder in RStudio or VS Code. The generated project includes `AI_CONTEXT.md`, which is the main OCTOPUS reference for the assistant, along with discovery files for supported AI tools.
+
+## Add Context To An Existing Project
+
+Use `WriteAIContext()` when you already have an R project and want OCTOPUS-specific guidance without adding or replacing the simulation template files.
+
+```{r write-context, eval=FALSE}
+OCTOPUS::WriteAIContext(path = "C:/Projects/MyExistingTrial")
+```
+
+The function copies missing OCTOPUS AI context and assistant files from the installed package. Existing managed files are skipped and preserved by default. It returns a message listing which files were copied and which existing files were preserved.
+
+To replace the OCTOPUS-managed AI files after reviewing your existing edits, explicitly request overwrite:
+
+```{r overwrite-context, eval=FALSE}
+OCTOPUS::WriteAIContext(
+  path = "C:/Projects/MyExistingTrial",
+  overwrite = TRUE
+)
+```
+
+Overwrite applies only to the OCTOPUS-managed context and assistant files. It does not replace `BuildMe.R`, design files, or other project files. Keep a backup of any custom changes in those managed files before overwriting.
+
+## What Gets Added
+
+The package supplies one shared `AI_CONTEXT.md` plus lightweight assistant-specific files:
+
+- `AGENTS.md` for Codex-style project instructions;
+- `CLAUDE.md` and Claude project agents;
+- `.github/copilot-instructions.md` and GitHub Copilot agents;
+- `.cursor/rules/octopus.mdc` for Cursor.
+
+The context is packaged with OCTOPUS, so these files can be installed from the R package without downloading the repository. The context also directs assistants to use the project's files and installed OCTOPUS help when checking package details.
+
+## Work With An Assistant
+
+Start by asking the assistant to read `AI_CONTEXT.md`, then describe the trial question and what you want to learn. For example:
+
+> I am planning a platform trial with two ISAs and a binary primary outcome. Help me compare sample sizes and interim-analysis plans. First ask me for missing assumptions and show me a design-options table. Do not edit files or run simulations until I review the plan.
+
+A useful planning discussion should establish the endpoint and estimand, treatment arms and patient counts, analysis method, interim and final decision rules, borrowing, ISA start times, recruitment assumptions, scenarios, and replication count. Ask the assistant to distinguish user-provided assumptions from suggestions; it should not invent clinical or statistical choices.
+
+After you approve the design plan, ask the assistant to update `BuildMe.R` and `BuildMeRunMultiCore.R` consistently and summarize the changes for review. New analysis and outcome methods should have descriptive names, with matching S3 class names, function names, filenames, and source statements.
+
+## Review Before A Full Run
+
+Review the proposed design options and edited files before running them. First resolve any `TMP_` or `TEMP_` placeholders, then parse the R scripts and run a small, reproducible smoke simulation. Check that the outputs and report match the intended designs. A successful smoke test checks that the code runs; it does not establish that the statistical design is appropriate.
+
+Do not start a full-scale or multicore simulation until you have reviewed the assumptions, design comparisons, and smoke-test results and explicitly approved the run size. AI suggestions are not a substitute for statistical review or clinical judgment.

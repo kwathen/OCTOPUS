@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://kwathen.github.io/OCTOPUS/404.html</loc></url>
+<url><loc>https://kwathen.github.io/OCTOPUS/articles/AIAssistedProjects.html</loc></url>
 <url><loc>https://kwathen.github.io/OCTOPUS/articles/CaseStudy1.html</loc></url>
 <url><loc>https://kwathen.github.io/OCTOPUS/articles/CaseStudy2.html</loc></url>
 <url><loc>https://kwathen.github.io/OCTOPUS/articles/CaseStudy3.html</loc></url>
@@ -141,5 +142,6 @@
 <url><loc>https://kwathen.github.io/OCTOPUS/reference/UpdateRandomizer.default.html</loc></url>
 <url><loc>https://kwathen.github.io/OCTOPUS/reference/UpdateRandomizer.html</loc></url>
 <url><loc>https://kwathen.github.io/OCTOPUS/reference/UpdateRandomizer.Outcome1Only.html</loc></url>
+<url><loc>https://kwathen.github.io/OCTOPUS/reference/WriteAIContext.html</loc></url>
 </urlset>
 

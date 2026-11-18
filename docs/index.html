@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">OCTOPUS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.4.0</span>
       </span>
     </div>
 
@@ -72,6 +72,9 @@
     </li>
     <li>
       <a href="articles/SimulationReport.html">Example Simulation Report</a>
+    </li>
+    <li>
+      <a href="articles/AIAssistedProjects.html">AI-Assisted Projects</a>
     </li>
   </ul>
 </li>
@@ -154,6 +157,17 @@
 <p>To help increase flexibility and allow for new additions to be added by the users, S3 class and generic methods are implemented. Many aspects can be extended such as new types of analysis, simulation of outcomes and randomization schemes. For users not familiar with S3 or generic functions, please refer to the example document <a href="https://github.com/kwathen/OCTOPUS/blob/master/ExampleS3Class.R" class="external-link">Example S3 Generic Methods</a>.</p>
 <p>This package is under development and is working and has been used to simulate several trials. As case studies are created they will be added to the Examples directory of the package to help users create the necessary structures. The tar.gz files in this repository are included as testing versions for beta testers as new updates are added.</p>
 <p>Please follow this project to be notified of updates.</p>
+</div>
+<div class="section level2">
+<h2 id="ai-assisted-simulation-projects">AI-Assisted Simulation Projects<a class="anchor" aria-label="anchor" href="#ai-assisted-simulation-projects"></a>
+</h2>
+<p>OCTOPUS can add project-specific guidance for GitHub Copilot, Claude, Codex, and Cursor to a new simulation project or an existing R project. The guidance helps AI assistants understand OCTOPUS designs, analysis methods, simulation scenarios, and the example project workflow.</p>
+<ul>
+<li>Start a complete example project with <a href="reference/CreateProject.html"><code>CreateProject()</code></a>.</li>
+<li>Add OCTOPUS AI guidance to an existing project with <a href="reference/WriteAIContext.html"><code>WriteAIContext()</code></a>.</li>
+<li>Follow the <a href="articles/AIAssistedProjects.html">AI-assisted project guide</a> to use the context, compare design options, and review a small test run before launching larger simulations.</li>
+</ul>
+<p>AI support is optional and does not call an AI service from R. Assistant extensions must be installed and configured separately. Review the statistical assumptions and simulation plan before relying on results.</p>
 </div>
 </div>
 <div class="section level1">
