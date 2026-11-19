@@ -50,7 +50,8 @@ only includes a final analysis with NO interim analysis.  To use another option 
 \item{bCreateProjectSubdirectory}{If TRUE the a subdirectory with the project name will be created, if FALSE then the project is created in strProjectDirectory.}
 }
 \value{
-A character string summarizing the files created and the next steps for opening the project.
+Invisibly returns a character string summarizing the files created and
+the next steps for opening the project. The summary is also printed with line breaks.
 }
 \description{
 Created an R Studio project with example files to simulate a platform trial utilizing the OCTOPUS package.

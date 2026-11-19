@@ -35,7 +35,8 @@
 #' @details The generated project includes a shared `AI_CONTEXT.md` file and configuration files for GitHub Copilot, Claude, Codex, and Cursor.
 #' These files describe the OCTOPUS project workflow, S3 extension conventions, generated outputs, scientific guardrails, and validation steps.
 #' For an existing project, use [WriteAIContext()] to add the AI context files without creating the simulation template.
-#' @return A character string summarizing the files created and the next steps for opening the project.
+#' @return Invisibly returns a character string summarizing the files created and
+#' the next steps for opening the project. The summary is also printed with line breaks.
 #' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateProject.R}{View Code on GitHub} }
 #' @export
 CreateProject <- function( strProjectDirectory        = "",
@@ -132,7 +133,8 @@ CreateProject <- function( strProjectDirectory        = "",
         strSetupInstructions <- "BuildMe.R and BuildMeRunMultiCore.R contain TMP_ sample-size placeholders that must be resolved before running."
     strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strSetupInstructions, strInstructions )
     strRet          <- paste( strRet, collapse = "\n")
-    return( strRet )
+    cat( strRet, "\n", sep = "" )
+    invisible( strRet )
 }
 
 
