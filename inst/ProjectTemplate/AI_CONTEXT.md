@@ -25,6 +25,35 @@ Before writing code, read `BuildMe.R` and the relevant files under `R/`, then es
 
 If these are incomplete, identify the missing decisions and propose clearly labeled options. Do not silently choose scientific parameters. Once requirements are clear, make the smallest coherent change and validate it with a low-replication run before scaling up.
 
+## From Requirements To A Simulation Project
+
+For a **new simulation project**, do not write an OCTOPUS project structure from scratch. First gather the trial requirements and agree on the design options with the user. After the user approves the plan, use `OCTOPUS::CreateProject()` to generate the starting files, then adapt those files to the approved plan.
+
+The installed OCTOPUS package includes the example project template even when the user has not cloned the OCTOPUS repository. Locate it from R with:
+
+```r
+template_path <- system.file("ProjectTemplate", package = "OCTOPUS")
+list.files(template_path, recursive = TRUE, all.files = TRUE)
+```
+
+Inspect only the relevant installed examples before proposing code. Useful starting files include `BuildMe.R`, `BuildMeRunMultiCore.R`, `R/TrialDesign.R`, `R/TrialDesignFunctions.R`, `R/SimulationDesign.R`, and the example `R/RunAnalysis.*.R` and `R/SimPatientOutcomes.*.R` methods. Do not load or copy every template file into the conversation if a few focused examples answer the question. If you cannot run R or read the installed package path, ask the user to run the commands and share the relevant output.
+
+Treat every template value as an illustration, not an agreed design. In particular, do not inherit its Bayesian beta-binomial analysis, response probabilities, sample sizes, borrowing choice, interim schedule, or decision boundaries unless the user confirms them.
+
+After the user approves the design-option table:
+
+1. If this is a new project, propose and call `OCTOPUS::CreateProject()` with the agreed path, project name, sample-size matrix, start times, recruitment assumptions, and descriptive analysis/outcome class names.
+2. Update the generated `BuildMe.R` and `BuildMeRunMultiCore.R` consistently; keep their designs and scenarios aligned.
+3. If this is an existing project, inspect and adapt its files instead. Do not call `CreateProject()` over it or replace its setup.
+4. Summarize the changes and show the final design/scenario plan for the user's review.
+5. Run syntax checks and a small, reproducible smoke simulation only. Explain its results and wait for explicit approval before any full-scale or multicore run.
+
+For an **empty VS Code folder**, there are no project instructions for an assistant to discover yet. The user can start with this prompt:
+
+> I want to simulate a platform clinical trial using R and the OCTOPUS package installed in my R library. This folder is currently empty. First run `OCTOPUS::WriteAIContext(path = ".")` to add OCTOPUS project guidance. If you cannot run R, ask me to run that command. Then read `AI_CONTEXT.md`, gather my trial requirements, and propose design options in a table. Do not edit simulation files or run simulations until I review and approve the proposed plan.
+
+If the assistant cannot execute R, the user can run `OCTOPUS::WriteAIContext(path = ".")` in the empty folder themselves, then reopen that folder or start a new assistant conversation there. After the context exists, follow the new-project workflow above.
+
 ## Plan Design Options Before Editing
 
 OCTOPUS is intended to compare platform-trial design options, not only evaluate one fixed design. The generated `BuildMe.R` and `BuildMeRunMultiCore.R` demonstrate this with three designs: the requested sample size without interim analysis, a larger sample size, and the requested sample size with an interim analysis. These are examples to modify, remove, or extend rather than required choices.

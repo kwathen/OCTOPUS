@@ -16,10 +16,15 @@ test_that("CreateProject - Test 1",
 
     gstrProjectDirectory <- paste( getwd(), "/Test1", sep="")
     gstrProjectName      <- "MyNewProject"
-    strRes <- CreateProject( strProjectDirectory =  gstrProjectDirectory, strProjectName =  gstrProjectName,
+    vPrintedSummary <- capture.output( lResult <- withVisible( CreateProject( strProjectDirectory =  gstrProjectDirectory, strProjectName =  gstrProjectName,
                    strAnalysisName          = "MyBinaryAnalysis",
                    strSimPatientOutcomeName = "MyBinarySimulator",
-                   strBorrowing             = "AllControls"  )
+                   strBorrowing             = "AllControls"  ) ) )
+    strRes <- lResult$value
+    expect_false( lResult$visible )
+    expect_gt( length( vPrintedSummary ), 1 )
+    expect_identical( paste( vPrintedSummary, collapse = "\n" ), strRes )
+    expect_false( any( grepl( "\\n", vPrintedSummary, fixed = TRUE ) ) )
     expect_match( strRes, "TMP_ sample-size placeholders" )
     bProjectCreated <- dir.exists( paste(gstrProjectDirectory, "/", gstrProjectName, sep=""))
     expect_true( bProjectCreated, label ="Directory created")
@@ -41,7 +46,10 @@ test_that("CreateProject - Test 1",
         label = "AI context and agent files created"
     )
 
-    vAIContext <- readLines( file.path( strProjectPath, "AI_CONTEXT.md" ), warn = FALSE )
+    vAIContext <- readLines(
+        testthat::test_path( "..", "..", "inst", "ProjectTemplate", "AI_CONTEXT.md" ),
+        warn = FALSE
+    )
     expect_true( any( grepl( "Built-In Analysis Catalog", vAIContext, fixed = TRUE ) ) )
     expect_true( any( grepl( "no native purpose-built non-Bayesian analysis for binary outcomes", vAIContext, fixed = TRUE ) ) )
     expect_true( any( grepl( "Current Template Limitations", vAIContext, fixed = TRUE ) ) )
@@ -49,6 +57,9 @@ test_that("CreateProject - Test 1",
     expect_true( any( grepl( "Plan Design Options Before Editing", vAIContext, fixed = TRUE ) ) )
     expect_true( any( grepl( "explicit approval before increasing replications", vAIContext, fixed = TRUE ) ) )
     expect_true( any( grepl( "Name And Rename Custom Methods", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "system.file(\"ProjectTemplate\", package = \"OCTOPUS\")", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "empty VS Code folder", vAIContext, fixed = TRUE ) ) )
+    expect_true( any( grepl( "use `OCTOPUS::CreateProject()`", vAIContext, fixed = TRUE ) ) )
 
     vParallelRunner <- readLines( file.path( strProjectPath, "R/RunParallelSimulations.R" ), warn = FALSE )
     expect_true( any( grepl( "clusterSetRNGStream", vParallelRunner, fixed = TRUE ) ) )

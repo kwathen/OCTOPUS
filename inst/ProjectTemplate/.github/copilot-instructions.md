@@ -4,6 +4,7 @@ Read and follow `AI_CONTEXT.md` for every task in this OCTOPUS simulation projec
 
 - Inspect `BuildMe.R` and relevant `R/` setup files before editing.
 - Answer OCTOPUS questions from `AI_CONTEXT.md`, workspace files, installed R help, and installed package functions before relying on internet access.
+- For a new simulation, inspect relevant examples from the installed package template and get approval of design options before using `OCTOPUS::CreateProject()` as the starting point. For an existing project, adapt its files instead of replacing them.
 - Preserve class-driven S3 dispatch and existing function contracts.
 - Treat clinical and statistical assumptions as user decisions; surface ambiguity instead of inventing values.
 - Do not edit generated output under `enrollment/`, `out/`, `ISAOut*/`, or `log/`.

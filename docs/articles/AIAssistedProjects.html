@@ -140,7 +140,7 @@
                         <h4 data-toc-skip class="author">J. Kyle
 Wathen</h4>
             
-            <h4 data-toc-skip class="date">2026-11-18</h4>
+            <h4 data-toc-skip class="date">2026-11-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/kwathen/OCTOPUS/blob/HEAD/vignettes/AIAssistedProjects.Rmd" class="external-link"><code>vignettes/AIAssistedProjects.Rmd</code></a></small>
       <div class="hidden name"><code>AIAssistedProjects.Rmd</code></div>
@@ -163,16 +163,49 @@ install and configure their chosen assistant separately. Each
 assistant’s ability to discover project instructions depends on its
 product, settings, and how the project is opened.</p>
 <div class="section level3">
+<h3 id="starting-from-an-empty-vs-code-folder">Starting From An Empty VS Code Folder<a class="anchor" aria-label="anchor" href="#starting-from-an-empty-vs-code-folder"></a>
+</h3>
+<p>An empty folder has no OCTOPUS project instructions for the assistant
+to discover. Start a conversation in that folder with a prompt such
+as:</p>
+<blockquote>
+<p>I want to simulate a platform clinical trial using R and the OCTOPUS
+package installed in my R library. This folder is currently empty. First
+run <code>OCTOPUS::WriteAIContext(path = ".")</code> to add OCTOPUS
+project guidance. If you cannot run R, ask me to run that command. Then
+read <code>AI_CONTEXT.md</code>, gather my trial requirements, and
+propose design options in a table. Do not edit simulation files or run
+simulations until I review and approve the proposed plan.</p>
+</blockquote>
+<p>If the assistant cannot run R, run this yourself from the empty
+folder:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">OCTOPUS</span><span class="fu">::</span><span class="fu"><a href="../reference/WriteAIContext.html">WriteAIContext</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
+<p>Then open that folder as the VS Code workspace or start a new
+assistant conversation there. The function adds the context and
+tool-specific instruction files without generating trial scripts. After
+requirements are gathered and you approve the proposed options, the
+assistant can use <code><a href="../reference/CreateProject.html">CreateProject()</a></code> to create a full example
+project in an appropriate new directory.</p>
+</div>
+<div class="section level3">
 <h3 id="start-a-new-simulation-project">Start A New Simulation Project<a class="anchor" aria-label="anchor" href="#start-a-new-simulation-project"></a>
 </h3>
 <p>Use <code><a href="../reference/CreateProject.html">CreateProject()</a></code> when you want the complete OCTOPUS
 example project, including the design scripts and AI context. Supply the
 trial information you already know; unresolved inputs can otherwise
 remain as placeholders that need attention before running.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<p>Before creating files, the assistant should gather requirements,
+propose a table of design options, and wait for your approval. Once
+approved, it should inspect the installed template for relevant examples
+and call <code><a href="../reference/CreateProject.html">CreateProject()</a></code> with the agreed settings. The
+template’s analysis, scenarios, sample sizes, interim boundaries, and
+borrowing settings are examples only; confirm each assumption rather
+than carrying it forward automatically.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/kwathen/OCTOPUS" class="external-link">OCTOPUS</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CreateProject.html">CreateProject</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="../reference/CreateProject.html">CreateProject</a></span><span class="op">(</span></span>
 <span>  strProjectDirectory <span class="op">=</span> <span class="st">"C:/Projects"</span>,</span>
 <span>  strProjectName <span class="op">=</span> <span class="st">"TwoISAPlatform"</span>,</span>
 <span>  mQtyPatientsPerArm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
@@ -183,9 +216,7 @@ remain as placeholders that need attention before running.</p>
 <span>  <span class="op">)</span>,</span>
 <span>  vISAStartTimes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">6</span><span class="op">)</span>,</span>
 <span>  nQtyReps <span class="op">=</span> <span class="fl">10</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Open the created project folder in RStudio or VS Code. The generated
 project includes <code>AI_CONTEXT.md</code>, which is the main OCTOPUS
 reference for the assistant, along with discovery files for supported AI
@@ -197,7 +228,7 @@ tools.</p>
 <p>Use <code><a href="../reference/WriteAIContext.html">WriteAIContext()</a></code> when you already have an R project
 and want OCTOPUS-specific guidance without adding or replacing the
 simulation template files.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">OCTOPUS</span><span class="fu">::</span><span class="fu"><a href="../reference/WriteAIContext.html">WriteAIContext</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"C:/Projects/MyExistingTrial"</span><span class="op">)</span></span></code></pre></div>
 <p>The function copies missing OCTOPUS AI context and assistant files
 from the installed package. Existing managed files are skipped and
@@ -205,7 +236,7 @@ preserved by default. It returns a message listing which files were
 copied and which existing files were preserved.</p>
 <p>To replace the OCTOPUS-managed AI files after reviewing your existing
 edits, explicitly request overwrite:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">OCTOPUS</span><span class="fu">::</span><span class="fu"><a href="../reference/WriteAIContext.html">WriteAIContext</a></span><span class="op">(</span></span>
 <span>  path <span class="op">=</span> <span class="st">"C:/Projects/MyExistingTrial"</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">TRUE</span></span>
@@ -214,6 +245,24 @@ edits, explicitly request overwrite:</p>
 files. It does not replace <code>BuildMe.R</code>, design files, or
 other project files. Keep a backup of any custom changes in those
 managed files before overwriting.</p>
+</div>
+<div class="section level3">
+<h3 id="use-the-installed-template-as-a-starting-point">Use The Installed Template As A Starting Point<a class="anchor" aria-label="anchor" href="#use-the-installed-template-as-a-starting-point"></a>
+</h3>
+<p>The OCTOPUS package includes the project template even when the
+source repository is not cloned locally. The assistant can locate it
+from R:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">template_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"ProjectTemplate"</span>, package <span class="op">=</span> <span class="st">"OCTOPUS"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">template_path</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, all.files <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>It should inspect only the files relevant to the request, such as
+<code>BuildMe.R</code>, <code>BuildMeRunMultiCore.R</code>, trial and
+simulation setup helpers, and the example analysis or outcome functions.
+If it cannot access the installed R library, it should ask you to run
+the command and share the relevant paths or contents. The assistant
+should use <code><a href="../reference/CreateProject.html">CreateProject()</a></code> for a new simulation rather than
+writing OCTOPUS scaffolding from scratch, then adapt the generated files
+to the approved plan.</p>
 </div>
 <div class="section level3">
 <h3 id="what-gets-added">What Gets Added<a class="anchor" aria-label="anchor" href="#what-gets-added"></a>

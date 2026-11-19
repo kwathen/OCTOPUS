@@ -19,14 +19,30 @@ OCTOPUS includes optional, project-specific context for AI assistants. The conte
 
 AI assistance is optional. OCTOPUS does not call an AI service, send project data to an AI service, or install assistant software. Users must install and configure their chosen assistant separately. Each assistant's ability to discover project instructions depends on its product, settings, and how the project is opened.
 
+## Starting From An Empty VS Code Folder
+
+An empty folder has no OCTOPUS project instructions for the assistant to discover. Start a conversation in that folder with a prompt such as:
+
+> I want to simulate a platform clinical trial using R and the OCTOPUS package installed in my R library. This folder is currently empty. First run `OCTOPUS::WriteAIContext(path = ".")` to add OCTOPUS project guidance. If you cannot run R, ask me to run that command. Then read `AI_CONTEXT.md`, gather my trial requirements, and propose design options in a table. Do not edit simulation files or run simulations until I review and approve the proposed plan.
+
+If the assistant cannot run R, run this yourself from the empty folder:
+
+```{r bootstrap-context, eval=FALSE}
+OCTOPUS::WriteAIContext(path = ".")
+```
+
+Then open that folder as the VS Code workspace or start a new assistant conversation there. The function adds the context and tool-specific instruction files without generating trial scripts. After requirements are gathered and you approve the proposed options, the assistant can use `CreateProject()` to create a full example project in an appropriate new directory.
+
 ## Start A New Simulation Project
 
 Use `CreateProject()` when you want the complete OCTOPUS example project, including the design scripts and AI context. Supply the trial information you already know; unresolved inputs can otherwise remain as placeholders that need attention before running.
 
+Before creating files, the assistant should gather requirements, propose a table of design options, and wait for your approval. Once approved, it should inspect the installed template for relevant examples and call `CreateProject()` with the agreed settings. The template's analysis, scenarios, sample sizes, interim boundaries, and borrowing settings are examples only; confirm each assumption rather than carrying it forward automatically.
+
 ```{r create-project, eval=FALSE}
 library(OCTOPUS)
 
-result <- CreateProject(
+CreateProject(
   strProjectDirectory = "C:/Projects",
   strProjectName = "TwoISAPlatform",
   mQtyPatientsPerArm = matrix(
@@ -38,8 +54,6 @@ result <- CreateProject(
   vISAStartTimes = c(0, 6),
   nQtyReps = 10
 )
-
-cat(result)
 ```
 
 Open the created project folder in RStudio or VS Code. The generated project includes `AI_CONTEXT.md`, which is the main OCTOPUS reference for the assistant, along with discovery files for supported AI tools.
@@ -64,6 +78,17 @@ OCTOPUS::WriteAIContext(
 ```
 
 Overwrite applies only to the OCTOPUS-managed context and assistant files. It does not replace `BuildMe.R`, design files, or other project files. Keep a backup of any custom changes in those managed files before overwriting.
+
+## Use The Installed Template As A Starting Point
+
+The OCTOPUS package includes the project template even when the source repository is not cloned locally. The assistant can locate it from R:
+
+```{r inspect-template, eval=FALSE}
+template_path <- system.file("ProjectTemplate", package = "OCTOPUS")
+list.files(template_path, recursive = TRUE, all.files = TRUE)
+```
+
+It should inspect only the files relevant to the request, such as `BuildMe.R`, `BuildMeRunMultiCore.R`, trial and simulation setup helpers, and the example analysis or outcome functions. If it cannot access the installed R library, it should ask you to run the command and share the relevant paths or contents. The assistant should use `CreateProject()` for a new simulation rather than writing OCTOPUS scaffolding from scratch, then adapt the generated files to the approved plan.
 
 ## What Gets Added
 

@@ -2,6 +2,8 @@
 
 Read `AI_CONTEXT.md` before analyzing or modifying this project. It is the authoritative project context for architecture, editable files, generated outputs, S3 extension conventions, scientific guardrails, and validation.
 
+For a new simulation, gather requirements and get the user's approval of design options before using `OCTOPUS::CreateProject()` as the starting point. Inspect relevant examples from the installed package's `system.file("ProjectTemplate", package = "OCTOPUS")` directory instead of recreating OCTOPUS structures from scratch. Treat template assumptions as examples, not user decisions. For an existing project, adapt its files and do not replace them with a new template.
+
 When working in this repository:
 
 - Inspect `BuildMe.R` and the relevant files under `R/` before proposing changes.

@@ -33,6 +33,8 @@ OCTOPUS can add project-specific guidance for GitHub Copilot, Claude, Codex, and
 - Add OCTOPUS AI guidance to an existing project with [`WriteAIContext()`](reference/WriteAIContext.html).
 - Follow the [AI-assisted project guide](articles/AIAssistedProjects.html) to use the context, compare design options, and review a small test run before launching larger simulations.
 
+Starting from an empty VS Code folder? The guide includes a copyable prompt for adding OCTOPUS context first, then planning the simulation before creating project files.
+
 AI support is optional and does not call an AI service from R. Assistant extensions must be installed and configured separately. Review the statistical assumptions and simulation plan before relying on results.
 
 
