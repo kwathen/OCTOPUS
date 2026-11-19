@@ -14,11 +14,13 @@
 #' @param strProjectDirectory The complete path to where the project is created.  If a complete path
 #' is not provided then the directory is relative to the working directory.  If this is left blank, the current working directory is used.
 #' @param strProjectName The name of the project.   A directory with the name strProjectName is created in strProjectDirectory if bCreateProjectSubdirectory = TRUE
-#' @param strAnalysisName The name of the analysis that should be done. If the analysis is part of OCTOPUS, then no new
-#' files are created.  If the analysis is new, a file named RunAnalysis.strAnalysisName.R is created.
+#' @param strAnalysisName The descriptive class name of the analysis that should be done. If the analysis is part of OCTOPUS, then no new
+#' files are created. If the analysis is new, a file named RunAnalysis.strAnalysisName.R is created. The default is "BayesianBetaBinomial",
+#' which describes the generated binary-analysis example.
 #' @param strSimPatientOutcomeName The name of the patient simulator that should be utilized. If the patient simulator
 #' is part of OCTOPUS, then no new
-#' files are created.  If the patient simulator is new, a file named SimPatientOutocmes.strSimPatientOutcomeName.R is created.
+#' files are created. If the patient simulator is new, a file named SimPatientOutcomes.strSimPatientOutcomeName.R is created.
+#' The default is "BinaryOutcome", which describes the generated binary-outcome example.
 #' @param strBorrowing Specify the option for sharing control patients across ISAs.  If strBorrowing = "NoBorrowing"
 #' then patients are not shared between ISAs.  If strBorrowing = "AllControls" then all control patients are included in
 #' the data set that is sent to the RunAnalysis funciton.
@@ -30,12 +32,17 @@
 #' @param dQtyMonthsFU The number of months of follow-up the last patient before running the final analysis (FA). By default, the design created
 #' only includes a final analysis with NO interim analysis.  To use another option please see the TrialDesign.R file in the projected that is created.
 #' @param  bCreateProjectSubdirectory  If TRUE the a subdirectory with the project name will be created, if FALSE then the project is created in strProjectDirectory.
+#' @details The generated project includes a shared `AI_CONTEXT.md` file and configuration files for GitHub Copilot, Claude, Codex, and Cursor.
+#' These files describe the OCTOPUS project workflow, S3 extension conventions, generated outputs, scientific guardrails, and validation steps.
+#' For an existing project, use [WriteAIContext()] to add the AI context files without creating the simulation template.
+#' @return Invisibly returns a character string summarizing the files created and
+#' the next steps for opening the project. The summary is also printed with line breaks.
 #' @seealso { \href{https://github.com/kwathen/OCTOPUS/blob/master/R/CreateProject.R}{View Code on GitHub} }
 #' @export
 CreateProject <- function( strProjectDirectory        = "",
                            strProjectName             = "NewProject",
-                           strAnalysisName            = "NewAnalysisName",
-                           strSimPatientOutcomeName   = "NewSimOutcomeName",
+                           strAnalysisName            = "BayesianBetaBinomial",
+                           strSimPatientOutcomeName   = "BinaryOutcome",
                            strBorrowing               = "NoBorrowing",
                            nQtyReps                   = 10,
                            mQtyPatientsPerArm         = NULL,
@@ -71,7 +78,7 @@ CreateProject <- function( strProjectDirectory        = "",
     #Get the directory where OCTOPUS is installed
     strTemplateDirectory <- system.file("ProjectTemplate", package = strPackage)
 
-    vFilesToCopy         <- list.files( strTemplateDirectory, recursive = FALSE, include.dirs = TRUE)
+    vFilesToCopy         <- list.files( strTemplateDirectory, recursive = FALSE, include.dirs = TRUE, all.files = TRUE, no.. = TRUE )
     vResults             <- file.copy( file.path(strTemplateDirectory, vFilesToCopy ), strNewProjectDirectory, recursive = TRUE )
 
     nCopySuccess         <- sum( vResults )
@@ -119,11 +126,83 @@ CreateProject <- function( strProjectDirectory        = "",
     # #Save the updates to the file
     # writeLines( strTemplate, con = strBuildMeFile )
 
-    strRet          <- paste( nCopySuccess, "file(s) were successfully coppied and ", nCopyFail, " file(s) were not coppied correctly.")
-    strInstrucitons <- paste( "Use R Studio to open the", strRProjName, "project file and begin by reading the BuildMe.R file.")
-    strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strInstrucitons )
+    strRet          <- paste( nCopySuccess, "file(s) were successfully copied and ", nCopyFail, " file(s) were not copied correctly.")
+    strInstructions <- paste( "Open", strRProjName, "in RStudio or VS Code and begin by reading BuildMe.R and AI_CONTEXT.md.")
+    strSetupInstructions <- ""
+    if( is.null( mQtyPatientsPerArm ) )
+        strSetupInstructions <- "BuildMe.R and BuildMeRunMultiCore.R contain TMP_ sample-size placeholders that must be resolved before running."
+    strRet          <- c( strRet, strAnalysisRet, strSimOutRet, strSetupInstructions, strInstructions )
     strRet          <- paste( strRet, collapse = "\n")
-    return( strRet )
+    cat( strRet, "\n", sep = "" )
+    invisible( strRet )
+}
+
+
+#' Add OCTOPUS AI context to an existing project
+#'
+#' Copies OCTOPUS AI context and tool configuration files from the installed
+#' package into an existing project directory. Existing files are preserved
+#' unless `overwrite = TRUE`.
+#'
+#' @param path Existing project directory. Defaults to the current working
+#'   directory.
+#' @param overwrite If `FALSE`, existing OCTOPUS AI files are left unchanged.
+#'   If `TRUE`, only the known OCTOPUS AI context files are replaced.
+#' @return A character string listing copied and skipped files.
+#' @seealso [CreateProject()]
+#' @export
+WriteAIContext <- function( path = ".", overwrite = FALSE )
+{
+    if( !is.character( path ) || length( path ) != 1 || is.na( path ) || !dir.exists( path ) )
+        stop( "'path' must name an existing project directory.", call. = FALSE )
+
+    if( !is.logical( overwrite ) || length( overwrite ) != 1 || is.na( overwrite ) )
+        stop( "'overwrite' must be TRUE or FALSE.", call. = FALSE )
+
+    strTemplateDirectory <- system.file( "ProjectTemplate", package = "OCTOPUS" )
+    if( !nzchar( strTemplateDirectory ) || !dir.exists( strTemplateDirectory ) )
+        stop( "The OCTOPUS ProjectTemplate files are not available in this installation.", call. = FALSE )
+
+    vAIContextFiles <- c(
+        "AI_CONTEXT.md",
+        "AGENTS.md",
+        "CLAUDE.md",
+        ".github/copilot-instructions.md",
+        ".github/agents/octopus-project-builder.agent.md",
+        ".github/agents/octopus-design-reviewer.agent.md",
+        ".claude/agents/octopus-project-builder.md",
+        ".claude/agents/octopus-design-reviewer.md",
+        ".cursor/rules/octopus.mdc"
+    )
+    vSourceFiles <- file.path( strTemplateDirectory, vAIContextFiles )
+    if( any( !file.exists( vSourceFiles ) ) )
+        stop( "The installed OCTOPUS package is missing one or more AI context template files.", call. = FALSE )
+
+    strProjectPath <- normalizePath( path, winslash = "/", mustWork = TRUE )
+    vCopiedFiles <- character()
+    vSkippedFiles <- character()
+
+    for( iFile in seq_along( vAIContextFiles ) )
+    {
+        strDestination <- file.path( strProjectPath, vAIContextFiles[[ iFile ]] )
+        if( file.exists( strDestination ) && !overwrite )
+        {
+            vSkippedFiles <- c( vSkippedFiles, vAIContextFiles[[ iFile ]] )
+            next
+        }
+
+        dir.create( dirname( strDestination ), recursive = TRUE, showWarnings = FALSE )
+        if( !file.copy( vSourceFiles[[ iFile ]], strDestination, overwrite = overwrite ) )
+            stop( paste( "Could not copy AI context file:", vAIContextFiles[[ iFile ]] ), call. = FALSE )
+
+        vCopiedFiles <- c( vCopiedFiles, vAIContextFiles[[ iFile ]] )
+    }
+
+    strSummary <- paste0( length( vCopiedFiles ), " AI context file(s) copied." )
+    if( length( vSkippedFiles ) > 0 )
+        strSummary <- paste0( strSummary, " Existing file(s) preserved: ", paste( vSkippedFiles, collapse = ", "), "." )
+
+    return( strSummary )
 }
 
 ReplaceBuildMeInfo  <- function( strNewProjectDirectory, strFileName, mQtyPatientsPerArm, vISAStartTimes, strBorrowing, nQtyReps, dQtyMonthsFU, vPatientPerMonth )

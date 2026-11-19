@@ -25,6 +25,19 @@ This package is under development and is working and has been used to simulate s
 Please follow this project to be notified of updates.   
 
 
+## AI-Assisted Simulation Projects
+
+OCTOPUS can add project-specific guidance for GitHub Copilot, Claude, Codex, and Cursor to a new simulation project or an existing R project. The guidance helps AI assistants understand OCTOPUS designs, analysis methods, simulation scenarios, and the example project workflow.
+
+- Start a complete example project with [`CreateProject()`](reference/CreateProject.html).
+- Add OCTOPUS AI guidance to an existing project with [`WriteAIContext()`](reference/WriteAIContext.html).
+- Follow the [AI-assisted project guide](articles/AIAssistedProjects.html) to use the context, compare design options, and review a small test run before launching larger simulations.
+
+Starting from an empty VS Code folder? The guide includes a copyable prompt for adding OCTOPUS context first, then planning the simulation before creating project files.
+
+AI support is optional and does not call an AI service from R. Assistant extensions must be installed and configured separately. Review the statistical assumptions and simulation plan before relying on results.
+
+
 # Key Features
 
 The following list of key features is intended to by a high level assessment of what can be done with the OCTOPUS package.  This packages makes extensive use of S3 classes to allow anyone to add new functionality, such as a new way of simulating patient data or the analysis that is conducted, with minimal requirements and work.

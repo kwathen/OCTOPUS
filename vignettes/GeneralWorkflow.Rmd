@@ -66,8 +66,6 @@ strResult <- CreateProject( strProjectDirectory        = strProjDir,
                             vISAStartTimes             = vISAStartTimes,
                             bCreateProjectSubdirectory = bCreateProjectSubdirectory)
 
-cat( strResult)
-
 ```
 
 ## Step 2 - Open The New Project
